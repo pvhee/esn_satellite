@@ -84,7 +84,7 @@
  *   $db_url = 'mysqli://username:password@localhost/databasename';
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
-$db_url = 'mysql://pvhee:lapjeskat@localhost/my_satellite';
+$db_url = 'mysql://username:password@localhost/databasename';
 $db_prefix = 'esnsatellite_';
 
 /**

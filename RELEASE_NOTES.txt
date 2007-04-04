@@ -26,6 +26,9 @@ Documentation for the ESN webteam can be found on the ESN dev Wiki
 
   http://dev.esn.org/wiki
 
+Project management tool with bug reporting system for the ESN Satellite can be found at
+
+  http://dev.esn.org/trac/satellite
  
 
 === Mailing list ===
