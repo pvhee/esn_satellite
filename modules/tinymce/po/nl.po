@@ -1,0 +1,347 @@
+#$Id: nl.po,v 1.1.2.1 2007/01/27 11:35:24 heeckhau Exp $
+# Generated from file: tinymce.module,v 1.90 2006/04/25 11:23:47 m3avrck
+
+msgid ""
+msgstr ""
+"Project-Id-Version: nl\n"
+"POT-Creation-Date: 2006-06-29 19:05+0200\n"
+"PO-Revision-Date: 2007-01-27 12:29+0100\n"
+"Last-Translator: Hendrik Eeckhaut <Hendrik.Eeckhaut@UGent.be>\n"
+"Language-Team:  <nl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: tinymce.module:17;432;0
+msgid "tinymce"
+msgstr "TinyMCE"
+
+#: tinymce.module:30
+msgid "The TinyMCE Javascript HTML WYSIWYG editor."
+msgstr "De TinyMCE Javascript HTML WYSIWYG editor."
+
+#: tinymce.module:116
+msgid "enable rich-text"
+msgstr "activeer opgemaakte tekst"
+
+#: tinymce.module:117
+msgid "disable rich-text"
+msgstr "desactiveer opgemaakte tekst"
+
+#: tinymce.module:161
+msgid "Your current web browser does not support WYSIWYG editing."
+msgstr "Uw webbrowser ondersteunt geen WYSIWYG."
+
+#: tinymce.module:238
+msgid "TinyMCE rich-text settings"
+msgstr "TinyMCE opgemaakte tekst instellingen"
+
+#: tinymce.module:246;684
+msgid "Default state"
+msgstr "Standaardmodus"
+
+#: tinymce.module:249
+msgid "Should rich-text editing be enabled or disabled by default in textarea fields?"
+msgstr "Wenst u opgemaakte tekst standaard te activeren of te desactiveren in de tekstvelden?"
+
+#: tinymce.module:431
+msgid "administer"
+msgstr "beheren"
+
+#: tinymce.module:433
+msgid "Add new TinyMCE profile"
+msgstr "Een nieuw TinyMCE profiel toevoegen"
+
+#: tinymce.module:439
+msgid "Edit tinymce profile"
+msgstr "TinyMCE profiel bewerken"
+
+#: tinymce.module:445
+msgid "Deleted profile"
+msgstr "Profiel wissen"
+
+#: tinymce.module:449;649
+msgid "Create profile"
+msgstr "Profiel aanmaken"
+
+#: tinymce.module:450;653
+msgid "Update profile"
+msgstr "Profiel bijwerken"
+
+#: tinymce.module:453
+msgid "Your TinyMCE profile has been updated."
+msgstr "Uw TinyMCE profiel werd bijgewerkt."
+
+#: tinymce.module:453
+msgid "Your TinyMCE profile has been created."
+msgstr "Uw TinyMCE profiel is aangemaakt."
+
+#: tinymce.module:462
+msgid "TinyMCE settings"
+msgstr "TinyMCE instellingen"
+
+#: tinymce.module:466
+msgid "Could not find the TinyMCE engine installed at <strong>%tinymce-directory</strong>. Please <a href=\"http://tinymce.moxiecode.com/\">download TinyMCE</a>, uncompress it and copy the folder into %tinymce-path."
+msgstr "Kan het TinyMCE programma in de map <strong>%tinymce-directory</strong> niet vinden. Gelieve <a href=\"http://tinymce.moxiecode.com/\">TinyMCE te downloaden</a>, te decomprimeren en te kopiëren in de map %tinymce-path."
+
+#: tinymce.module:641
+msgid "You must <a href=\"%access-control-url\">assign</a> at least one role with the 'access tinymce' permission before creating a profile."
+msgstr "U moet minstens één rol <a href=\"%access-control-url\">toekennen</a> met de \"toegang tot TinyMCE\"-toelating alvorens een profiel te creëren."
+
+#: tinymce.module:644
+msgid "You will not be allowed to create a new profile since all user roles have already been assigned profiles. Either remove an existing tinymce profile from at least one role or assign another role the 'access tinymce' permission."
+msgstr "U mag geen nieuw profiel aanmaken aangezien alle gebruikersrollen reeds een profiel hebben gekregen. Verwijder ofwel een bestaand TinyMCE-profiel uit minstens één rol of ken de \"toegang tot TinyMCE\"-toelating aan een andere rol toe."
+
+#: tinymce.module:647
+msgid "Not all user roles are shown since they already have tinymce profiles. You must first unassign profiles in order to add them to a new one."
+msgstr "Niet alle gebruikersrollen worden getoond aangezien zij reeds TinyMCE-profielen hebben. U moet eerst profielen vrijgeven om ze aan een nieuwe toe te voegen. "
+
+#: tinymce.module:658
+msgid "Basic setup"
+msgstr "Basisinstellingen"
+
+#: tinymce.module:665
+msgid "Profile name"
+msgstr "Profielnaam"
+
+#: tinymce.module:669
+msgid "Enter a name for this profile. This name is only visible within the tinymce administration page."
+msgstr "Geef een naam in voor dit profiel. Deze naam is enkel zichtbaar in de TinyMCE beheerpagina. "
+
+#: tinymce.module:675
+msgid "Roles allowed to use this profile"
+msgstr "Rollen die dit profiel mogen gebruiken"
+
+#: tinymce.module:678
+msgid "Check at least one role. Only roles with 'access tinymce' permission will be shown here."
+msgstr "Selecteer minstens één rol. Enkel rollen met \"toegang tot TinyMCE\" toelating worden hier getoond. "
+
+#: tinymce.module:687
+msgid "Default editor state for users in this profile. Users will be able to override this state if the next option is enabled."
+msgstr "Standaardbewerkingsmodus voor gebruikers in dit profiel. Gebruikers kunnen deze modus opheffen wanneer de volgende optie ingeschakeld is. "
+
+#: tinymce.module:692
+msgid "Allow users to choose default"
+msgstr "Gebruikers toelaten standaardmodus te kiezen "
+
+#: tinymce.module:695
+msgid "If allowed, users will be able to choose their own TinyMCE default state by visiting their profile page."
+msgstr "Indien toegelaten zullen gebruikers hun eigen TinyMCE standaardmodus kunnen kiezen door hun profielpagina te raadplegen."
+
+#: tinymce.module:700
+msgid "Show disable/enable rich text editor toggle"
+msgstr "Toon desactiveer/activeer opgemaakte tekstbewerkerschakelaar"
+
+#: tinymce.module:703
+msgid "Whether or not to show the disable/enable rich text editor toggle below the textarea. If false, editor defaults to the global default or user default (see above)."
+msgstr "Desactiveer/activeer opgemaakte tekstbewerkerschakelaar al dan niet tonen onderaan de tekstzone. Indien foutief schakelt de bewerker over op de globale standaard of de gebruikersstandaard (zie hierboven). "
+
+#: tinymce.module:716
+msgid "Language"
+msgstr "Taal"
+
+#: tinymce.module:719
+msgid "The language for the TinyMCE interface. Language codes based on the <a href=\"http://www.loc.gov/standards/iso639-2/englangn.html\">ISO-639-2</a> format."
+msgstr "De taal voor de TinyMCE interface. Taalcodes gebaseerd op het <a href=\"http://www.loc.gov/standards/iso639-2/englangn.html\">ISO-639-2</a>-formaat."
+
+#: tinymce.module:724
+msgid "Safari browser warning"
+msgstr "Safari browser waarschuwing"
+
+#: tinymce.module:727
+msgid "TinyMCE support for the Safari web browser is experimental and a warning message is displayed when that browser is detected. You can disable this message here."
+msgstr "TinyMCE ondersteuning voor de Safari webbrowser is experimenteel. Een waarschuwingsbericht wordt getoond wanneer deze browser gedetecteerd wordt. U kan dit bericht hier desactiveren."
+
+#: tinymce.module:732
+msgid "Visibility"
+msgstr "Zichtbaarheid"
+
+#: tinymce.module:752
+msgid "Show on every page except the listed pages."
+msgstr "Toon op elke pagina behalve op de geselecteerde pagina's."
+
+#: tinymce.module:752
+msgid "Show on only the listed pages."
+msgstr "Toon enkel op de geselecteerde pagina's."
+
+#: tinymce.module:753
+msgid "Enter one page per line as Drupal paths. The '*' character is a wildcard. Example paths are '%blog' for the blog page and %blog-wildcard for every personal blog. %front is the front page."
+msgstr "Voer één pagina per lijn in als Drupalpaden. Het '*'-teken is een wildcard. Voorbeeldpaden zijn '%blog' voor de blogpagina en %blog-wildcard voor elke persoonlijke blog. %front is de voorpagina. "
+
+#: tinymce.module:756
+msgid "Show if the following PHP code returns <code>TRUE</code> (PHP-mode, experts only)."
+msgstr "Toon indien de volgende PHP-code terugkeert <code>TRUE</code> (PHP-modus, enkel voor deskundigen)."
+
+#: tinymce.module:757
+msgid "If the PHP-mode is chosen, enter PHP code between %php. Note that executing incorrect PHP-code can break your Drupal site."
+msgstr "Wanneer de PHP-modus wordt gekozen, voer de PHP-code in tussen %php. Noteer dat het invoeren van een onjuiste PHP-code uw Drupalsite kan beschadigen. "
+
+#: tinymce.module:761
+msgid "Show tinymce on specific pages"
+msgstr "Toon TinyMCE op specifieke pagina's"
+
+#: tinymce.module:767
+msgid "Pages"
+msgstr "Pagina's"
+
+#: tinymce.module:775
+msgid "Buttons and plugins"
+msgstr "Knoppen en plugins"
+
+#: tinymce.module:827
+msgid "Editor appearance"
+msgstr "Uitzicht editor"
+
+#: tinymce.module:834
+msgid "Toolbar location"
+msgstr "Plaatsing toolbar"
+
+#: tinymce.module:837
+msgid "Show toolbar at the top or bottom of the editor area?"
+msgstr "Toon toolbar bovenaan of onderaan de editorzone?"
+
+#: tinymce.module:842
+msgid "Toolbar alignment"
+msgstr "Aligneren toolbar"
+
+#: tinymce.module:845
+msgid "Align tool icons left, center, or right within the toolbar."
+msgstr "Aligneer toolpictogrammen links, in het midden of rechts binnen de toolbar."
+
+#: tinymce.module:850
+#, fuzzy
+msgid "Path location"
+msgstr "Lokatie pad"
+
+#: tinymce.module:853
+msgid "Path to html elements (i.e. \"body>table>tr>td\"). Show at top, bottom, or not at all."
+msgstr "Pad naar html-elementen (d.w.z. \"body>table>tr>td\"). Toon bovenaan, onderaan of helemaal niet. "
+
+#: tinymce.module:858
+msgid "Enable resizing button"
+msgstr "Herschaalknop inschakelen"
+
+#: tinymce.module:861
+msgid " This option gives you the ability to enable/disable the resizing button. If enabled the <strong>Path location toolbar</strong> must be set to \"top\" or \"bottom\" in order to display the resize icon."
+msgstr "Deze optie biedt u de mogelijkheid om de herschaalknop te activeren/desactiveren. Wanneer geactiveerd, moet de <strong>Pad ligging toolbar</strong> op \"bovenaan\" of \"onderaan\" worden ingesteld om het herschaalpictogram weer te geven. "
+
+#: tinymce.module:866
+msgid "Block formats"
+msgstr "Blokformaten"
+
+#: tinymce.module:870
+msgid "Comma separated list of HTML block formats. You can only remove elements, not add."
+msgstr "Door komma's gescheiden lijst van HTML blokformaten. U kan enkel elementen verwijderen, niet toevoegen. "
+
+#: tinymce.module:875
+msgid "Cleanup and output"
+msgstr "Opruiming en output"
+
+#: tinymce.module:882
+msgid "Verify HTML"
+msgstr "HTML verifiëren"
+
+#: tinymce.module:885
+msgid "Should the HTML contents be verified or not? Verifying will strip &lt;head&gt tags, so choose false if you will be editing full page HTML."
+msgstr "Moet de HTML-inhoud worden gecontroleerd of niet? Controleren zal &lt;head&gt labels verwijderen. Kies dus onjuist indien u volledige HTML-pagina's zal bewerken. "
+
+#: tinymce.module:890
+msgid "Preformatted"
+msgstr "Gepreformateerd"
+
+#: tinymce.module:893
+msgid "If this option is set to true, the editor will insert TAB characters on tab and preserve other whitespace characters just like a PRE HTML element does."
+msgstr "Wanneer deze optie wordt ingeschakeld zal de editor op het tabblad TAB-tekens invoeren en andere blancotekens bewaren, net zoals een PRE HTML-element dat doet."
+
+#: tinymce.module:898
+msgid "Convert &lt;font&gt; tags to styles"
+msgstr "Zet &lt;font&gt;-tags om in stijlen"
+
+#: tinymce.module:901
+msgid "If you set this option to true, font size, font family, font color and font background color will be replaced by inline styles."
+msgstr "Wanneer u deze optie inschakeld zullen lettergrootte, letterfamilie, letterkleur en achtergrondkleur worden vervangen door inline stijlen. "
+
+#: tinymce.module:906
+msgid "CSS"
+msgstr "CSS"
+
+#: tinymce.module:913
+msgid "Editor CSS"
+msgstr "CSS voor tekstbewerker"
+
+#: tinymce.module:916
+msgid "Defines the CSS to be used in the editor area.<br />use theme css - load style.css from current site theme.<br/>define css - enter path for css file below.<br />tinyMCE default - uses default CSS from editor."
+msgstr "Definieert de CSS die in de tekstbewerkingszone moet worden gebruikt. <br />gebruik thema-css - laad style.css op vanuit het actuele sitethema.<br />definieer css - voer pad in voor css-bestand hieronder.<br />TinyMCE standaard - gebruikt standaard-CSS van editor. "
+
+#: tinymce.module:921
+msgid "CSS path"
+msgstr "CSS-pad"
+
+#: tinymce.module:925
+msgid "Enter path to CSS file (example: \"css/editor.css\").<br />Macros: %h (host name: http://www.example.com/), %t (path to theme: theme/yourtheme/)<br />Be sure to select \"define css\" above."
+msgstr "Voer pad in naar CSS-bestand (voorbeeld: \"css/editor.css\").<br />Macro's: %h (hostnaam: http://www.example.com/), %t (pad naar thema: theme/yourtheme/)<br />Vergeet niet hierboven \"definieer CSS\" te kiezen."
+
+#: tinymce.module:930
+msgid "CSS classes"
+msgstr "CSS-klassen"
+
+#: tinymce.module:934
+msgid "Adds CSS classes to the \"styles\" droplist. Format is: &lt;title&gt;=&lt;class&gt;;<br/> Example: Header 1=header1;Header 2=header2;Header 3=header3 (note: no trailing ';')<br />Leave blank to automatically import list of CSS classes from style sheet."
+msgstr "Voegt CSS-klassen toe aan de \"stijlen\" droplist. Formaat is: &lt;titel&gt;=&lt;klasse&gt;<br/>Voorbeeld: Header 1=header1;Header 2=header2;Header 3=header3 (note: no trailing ';')<br />Blanco laten om automatisch de lijst met CSS-klassen van het stijlblad te importeren. "
+
+#: tinymce.module:1008
+msgid "Profile"
+msgstr "Profiel"
+
+#: tinymce.module:1008
+msgid "Roles"
+msgstr "Rollen"
+
+#: tinymce.module:1008
+msgid "Operations"
+msgstr "Verrichtingen"
+
+#: tinymce.module:1010
+msgid "edit"
+msgstr "bewerken"
+
+#: tinymce.module:1010
+msgid "delete"
+msgstr "wissen"
+
+#: tinymce.module:1013
+msgid "<p><a href=\"%create-profile-url\">Create new profile</a></p>"
+msgstr "<p><a href=\"%create-profile-url\">Maak nieuw profiel aan</a></p>"
+
+#: tinymce.module:1016
+msgid "No profiles found. Click here to <a href=\"%create-profile-url\">create a new profile</a>."
+msgstr "Geen profielen gevonden. Klik hier om <a href=\"%create-profile-url\">een nieuw profiel aan te maken</a>."
+
+#: tinymce.module:1047
+msgid "You must give a profile name."
+msgstr "U moet een profielnaam ingeven. "
+
+#: tinymce.module:1051
+msgid "You must select at least one role."
+msgstr "U moet minstens één rol kiezen. "
+
+#: /admin/settings/tinymce
+msgid ""
+"<p style=\"font-size:x-small\">$Revision: 1.1.2.1 $ $Date: 2007/01/27 11:35:24 $</p><p>TinyMCE adds what-you-see-is-what-you-get (WYSIWYG) html editing to textareas. This editor can be enabled/disabled without reloading the page by clicking a link below each textarea.</p>\n"
+"                <p>Profiles can be defined based on user roles. A TinyMCE profile can define which pages receive this TinyMCE capability, what buttons or themes are enabled for the editor, how the editor is displayed, and a few other editor functions.</p>\n"
+"                <p>Lastly, only users with the <code>access tinymce</code> <a href=\"%url\">permission</a> will be able to use TinyMCE.</p>"
+msgstr ""
+"<p>TinyMCE voegt what-you-see-is-what-you-get (WYSIWYG) HTML- editing toe aan tekstzones. Deze editor kan worden geactiveerd/gedesactiveerd zonder de pagina opnieuw op te laden, dit door op een link te klikken onderaan elke tekstzone.</p>\n"
+"<p>Profielen kunnen gedefinieerd worden op basis van gebruikersrollen. Een TinyMCE profiel kan definiëren welke pagina's deze TinyMCE-capaciteit krijgen, welke knoppen of thema's ingeschakeld zijn voor de editor, hoe de editor wordt weergegeven en een aantal andere editorfuncties.</p>\n"
+"<p>Ten slotte kunnen enkel gebruikers met de <code>toegang tot TinyMCE</code> <a href=\"%url\">toelating</a> TinyMCE gebruiken.</p>"
+
+#: /admin/access
+msgid "access tinymce"
+msgstr "toegang tot TinyMCE"
+
+#: /admin/access
+msgid "administer tinymce"
+msgstr "TinyMCE beheren"
+

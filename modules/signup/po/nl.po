@@ -1,0 +1,265 @@
+# translation of signup.pot to Dutch
+#Kees van der Hart <c.vanderhart@quicknet.nl>, 2006.
+# Hendrik Eeckhaut <Hendrik.Eeckhaut@UGent.be>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: signup-module\n"
+"POT-Creation-Date: 2006-06-05 17:49+0200\n"
+"PO-Revision-Date: 2006-07-25 20:44+0200\n"
+"Last-Translator: Hendrik Eeckhaut <Hendrik.Eeckhaut@UGent.be>\n"
+"Language-Team: Dutch <nl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: signup.module:65
+msgid "Event reminder: %event"
+msgstr "Evenement herinnering: %event"
+
+#: signup.module:104
+msgid "Allow users to sign up for events."
+msgstr "Laat toe dat gebruikers zich inschrijven voor evenementen."
+
+#: signup.module:107
+msgid ""
+"<p>Signup allows users to sign up for nodes of any type.  Includes options "
+"for sending a notification email to a selected email address upon a new user "
+"signup (good for notifying event coordinators, etc.) and a confirmation "
+"email to users who sign up--these options are per node.  When used on event "
+"nodes (with event.module installed and regular cron runs), it can also send "
+"out reminder emails to all signups X days before the start of the event (per "
+"node setting) and auto-close event signups 1 hour before their start "
+"(general setting). Settings exist for resticting signups to selected roles "
+"and content types.</p><br><p>To use signup, you must enable a node type for "
+"signups in administer->settings->content types, and you must also grant the "
+"'allow signups' permission to any user role for which you wish to allow "
+"signups in administer->access control. Each signup node will now have a "
+"place for users to sign up, and administrators with the 'admin signups' "
+"privilege will be able to view signups for each signup node and see an "
+"overview of signups for all nodes (the overview is located in administer/"
+"signup)</p><br><p>Default settings for notification email address, reminder "
+"emails and confirmation emails are located in administer->settings->signup. "
+"These will be the default values used for a signup node unless otherwise "
+"specified (to configure these options per node, visit 'edit' for that node "
+"and make the adjustments in the 'Sign up settings' section)</"
+"p><br><p>Signups can be manually closed for any node at administer->signup.</"
+"p><br><p>The user signup form is fully themable--form fields may be added or "
+"deleted.  For more details see the instructions in signup.theme, where a "
+"sample user form is included</p>"
+msgstr ""
+
+#: signup.module:122;127;0
+msgid "signup"
+msgstr "inschrijven"
+
+#: signup.module:141
+msgid "signups"
+msgstr "inschrijvingen"
+
+#: signup.module:173
+msgid "Allow signups"
+msgstr "Inschrijvingen toelaten"
+
+#: signup.module:175
+msgid "if selected, users will be allowed to do signups for this node type"
+msgstr "Indien aangevinkt, worden het gebruikers toegelaten zich in te schrijven voor dit node-type"
+
+#: signup.module:192
+msgid "Sign up settings"
+msgstr "Inschrijvingsinstellingen"
+
+#: signup.module:233
+msgid ""
+"WARNING: %d user(s) signed up for this event.  Deleting this event will "
+"delete \n"
+"        all signups associated with it!."
+msgstr ""
+"WAARSCHUWING: %d inschrijvingen voor dit evenement.  Indien u dit verwijdert, \n"
+"        verdwijnen ook alle ermee geassociëerde inschrijvingen!."
+
+#: signup.module:236
+msgid "No users signed up for this event"
+msgstr "Geen inschrijvingen voor dit evenement"
+
+#: signup.module:266
+msgid "Signups closed for this event"
+msgstr "De inschrijvingstermijn voor dit evenement is verstreken"
+
+#: signup.module:272
+msgid ""
+"<p>Please <a href=\"%login\">login/register</a> to sign up \n"
+"              for this event.</p>"
+msgstr ""
+"<p>Astublief <a href=\"%login\">login/registreer</a>om in te \n"
+"            schrijven voor dit evenement.</p>"
+
+#: signup.module:287;415
+msgid "Sign up"
+msgstr "Inschrijven"
+
+#: signup.module:289
+msgid "Sign up for %title"
+msgstr "Inschrijven voor %title"
+
+#: signup.module:296
+msgid "Your signup information"
+msgstr "Uw inschrijfinformatie"
+
+#: signup.module:303;483;531
+msgid "Cancel Signup"
+msgstr "Inschrijving Annuleren"
+
+#: signup.module:333
+msgid "Event"
+msgstr "Evenement"
+
+#: signup.module:333
+msgid "Signups"
+msgstr "Inschrijvingen"
+
+#: signup.module:333
+msgid "Operations"
+msgstr "Handelingen"
+
+#: signup.module:343
+msgid "View Signups"
+msgstr "Inschrijvingen bekijken"
+
+#: signup.module:343
+msgid "Close Event"
+msgstr "Evenement sluiten"
+
+#: signup.module:358
+msgid "Signup cancelled"
+msgstr "Inschrijving geannulleerd"
+
+#: signup.module:387;400
+msgid "Submit"
+msgstr "Indienen"
+
+#: signup.module:393
+msgid "Signup settings updated"
+msgstr "Inschrijvingsinstellingen bijgewerkt"
+
+#: signup.module:398
+msgid "Default signup information"
+msgstr "Standaard inschrijvingsinformatie"
+
+#: signup.module:398
+msgid "New signup nodes will start with these settings"
+msgstr "Nieuwe inschrijvingsnodes zullen starten met deze instellingen"
+
+#: signup.module:436
+msgid ""
+"You will receive a confirmation email shortly \n"
+"        which contains  further event information"
+msgstr ""
+"Een bevestigingsmail is onderweg\n"
+"      deze bevat meer informatie over het evenement"
+
+#: signup.module:438
+msgid "You will receive a reminder email %d day(s) before the event"
+msgstr "U zal een herinneringsmail krijgen  %d dag(en) voor het evenement"
+
+#: signup.module:444
+msgid "Signup confirmed."
+msgstr "Inschrijving bevestigd."
+
+#: signup.module:450
+msgid "[Untimed]"
+msgstr ""
+
+#: signup.module:455
+msgid "SIGNUP INFORMATION"
+msgstr "INFORMATIE INSCHRIJVING"
+
+#: signup.module:463
+msgid "Signup confirmation for event: %event"
+msgstr "Bevestiging inschrijving voor evenement: %event"
+
+#: signup.module:471
+msgid "New Event Signup"
+msgstr "Nieuwe evenementinschrijving"
+
+#: signup.module:473
+msgid "Signup confirmation for event: %title"
+msgstr "Bevestiging inschrijving voor evenement: %title"
+
+#: signup.module:474
+msgid "The following information was submitted as a signup for %title"
+msgstr "De volgende informatie is verzonden als inschrijving voor %title"
+
+#: signup.module:475
+msgid "Date/Time: %time"
+msgstr "Dag/tijd: %time"
+
+#: signup.module:475
+msgid "username:"
+msgstr "gebruiksnaam:"
+
+#: signup.module:476
+msgid "email:"
+msgstr "e-mail:"
+
+#: signup.module:511
+msgid "%d individual(s) signed up"
+msgstr "%d person(en) zijn ingeschreven"
+
+#: signup.module:560
+msgid "Send signups to"
+msgstr "Verzend inschrijvingen naar"
+
+#: signup.module:561
+msgid ""
+"Email address where notification of new signups will be sent. Leave blank "
+"for no notifications"
+msgstr "E-mailadres waarheen berichten van nieuwe inschrijvingen moeten verzonden worden. Laat het leeg indien u geen berichten wenst"
+
+#: signup.module:563
+msgid "Send confirmation"
+msgstr "Bevestiging verzenden"
+
+#: signup.module:565
+msgid "Confirmation email"
+msgstr "Bevestigings-e-mail"
+
+#: signup.module:566
+msgid ""
+"Email sent to user upon signup. Supported string substitutions: %event, %"
+"time, %username, %useremail, \n"
+"    %info (user signup information)"
+msgstr ""
+"E-mail naar gebruiker gezonden bij inschrijving. Volgende tekenreekssubstituties zijn mogelijk: %event, %time, %username, %useremail, \n"
+"    %info (informatie over inschrijving gebruiker)"
+
+#: signup.module:568
+msgid "Send reminder"
+msgstr "Herinnering verzenden"
+
+#: signup.module:577
+msgid "Reminder email"
+msgstr "Herinnerings-e-mail"
+
+#: signup.module:578
+msgid ""
+"Email sent to user as an event reminder. Supported string substitutions: %"
+"event, %time, %username, \n"
+"    %useremail"
+msgstr ""
+"Email die als evenementherinnering naar gebruikers wordt verzonden. Volgende tekenreekssubstituties zijn mogelijk: %event, %time, %username, \n"
+"    %useremail"
+
+#: signup.module:582
+msgid "Signup information"
+msgstr "Inschrijvingsinformatie"
+
+#: signup.module:156
+msgid "allow signups"
+msgstr "inschrijvingen toelaten"
+
+#: signup.module:156
+msgid "admin signups"
+msgstr "inschrijvingen beheren"
+

@@ -1,0 +1,114 @@
+<?php
+// $Id: nodeasblock.module,v 1.1.2.1 2006/11/10 21:39:03 mfredrickson Exp $
+
+/**
+ * @file
+ * Uses nodeapi to allow any block to become a node.
+ */
+
+/**
+ * Implementation of hook_help().
+ */
+function nodeasblock_help($section) {
+  switch ($section) {
+    case 'admin/modules#description':
+      return t('Make a block to display a node\'s teaser. Can be invoked on any node.');
+  }
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function nodeasblock_perm() {
+  return array('create blocks for nodes');
+}
+
+
+function nodeasblock_form_alter($form_id, &$form) {
+  if (isset($form['type']) && 
+      $form['type']['#value'] .'_node_form' == $form_id &&
+      user_access('create blocks for nodes')) {
+    $node = $form['#node'];
+    
+    $form['nodeasblockset'] = array (
+      '#type' => 'fieldset',
+      '#title' => t('Provide a block'),
+      '#collapsible' => true,
+      '#collapsed' => !$node->nodeasblock,
+    );
+    $form['nodeasblockset']['nodeasblock'] = array (
+      '#type' => 'checkbox',
+      '#title' => t('Create a block for this node?'),
+      '#default_value' => $node->nodeasblock,
+      '#description' => t('Check this box to create a block for this node. The block will contain the teaser. To administer the appearance of this block, you will need to visit %block_admin.', array('%block_admin' => l('admin/block', 'admin/block'))),
+    );
+  }
+}
+
+function nodeasblock_nodeapi($node, $op, $arg = 0) {
+  switch ($op) {
+    case 'load':
+     $ret = db_query("SELECT nid FROM {nodeasblock} WHERE nid = $node->nid");
+     $output['nodeasblock'] = db_num_rows($ret);
+     return $output;
+    case 'update':
+    case 'insert':
+      db_query("DELETE FROM {nodeasblock} WHERE nid = $node->nid");
+      if ($node->nodeasblock) {
+        db_query("INSERT INTO {nodeasblock} VALUES ($node->nid)");
+      }
+      break;
+    case 'delete':
+      db_query("DELETE FROM {nodeasblock} WHERE nid = $node->nid");
+      break;
+  }
+}
+
+function nodeasblock_block($op = 'list', $delta = 0, $edit = array()) {
+  if ($op == 'list') {
+    // get list of nodeblock nodes from db...
+    $result = db_query('SELECT nid FROM {nodeasblock}');
+    
+    while ($row = db_fetch_object($result)) {
+        $node = node_load($row->nid);
+        $blocks[$row->nid] = array(
+                                        'info' => check_plain($node->title), 
+                                        'weight' => 0, 
+                                        'enabled' => 0,
+                                        'region' => 'left',
+                                    );
+      }
+    return $blocks;
+  }
+  else if ($op == 'configure' && $delta == 0) {
+        // no config options
+  }
+  else if ($op == 'save' && $delta == 0) {
+    // variable_set('nodeblock_block_items', $edit['items']);
+  }
+  else if ($op == 'view') {
+    if ($node = node_load($delta)) {
+      return theme('nodeasblock', $node);
+    }
+  }
+} 
+   
+/*** Themeing ***/
+
+function theme_nodeasblock($node) {
+  // return an array with 'subject' and 'content
+  
+  // remove the default links and provide our own
+  $node->links = array();
+  $node->links[] = l(t('read more'), 'node/'.$node->nid);
+  if (node_access('update', $node->nid)) {
+    $node->links[] = l(t('edit'), 'node/'.$node->nid.'/edit');
+  }
+
+  $content = node_view($node, true, true, false);
+  //$content = $node->teaser; // this might be better
+  
+  return array('subject' => l($node->title, 'node/' . $node->nid),
+               'content' => $content);
+
+}

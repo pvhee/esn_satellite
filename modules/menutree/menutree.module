@@ -1,0 +1,104 @@
+<?php
+//$Id: menutree.module,v 1.1 2007/01/06 23:05:45 crell Exp $
+
+/**
+ * @file
+ * This module provides a simple "site map" tree based on the menu system rather
+ * than on taxonomies.
+ * 
+ * @author Larry Garfield
+ *
+ */
+
+/**
+ * Implementation of hook_help().
+ *
+ * Throughout Drupal, hook_help() is used to display help text at the top of
+ * pages. Some other parts of Drupal pages get explanatory text from these hooks
+ * as well. We use it here to provide a description of the module on the
+ * module administration page.
+ */
+function menutree_help($section) {
+  switch ($section) {
+    case 'admin/modules#description':
+      // This description is shown in the listing at admin/modules.
+      return t('Display a site-map page based on one or more menus.');
+  }
+}
+
+/**
+ * Implementation of hook_perm().
+ *
+ * Since we are limiting the ability to create new nodes to certain users,
+ * we need to define what those permissions are here. We also define a permission
+ * to allow users to edit the nodes they created.
+ */
+function menutree_perm() {
+  return array('view site tree');
+}
+
+/**
+ * Implementation of hook_menu().
+ *
+ * In order for users to be able to add nodes of their own, we need to
+ * give them a link to the node composition form here.
+ */
+function menutree_menu($may_cache) {
+  $items = array();
+
+  if ($may_cache) {
+    $items[] = array(
+      'path' => 'menutree', 
+      'title' => t('sitemap'),
+      'access' => TRUE,
+      'callback' => 'menutree_display',
+      'type' => MENU_CALLBACK,
+    );
+  }
+
+  return $items;
+}
+
+/**
+ * Display a fully-expanded version of the menu specified on the path
+ *
+ * @param int $pid
+ *  The menu to display.  If none is specified, we default to the Primary Links menu
+ */
+function menutree_display($pid=0) {
+  
+  $output = '';
+  
+  // Default to the Primary Links menu
+  if (!$pid) {
+    $pid = variable_get('menu_primary_menu', 0);
+  }
+  
+  // This is a near-direct copy of menu_tree() from meu.inc.
+  // The only difference is that we always call theme(menu_tree) on the item 
+  // rather than only if it's in the breadcrumb
+  $menu = menu_get_menu();
+  if (isset($menu['visible'][$pid]) && $menu['visible'][$pid]['children']) {
+    foreach ($menu['visible'][$pid]['children'] as $mid) {
+      $type = isset($menu['visible'][$mid]['type']) ? $menu['visible'][$mid]['type'] : NULL;
+      $children = isset($menu['visible'][$mid]['children']) ? $menu['visible'][$mid]['children'] : NULL;
+      $output .= theme('menu_item', $mid, theme('menu_tree', $mid), count($children) == 0);
+    }
+  }
+ 
+  return theme('menutree_page', '<ul class="menutree">' . $output . '</ul>');
+}
+
+/**
+ * Theme the menutree
+ * 
+ * In practice this is already themed into lists, so this just wraps it in a div
+ *
+ * @param string $output
+ *  The menutree, pre-rendered
+ */
+function theme_menutree_page($output) {
+  
+  return '<div class="menutree_page">' . $output . "</div>\n";
+  
+}

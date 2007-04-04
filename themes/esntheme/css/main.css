@@ -1,0 +1,18 @@
+/*
+LEGAL
+=====
+Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
+Community: Mollio http://www.mollio.org $
+License: Released Under the "Common Public License 1.0", 
+http://www.opensource.org/licenses/cpl.php
+License: Released Under the "Creative Commons License", 
+http://creativecommons.org/licenses/by/2.5/
+License: Released Under the "GNU Creative Commons License", 
+http://creativecommons.org/licenses/GPL/2.0/
+*/
+
+/* THE BIG GUYS */
+* {margin:0;padding:0}
+
+body { margin:0px; padding:0px;  padding-bottom: 55px; background: url("images/body_bg_top.gif") repeat-x; color:#666; font:83%/1.5 verdana; padding: 35px;}
+html{ background: url("images/html_bg.gif"); border-top: 1px solid #78A0C9;}

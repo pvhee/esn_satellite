@@ -1,0 +1,35 @@
+===============================
+= ESN Satellite Release Notes =
+===============================
+
+
+
+=== ESN Satellite 1.0 ===
+
+March 23, 2007
+
+This is the first public release of the ESN Satellite, based on the Drupal
+version 4.7.4. It contains the customized esntheme and uses Drupal only
+modules.
+
+Note: You will need the LOCK permission on your database to run this Satellite.
+
+
+
+=== Online documentation ===
+
+Documentation for end users can be found on the Satellite Wiki
+
+  http://satellite.esn.org/wiki
+
+Documentation for the ESN webteam can be found on the ESN dev Wiki
+
+  http://dev.esn.org/wiki
+
+ 
+
+=== Mailing list ===
+
+The Satellite mailing list is on the google groups
+
+  http://groups.google.com/group/esn-satellite

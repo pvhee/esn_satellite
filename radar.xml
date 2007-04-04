@@ -1,0 +1,11 @@
+<galaxy>
+	<news>
+		<feed type="rss">?q=news/feed</feed>
+	</news>
+	<event>
+		<feed type="ical">?q=event/ical</feed>
+	</event>
+	<partner>
+		<feed type="rss">?q=partners/feed</feed>
+	</partner>
+</galaxy>

@@ -1,0 +1,67 @@
+$Id: TODO.txt,v 1.1.2.4 2006/06/16 17:34:24 dww Exp $
+
+The following is a wish list for ugrades to this module.  If you'd be
+interested in providing financial sponsorship for any of these
+features, please email signup@dwwright.net.
+
+* add support limiting signups to certain roles, per node
+
+* make datetime display dependent on medium date format display
+  setting in admin/settings
+
+* adding support for custom auto-closing settings per node: time
+  before event start, number of signups
+
+* better header info for emails sent to forwarding email address?
+
+* validation of forwarding email addresses
+
+* validation of user submitted data
+
+* catch remote user login and get their email addy (currently signup
+  relies on the email addy of a registered user for
+  confirmation/reminder emails)
+
+* feature to allow event admins to email signup group
+
+* fix reminder message notification so it doesn't display on signups
+  where reminder has already been sent
+
+* make display of reminder email info conditional on whether node is
+  event enabled (form edit page)
+
+* better themed user signup form, or better--the ability to
+  construct forms on the fly, save them, and select per node!
+
+* wait list feature w/ this workflow:
+  1. user visits signup node that is full.  they are shown how many
+     people the event holds, how many people are on the wait list
+     ahead of them, and given the option to sign up to the wait list.
+  2. wait listed user receives an optional wait list confirmation
+     email, telling them that they will be notified if they get into
+     the event
+  3. if the user gets into the event, they receive a confirmation
+     email that they are in.
+  The three ways that a user would get off the wait list would be:
+  1. someonce cancels, and the system automatically lets in the
+     person on the top of the wait list
+  2. the event coordinator expands the allowed signups for the
+     event, and the system automatically lets in the appropriate
+     number of waitlisted people
+  3. the event coordinator looks through the wait list and manually
+     adds someone
+
+* allow a comma seperated list of forwarding email addresses, in
+  case there's more than one event coordinator
+
+* event coordinators should also get an email when a user cancels
+  their signup
+
+* coordinator can generate a list of attendees that is printable.
+
+
+FIXES
+
+* signups tab still appears on previously created but now disabled node type
+
+

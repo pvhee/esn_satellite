@@ -1,0 +1,266 @@
+<?php
+// $Id: content.install,v 1.9.2.10 2007/01/25 02:25:30 yched Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+function content_install() {
+  switch ($GLOBALS['db_type']) {
+    case 'mysql':
+    case 'mysqli':
+      db_query("CREATE TABLE {node_type_content} (
+          type_name varchar(32) NOT NULL default '',
+          label varchar(255) NOT NULL default '',
+          description mediumtext NOT NULL,
+          help mediumtext NOT NULL,
+          title_label varchar(255) NOT NULL default '',
+          PRIMARY KEY (type_name)
+        ) /*!40100 DEFAULT CHARACTER SET utf8 */");
+      db_query("CREATE TABLE {node_field} (
+          field_name varchar(32) NOT NULL default '',
+          type varchar(127) NOT NULL default '',
+          global_settings mediumtext NOT NULL,
+          required int NOT NULL default '0',
+          multiple int NOT NULL default '0',
+          db_storage int NOT NULL default '0',
+          PRIMARY KEY (field_name)
+        ) /*!40100 DEFAULT CHARACTER SET utf8 */");
+      db_query("CREATE TABLE {node_field_instance} (
+        field_name varchar(32) NOT NULL default '',
+        type_name varchar(32) NOT NULL default '',
+        weight int NOT NULL default '0',
+        label varchar(255) NOT NULL default '',
+        widget_type varchar(32) NOT NULL default '',
+        widget_settings mediumtext NOT NULL,
+        display_settings mediumtext NOT NULL,
+        description mediumtext NOT NULL,
+        PRIMARY KEY (field_name,type_name)
+      ) /*!40100 DEFAULT CHARACTER SET utf8 */");
+      break;
+
+    case 'pgsql':
+      db_query("CREATE TABLE {node_type_content} (
+          type_name varchar(32) NOT NULL default '',
+          label varchar(255) NOT NULL default '',
+          description text NOT NULL,
+          help text NOT NULL,
+          title_label varchar(255) NOT NULL default '',
+          PRIMARY KEY (type_name)
+        )");
+      db_query("CREATE TABLE {node_field} (
+          field_name varchar(32) NOT NULL default '',
+          type varchar(127) NOT NULL default '',
+          global_settings text NOT NULL,
+          required integer NOT NULL default '0',
+          multiple integer NOT NULL default '0',
+          db_storage integer NOT NULL default '0',
+          PRIMARY KEY (field_name)
+        )");
+      db_query("CREATE TABLE {node_field_instance} (
+          field_name varchar(32) NOT NULL default '',
+          type_name varchar(32) NOT NULL default '',
+          weight integer NOT NULL default '0',
+          label varchar(255) NOT NULL default '',
+          widget_type varchar(32) NOT NULL default '',
+          widget_settings text NOT NULL,
+          display_settings text NOT NULL,
+          description text NOT NULL,
+          PRIMARY KEY (field_name,type_name)
+        )");
+      break;
+  }
+}
+
+/**
+ * Add storage for per-field help text.
+ */
+function content_update_2() {
+  $ret = array();
+
+  switch ($GLOBALS['db_type']) {
+    case 'pgsql':
+      db_add_column($ret, 'node_field_instance', 'description', 'text', array('not null' => TRUE, 'default' => ''));
+      break;
+
+    case 'mysql':
+    case 'mysqli':
+      $ret[] = update_sql("ALTER TABLE {node_field_instance} ADD COLUMN description mediumtext NOT NULL");
+      break;
+  }
+
+  return $ret;
+}
+
+/**
+ * Add information about where data is stored.
+ */
+function content_update_3() {
+  $ret = array();
+
+  switch ($GLOBALS['db_type']) {
+    case 'pgsql':
+      db_add_column($ret, 'node_field', 'db_storage', 'integer', array('not null' => TRUE, 'default' => '0'));
+      break;
+
+    case 'mysql':
+    case 'mysqli':
+      $ret[] = update_sql("ALTER TABLE {node_field} ADD COLUMN db_storage int NOT NULL default 0");
+      break;
+  }
+
+  return $ret;
+}
+
+/**
+ * Add tables for content types to store their data.
+ */
+function content_update_4() {
+  $ret = array();
+
+  $result = db_query("SELECT type_name FROM {node_type}");
+  while ($type = db_fetch_object($result)) {
+    switch ($GLOBALS['db_type']) {
+      case 'mysql':
+      case 'mysqli':
+        $ret[] = update_sql("CREATE TABLE {node_". strtr($type->type_name, '-', '_') ."} (
+            vid int unsigned NOT NULL default '0',
+            nid int unsigned NOT NULL default '0',
+            PRIMARY KEY (vid)
+          ) /*!40100 DEFAULT CHARACTER SET utf8 */");
+        break;
+
+      case 'pgsql':
+        $ret[] = update_sql("CREATE TABLE {node_". strtr($type->type_name, '-', '_') ."} (
+            vid integer NOT NULL default '0' CHECK(vid >= 0),
+            nid integer NOT NULL default '0' CHECK(nid >= 0),
+            PRIMARY KEY (vid)
+          )");
+        break;
+    }
+  }
+
+  return $ret;
+}
+
+/**
+ * Move data from per-field storage to per-content-type storage where possible.
+ */
+function content_update_5() {
+  $ret = array();
+
+  include_once('./'.drupal_get_path('module', 'content') .'/content.module');
+  include_once('./'.drupal_get_path('module', 'content') .'/content_admin.inc');
+
+  $result = db_query('SELECT nf.field_name FROM {node_field} nf LEFT JOIN {node_field_instance} nfi ON nfi.field_name = nf.field_name WHERE nf.multiple = 0 AND nf.db_storage = 0 GROUP BY nfi.field_name HAVING COUNT(*) = 1');
+
+  if (db_num_rows($result)) {
+    // Multi-part update
+    if (!isset($_SESSION['content_update_5'])) {
+      $_SESSION['content_update_5'] = 0;
+      $_SESSION['content_update_5_max'] = db_num_rows($result);
+    }
+
+    $field = db_fetch_array($result);
+    $fields = content_fields();
+    $field = $fields[$field['field_name']];
+    $field_types = _content_field_types();
+    $field_type = $field_types[$field['type']];
+    $columns = module_invoke($field_type['module'], 'field_settings', 'database columns', $field);
+
+    $ret[] = update_sql("UPDATE {node_field} SET db_storage = ". CONTENT_DB_STORAGE_PER_CONTENT_TYPE ." WHERE field_name = '". $field['field_name'] ."'");
+    if (is_array($columns) && count($columns)) {
+      $new_field = $field;
+      $new_field['db_storage'] = CONTENT_DB_STORAGE_PER_CONTENT_TYPE;
+      content_alter_db_field($field, $columns, $new_field, $columns);
+    }
+
+    $_SESSION['content_update_5']++;
+    $ret['#finished'] = $_SESSION['content_update_5'] / $_SESSION['content_update_5_max'];
+    return $ret;
+  }
+}
+
+/**
+ * The cache for nodes has changed to account for revisions correctly.
+ */
+function content_update_6() {
+  return array(update_sql('DELETE FROM {cache}'));
+}
+
+/**
+ * Rename the "content-" prefix to "content_" to aid in form theming.
+ */
+function content_update_7() {
+  $ret = array();
+
+  $type_result = db_query("SELECT type_name FROM {node_type} WHERE type_name LIKE 'content-%%'");
+
+  if (db_num_rows($type_result)) {
+    // Multi-part update
+    if (!isset($_SESSION['content_update_7'])) {
+      $_SESSION['content_update_7'] = 0;
+      $_SESSION['content_update_7_max'] = db_num_rows($type_result);
+    }
+
+    $type = db_fetch_object($type_result);
+    $old_type_name = $type->type_name;
+    $new_type_name = str_replace('content-', 'content_', $old_type_name);
+    $ret[] = update_sql("UPDATE {node} SET type = '". $new_type_name ."' WHERE type = '". $old_type_name ."'");
+    $ret[] = update_sql("UPDATE {node_type} SET type_name = '". $new_type_name ."' WHERE type_name = '". $old_type_name ."'");
+    $ret[] = update_sql("UPDATE {node_field_instance} SET type_name = '". $new_type_name ."' WHERE type_name = '". $old_type_name ."'");
+    $ret[] = update_sql("UPDATE {vocabulary_node_types} SET type = '". $new_type_name ."' WHERE type = '". $old_type_name ."'");
+
+    $variable_result = db_query("SELECT name, value FROM {variable} WHERE name LIKE '%%%s%%' OR value LIKE '%%%s%%'", $old_type_name, $old_type_name);
+    while ($variable = db_fetch_object($variable_result)) {
+      $new_name = str_replace($old_type_name, $new_type_name, $variable->name);
+      $new_value = str_replace($old_type_name, $new_type_name, $variable->value);
+      db_query("UPDATE {variable} SET name = '%s', value = '%s' WHERE name = '%s'", $new_name, $new_value, $variable->name);
+    }
+
+    $ret[] = update_sql('DELETE FROM {cache}');
+
+    $_SESSION['content_update_7']++;
+    $ret['#finished'] = $_SESSION['content_update_7'] / $_SESSION['content_update_7_max'];
+    return $ret;
+  }
+}
+
+/**
+ * Rename the "node_type" table to avoid a conflict with a later core addition
+ */
+function content_update_8() {
+  $ret = array();
+
+  switch ($GLOBALS['db_type']) {
+    case 'mysql':
+    case 'mysqli':
+      $ret[] = update_sql('RENAME TABLE {node_type} TO {node_type_content}');
+      break;
+
+    case 'pgsql':
+      $ret[] = update_sql('ALTER TABLE {node_type} RENAME TO {node_type_content}');
+      break;
+  }
+
+  return $ret;
+}
+
+/**
+ * Add display_settings column
+ */
+function content_update_9() {
+  $ret = array();
+
+  switch ($GLOBALS['db_type']) {
+    case 'pgsql':
+      db_add_column($ret, 'node_field_instance', 'display_settings', 'text', array('not null' => TRUE, 'default' => ''));
+      break;
+
+    case 'mysql':
+    case 'mysqli':
+      $ret[] = update_sql("ALTER TABLE {node_field_instance} ADD COLUMN display_settings mediumtext NOT NULL");
+      break;
+  }
+
+  return $ret;
+}

@@ -1,0 +1,235 @@
+<?php
+// $Id: gallery.module,v 1.17.2.2 2006/07/17 11:09:37 kiz0987 Exp $
+// For Drupal 4.7 with Gallery 2.1
+
+$path = drupal_get_path('module', 'gallery');
+require_once($path . '/gallery_base.inc');
+
+/**
+ * Implementation of hook_menu
+ */
+function gallery_menu($may_cache) {
+  global $user;
+  $items = array();
+  $view_access = (user_access('access user profiles') || ($user->uid == arg(1)));
+  if ($may_cache) {
+    $items[] = array(
+      'path' => 'gallery',
+      'title' => t('gallery'),
+      'callback' => 'gallery_page',
+      'access' => user_access('access content'),
+      'type' => MENU_NORMAL_ITEM,
+      ); 
+    $items[] = array(
+      'path' => 'admin/user/gallery', 'title' => t('gallery'),
+      'callback' => 'gallery_users',
+      'access' => user_access('administer users'),
+      'type' => MENU_LOCAL_TASK,
+      );
+  } else {
+    // Add head info here so that it is included once only per page
+    // May need modification once the merits/issues of theme_add_style are fully known
+    // See http://drupal.org/node/60096
+    theme_add_style(drupal_get_path('module', 'gallery') .'/drupal_g2.css');
+  }
+  return $items;
+} 
+
+/**
+ * Implementation of hook_help
+ */
+function gallery_help($section) {
+  $path = drupal_get_path('module', 'gallery');
+  require_once($path . '/gallery_help.inc');
+  return _gallery_help($section);
+}
+
+/**
+ * Implementation of hook_settings
+ */
+function gallery_settings() {
+  $path = drupal_get_path('module', 'gallery');
+  require_once($path . '/gallery_settings.inc');
+  return _gallery_settings();
+}
+
+/**
+ * Implementation of hook_user
+ */
+function gallery_user($op, &$edit, &$user, $category = NULL) {
+  $path = drupal_get_path('module', 'gallery');
+  require_once($path . '/gallery_user.inc');
+
+  switch ($op) {
+  case 'login':
+    /* _gallery_init() will try to create the user, if necessary */
+    list ($success, $ret) = _gallery_init();
+    if (!$success) {
+      gallery_error(t('Unable to log in to Gallery'), $ret);
+      return;
+    }
+    break;
+  case 'logout':
+    if (variable_get('gallery_valid', 0)) {
+      $embedPath = variable_get('gallery_dir', './gallery2/') . 'embed.php';
+      require_once($embedPath);
+      $ret = GalleryEmbed::logout();
+      break;
+    }
+  case 'view':
+    return gallery_view_user($user);
+  case 'insert':
+    return gallery_insert_user($edit, $user);
+  case 'update':
+    return gallery_update_user($edit, $user);
+  case 'delete':
+    return gallery_delete_user($user);
+  }
+}
+
+/**
+ * Gallery Users Page - view a set of users
+ */
+function gallery_users() {
+  $path = drupal_get_path('module', 'gallery');
+  require_once($path . '/gallery_user.inc');
+  return _gallery_users();
+}
+
+/**
+ * implementation of hook_search
+ */
+function gallery_search($op = 'search', $keys = null) {
+  $path = drupal_get_path('module', 'gallery');
+  require_once($path . '/gallery_search.inc');
+  return _gallery_search($op, $keys); 
+}
+
+/**
+ * Implementation of hook_search_item to override how to display the item
+ */
+function gallery_search_page($results) {
+  $path = drupal_get_path('module', 'gallery');
+  require_once($path . '/gallery_search.inc');
+  return _gallery_search_page($results); 
+}  
+
+/**
+ * Implementation of hook_filter
+ */
+function gallery_filter($op, $delta = 0, $format = -1, $text = '') {
+  $path = drupal_get_path('module', 'gallery');
+  require_once($path . '/gallery_filter.inc');
+	switch ($op) {
+		case 'list' :
+			return array (0 => t('Gallery2 filter'));
+		case 'description' :
+			return t('Allow users to easily reference Gallery2 items from nodes.');
+		case 'process' :
+			return gallery_filter_process($text);
+		case 'no cache': 
+		  return !variable_get('gallery_filter_can_cache', 1);
+		default :
+			return $text;
+	}
+}
+
+/**
+ * Implementation of hook_filter_tips
+ */
+function gallery_filter_tips($delta = 0, $format = -1, $long = false) {
+  $path = drupal_get_path('module', 'gallery');
+  require_once($path . '/gallery_help.inc');
+	if ($long) {
+		return gallery_filter_long_tip_translated();
+	} else {
+		return gallery_filter_short_tip_translated();
+	}
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function gallery_perm() {
+  return array('access standalone g2image');
+}
+
+/**
+ * Implementation of hook_elements() - from img_assist
+ */
+function gallery_elements() {
+  $type['textarea'] = array('#process' => array('gallery_g2image_textarea' => array()));
+  return $type;
+}
+
+/*
+ * Add image link underneath textareas
+ */
+function gallery_g2image_textarea($element) {
+    $path = drupal_get_path('module', 'gallery');
+    require_once($path . '/gallery_g2image.inc');
+    if (_gallery_g2image_page_match() && !strstr($_GET['q'], 'gallery') && 
+      (variable_get('gallery_g2image_mode', 'disabled') == 'standalone') &&
+      (user_access('access standalone g2image'))) {
+    gallery_g2image_add_js();
+    $output = theme('gallery_g2image_textarea_link', $element, $link);
+    $element['#suffix'] .= $output;
+  }
+  return $element;
+}
+
+/**
+ * Implementation of hook_block
+ *
+ */
+function gallery_block($op = 'list', $delta = 0, $edit = array()) {
+  $path = drupal_get_path('module', 'gallery');
+  require_once($path . '/gallery_block.inc');
+  return _gallery_block($op, $delta, $edit);
+}
+
+/**
+ * Main gallery display page
+ */
+function gallery_page() {
+  global $gallery_sidebar;
+  list ($success, $ret) = _gallery_init(true);
+  if (!$success) {
+    gallery_error(t('Unable to initialize embedded Gallery'), $ret);
+    $err_msg = t('Unable to initialize embedded Gallery. You need to <a href="%link">
+              configure your embedded Gallery</a>.', 
+              array('%link' => url('admin/settings/gallery')));
+    return $err_msg;
+  }
+  // Turn off sidebar
+  GalleryCapabilities::set('showSidebarBlocks', false);
+  $result = GalleryEmbed::handleRequest();
+  if (!$result['isDone']) {
+    list($title, $css, $javascript) = GalleryEmbed::parseHead($result['headHtml']);
+    if (!empty($javascript)) {
+      gallery_set_html_head(implode("\n", $javascript));
+    }
+    gallery_set_html_head(implode("\n", $css));
+    drupal_set_title($title);
+    // Add pathbar. See http://gallery.menalto.com/node/33447
+    if (isset($result['themeData'])) {
+      $urlGenerator =& $GLOBALS['gallery']->getUrlGenerator();
+      $breadcrumb = array(l(t('Home'), ''));
+      foreach ($result['themeData']['parents'] as $parent) {
+        $parent_title = $parent['title'];
+        // Simple strip of bbcode (italics) 
+        $parent_title = str_replace("[i]", "<i>", $parent_title);
+        $parent_title = str_replace("[/i]", "</i>", $parent_title);
+        $breadcrumb[] = '<a href="'.$urlGenerator->generateUrl(
+          array('itemId' => $parent['id'])) .'">'.$parent_title."</a>";
+      }
+      drupal_set_breadcrumb($breadcrumb);
+    }
+    // Store the sidebar info in a global variable for use in the gallery navigation block 
+    $gallery_sidebar = $result['sidebarBlocksHtml'];
+
+    return $result['bodyHtml'];
+  }
+}
+
+?>

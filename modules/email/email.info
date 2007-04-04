@@ -1,0 +1,10 @@
+; $Id: email.info,v 1.1 2007/01/05 10:17:35 mh86 Exp $
+name = EMail
+description = Defines an email field type for cck
+version = "$Name: DRUPAL-5 $"
+package = CCK
+
+; Information added by drupal.org packaging script on 2007-01-06
+version = "5.x-1.x-dev"
+project = "email"
+

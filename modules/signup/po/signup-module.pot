@@ -1,0 +1,217 @@
+# LANGUAGE translation of Drupal (signup.module)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from file: signup.module,v 1.10 2005/09/26 01:07:58 thehunmonkgroup
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2005-10-04 08:48+0200\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: signup.module:65
+msgid "Event reminder: %event"
+msgstr ""
+
+#: signup.module:104
+msgid "Allow users to sign up for events."
+msgstr ""
+
+#: signup.module:107
+msgid "<p>Signup allows users to sign up for nodes of any type.  Includes options for sending a notification email to a selected email address upon a new user signup (good for notifying event coordinators, etc.) and a confirmation email to users who sign up--these options are per node.  When used on event nodes (with event.module installed and regular cron runs), it can also send out reminder emails to all signups X days before the start of the event (per node setting) and auto-close event signups 1 hour before their start (general setting). Settings exist for resticting signups to selected roles and content types.</p><br><p>To use signup, you must enable a node type for signups in administer->settings->content types, and you must also grant the 'allow signups' permission to any user role for which you wish to allow signups in administer->access control. Each signup node will now have a place for users to sign up, and administrators with the 'admin signups' privilege will be able to view signups for each signup node and see an overview of signups for all nodes (the overview is located in administer/signup)</p><br><p>Default settings for notification email address, reminder emails and confirmation emails are located in administer->settings->signup. These will be the default values used for a signup node unless otherwise specified (to configure these options per node, visit 'edit' for that node and make the adjustments in the 'Sign up settings' section)</p><br><p>Signups can be manually closed for any node at administer->signup.</p><br><p>The user signup form is fully themable--form fields may be added or deleted.  For more details see the instructions in signup.theme, where a sample user form is included</p>"
+msgstr ""
+
+#: signup.module:122;127;0
+msgid "signup"
+msgstr ""
+
+#: signup.module:141
+msgid "signups"
+msgstr ""
+
+#: signup.module:173
+msgid "Allow signups"
+msgstr ""
+
+#: signup.module:175
+msgid "if selected, users will be allowed to do signups for this node type"
+msgstr ""
+
+#: signup.module:192
+msgid "Sign up settings"
+msgstr ""
+
+#: signup.module:233
+msgid "WARNING: %d user(s) signed up for this event.  Deleting this event will delete \n        all signups associated with it!."
+msgstr ""
+
+#: signup.module:236
+msgid "No users signed up for this event"
+msgstr ""
+
+#: signup.module:266
+msgid "Signups closed for this event"
+msgstr ""
+
+#: signup.module:272
+msgid "<p>Please <a href=\"%login\">login/register</a> to sign up \n              for this event.</p>"
+msgstr ""
+
+#: signup.module:287;415
+msgid "Sign up"
+msgstr ""
+
+#: signup.module:289
+msgid "Sign up for %title"
+msgstr ""
+
+#: signup.module:296
+msgid "Your signup information"
+msgstr ""
+
+#: signup.module:303;483;531
+msgid "Cancel Signup"
+msgstr ""
+
+#: signup.module:333
+msgid "Event"
+msgstr ""
+
+#: signup.module:333
+msgid "Signups"
+msgstr ""
+
+#: signup.module:333
+msgid "Operations"
+msgstr ""
+
+#: signup.module:343
+msgid "View Signups"
+msgstr ""
+
+#: signup.module:343
+msgid "Close Event"
+msgstr ""
+
+#: signup.module:358
+msgid "Signup cancelled"
+msgstr ""
+
+#: signup.module:387;400
+msgid "Submit"
+msgstr ""
+
+#: signup.module:393
+msgid "Signup settings updated"
+msgstr ""
+
+#: signup.module:398
+msgid "Default signup information"
+msgstr ""
+
+#: signup.module:398
+msgid "New signup nodes will start with these settings"
+msgstr ""
+
+#: signup.module:436
+msgid "You will receive a confirmation email shortly \n        which contains  further event information"
+msgstr ""
+
+#: signup.module:438
+msgid "You will receive a reminder email %d day(s) before the event"
+msgstr ""
+
+#: signup.module:444
+msgid "Signup confirmed."
+msgstr ""
+
+#: signup.module:450
+msgid "[Untimed]"
+msgstr ""
+
+#: signup.module:455
+msgid "SIGNUP INFORMATION"
+msgstr ""
+
+#: signup.module:463
+msgid "Signup confirmation for event: %event"
+msgstr ""
+
+#: signup.module:471
+msgid "New Event Signup"
+msgstr ""
+
+#: signup.module:473
+msgid "Signup confirmation for event: %title"
+msgstr ""
+
+#: signup.module:474
+msgid "The following information was submitted as a signup for %title"
+msgstr ""
+
+#: signup.module:475
+msgid "Date/Time: %time"
+msgstr ""
+
+#: signup.module:475
+msgid "username:"
+msgstr ""
+
+#: signup.module:476
+msgid "email:"
+msgstr ""
+
+#: signup.module:511
+msgid "%d individual(s) signed up"
+msgstr ""
+
+#: signup.module:560
+msgid "Send signups to"
+msgstr ""
+
+#: signup.module:561
+msgid "Email address where notification of new signups will be sent. Leave blank for no notifications"
+msgstr ""
+
+#: signup.module:563
+msgid "Send confirmation"
+msgstr ""
+
+#: signup.module:565
+msgid "Confirmation email"
+msgstr ""
+
+#: signup.module:566
+msgid "Email sent to user upon signup. Supported string substitutions: %event, %time, %username, %useremail, \n    %info (user signup information)"
+msgstr ""
+
+#: signup.module:568
+msgid "Send reminder"
+msgstr ""
+
+#: signup.module:577
+msgid "Reminder email"
+msgstr ""
+
+#: signup.module:578
+msgid "Email sent to user as an event reminder. Supported string substitutions: %event, %time, %username, \n    %useremail"
+msgstr ""
+
+#: signup.module:582
+msgid "Signup information"
+msgstr ""
+
+#: signup.module:156
+msgid "allow signups"
+msgstr ""
+
+#: signup.module:156
+msgid "admin signups"
+msgstr ""
+

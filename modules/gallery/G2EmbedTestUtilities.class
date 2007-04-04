@@ -1,0 +1,389 @@
+<?php
+// $Id: G2EmbedTestUtilities.class,v 1.2 2006/03/26 13:08:22 kiz0987 Exp $
+
+/**
+ * @version 
+ * @package GalleryCore
+ * @author Kieran Parsons
+ */
+
+/**
+ * A collection of useful G2Embed related utilities to test that all the required 
+ * parameters and modules are correctly configures
+ *
+ * @package GalleryCore
+ * @subpackage GalleryEmbed
+ * @static
+ */
+class G2EmbedTestUtilities {
+  
+  /**
+   * Validate the Gallery2 Embed variables
+   *
+   * Returns false if any test failed
+   * @param $orig, $autodetect
+   * @return array($gallery_valid, $new, $results)
+   */
+    function checkLocations($orig, $autodetect=true) {
+        $gallery_valid = 1;
+        // Normalise the G2 URI 
+        $g2Uri = G2EmbedDiscoveryUtilities::normalizeG2Uri($orig['g2Uri']); 
+        $new['g2Uri'] = $g2Uri;
+        if ($g2Uri != $orig['g2Uri']) {
+            $results['g2Uri']['title'] = G2EmbedTestUtilities::_trans('\'URI of Gallery2\' variable:');
+            $results['g2Uri']['advise'] = true;
+            $results['g2Uri']['notice'] = G2EmbedTestUtilities::_trans('%origG2Uri automatically updated to %g2Uri to adhere to Gallery2 requirements.',
+              array('%origG2Uri' => $orig['g2Uri'], '%g2Uri' => $g2Uri));
+        }
+        
+        // Find the Gallery Directory and Embed URI
+        if ($autodetect) {
+        // Auto-Detect the G2 embed path 
+        list ($success, $embedPhpPath, $errorString) = 
+            G2EmbedDiscoveryUtilities::getG2EmbedPathByG2Uri($g2Uri); 
+        if (!$success) {
+            // Something is wrong with the G2 URI given as the G2 embed path is not found
+            $results['g2Uri2']['title'] = G2EmbedTestUtilities::_trans('\'URI of Gallery2\' variable:');
+            $results['g2Uri2']['error'] = true;
+            $results['g2Uri2']['notice'] = $errorString;
+            $new['g2EmbedPath'] = rtrim($embedPhpPath, 'embed.php'); 
+            $gallery_valid = 0;
+        } else {
+            // G2 Embed Path is found OK
+            $results['g2Uri2']['title'] = G2EmbedTestUtilities::_trans('\'URI of Gallery2\' variable:');
+            $results['g2Uri2']['success'] = true;
+            $new['g2EmbedPath'] = rtrim($embedPhpPath, 'embed.php'); 
+        }
+        
+        // Auto-Detect the Embed Application URI
+        $embedUri =  G2EmbedTestUtilities::_autodetectEmbedUri();
+        // Normalise the Embed Application URI
+        $embedUri = G2EmbedDiscoveryUtilities::normalizeEmbedUri($embedUri); 
+        $new['embedUri'] = $embedUri; 
+        
+        } else {
+            // Do not autodetect the variables, but check the manually entered ones.
+            $results['g2Uri2']['title'] = G2EmbedTestUtilities::_trans('\'URI of Gallery2\' variable:');
+            $results['g2Uri2']['advise'] = true;
+            $results['g2Uri2']['notice'] = 
+                G2EmbedTestUtilities::_trans('Cannot fully check this when not in auto-detect mode.');
+    
+            $embedPhpPath = $orig['g2EmbedPath'];
+            // Check path can be read, adding embed.php if needed
+            if (substr($embedPhpPath, -1) != '/') {	   
+                $embedPhpPath = $embedPhpPath . '/';
+                $results['g2EmbedPath']['title'] = 
+                    G2EmbedTestUtilities::_trans('\'Location of Gallery2\' variable:');
+                $results['g2EmbedPath']['advise'] = true;
+                $results['g2EmbedPath']['notice'] = 
+                    G2EmbedTestUtilities::_trans('%g2EmbedPath automatically updated to %embedPhpPath to adhere to Gallery2 requirements.',
+                    array('%g2EmbedPath' => $orig['g2EmbedPath'],
+                          '%embedPhpPath' => $embedPhpPath));
+            }
+            list ($ok, $errorString) = 
+                G2EmbedDiscoveryUtilities::isFileReadable($embedPhpPath.'embed.php');
+            $new['g2EmbedPath'] = $embedPhpPath;
+            if (!$ok) {
+                // Something is wrong with the G2 embed path
+                $results['g2EmbedPath2']['title'] = 
+                    G2EmbedTestUtilities::_trans('\'Location of Gallery2\' variable:');
+                $results['g2EmbedPath2']['error'] = true;
+                $results['g2EmbedPath2']['notice'] = $errorString;
+                $gallery_valid = 0;
+            } else {
+                // G2 Embed Path is found OK
+                $results['g2EmbedPath2']['title'] = 
+                    G2EmbedTestUtilities::_trans('\'Location of Gallery2\' variable:');
+                $results['g2EmbedPath2']['success'] = true;
+            }
+            $embedUri = $orig['embedUri'];
+            $embedUri = G2EmbedDiscoveryUtilities::normalizeEmbedUri($embedUri); 
+            $new['embedUri'] = $embedUri;
+            if ($embedUri != $orig['embedUri']) {
+                $results['embedUri']['title'] = 
+                    G2EmbedTestUtilities::_trans('\'Embed URI\' variable:');
+                $results['embedUri']['advise'] = true;
+                $results['embedUri']['notice'] = 
+                    G2EmbedTestUtilities::_trans('%origEmbedUri automatically updated to %embedUri to adhere to Gallery2 requirements.',
+                        array('%origEmbedUri' => $orig['embedUri'], 
+                              '%embedUri' => $embedUri));
+            }
+            $results['embedUri2']['title'] =
+                                G2EmbedTestUtilities::_trans('\'Embed URI\' variable:');
+            $results['embedUri2']['advise'] = true;
+            $results['embedUri2']['notice'] = 
+                G2EmbedTestUtilities::_trans('Cannot fully check this when not in auto-detect mode.');
+        }
+
+    list ($numErrors, $numWarnings) = G2EmbedTestUtilities::_getNumErrorsAndWarnings($results);
+    return array($numErrors, $numWarnings, $new, $results); 
+ //   return array($gallery_valid, $new, $results);
+    }
+
+	/**
+	 * Check the status of Gallery2 Modules before Gallery Init
+	 *
+	 * @param $testsToRun
+	 * @return array results
+	 */
+    function preInitTests($testsToRun = null) {
+        if (!$testsToRun) {
+            $testsToRun['php_memory']['errorlevel'] = 'error';
+            $testsToRun['php_memory']['minimumMemoryLimit'] = 24;
+        }
+        /* Check for adequate PHP Memory Limit */
+        if (isset($testsToRun['php_memory'])) {
+            $results['php_memory'] = G2EmbedTestUtilities::phpMemoryCheck(
+                $testsToRun['php_memory']['minimumMemoryLimit']); 
+        }
+        list ($numErrors, $numWarnings) = G2EmbedTestUtilities::_getNumErrorsAndWarnings($results);
+        return array($numErrors, $numWarnings, $results); 
+    }
+
+	/**
+	 * Check the status of Gallery2 Modules after Gallery Init
+	 *
+	 * @param $testsToRun
+	 * @return array results
+	 */
+    function postInitTests($testsToRun = null) {
+  
+        if (!$testsToRun) {
+            $testsToRun['imageblock']['errorlevel'] = 'error';
+            $testsToRun['imageframe']['errorlevel'] = 'warning';	  
+            $testsToRun['urlrewrite']['errorlevel'] = 'advise';		 
+        }
+	
+        list ($ret, $allModulesStatus) = GalleryCoreApi::fetchPluginStatus('module');
+        /* Check for ImageBlock Module */
+        if (isset($testsToRun['imageblock'])) {
+            $results['imageblock'] = 
+                G2EmbedTestUtilities::moduleCheck('imageblock', 'Image Block', 
+                    $testsToRun['imageblock']['errorlevel'], $allModulesStatus); 
+        }
+        /* Check for ImageFrame Module */
+        if (isset($testsToRun['imageframe'])) {
+            $results['imageframe'] = 
+                G2EmbedTestUtilities::moduleCheck('imageframe', 'Image Frame', 
+                    $testsToRun['imageframe']['errorlevel'], $allModulesStatus); 
+        }	
+        if (isset($testsToRun['urlrewrite'])) {
+            $results['urlrewrite'] = 
+                G2EmbedTestUtilities::urlRewriteCheck($testsToRun['urlrewrite']['errorlevel']); 
+        }
+        list ($numErrors, $numWarnings) = G2EmbedTestUtilities::_getNumErrorsAndWarnings($results);
+        return array($numErrors, $numWarnings, $results); 
+    }
+
+    /**
+     * Warn if memory_limit is set and is too low
+     * (from Gallery2 install code)
+     *
+     * @param minimumMemoryLimit
+     * @return array results
+     */
+	function phpMemoryCheck($minimumMemoryLimit = 24) {
+        $memoryLimit = ini_get('memory_limit');		 
+        $title = G2EmbedTestUtilities::_trans('PHP Memory Limit:');
+        if ($memoryLimit != '' && (G2EmbedTestUtilities::_getBytes($memoryLimit) / (1024 * 1024)) < $minimumMemoryLimit) {
+            $results = array(
+					'title' => $title,
+					'error' => true,
+				    'notice' => G2EmbedTestUtilities::_trans(
+                        'Your PHP is configured to limit the memory to %memLimit (<b> 
+                         memory_limit</b> parameter in php.ini). You should raise this limit 
+                         to at least <b>%minMemLimitMB</b> for proper Embedded Gallery2 operation',
+                        array('%memLimit' => $memoryLimit, '%minMemLimit' => $minimumMemoryLimit)),
+					);			
+        } else {
+            $results = array(
+					'title' => $title,
+					'success' => true,
+					);		
+        }
+        return $results;
+    }
+    
+	/**
+	 * Check the status of Gallery2 URL Rewrite Module
+	 *
+	 * @param $errorLevel
+	 * @return array results
+	 */
+	function urlRewriteCheck($errorLevel) {
+        /* Check for URL Rewrite Module */
+        $title = 'Gallery2 URL Rewrite Module Status:';
+        list ($ret, $rewriteApi) = GalleryCoreApi::newFactoryInstance('RewriteApi');
+        if ($ret) {
+        /* G2 Error handling */
+            $results = array(
+                'title' => $title,
+                'installed' => false,
+                'active' => false,
+                'available' => false,
+                $errorLevel => true,
+                'notice' => G2EmbedTestUtilities::_trans(
+                        'Gallery2 Error when trying to access URL Rewrite Module status. %ret',
+                        array('%ret' => $ret->getAsHtml())),
+                );
+        }
+        if (empty($rewriteApi)) {
+            $results = array(
+                'title' => $title,
+                'installed' => false,
+                'active' => false,
+                'available' => false,
+                $errorLevel => true,
+				'notice' =>  G2EmbedTestUtilities::_trans(
+ 			        'Either the URL rewrite module is not installed or the version is too old.'),
+                );
+        } else {
+            /* Check compatibility */
+            $required = array(1, 0);
+            list ($ret, $isCompatible) = $rewriteApi->isCompatibleWithApi($required);
+            if ($ret) {
+                /* Error handeling */
+                $results = array(
+                    'title' => $title,
+                    'installed' => false,
+                    'active' => false,
+                    'available' => false,
+                    $errorLevel => true,
+                    'notice' => G2EmbedTestUtilities::_trans(
+                        'Gallery2 Error when trying to access URL Rewrite Module status. %ret',
+                        array('%ret' => $ret->getAsHtml())),
+                    );		  
+            } else {
+                if (!$isCompatible) {
+                    $results = array(
+                        'title' => $title,
+                        'installed' => false,
+                        'active' => false,
+                        'available' => false,
+                        $errorLevel => true,
+ 				        'notice' =>  G2EmbedTestUtilities::_trans(
+ 				           'The installed URL Rewrite module version is not compatible.'),
+                        );
+                } else {
+                /* Add rules checking etc */
+                $results = array(
+                    'title' => $title,
+                    'success' => true,
+                    );
+                }
+            }
+        }
+        return $results;
+    }
+    
+	/**
+	 * Check the status of a Gallery2 Module
+	 *
+	 * @param $moduleId, $moduleName, $errorLevel, $allModulesStatus
+	 * @return array moduleStatus
+	 */
+	function moduleCheck($moduleId, $moduleName, $errorLevel, $allModulesStatus) {
+		$moduleStatus = array();
+		if (isset($allModulesStatus[$moduleId])) {
+			$moduleStatus['installed'] = true;
+			$moduleStatus['active'] = $allModulesStatus[$moduleId]['active'];
+			$moduleStatus['available'] = $allModulesStatus[$moduleId]['available'];		   
+		} else {
+			$moduleStatus['installed'] = false;
+			$moduleStatus['active'] = false;
+			$moduleStatus['available'] = false;
+		}  
+		$moduleStatus['title'] = 'Gallery2 ' . $moduleName .' Module Status:';
+		if (!$moduleStatus['installed']) {
+				$moduleStatus[$errorLevel] = true;
+				$moduleStatus['notice'] = G2EmbedTestUtilities::_trans(
+				    'The %moduleName Module is not installed.', 
+				    array('%moduleName' => $moduleName));
+		} else {
+			if ($moduleStatus['active'] && $moduleStatus['available']) {
+				$moduleStatus['success'] = true;
+			} else {
+				$moduleStatus[$errorLevel] = true;
+				$moduleStatus['notice'] =  G2EmbedTestUtilities::_trans(
+				    'The %moduleName Module is installed but not active or configured correctly.', 
+				    array('%moduleName' => $moduleName));
+		   }
+		} 
+		return $moduleStatus;
+	}
+	
+	    /*
+     * Returns the exact bytes value from a php.ini setting
+     *     * Copied from PHP.net's manual entry for ini_get()
+     */
+    function _getBytes($val) {
+        $val = trim($val);
+        $last = $val{strlen($val)-1};
+        switch($last) {
+        case 'k':
+        case 'K':
+            return (int) $val * 1024;
+            break;
+        case 'm':
+        case 'M':
+            return (int) $val * 1048576;
+            break;
+        default:
+            return $val;
+        }
+    }
+    
+	/**
+	 * Calculate the number of errors and warnings
+	 *
+	 * @param $results 
+	 * @return array($numErrors, $numWarnings)
+	 */
+    function _getNumErrorsAndWarnings($results) {
+        $numErrors = 0;
+        $numWarnings = 0;
+        foreach ($results as $key=>$result) {
+            if ($result['error']) {
+              $numErrors++;
+            }
+            if ($result['warning']) {
+              $numWarnings++;
+            }
+        }
+        return array($numErrors, $numWarnings);       
+    }
+	
+	/**
+	 * Translate the message string
+	 * This needs to be implemented by each embed application individually.
+	 *
+	 * Returns the translated string.
+	 * @param $string A string containing the English string to translate.
+     *        $args An associative array of replacements to make after translation. 
+     *              Incidences of any key in this array are replaced with the corresponding value.
+	 * @return string Translated String
+	 */
+	function _trans($string, $args = 0) {
+	   return t($string, $args);
+	}
+	
+    /**
+	 * Autodetect the Embed URI
+	 * This needs to be implemented by each embed application individually.
+	 *
+	 * @param none
+	 * @return string autodetected URI
+	 */
+	function _autodetectEmbedUri() {
+     $uri = url('gallery', null, null, false);
+     if (substr($uri, -8) == '/gallery') {
+        $uri = substr($uri, 0, strlen($string)-7) . 'index.php?q=gallery';
+     }
+     // strip the end /gallery if present and replace with index.php?q=gallery to avoid any 
+     // url rewrite issues. See http://gallery.menalto.com/node/46181
+     // Note the use of index.php in all cases. Not needed for Apache, but is for IIS
+     // see drupaldocs documentation for url.
+      return $uri;
+    }
+}
+?>

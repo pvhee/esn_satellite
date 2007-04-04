@@ -1,0 +1,20 @@
+/* $Id: gallery_filter.css,v 1.1 2006/03/24 14:04:52 kiz0987 Exp $ */
+
+div.giImageBlock.left {
+	float: left;
+	margin: 1em;
+}
+
+div.giImageBlock.right {
+	float: right;
+	margin: 1em;
+}
+
+div.giImageBlock.nowrap {
+	float: none;
+	margin: 1em
+}
+
+.giImageBlock-clear-both {
+  clear: both;
+}

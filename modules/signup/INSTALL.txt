@@ -1,0 +1,48 @@
+$Id: INSTALL.txt,v 1.1.2.4 2006/06/16 17:14:19 thehunmonkgroup Exp $
+
+It is assumed that you have Drupal up and running.  Be sure to check
+the Drupal web site if you need assistance.  If you run into problems,
+you should always read the INSTALL.txt that comes with the Drupal
+package and read the online documentation.
+
+0. Always backup your database before you enable a new contributed module!
+
+1. Place the signup package into your Drupal modules/ directory.
+
+2. Enable the signup module by navigating to: administer > modules
+
+   Note: if you want support for automatic closing of events and
+   reminder emails you must also install and enable the event package!
+
+   Click the 'Save configuration' button at the bottom to commit your
+   changes.
+
+3. For the final configuration of the module, navigate to
+   administer > settings > signup
+
+   Here you can configure the options for the module.
+
+4. Enable the node types that you wish to allow signups for under
+
+   administer > settings > content types > configure
+
+   You may wish to create a new content type specifically for event
+   signups using either the Flexinode module or the Content
+   Construction Kit (CCK).
+
+5. Grant the proper access to user accounts under: administer > access control
+   
+   allow signups: allows the selected role to sign up for nodes
+
+   NOTE: Enabling 'allow signups' for the anonymous user will allow anonymous
+         users to sign up by entering an email address.
+
+   admin signups: allows the selected role to view who has signed up
+                  for nodes
+   
+   Viewing the signup report under administer > signup, and configuring
+   administer > settings > signup are restricted to user who have the
+   'access administration pages' privilege
+
+6. Start signing up!
+

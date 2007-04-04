@@ -1,0 +1,299 @@
+<?php
+// $Id: signup_conflicts.module,v 1.3.2.1 2006/06/16 17:14:19 thehunmonkgroup Exp $
+
+/**
+ * @defgroup signup_conflicts_core Core drupal hooks
+ */
+
+/**
+ * Implementation of hook_block().
+ * @ingroup signup_conflicts_core
+ * @param $op the operation that is being requested.  This defaults to 'list', which indicates that the method should
+ *        return which blocks are available.
+ * @param $delta the specific block to display.  This is actually the offset into an array.
+ * @return one of two possibilities.  The first is an array of available blocks.  The other is an array containing a
+ *        block.
+ */
+function signup_conflicts_block($op = 'list', $delta = 0) {
+  global $user;
+  switch ($op) {
+    case 'list' :
+      $blocks[0]['info'] = t('Alert users to signup conflicts.');
+      return $blocks;
+      break;
+    case 'view' :
+      if (user_access('access content')) {
+        switch ($delta) {
+          case 0:
+            $titles = signup_list_user_signups($user->uid);
+            $conflicts = _signup_conflicts_get_conflicts($user->uid);
+            if (count($titles) && count($conflicts)) {
+              $conflict_teaser = '<br>'. l(t('%number schedule %conflict in your current signups', array('%number' => $conflicts['total'], '%conflict' => format_plural($conflicts['total'], t('conflict exists'), t('conflicts exist')))), "user/$user->uid");
+              $block['subject'] = t('Schedule conflicts');
+              $block['content'] = $conflict_teaser;
+            }
+            return $block;
+        }
+      }
+  }
+}
+
+/**
+ * Implementation of hook_help().
+ * @ingroup signup_conflicts_core
+ */
+function signup_conflicts_help($section) {
+  switch ($section) {
+    case 'admin/modules#description':
+      return t('Provide schedule conflict info for signup module.');
+      break;
+    case 'admin/help#signup':
+      return t('<p>signup_conflicts is an add-on for signup module, which allows users and admins
+        to view any schedule conflicts which exist between signup events.  Simply enable
+        the module in administer -> modules.  Users will see any schedule conflicts listed
+        on their user page, and admins will see two additional tabs, \'conflicts\' and
+        \'conflict detail\', appear in the administer -> signup section.  there is also
+        an optional block--when enabled it provides the user with a teaser to alert
+        them of schedule conflicts.</p>
+
+        <p>NOTE: this module requires the signup module and the event module to be properly installed</p>');
+  }
+}
+
+/**
+ * Implementation of hook_form_alter()
+ *
+ * @ingroup signup_conflicts_core
+ * @param $form_id The form being altered.
+ * @param $form The form array.
+ */
+function signup_conflicts_form_alter($form_id, &$form) {
+
+  /* this is a check for module dependencies.  the only way we
+    can ensure this check happening when the module is initially
+    enabled is to insert the check for when the form is initially
+    built, which will also be caught when the admin/module page is
+    reloaded upon submission.  this means we never want to call this
+    function when the form has been submitted, so make sure there's
+    no $_POST. */
+  if ($form_id == 'system_modules' && !$_POST) {
+      _signup_conflicts_system_module_validate($form);
+  }
+}
+
+/**
+ * Implmentation of hook_menu()
+ * @ingroup signup_conflicts_core
+ */
+function signup_conflicts_menu($may_cache) {
+
+  $items = array();
+  $access = user_access('admin signups');
+
+  if ($may_cache) {
+
+    //admin/signup menu item
+    $items[] = array('path' => 'admin/signup/conflicts', 'title' => t('conflicts'),
+        'callback' => 'signup_conflicts_summary', 'access' => $access,
+        'type' => MENU_LOCAL_TASK, 'weight' => 0);
+    $items[] = array('path' => 'admin/signup/conflict_detail', 'title' => t('conflict detail'),
+        'callback' => 'signup_conflicts_detail', 'access' => $access,
+        'type' => MENU_LOCAL_TASK, 'weight' => 3);
+
+  }
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_user().
+ * @ingroup signup_conflicts_core
+ */
+function signup_conflicts_user($op, &$edit, &$user, $category = NULL) {
+  switch ($op) {
+    case 'view':
+
+      //grab list of events the user signed up for
+      $signups = signup_list_user_signups($user->uid);
+
+      //grab list of signup conflict data for this user
+      $conflicts = _signup_conflicts_user_conflicts($user->uid);
+      if (isset($conflicts) && count($signups)) {
+        $output = $conflicts['title'] . $conflicts['data'];
+      }
+      if (isset($output)) {
+        return array(t('Signup conflicts exist') => array( array('value' => $output, 'class' => 'user')));
+      }
+  }
+}
+
+/**
+ * @defgroup signup_conflicts_callback Functions which are the menu callbacks for this module
+ */
+
+/**
+ * Callback function for generating a detail report of signup conflicts
+ * @ingroup signup_conflicts_callback
+ */
+function signup_conflicts_detail() {
+
+  //pull all users who have signed up for a node
+  $result = db_query('SELECT DISTINCT u.uid, u.name FROM {users} u INNER JOIN {signup_log} s on u.uid = s.uid WHERE u.uid != 0 ORDER BY u.name');
+
+  //for each user, build a conflict detail section, and add their number of conflicts to the total
+  while ($user = db_fetch_object($result)) {
+    $conflicts = _signup_conflicts_user_conflicts($user->uid);
+    if (isset($conflicts)) {
+      $sum .= $conflicts['title'] . $conflicts['data'];
+      $total_conflicts += $conflicts['total'];
+    } else {
+      $sum .= t('<h4>%user, 0 schedule conflicts</h4>', array('%user' => l($user->name, "user/$user->uid")));
+    }
+  }
+
+  //list the number of conflicts at the top of the page
+  if (isset($total_conflicts)) {
+    $output = t('<h2>%total total %conflict</h2>', array('%total' => $total_conflicts, '%conflict' => format_plural($total_conflicts, t('conflict'), t('conflicts')))) . $sum;
+  } else {
+    $output = t('<h2>No schedule conflicts</h2>');
+  }
+  print theme('page', $output);
+}
+
+/**
+ * Callback function for generating a summary report of signup conflicts
+ * @ingroup signup_conflicts_callback
+ */
+function signup_conflicts_summary() {
+
+  //pull all users who have signed up for a node
+  $result = db_query('SELECT DISTINCT u.uid, u.name FROM {users} u INNER JOIN {signup_log} s on u.uid = s.uid WHERE u.uid != 0 ORDER BY u.name');
+
+  //for each user, build summary table row, and add their number of conflicts to the total
+  while ($user = db_fetch_object($result)) {
+    $conflicts = _signup_conflicts_user_conflicts($user->uid);
+    $user_total = (count($conflicts) ? $conflicts['total'] : 0);
+    $rows[] = array(l($user->name, "user/$user->uid"), $user_total);
+    $total_conflicts += $user_total;
+  }
+
+  //list the number of conflicts at the top of the page
+  if ($total_conflicts > 0) {
+    $header = array(t('user'), t('conflicts'));
+    $output = t('<h2>%total total %conflict</h2>', array('%total' => $total_conflicts, '%conflict' => format_plural($total_conflicts, t('conflict'), t('conflicts'))));
+    $output .= theme('table', $header, $rows);
+  } else {
+    $output = t('<h2>No schedule conflicts</h2>');
+  }
+  print theme('page', $output);
+}
+
+/**
+ * @defgroup signup_conflicts_internal Internal module functions
+ */
+
+/**
+ * Returns an array of conflict information for the specified uid
+ * @ingroup signup_conflicts_internal
+ */
+function _signup_conflicts_get_conflicts($uid) {
+
+  $conflicts = array();
+  if (module_exist('event') && $uid != 0) {
+
+    //pull all signup nodes for the specified user
+    $signups = db_query('SELECT n.nid, n.title, e.event_start AS start, e.event_end AS end FROM {signup_log} s INNER JOIN {node} n ON s.nid = n.nid INNER JOIN {event} e ON n.nid = e.nid WHERE s.uid = %d', $uid);
+
+    //for each signup, pull all nodes that have a time conflict.  ignore duplicate conflicts
+    while ($events = db_fetch_array($signups)) {
+      $nid = $events['nid'];
+      $title = $events['title'];
+      $end = $events['end'];
+      $start = $events['start'];
+      $nodes[$nid][] = (integer) $nid;
+      $skip = implode(', ', $nodes[$nid]);
+      $conflicting = db_query('SELECT n.nid, n.title, e.event_start AS start, e.event_end AS end FROM {signup_log} s INNER JOIN {node} n ON s.nid = n.nid INNER JOIN {event} e ON n.nid = e.nid WHERE s.uid = %d AND ((event_start < %d AND event_start > %d) OR(event_end < %d AND event_end > %d) OR (event_end >= %d AND event_start <= %d)) AND n.nid NOT IN(%s)', $uid, $end, $start, $end, $start, $end, $start, $skip);
+
+      //if there are conflicts, build a conflict array.  mark conflicts to prevent duplicates
+      if (db_num_rows($conflicting)) {
+        $conflicts[$nid][] = array('nid' => $nid, 'title' => $title, 'start' => $start, 'end' => $end);
+        while ($conflict = db_fetch_array($conflicting)) {
+          $conflicts[$nid][] = $conflict;
+          $total_conflicts++;
+          $nodes[$conflict['nid']][] = $nid;
+        }
+      }
+    }
+
+    if ($conflicts) {
+      $conflicts['total'] = $total_conflicts;
+    }
+  }
+  return $conflicts;
+}
+
+/**
+ * Validates module dependencies for the module.
+ *
+ * @param $form The form array passed from hook_form_alter.
+ *
+ * Set the $module variable to a string which is the name of the module, minus
+ * the .module extension.  Set $dependencies to an array of module names which
+ * the module is dependent on--each element is a string which is the module name
+ * minus the .module extension.  Note that this will not check for any dependencies
+ * for the modules this module depends on--only those that are explicitly listed in
+ * the $dependencies array.
+ */
+function _signup_conflicts_system_module_validate(&$form) {
+
+  $module = 'signup_conflicts';
+  $dependencies = array('event', 'signup');
+
+  foreach ($dependencies as $dependency) {
+  	if (!in_array($dependency, $form['status']['#default_value'])) {
+  	  $missing_dependency = TRUE;
+  	  $missing_dependency_list[] = $dependency;
+  	}
+  }
+
+  if (in_array($module, $form['status']['#default_value']) && isset($missing_dependency)) {
+    db_query("UPDATE {system} SET status = 0 WHERE type = 'module' AND name = '%s'", $module);
+    $key = array_search($module, $form['status']['#default_value']);
+    unset($form['status']['#default_value'][$key]);
+    drupal_set_message(t('The module %module was deactivated--it requires the following disabled/non-existant modules to function properly: %dependencies', array('%module' => $module, '%dependencies' => implode(', ', $missing_dependency_list))), 'error');
+
+  }
+
+}
+
+/**
+ * Returns a formatted list of conflict information for the specified user
+ * @ingroup signup_conflicts_internal
+ */
+function _signup_conflicts_user_conflicts($uid) {
+
+  $user = user_load(array('uid' => $uid));
+  $conflicts = _signup_conflicts_get_conflicts($uid);
+
+  //if there are conflicts, pull the total from the array, and build a title section
+  if (count($conflicts)) {
+    $return['total'] = array_pop($conflicts);
+    $return['title'] = t('<h4>%user, %total schedule %conflict:</h4>', array('%total' => $return['total'], '%conflict' => format_plural($return['total'], t('conflict'), t('conflicts')), '%user' => l($user->name, "user/$user->uid")));
+
+    $output = '';
+
+    //pull the main event off the array, and then loop through and put all the conflicts to that event in an item list
+    foreach($conflicts as $nid) {
+      $list = array();
+      $node = array_shift($nid);
+      $output .= l(check_plain($node['title']), 'node/'. $node['nid']) .' '. t('conflicts with:');
+      foreach ($nid as $conflict) {
+        $list[] = l(check_plain($conflict['title']), 'node/'. $conflict['nid']);
+      }
+      $output .= theme('item_list', $list);
+    }
+    $return['data'] = $output;
+  }
+  return $return;
+}
+?>

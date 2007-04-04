@@ -1,0 +1,123 @@
+<?php
+
+/**
+ * @taxonomy_ticker
+ * Enables user to use a ticker to display a type of content
+ */
+
+/**
+ * Implementation of hook_help().
+ */
+function taxonomy_ticker_help($section) {
+  switch ($section) {
+    case 'admin/modules#description':
+      return t('Allows the use of a ticker to display a type of content.');
+  }
+}
+
+function taxonomy_ticker_contents() {
+
+  if (variable_get('taxonomy_ticker_direction', 0) == 0) {  // scrolling vertically
+    drupal_add_js(drupal_get_path('module', 'taxonomy_ticker') . '/taxonomy_ticker.js');
+    drupal_set_html_head(theme('stylesheet_import', base_path() . drupal_get_path('module', 'taxonomy_ticker') . '/taxonomy_ticker.css'));
+  } else {
+    drupal_add_js(drupal_get_path('module', 'taxonomy_ticker') . '/taxonomy_ticker_horizontally.js');
+    drupal_set_html_head(theme('stylesheet_import', base_path() . drupal_get_path('module', 'taxonomy_ticker') . '/taxonomy_ticker_horizontally.css'));
+  }
+
+  $tickerspeed = variable_get('taxonomy_ticker_speed', 8);
+  // removing the style tag from scrollPane breaks the scrolling functionality
+  $block = '<div id="scrollerClipper" style="z-index:'.$tickerspeed.'" onmouseover="pauseScroll();" onmouseout="reStartScroll();"><div id="outerscrollPane"><div id="scrollPane" style="position:relative; top:0px ; left:0px;">';
+
+  $type_q = ($type ? "n.type = '$type'" : 1);
+  $tid = variable_get("taxonomy_ticker_tid", 1);
+  foreach ($tid as $key => $val) {
+    $tid[$key] = "r.tid = '$val'";
+  }
+  if (!empty($tid)) $tids = "AND (" . join(" OR ", $tid) . ")";
+
+  $query = db_rewrite_sql("SELECT n.nid, n.title, n.type FROM {node} n LEFT JOIN {term_node} r ON r.nid = n.nid WHERE n.status = 1 " . $tids . " AND $type_q ORDER BY n.changed DESC");
+
+  $results = db_query_range($query, 0, variable_get('taxonomy_ticker_count', 5));
+
+  $block .= '<div id="firstscrollerContentItem"></div>';
+  while ( $result = db_fetch_object($results) ) {
+
+/* The commented code that follows is an example of how to integrate taxonomy_ticker with
+ * a flexinode content-type, which could be used to show some html content instead of just
+ * displaying the title of the node... */
+/*
+    $node = node_load(array('nid'=>$result->nid));
+    if ( $node->flexinode_2 != '' ) {
+      // $block .= "<div class=\"scrollerContentItem\"><p><a href=\"" . $node->flexinode_2 . "\">$result->title</a></p></div>";
+      $block .= "<div class=\"scrollerContentItem\"><p>$node->flexinode_2</p></div>";
+    }
+    else {
+*/
+      $block .= '<div class="scrollerContentItem"><p>' . l($result->title, 'node/' . $result->nid) . '</p></div>';
+/*
+    }
+*/
+  }
+
+  $block .= '<div id="lastscrollerContentItem"></div>';
+  $block .= '<div style="clear:both"></div></div></div></div>';
+
+  return $block;
+}
+
+function taxonomy_ticker_block($op = 'list', $delta = 0, $edit = array()) {
+  switch($op) {
+    case 'list' :
+      $blocks[0]['info'] = t('A ticker block');
+      return $blocks;
+    case 'view' :
+      $blocks["content"] = taxonomy_ticker_contents();
+      $blocks["subject"] = t('Ticker');
+      return $blocks;
+  }
+}
+
+function taxonomy_ticker_settings() {
+
+  $form['taxonomy_ticker_tid'] = array(
+    '#type' => 'select',
+    '#title' => "Terms",
+    '#default_value' => variable_get("taxonomy_ticker_tid", 1),
+    '#options' => taxonomy_form_all(),
+    '#description' => /* $description = */
+                         "Take nodes associated to the selected terms.",
+    '#extra' => /* $extra = */ 0,
+    '#multiple' => /* $multiple = */ TRUE,
+    '#required' => /* $required = */ TRUE,
+  );
+
+  $form["taxonomy_ticker_count"] = array(
+    '#type' => 'textfield',
+    '#title' => "Number of items",
+    '#default_value' => variable_get("taxonomy_ticker_count", 5),
+    '#size' => 3,
+    '#maxlength' => 3,
+    '#description' => t("The number of items to display in the ticker."),
+  );
+
+  $form["taxonomy_ticker_direction"] = array(
+    '#type' => 'select',
+    '#title' => "Direction of scroll",
+    '#default_value' => variable_get("taxonomy_ticker_direction", 0),
+    '#options' => array(0 => t('Vertically'), 1 => t('Horizontally')),
+    '#description' => t("The direction in which the items scroll in the ticker."),
+  );
+
+  $form["taxonomy_ticker_speed"] = array(
+    '#type' => 'select',
+    '#title' => "Scroll Speed",
+    '#default_value' => variable_get("taxonomy_ticker_speed", 8),
+    '#options' => array(1 => t('Super Fast'), 4 => t('Fast'), 8 => t('Standard'), 12 => t('Slow'), 16 => t('Super Slow')),
+    '#description' => t("The speed in which the items scroll in the ticker."),
+  );
+
+  return $form;
+}
+
+?>

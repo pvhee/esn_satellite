@@ -1,0 +1,104 @@
+// $Id: CHANGELOG.txt,v 1.1.2.13 2007/02/01 15:14:22 karens Exp $
+
+4.7--1.3
+========
+
+Features
+--------
+
+General
+- 59451   Added management of default values for fields
+- 107128  Added teasers / full nodes support in an overview form for display settings
+-         Reworked theming example and instructions accordingly
+-         Removed hook_field('view') for core field modules
+          (default 'view' op is now handled in content.module)
+- 108755  Add group name in the 'class' attributes of groups fieldsets
+
+Field / widget modules
+- 108302  Number : Added formatters for numbers (+ be sure non-numeric data is not stored)
+- 110570  Number : Added prefix and suffix option
+- 111129  Optionwidgets : Added widget to handle single on/off checkbox
+- 112464  Standardize validation in field rather than widget, 
+          Standardize use of $items rather than $node_field
+
+Bugfix
+------
+
+General
+- 104229  Fixed occasional 'wrong datatype' error on field overview
+- 107667  Added missing '#size' for mutliple select widgets (display issues with Opera)
+- 108094  (incomplete) fix for "text columns are not allowed defaults values with MySQL(5)" ?
+- 108914  Fixed error when several fieldgroups have the same name
+-         Remove deprecated help text in fieldgroup.module
+- 108226  make cck view field handler play nicely with Views Fusion module ('ungroup' handler)
+- 114936  make sure default value form element is not required
+
+Field / widget modules
+- 107667  Added missing '#size' for mutliple select widgets (display issues with Opera)
+- 108037  Optionwidgets : (update function) Added missing curly braces around table name
+- 114346  fix error on empty noderef fields
+
+4.7--1.2
+========
+
+Bugfix
+------
+- 107752  Changed JOIN USING to INNER JOIN in fieldgroup for MYSQL 3 compatibility
+- 84634   Added error handling for some PHP5 array_merge errors
+-         Fixed some invalid t()'ed strings for .pot extractor
+
+4.7--1.1
+========
+
+This version has database changes in it and requires update.php.
+
+Files added:
+  fieldgroup.module
+  fieldgroup.info
+  fieldgroup.install
+  content.css
+
+Features
+--------
+
+General
+- 57483   Added fieldgroup module to core CCK.
+- 99672   Improved UI for setting weights and groups on field overview page
+- 79887   Default field theming does not display label on empty fields.
+- 88135   Views handling of multiple fields : allow option to group multiple fields together.
+- 107208  make db tables storage-agnostic (remove MyISAM enforcement)
+-         Optimized .inc files inclusion
+-         Misc code cleanup
+
+Field / widget modules
+- 89172   Improved handling for optionwidgets, adding ability to create options as an array
+          in php or as a list of values. Also fixes View handling, making sure the right value
+          is swapped in for the option in Views tables and lists.
+
+Bugfix
+------
+
+General
+- 105270  Adapt field and group admin forms to work better with programmatic submissions.
+- 89351   Make sure node_content table row gets deleted when no fields are in it.
+-         Fix url in fields tab table.
+- 101599  Fixed node not being passed to formatters in view field handler
+-         When changing storage from 'per field' to 'per content type',NULL values were
+          copied as 0 or string 'NULL'
+- 98895   Always include content_admin.inc file in admin area.
+- 101946  Make sure no default value is provided for MySQL text and blob columns.
+- 81688   Ensure multiple fields have a label to mark "required" asterisk
+- 105603  Make goup names consistent with field names ('group-*' => 'group_*')
+
+Field / widget modules
+-         Text : store one '' (empty string) for empty multiple fields (stored nothing previously)
+- 103585  Userreference : force transposed node_field['uid'] to array when empty.
+- 98910   Userreference : fixed storage issues for empty userreference fields
+- 106150  Userreference : make user list sorting consistent
+- 82439   Number : fixed storage issues for empty number fields
+-         Noderefence : the 'empty' option for Views filters was not correctly preselected.
+
+4.7--1.0
+========
+
+- initial 4.7 release

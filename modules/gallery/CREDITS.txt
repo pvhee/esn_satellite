@@ -1,0 +1,11 @@
+// $Id: CREDITS.txt,v 1.1 2006/03/24 14:04:52 kiz0987 Exp $
+
+kiz_0987:
+This gallery.module was based on original code by walkah. The gallery_filter part is almost
+entirely based on work by MichelleC and Waldemar. The g2image application is by capt_kirk. 
+Thanks for all your efforts.
+
+MichelleC (g2_filter):
+This module would not exist without image_filter by Eric Scouten (http://drupal.org/node/9707). I started with that module and transformed it bit by bit into this module. While there's not a lot of original code left, I wouldn't have been able to do this without using image_filter as a template.
+
+This module is dependent on Drupal (of course), Gallery 2, and the gallery.module (http://drupal.org/project/gallery) so thanks to everyone for all the work on those. Without them, this module would be useless. :)
