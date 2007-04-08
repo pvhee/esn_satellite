@@ -1,0 +1,9 @@
+; $Id: signup.info,v 1.1.2.2 2007/03/27 16:03:27 dww Exp $
+name = Signup
+description = "Allow users to sign up for content (especially events)."
+version = "$Name: DRUPAL-5--1-0 $"
+
+; Information added by drupal.org packaging script on 2007-04-04
+version = "5.x-1.0"
+project = "signup"
+

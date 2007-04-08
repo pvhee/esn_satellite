@@ -1,0 +1,101 @@
+ul.jd_menu {
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	height: 25px;
+	list-style-type: none;
+	z-index: 1000;
+	/*
+	background-color: #DDF;
+	background: url(gradient.png) repeat-x;
+	border: 1px solid #70777D;
+	border-top: 1px solid #A5AFB8;
+	border-left: 1px solid #A5AFB8;
+	*/
+	
+}
+ul.jd_menu ul {
+	list-style-type: none;
+	display: none;
+}
+ul.jd_menu a, 
+ul.jd_menu a:active,
+ul.jd_menu a:link,
+ul.jd_menu a:visited
+{
+	
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 13px;
+	color: #05AAEB;	
+
+}
+ul.jd_menu li {
+    background-image: none;
+	float: left;
+	font-family: Tahoma, sans-serif;
+	font-size: 11px;
+	padding: 2px 6px 4px 6px;
+	cursor: pointer;
+	white-space: nowrap;
+	font-weight: blod;
+	font-size: 12px;
+	color: #05AAEB;	
+
+	background: url(images/nav_top_bg_right.gif) right repeat-y; 
+}
+ul.jd_menu li.jd_menu_hover_toolbar {
+	padding-left: 5px;
+	padding-right: 5px;
+
+	border-left: 1px solid  transparent;
+	border-right: 1px solid transparent;
+	border-right: 1px solid transparent;
+	color: #fff;
+	background: #EF057F; 
+	
+
+}
+ul.jd_menu a.jd_menu_hover_toolbar {
+	color: #05AAEB;
+}
+
+/* -- Sub-Menus Styling -- */
+ul.jd_menu ul {
+	position: absolute;
+	display: none;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	background: #fff;
+	border: 1px solid #DEF6FF;
+}
+ul.jd_menu ul li {
+	list-style-type: none;
+	float: none;
+	margin: 0px;
+	padding: 5px 10px 5px 4px;
+	width: 170px;
+	background: #F2F9FF;
+	border: none;
+	color: #70777D;
+}
+ul.jd_menu ul li.jd_menu_hover {
+	list-style-type: none;
+	background: #EF057F;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: #05AAEB;
+}
+ul.jd_menu ul a, 
+ul.jd_menu ul a:active,
+ul.jd_menu ul a:link,
+ul.jd_menu ul a:visited {
+	list-style-type: none;
+	text-decoration: none;
+	color: #05AAEB;
+}
+ul.jd_menu ul a.jd_menu_hover {
+	list-style-type: none;
+	color: #FFF;
+}

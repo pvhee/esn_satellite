@@ -1,0 +1,17 @@
+<?php
+// $Id: image_gallery.install,v 1.1.4.2 2007/03/21 19:32:36 drewish Exp $
+
+function image_gallery_install() {
+  //Nothing to do.
+}
+
+function image_gallery_update_1() {
+  $ret = array();
+  if ($vid = variable_get('image_nav_vocabulary', '')) {
+    $ret[] = update_sql("UPDATE {vocabulary} SET module='image_gallery' WHERE vid=%d", $vid);
+  }
+  else {
+    $ret[] = update_sql("UPDATE {vocabulary} SET module='image_gallery' WHERE module='image'");
+  }
+  return $ret;
+}
