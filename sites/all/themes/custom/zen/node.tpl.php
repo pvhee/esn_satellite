@@ -1,3 +1,9 @@
+<pre>
+	<!-- <?php
+	print_r($node)
+	?> -->
+</pre>
+	
 <div class="<?php print $node_classes ?>" id="node-<?php print $node->nid; ?>">
   <?php if ($page == 0): ?>
     <h2 class="title">

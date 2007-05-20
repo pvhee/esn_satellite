@@ -1,3 +1,7 @@
+<!-- <pre>
+	<?php print_r($block); ?>
+</pre> -->
+
 <div id="block-<?php print $block->module .'-'. $block->delta; ?>" class="block block-<?php print $block->module ?>">  
   <div class="blockinner">
     <h2 class="title"> <?php print $block->subject; ?> </h2>
