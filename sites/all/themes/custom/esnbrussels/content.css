@@ -1,0 +1,62 @@
+#emphasizeBig a, #emphasizeBig a:visited {
+	display: block; 
+	text-decoration: none; 
+	font-weight: bold; 
+	font-size: 120%;
+	color: white; 
+	text-align: center; 
+	padding: 10px; 
+	background:#FF0099;
+	border-bottom:0px;
+}
+
+#emphasizeBig a:hover {
+	color: #313393;
+}
+
+#content b { color: #FF0099; }
+
+/*
+#activateAccountBox textarea, #createEventBox textarea {
+	background: #fee3ad;
+}
+*/
+
+#bigForm label {
+	width: 100%;
+	text-align:left;
+}
+
+
+#activateAccountBox fieldset, #createEventBox fieldset {
+	padding: 1em;
+	border: 1px solid #335588;
+}
+
+#activateAccountBox legend, #createEventBox legend {
+	padding: 0.2em 0.5em;
+  /* border:1px solid #335588; */
+	font-size:90%;
+	text-align:right;
+	font-style:italic;
+}
+
+#activateAccountBox label, #createEventBox label {
+	float:left;
+	width:20%;
+	margin-right:0.5em;
+	padding-top:0.2em;
+	text-align:right;
+	font-weight:bold;
+}
+
+.smalltext {
+	font-style:  italic;
+}
+
+.subscribe {
+	padding:10px 10px 10px 10px;
+	background-color:#EEE;
+	margin:0px;
+	border: solid #BCBCBC 1px;
+}
