@@ -1,4 +1,4 @@
-/* $Id: content.css,v 1.1.2.5 2007/01/19 18:05:01 karens Exp $ */
+/* $Id: content.css,v 1.2.2.7 2007/01/19 17:59:59 karens Exp $ */
 
 table.content-field-overview, table.content-field-overview fieldset table {
   width:100%;
@@ -34,5 +34,4 @@ table.content-field-overview td {
   display: inline;
   width: auto;
 }
-
 

@@ -1,5 +1,5 @@
 <?php
-// $Id: database.mysql.inc,v 1.52.2.4 2007/01/01 17:52:00 killes Exp $
+// $Id: database.mysql.inc,v 1.66.2.1 2007/01/22 02:20:50 unconed Exp $
 
 /**
  * @file
@@ -11,6 +11,38 @@
  * @{
  */
 
+
+/**
+ * Report database status.
+ */
+function db_status_report($phase) {
+  $t = get_t();
+
+  $version = db_version();
+
+  $form['mysql'] = array(
+    'title' => $t('MySQL database'),
+    'value' => ($phase == 'runtime') ? l($version, 'admin/logs/status/sql') : $version,
+  );
+
+  if (version_compare($version, DRUPAL_MINIMUM_MYSQL) < 0) {
+    $form['mysql']['severity'] = REQUIREMENT_ERROR;
+    $form['mysql']['description'] = $t('Your MySQL Server is too old. Drupal requires at least MySQL %version.', array('%version' => DRUPAL_MINIMUM_MYSQL));
+  }
+
+  return $form;
+}
+
+/**
+ * Returns the version of the database server currently in use.
+ *
+ * @return Database server version
+ */
+function db_version() {
+  list($version) = explode('-', mysql_get_server_info());
+  return $version;
+}
+
 /**
  * Initialize a database connection.
  *
@@ -21,8 +53,15 @@
  * (e.g. your database and web server live on different machines).
  */
 function db_connect($url) {
+  $url = parse_url($url);
+
   // Check if MySQL support is present in PHP
   if (!function_exists('mysql_connect')) {
+    // Redirect to installer if using default DB credentials
+    if ($url['user'] == 'username' && $url['pass'] == 'password') {
+      include_once 'includes/install.inc';
+      install_goto('install.php');
+    }
     drupal_maintenance_theme();
     drupal_set_title('PHP MySQL support not enabled');
     print theme('maintenance_page', '<p>We were unable to use the MySQL database because the MySQL extension for PHP is not installed. Check your <code>PHP.ini</code> to see how you can enable it.</p>
@@ -30,11 +69,15 @@ function db_connect($url) {
     exit;
   }
 
-  $url = parse_url($url);
-
   // Decode url-encoded information in the db connection string
   $url['user'] = urldecode($url['user']);
-  $url['pass'] = urldecode($url['pass']);
+  // Test if database url has a password.
+  if(isset($url['pass'])) {
+    $url['pass'] = urldecode($url['pass']);
+  }
+  else {
+    $url['pass'] = '';
+  }
   $url['host'] = urldecode($url['host']);
   $url['path'] = urldecode($url['path']);
 
@@ -51,10 +94,18 @@ function db_connect($url) {
   //   (matched) rows, not the number of affected rows.
   $connection = @mysql_connect($url['host'], $url['user'], $url['pass'], TRUE, 2);
   if (!$connection) {
+    // Redirect to installer if using default DB credentials
+    if ($url['user'] == 'username' && $url['pass'] == 'password') {
+      include_once 'includes/install.inc';
+      install_goto('install.php');
+    }
+
+    // Show error screen otherwise
     drupal_maintenance_theme();
     drupal_set_header('HTTP/1.1 503 Service Unavailable');
     drupal_set_title('Unable to connect to database server');
-    print theme('maintenance_page', '<p>This either means that the username and password information in your <code>settings.php</code> file is incorrect or we can\'t contact the MySQL database server. This could mean your hosting provider\'s database server is down.</p>
+    print theme('maintenance_page', '<p>If you still have to install Drupal, proceed to the <a href="'. base_path() .'install.php">installation page</a>.</p>
+<p>If you have already finished installed Drupal, this either means that the username and password information in your <code>settings.php</code> file is incorrect or that we can\'t connect to the MySQL database server. This could mean your hosting provider\'s database server is down.</p>
 <p>The MySQL error was: '. theme('placeholder', mysql_error()) .'.</p>
 <p>Currently, the username is '. theme('placeholder', $url['user']) .' and the database server is '. theme('placeholder', $url['host']) .'.</p>
 <ul>
@@ -179,12 +230,13 @@ function db_num_rows($result) {
  * @param $row
  *   The index of the row whose result is needed.
  * @return
- *   The resulting field.
+ *   The resulting field or FALSE.
  */
 function db_result($result, $row = 0) {
   if ($result && mysql_num_rows($result) > $row) {
     return mysql_result($result, $row);
   }
+  return FALSE;
 }
 
 /**
@@ -202,6 +254,9 @@ function db_error() {
  * database tables. Instead, this function is used to return a new unique ID
  * of the type requested. If necessary, a new sequence with the given name
  * will be created.
+ *
+ * Note that the table name should be in curly brackets to preserve compatibility
+ * with table prefixes. For example, db_next_id('{node}_nid');
  */
 function db_next_id($name) {
   $name = db_prefix_tables($name);
@@ -360,6 +415,13 @@ function db_unlock_tables() {
 }
 
 /**
+ * Check if a table exists.
+ */
+function db_table_exists($table) {
+  return db_num_rows(db_query("SHOW TABLES LIKE '{" . db_escape_table($table) . "}'"));
+}
+
+/**
  * Wraps the given table.field entry with a DISTINCT(). The wrapper is added to
  * the SELECT list entry of the given query and the resulting query is returned.
  * This function only applies the wrapper if a DISTINCT doesn't already exist in
@@ -373,7 +435,7 @@ function db_unlock_tables() {
 function db_distinct_field($table, $field, $query) {
   $field_to_select = 'DISTINCT('. $table .'.'. $field .')';
   // (?<!text) is a negative look-behind (no need to rewrite queries that already use DISTINCT).
-  return preg_replace('/(SELECT.*)('. $table .'\.)?(?<!DISTINCT\()(?<!DISTINCT\('. $table .'\.)'. $field .'(.*FROM )/AUsi', '\1'. $field_to_select .'\3', $query);
+  return preg_replace('/(SELECT.*)(?:'. $table .'\.|\s)(?<!DISTINCT\()(?<!DISTINCT\('. $table .'\.)'. $field .'(.*FROM )/AUsi', '\1 '. $field_to_select .'\2', $query);
 }
 
 /**

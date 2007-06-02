@@ -1,5 +1,5 @@
 <?php
-// $Id: tinymce.module,v 1.90 2006/04/25 11:23:47 m3avrck Exp $
+// $Id: tinymce.module,v 1.90.4.16 2007/02/25 20:02:44 nedjo Exp $
 // A collaborative project by Matt Westgate <drupal at asitis dot org>,
 // Richard Bennett <richard.b@ at ritechnologies dot com> and Jeff Robbins <robbins at jjeff dot com>
 
@@ -14,8 +14,9 @@
 function tinymce_menu($may_cache) {
   $items = array();
   if ($may_cache) {
-    $items[] = array('path' => 'admin/settings/tinymce', 'title' => t('tinymce'),
+    $items[] = array('path' => 'admin/settings/tinymce', 'title' => t('TinyMCE'),
                      'callback' => 'tinymce_admin',
+                     'description' => t('Configure the rich editor.'),
                      'access' => user_access('administer tinymce'));
   }
   return $items;
@@ -26,16 +27,14 @@ function tinymce_menu($may_cache) {
  */
 function tinymce_help($section) {
   switch ($section) {
-    case 'admin/modules#description':
-      return t('The TinyMCE Javascript HTML WYSIWYG editor.');
     case 'admin/settings/tinymce#pages':
       return "node/*\nuser/*\ncomment/*";
     case 'admin/settings/tinymce':
     case 'admin/help#tinymce' :
-      return t('<p style="font-size:x-small">$Revision: 1.90 $ $Date: 2006/04/25 11:23:47 $</p>' .
+      return t('<p style="font-size:x-small">$Revision: 1.90.4.16 $ $Date: 2007/02/25 20:02:44 $</p>' .
                '<p>TinyMCE adds what-you-see-is-what-you-get (WYSIWYG) html editing to textareas. This editor can be enabled/disabled without reloading the page by clicking a link below each textarea.</p>
                 <p>Profiles can be defined based on user roles. A TinyMCE profile can define which pages receive this TinyMCE capability, what buttons or themes are enabled for the editor, how the editor is displayed, and a few other editor functions.</p>
-                <p>Lastly, only users with the <code>access tinymce</code> <a href="%url">permission</a> will be able to use TinyMCE.</p>', array('%url' => url('admin/access'))
+                <p>Lastly, only users with the <code>access tinymce</code> <a href="!url">permission</a> will be able to use TinyMCE.</p>', array('!url' => url('admin/user/access'))
               );
   }
 }
@@ -65,7 +64,7 @@ function tinymce_elements() {
 
   if (user_access('access tinymce')) {
     // Set resizable to false to avoid drupal.js resizable function from taking control of the textarea
-    $type['textarea'] = array('#process' => array('tinymce_process_textarea' => array()), '#resizable' => FALSE);
+    $type['textarea'] = array('#process' => array('tinymce_process_textarea' => array()), '#resizable' => TRUE);
   }
 
   return $type;
@@ -117,15 +116,15 @@ function tinymce_process_textarea($element) {
     $disable = t('disable rich-text');
 
 $tinymce_invoke = <<<EOD
-<script type="text/javascript">
+
   tinyMCE.init({
     $tinymce_settings
   });
-</script>
+
 EOD;
 
 $js_toggle = <<<EOD
-<script type="text/javascript">
+
   function mceToggle(id, linkid) {
     element = document.getElementById(id);
     link = document.getElementById(linkid);
@@ -150,7 +149,7 @@ $js_toggle = <<<EOD
       link.blur();
     }
   }
-</script>
+
 EOD;
 
 $status = tinymce_user_get_status($user, $profile);
@@ -204,12 +203,12 @@ EOD;
         // For some crazy reason IE will only load this JS file if the absolute reference is given to it.
         drupal_add_js($tinymce_mod_path . '/tinymce/jscripts/tiny_mce/tiny_mce.js');
       }
-      drupal_set_html_head($js_toggle);
+      drupal_add_js($js_toggle, 'inline');
       // We have to do this becuase of some unfocused CSS in certain themes. See http://drupal.org/node/18879 for details
       drupal_set_html_head('<style type="text/css" media="all">.mceEditor img { display: inline; }</style>');
     }
     // Load a TinyMCE init for each textarea.
-    if ($init) drupal_set_html_head($tinymce_invoke);
+    if ($init) drupal_add_js($tinymce_invoke, 'inline');
 
     //settings are saved as strings, not booleans
     if ($profile->settings['show_toggle'] == 'true') {
@@ -421,7 +420,7 @@ function _tinymce_get_buttons($skip_metadata = TRUE) {
  */
 function tinymce_admin($arg = NULL) {
 
-  $edit = $_POST['edit'];
+  $edit = $_POST;
   $op = $_POST['op'];
 
   $op = $arg && !$op ? $arg : $op;
@@ -463,7 +462,7 @@ function tinymce_admin($arg = NULL) {
       //Check if TinyMCE is installed.
       $tinymce_loc = drupal_get_path('module', 'tinymce') .'/tinymce/';
       if (!is_dir($tinymce_loc)) {
-        drupal_set_message(t('Could not find the TinyMCE engine installed at <strong>%tinymce-directory</strong>. Please <a href="http://tinymce.moxiecode.com/">download TinyMCE</a>, uncompress it and copy the folder into %tinymce-path.', array('%tinymce-path' => drupal_get_path('module', 'tinymce'), '%tinymce-directory' => $tinymce_loc)), 'error');
+        drupal_set_message(t('Could not find the TinyMCE engine installed at <strong>!tinymce-directory</strong>. Please <a href="http://tinymce.moxiecode.com/">download TinyMCE</a>, uncompress it and copy the folder into !tinymce-path.', array('!tinymce-path' => drupal_get_path('module', 'tinymce'), '!tinymce-directory' => $tinymce_loc)), 'error');
       }
       $output = tinymce_profile_overview();
   }
@@ -498,6 +497,9 @@ function tinymce_config($profile) {
   $init['verify_html']        = $settings['verify_html'] ? $settings['verify_html'] : 'false';
   $init['preformatted']       = $settings['preformatted'] ? $settings['preformatted'] : 'false';
   $init['convert_fonts_to_styles'] = $settings['convert_fonts_to_styles'] ? $settings['convert_fonts_to_styles'] : 'false';
+  $init['theme_advanced_resize_horizontal'] = 'false';
+  $init['theme_advanced_resizing_use_cookie'] = 'false';
+  
 
   $tinymce_mod_path = drupal_get_path('module', 'tinymce');
   if (is_dir($tinymce_mod_path . '/tinymce/jscripts/tiny_mce/plugins/imagemanager/') && user_access('access tinymce imagemanager')) {
@@ -623,7 +625,7 @@ function tinymce_profile_delete($name) {
 /**
  * Return an HTML form for profile configuration.
  */
-function tinymce_profile_form($edit) {
+function tinymce_profile_form_build($edit) {
   $edit = (object) $edit;
 
   // Only display the roles that currently don't have a tinymce profile. One
@@ -638,7 +640,7 @@ function tinymce_profile_form($edit) {
       }
     }
     if (!$orig_roles) {
-      drupal_set_message(t('You must <a href="%access-control-url">assign</a> at least one role with the \'access tinymce\' permission before creating a profile.', array('%access-control-url' => url('admin/access'))), 'error');
+      drupal_set_message(t('You must <a href="!access-control-url">assign</a> at least one role with the \'access tinymce\' permission before creating a profile.', array('!access-control-url' => url('admin/user/access'))), 'error');
     }
     else if (!$roles) {
       drupal_set_message(t('You will not be allowed to create a new profile since all user roles have already been assigned profiles. Either remove an existing tinymce profile from at least one role or assign another role the \'access tinymce\' permission.'), 'error');
@@ -750,11 +752,11 @@ function tinymce_profile_form($edit) {
   }
   else {
     $options = array(t('Show on every page except the listed pages.'), t('Show on only the listed pages.'));
-    $description = t("Enter one page per line as Drupal paths. The '*' character is a wildcard. Example paths are '%blog' for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array('%blog' => theme('placeholder', 'blog'), '%blog-wildcard' =>  theme('placeholder', 'blog/*'), '%front' => theme('placeholder', '<front>')));
+    $description = t("Enter one page per line as Drupal paths. The '*' character is a wildcard. Example paths are '!blog' for the blog page and !blog-wildcard for every personal blog. !front is the front page.", array('!blog' => theme('placeholder', 'blog'), '!blog-wildcard' =>  theme('placeholder', 'blog/*'), '!front' => theme('placeholder', '<front>')));
 
     if ($access) {
       $options[] = t('Show if the following PHP code returns <code>TRUE</code> (PHP-mode, experts only).');
-      $description .= t('If the PHP-mode is chosen, enter PHP code between %php. Note that executing incorrect PHP-code can break your Drupal site.', array('%php' => theme('placeholder', '<?php ?>')));
+      $description .= t('If the PHP-mode is chosen, enter PHP code between !php. Note that executing incorrect PHP-code can break your Drupal site.', array('!php' => theme('placeholder', '<?php ?>')));
     }
     $form['visibility']['access'] = array(
       '#type' => 'radios', 
@@ -922,7 +924,7 @@ function tinymce_profile_form($edit) {
     '#default_value' => $edit->settings['css_path'], 
     '#size' => 40, 
     '#maxlength' => 255, 
-    '#description' => t('Enter path to CSS file (example: "css/editor.css").<br />Macros: %h (host name: http://www.example.com/), %t (path to theme: theme/yourtheme/)<br />Be sure to select "define css" above.')
+    '#description' => t('Enter path to CSS file (example: "css/editor.css").<br />Macros: !h (host name: http://www.example.com/), !t (path to theme: theme/yourtheme/)<br />Be sure to select "define css" above.')
   );
   
   $form['css']['css_classes'] = array(
@@ -939,7 +941,15 @@ function tinymce_profile_form($edit) {
     '#value' => $btn
   );
 
-  $output .= drupal_get_form('tinymce_profile_form', $form);
+  return $form;
+}
+
+/**
+ * Return an HTML form for profile configuration.
+ */
+function tinymce_profile_form($edit) {
+
+  $output .= drupal_get_form('tinymce_profile_form_build', $edit);
 
   return $output;
 }
@@ -952,7 +962,7 @@ function theme_tinymce_profile_form_buttons($form) {
 
   // Flatten forms array
   foreach (element_children($form) as $key) {
-    $buttons[] = form_render($form[$key]);
+    $buttons[] = drupal_render($form[$key]);
   }
 
   //split checkboxes into rows with 3 columns
@@ -1010,10 +1020,10 @@ function tinymce_profile_overview() {
       $rows[] = array(array('data' => $p->name, 'valign' => 'top'), array('data' => implode("<br />\n", $p->rids)), array('data' => l(t('edit'), 'admin/settings/tinymce/edit/'. urlencode($p->name)) . ' '. l(t('delete'), 'admin/settings/tinymce/delete/'. urlencode($p->name)), 'valign' => 'top'));
     }
     $output .= theme('table', $header, $rows);
-    $output .= t('<p><a href="%create-profile-url">Create new profile</a></p>', array('%create-profile-url' => url('admin/settings/tinymce/add')));
+    $output .= t('<p><a href="!create-profile-url">Create new profile</a></p>', array('!create-profile-url' => url('admin/settings/tinymce/add')));
   }
   else {
-    drupal_set_message(t('No profiles found. Click here to <a href="%create-profile-url">create a new profile</a>.', array('%create-profile-url' => url('admin/settings/tinymce/add'))));
+    drupal_set_message(t('No profiles found. Click here to <a href="!create-profile-url">create a new profile</a>.', array('!create-profile-url' => url('admin/settings/tinymce/add'))));
   }
 
   return $output;

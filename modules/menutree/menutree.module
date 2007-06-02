@@ -1,5 +1,5 @@
 <?php
-//$Id: menutree.module,v 1.1 2007/01/06 23:05:45 crell Exp $
+//$Id: menutree.module,v 1.2 2007/03/13 18:13:42 crell Exp $
 
 /**
  * @file
@@ -10,21 +10,6 @@
  *
  */
 
-/**
- * Implementation of hook_help().
- *
- * Throughout Drupal, hook_help() is used to display help text at the top of
- * pages. Some other parts of Drupal pages get explanatory text from these hooks
- * as well. We use it here to provide a description of the module on the
- * module administration page.
- */
-function menutree_help($section) {
-  switch ($section) {
-    case 'admin/modules#description':
-      // This description is shown in the listing at admin/modules.
-      return t('Display a site-map page based on one or more menus.');
-  }
-}
 
 /**
  * Implementation of hook_perm().
@@ -99,6 +84,6 @@ function menutree_display($pid=0) {
  */
 function theme_menutree_page($output) {
   
-  return '<div class="menutree_page">' . $output . "</div>\n";
+  return '<div class="menutree-page">' . $output . "</div>\n";
   
 }

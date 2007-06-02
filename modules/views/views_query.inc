@@ -1,6 +1,6 @@
 <?php
 
-// $Id: views_query.inc,v 1.48.2.13 2007/01/21 23:17:29 merlinofchaos Exp $
+// $Id: views_query.inc,v 1.51.2.5 2007/01/21 23:17:38 merlinofchaos Exp $
 /*
  * This builds a query for the view.
  */
@@ -90,9 +90,6 @@ function _views_view_build_filters(&$query, &$view) {
     foreach($view->exposed_filter as $count => $expose) {
       if ($filter['id'] == $expose['id']) {
         $id = $expose['id'];
-        if ($_GET["$filter$count"] === '') {
-          unset($_GET["filter$count"]);
-        }
 
         if (isset($view->exposed_filter_offset)) {
           $count += $view->exposed_filter_offset;
@@ -104,7 +101,6 @@ function _views_view_build_filters(&$query, &$view) {
         }
 
         if ($expose['optional']) {
-          // Test to see if the filter is not given
           if ((!isset($_GET["filter$count"]) || $_GET["filter$count"] == '') && !$expose['is_default']) {
             continue 2; // skip
           }
@@ -114,8 +110,6 @@ function _views_view_build_filters(&$query, &$view) {
             continue 2; // skip this filter entirely.
           }
         }
-        // note that if we get here and the filter wasn't set, it's because we
-        // are supposed to leave the default.
         if (isset($_GET["filter$count"]) && $_GET["filter$count"] != '') {
           $value = $_GET["filter$count"];
           if ($filterinfo['value-type'] == 'array' && !is_array($value)) {
@@ -127,7 +121,6 @@ function _views_view_build_filters(&$query, &$view) {
         break;
       }
     }
-
     $table = $filterinfo['table'];
 
     $replace = array('&gt;' => '>', '&lt;' => '<');
@@ -216,7 +209,6 @@ function _views_view_build_sorts(&$query, $view) {
  * Add field information from a view to a query.
  */
 function _views_view_build_fields(&$query, &$view) {
-
   $fields = _views_get_fields();
 
   foreach ($view->field as $field) {
@@ -319,7 +311,6 @@ class _views_query {
 
     // We check for this specifically because we don't want to add it aliased.
     if ($table == $query->primary_table && $field == $view->primary_field) {
-      dprint('..');
       return;
     }
 
@@ -384,6 +375,8 @@ class _views_query {
    * Add multiple an orderby's. Right now I'm not sure why this function
    * is separate from add_orderby above; I don't think it needs to
    * be.
+   *
+   * NOTE: $alias doesn't work when adding multiple orderbys.
    */
   function add_orderby($table, $field, $order, $alias = '') {
     if (!$alias && $table) {

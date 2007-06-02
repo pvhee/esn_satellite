@@ -8,13 +8,13 @@ simple menu-based sitemap, give or take a path alias.
 
 REQUIREMENTS
 
-- Drupal 4.7
+- Drupal 5.x
 
 INSTALLATION
 
 - Copy the menutree directory to your modules directory.
-- Go to admin/modules and enable it.
-- Everything else is handled by the miracle of Drupal 4.7's automated install system.
+- Go to admin/build/modules and enable it.
+- Everything else is handled by the miracle of Drupal's automated install system.
 
 AUTHOR AND CREDIT
 

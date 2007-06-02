@@ -1,5 +1,5 @@
 <?php
-// $Id: file.inc,v 1.74.2.9 2007/01/04 11:47:53 killes Exp $
+// $Id: file.inc,v 1.90 2007/01/05 05:32:22 unconed Exp $
 
 /**
  * @file
@@ -81,7 +81,7 @@ function file_create_path($dest = 0) {
  *   any errors will be attached to. This is useful for settings forms that
  *   require the user to specify a writable directory. If it can't be made to
  *   work, a form error will be set preventing them from saving the settings.
- * @return False when directory not found, or true when directory exists.
+ * @return FALSE when directory not found, or TRUE when directory exists.
  */
 function file_check_directory(&$directory, $mode = 0, $form_item = NULL) {
   $directory = rtrim($directory, '/\\');
@@ -89,26 +89,26 @@ function file_check_directory(&$directory, $mode = 0, $form_item = NULL) {
   // Check if directory exists.
   if (!is_dir($directory)) {
     if (($mode & FILE_CREATE_DIRECTORY) && @mkdir($directory)) {
-      drupal_set_message(t('The directory %directory has been created.', array('%directory' => theme('placeholder', $directory))));
+      drupal_set_message(t('The directory %directory has been created.', array('%directory' => $directory)));
       @chmod($directory, 0775); // Necessary for non-webserver users.
     }
     else {
       if ($form_item) {
-        form_set_error($form_item, t('The directory %directory does not exist.', array('%directory' => theme('placeholder', $directory))));
+        form_set_error($form_item, t('The directory %directory does not exist.', array('%directory' => $directory)));
       }
-      return false;
+      return FALSE;
     }
   }
 
   // Check to see if the directory is writable.
   if (!is_writable($directory)) {
     if (($mode & FILE_MODIFY_PERMISSIONS) && @chmod($directory, 0775)) {
-      drupal_set_message(t('The permissions of directory %directory have been changed to make it writable.', array('%directory' => theme('placeholder', $directory))));
+      drupal_set_message(t('The permissions of directory %directory have been changed to make it writable.', array('%directory' => $directory)));
     }
     else {
-      form_set_error($form_item, t('The directory %directory is not writable', array('%directory' => theme('placeholder', $directory))));
-      watchdog('file system', t('The directory %directory is not writable, because it does not have the correct permissions set.', array('%directory' => theme('placeholder', $directory))), WATCHDOG_ERROR);
-      return false;
+      form_set_error($form_item, t('The directory %directory is not writable', array('%directory' => $directory)));
+      watchdog('file system', t('The directory %directory is not writable, because it does not have the correct permissions set.', array('%directory' => $directory)), WATCHDOG_ERROR);
+      return FALSE;
     }
   }
 
@@ -119,13 +119,13 @@ function file_check_directory(&$directory, $mode = 0, $form_item = NULL) {
       chmod($directory .'/.htaccess', 0664);
     }
     else {
-      $message = t("Security warning: Couldn't write .htaccess file. Please create a .htaccess file in your %directory directory which contains the following lines: <code>%htaccess</code>", array('%directory' => theme('placeholder', $directory), '%htaccess' => '<br />'. str_replace("\n", '<br />', check_plain($htaccess_lines))));
+      $message = t("Security warning: Couldn't write .htaccess file. Please create a .htaccess file in your %directory directory which contains the following lines: <code>!htaccess</code>", array('%directory' => $directory, '!htaccess' => '<br />'. nl2br(check_plain($htaccess_lines))));
       form_set_error($form_item, $message);
       watchdog('security', $message, WATCHDOG_ERROR);
     }
   }
 
-  return true;
+  return TRUE;
 }
 
 /**
@@ -149,7 +149,7 @@ function file_check_path(&$path) {
     return $filename;
   }
 
-  return false;
+  return FALSE;
 }
 
 
@@ -164,7 +164,7 @@ function file_check_path(&$path) {
  * @todo Extenalize SESSION['file_uploads'] to modules.
  *
  * @param $source An upload source (the name of the upload form item), or a file
- * @return false for an invalid file or upload. A file object for valid uploads/files.
+ * @return FALSE for an invalid file or upload. A file object for valid uploads/files.
  *
  */
 
@@ -182,7 +182,7 @@ function file_check_upload($source = 'upload') {
       return $source;
     }
     else {
-      return false;
+      return FALSE;
     }
   }
 
@@ -193,11 +193,11 @@ function file_check_upload($source = 'upload') {
   }
 
   // If a file was uploaded, process it.
-  if ($_FILES["edit"]["name"][$source] && is_uploaded_file($_FILES["edit"]["tmp_name"][$source])) {
+  if ($_FILES["files"]["name"][$source] && is_uploaded_file($_FILES["files"]["tmp_name"][$source])) {
 
-    // Check for file upload errors and return false if a
+    // Check for file upload errors and return FALSE if a
     // lower level system error occurred.
-    switch ($_FILES["edit"]["error"][$source]) {
+    switch ($_FILES["files"]["error"][$source]) {
 
       // @see http://php.net/manual/en/features.file-upload.errors.php
       case UPLOAD_ERR_OK:
@@ -205,31 +205,31 @@ function file_check_upload($source = 'upload') {
 
       case UPLOAD_ERR_INI_SIZE:
       case UPLOAD_ERR_FORM_SIZE:
-        drupal_set_message(t('The file %file could not be saved, because it exceeds the maximum allowed size for uploads.', array('%file' => theme('placeholder', $source))), 'error');
+        drupal_set_message(t('The file %file could not be saved, because it exceeds the maximum allowed size for uploads.', array('%file' => $source)), 'error');
         return 0;
 
       case UPLOAD_ERR_PARTIAL:
       case UPLOAD_ERR_NO_FILE:
-        drupal_set_message(t('The file %file could not be saved, because the upload did not complete.', array('%file' => theme('placeholder', $source))), 'error');
+        drupal_set_message(t('The file %file could not be saved, because the upload did not complete.', array('%file' => $source)), 'error');
         return 0;
 
       // Unknown error
       default:
-        drupal_set_message(t('The file %file could not be saved. An unknown error has occurred.', array('%file' => theme('placeholder', $source))),'error');
+        drupal_set_message(t('The file %file could not be saved. An unknown error has occurred.', array('%file' => $source)),'error');
         return 0;
     }
 
     // Begin building file object.
-    $file = new StdClass();
-    $file->filename = trim(basename($_FILES["edit"]["name"][$source]), '.');
+    $file = new stdClass();
+    $file->filename = trim(basename($_FILES["files"]["name"][$source]), '.');
 
     // Create temporary name/path for newly uploaded files.
     $file->filepath = tempnam(file_directory_temp(), 'tmp_');
 
-    $file->filemime = $_FILES["edit"]["type"][$source];
+    $file->filemime = $_FILES["files"]["type"][$source];
 
     // Rename potentially executable files, to help prevent exploits.
-    if (((substr($file->filemime, 0, 5) == 'text/' || strpos($file->filemime, 'javascript')) && (substr($file->filename, -4) != '.txt')) || preg_match('/\.(php|pl|py|cgi|asp)$/i', $file->filename)) {
+    if (preg_match('/\.(php|pl|py|cgi|asp|js)$/i', $file->filename) && (substr($file->filename, -4) != '.txt')) {
       $file->filemime = 'text/plain';
       $file->filepath .= '.txt';
       $file->filename .= '.txt';
@@ -237,13 +237,13 @@ function file_check_upload($source = 'upload') {
 
     // Move uploaded files from php's upload_tmp_dir to Drupal's file temp.
     // This overcomes open_basedir restrictions for future file operations.
-    if (!move_uploaded_file($_FILES["edit"]["tmp_name"][$source], $file->filepath)) {
+    if (!move_uploaded_file($_FILES["files"]["tmp_name"][$source], $file->filepath)) {
       drupal_set_message(t('File upload error. Could not move uploaded file.'));
-      watchdog('file', t('Upload Error. Could not move uploaded file(%file) to destination(%destination).', array('%file' => theme('placeholder', $_FILES["edit"]["tmp_name"][$source]), '%destination' => theme('placeholder', $file->filepath))));
-      return false;
+      watchdog('file', t('Upload Error. Could not move uploaded file (%file) to destination (%destination).', array('%file' => $_FILES["files"]["tmp_name"][$source], '%destination' => $file->filepath)));
+      return FALSE;
     }
 
-    $file->filesize = $_FILES["edit"]["size"][$source];
+    $file->filesize = $_FILES["files"]["size"][$source];
     $file->source = $source;
 
     // Add processed file to the cache.
@@ -257,8 +257,8 @@ function file_check_upload($source = 'upload') {
       return $_SESSION['file_uploads'][$source];
     }
   }
-  // If nothing was done, return false.
-  return false;
+  // If nothing was done, return FALSE.
+  return FALSE;
 }
 
 /**
@@ -267,7 +267,7 @@ function file_check_upload($source = 'upload') {
  * exploits.
  *
  * @code
- *   // Returns false:
+ *   // Returns FALSE:
  *   file_check_location('/www/example.com/files/../../../etc/passwd', '/www/example.com/files');
  * @endcode
  *
@@ -307,8 +307,8 @@ function file_check_location($source, $directory = '') {
  * @param $replace Replace behavior when the destination file already exists.
  *   - FILE_EXISTS_REPLACE - Replace the existing file
  *   - FILE_EXISTS_RENAME - Append _{incrementing number} until the filename is unique
- *   - FILE_EXISTS_ERROR - Do nothing and return false.
- * @return True for success, false for failure.
+ *   - FILE_EXISTS_ERROR - Do nothing and return FALSE.
+ * @return True for success, FALSE for failure.
  */
 function file_copy(&$source, $dest = 0, $replace = FILE_EXISTS_RENAME) {
   $dest = file_create_path($dest);
@@ -317,10 +317,10 @@ function file_copy(&$source, $dest = 0, $replace = FILE_EXISTS_RENAME) {
   $basename = file_check_path($directory);
 
   // Make sure we at least have a valid directory.
-  if ($basename === false) {
+  if ($basename === FALSE) {
     $source = is_object($source) ? $source->filepath : $source;
-    drupal_set_message(t('The selected file %file could not be uploaded, because the destination %directory is not properly configured.', array('%file' => theme('placeholder', $source), '%directory' => theme('placeholder', $dest))), 'error');
-    watchdog('file system', t('The selected file %file could not be uploaded, because the destination %directory could not be found, or because its permissions do not allow the file to be written.', array('%file' => theme('placeholder', $source), '%directory' => theme('placeholder', $dest))), WATCHDOG_ERROR);
+    drupal_set_message(t('The selected file %file could not be uploaded, because the destination %directory is not properly configured.', array('%file' => $source, '%directory' => $dest)), 'error');
+    watchdog('file system', t('The selected file %file could not be uploaded, because the destination %directory could not be found, or because its permissions do not allow the file to be written.', array('%file' => $source, '%directory' => $dest)), WATCHDOG_ERROR);
     return 0;
   }
 
@@ -335,7 +335,7 @@ function file_copy(&$source, $dest = 0, $replace = FILE_EXISTS_RENAME) {
 
   $source = realpath($source);
   if (!file_exists($source)) {
-    drupal_set_message(t('The selected file %file could not be copied, because no file by that name exists.  Please check that you supplied the correct filename.', array('%file' => theme('placeholder', $source))), 'error');
+    drupal_set_message(t('The selected file %file could not be copied, because no file by that name exists. Please check that you supplied the correct filename.', array('%file' => $source)), 'error');
     return 0;
   }
 
@@ -367,13 +367,13 @@ function file_copy(&$source, $dest = 0, $replace = FILE_EXISTS_RENAME) {
           break;
 
         case FILE_EXISTS_ERROR:
-          drupal_set_message(t('The selected file %file could not be copied, because a file by that name already exists in the destination.', array('%file' => theme('placeholder', $source))), 'error');
+          drupal_set_message(t('The selected file %file could not be copied, because a file by that name already exists in the destination.', array('%file' => $source)), 'error');
           return 0;
       }
     }
 
     if (!@copy($source, $dest)) {
-      drupal_set_message(t('The selected file %file could not be copied.', array('%file' => theme('placeholder', $source))), 'error');
+      drupal_set_message(t('The selected file %file could not be copied.', array('%file' => $source)), 'error');
       return 0;
     }
 
@@ -409,8 +409,8 @@ function file_copy(&$source, $dest = 0, $replace = FILE_EXISTS_RENAME) {
  * @param $replace Replace behavior when the destination file already exists.
  *   - FILE_EXISTS_REPLACE - Replace the existing file
  *   - FILE_EXISTS_RENAME - Append _{incrementing number} until the filename is unique
- *   - FILE_EXISTS_ERROR - Do nothing and return false.
- * @return True for success, false for failure.
+ *   - FILE_EXISTS_ERROR - Do nothing and return FALSE.
+ * @return True for success, FALSE for failure.
  */
 function file_move(&$source, $dest = 0, $replace = FILE_EXISTS_RENAME) {
 
@@ -422,7 +422,7 @@ function file_move(&$source, $dest = 0, $replace = FILE_EXISTS_RENAME) {
     if ($path_original == $path_current || file_delete($path_original)) {
       return 1;
     }
-    drupal_set_message(t('The removal of the original file %file has failed.', array('%file' => theme('placeholder', $path_original))), 'error');
+    drupal_set_message(t('The removal of the original file %file has failed.', array('%file' => $path_original)), 'error');
   }
   return 0;
 }
@@ -461,7 +461,7 @@ function file_create_filename($basename, $directory) {
  * Delete a file.
  *
  * @param $path A string containing a file path.
- * @return True for success, false for failure.
+ * @return True for success, FALSE for failure.
  */
 function file_delete($path) {
   if (is_file($path)) {
@@ -478,11 +478,11 @@ function file_delete($path) {
  *   success.
  * @param $dest A string containing the directory $source should be copied to,
  *   will use the temporary directory in case no other value is set.
- * @param $replace A boolean, set to true if the destination should be replaced
- *   when in use, but when false append a _X to the filename.
+ * @param $replace A boolean, set to TRUE if the destination should be replaced
+ *   when in use, but when FALSE append a _X to the filename.
  * @return An object containing file info or 0 in case of error.
  */
-function file_save_upload($source, $dest = false, $replace = FILE_EXISTS_RENAME) {
+function file_save_upload($source, $dest = FALSE, $replace = FILE_EXISTS_RENAME) {
   // Make sure $source exists && is valid.
   if ($file = file_check_upload($source)) {
 
@@ -517,7 +517,7 @@ function file_save_upload($source, $dest = false, $replace = FILE_EXISTS_RENAME)
  * @param $replace Replace behavior when the destination file already exists.
  *   - FILE_EXISTS_REPLACE - Replace the existing file
  *   - FILE_EXISTS_RENAME - Append _{incrementing number} until the filename is unique
- *   - FILE_EXISTS_ERROR - Do nothing and return false.
+ *   - FILE_EXISTS_ERROR - Do nothing and return FALSE.
  *
  * @return A string containing the resulting filename or 0 on error
  */
@@ -603,8 +603,10 @@ function file_download() {
 
 
 /**
- * Finds all files that match a given mask in a given
- * directory. Directories and files beginning with a period are excluded.
+ * Finds all files that match a given mask in a given directory.
+ * Directories and files beginning with a period are excluded; this
+ * prevents hidden files and directories (such as SVN working directories)
+ * from being scanned.
  *
  * @param $dir
  *   The base directory for the scan.
@@ -618,7 +620,7 @@ function file_download() {
  *   When TRUE, the directory scan will recurse the entire tree
  *   starting at the provided directory.
  * @param $key
- *   The key to be used for the returned array of files.  Possible
+ *   The key to be used for the returned array of files. Possible
  *   values are "filename", for the path starting with $dir,
  *   "basename", for the basename of the file, and "name" for the name
  *   of the file without an extension.
@@ -714,38 +716,18 @@ function file_directory_path() {
 }
 
 /**
- * Helper function for file_upload_max_size().
- */
-function _file_convert_to_mb($val){
-  $val = trim($val);
-  $last = strtolower($val[strlen($val) - 1]);
-  switch($last) {
-    // The 'G' modifier is available since PHP 5.1.0
-    case 'g':
-      $size = $val * 1024;
-      break;
-    case 'k':
-      $size = $val / 1024;
-      break;
-    default:
-      $size = (int) $val;
-  }
-  return $size;
-}
-
-/**
  * Determine the maximum file upload size by querying the PHP settings.
  *
  * @return
- * A file size limit in MB based on the PHP upload_max_filesize and post_max_size
+ *   A file size limit in MB based on the PHP upload_max_filesize and post_max_size
  */
 function file_upload_max_size() {
   static $max_size = -1;
 
   if ($max_size < 0) {
-    $upload_max = _file_convert_to_mb(ini_get('upload_max_filesize'));
+    $upload_max = parse_size(ini_get('upload_max_filesize'));
     // sanity check- a single upload should not be more than 50% the size limit of the total post
-    $post_max = _file_convert_to_mb(ini_get('post_max_size')) / 2;
+    $post_max = parse_size(ini_get('post_max_size')) / 2;
     $max_size = ($upload_max < $post_max) ? $upload_max : $post_max;
   }
   return $max_size;

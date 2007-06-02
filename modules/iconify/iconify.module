@@ -1,0 +1,112 @@
+<?php
+/* iconify.module  0.2 2007-04-08*/
+/**
+ * Implementation of hook_help().
+ */
+function iconify_help( $section='' ){
+  $output ='';
+  switch ($section){
+  case "admin/help#iconify":
+    $output ='<p>'.t("Adds icons to the admin areas").'<p>';
+  break;
+  }
+  return $output;
+}
+
+function iconify_menu(){
+  drupal_add_css(drupal_get_path('module', 'iconify') .'/iconify.css');
+}
+
+
+/**
+*  get the original english title for the icons
+* check the DB if we use localization.
+*/
+function iconofy_get_orig_title($title){
+	//get the original title if we use localization
+	if(module_exists(Locale)){
+	  $sql ="SELECT s.source FROM locales_target t JOIN locales_source s ON t.lid = s.lid WHERE translation ='%s' ";
+	  $result = db_query($sql,$title);
+	  $title = db_result($result, $row = 0);
+	}else{
+		$title = $title;
+	}
+	//rename the title
+	$title=strtolower(str_replace(' ','_',$title));
+	$icon=strtolower(str_replace('\'','',$title));
+	
+	return $icon;
+}
+
+/**
+ * theming
+*/
+function phptemplate_fieldset($element) { 
+//  drupal_add_css(drupal_get_path('module', 'iconify') .'/iconify.css');
+
+  if ($element['#collapsible']) { 
+    drupal_add_js('misc/collapse.js'); 
+
+    $element['#attributes']['class'] .= ' collapsible'; 
+    if ($element['#collapsed']) { 
+        $element['#attributes']['class'] .= ' collapsed'; 
+    } 
+  } 
+
+	$icon = iconofy_get_orig_title($element['#title']);
+return 
+'<fieldset ' . drupal_attributes($element['#attributes']) .'>' .
+  ($element['#title'] ? '<legend><span id="icon_'.$icon.'" class="icon"></span>'. $element['#title'] .'</legend>' : '') . 
+  ($element['#description'] ? '<div class="description">'. $element['#description'] .'</div>' : '') . $element['#children'] . $element['#value'] . 
+"</fieldset>\n"; 
+}
+
+function phptemplate_admin_block_content($content) {
+  if (!$content) {
+    return '';
+  }
+
+  if (system_admin_compact_mode()) {
+    $output = '<ul class="menu">';
+    foreach ($content as $item) {
+      $icon = iconofy_get_orig_title($item['title']);
+      $output .= '<li class="leaf"><span id="icon_'.$icon.'" class="admin_icon"></span>'. l($item['title'], $item['path'], array('title' => $item['description'])) .'</li>';
+    }
+    $output .= '</ul>';
+  }
+  else {
+    $output = '<dl class="admin-list">';
+
+    foreach ($content as $item) {
+      $icon = iconofy_get_orig_title($item['title']);
+
+      $output .= '<span id="icon_'.$icon.'" class="admin_icon"></span>';
+      $output .= '<dt>'. l($item['title'], $item['path']) .'</dt>';
+      $output .= '<dd>'. $item['description'] .'</dd>';
+    }
+    $output .= '</dl>';
+  }
+  return $output;
+}
+
+function phptemplate_admin_block($block) {
+  // Don't display the block if it has no content to display.
+  if (!$block['content']) {
+    return '';
+  }
+  $icon = iconofy_get_orig_title($block['title']);
+  $output = <<< EOT
+  <div id="admin-$icon" class="admin-panel">
+    <h3>
+      $block[title]
+    </h3>
+    <div class="body">
+      <p class="description">
+        $block[description]
+      </p>
+      $block[content]
+    </div>
+  </div>
+EOT;
+  return $output;
+}

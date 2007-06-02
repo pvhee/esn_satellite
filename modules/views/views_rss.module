@@ -1,13 +1,5 @@
 <?php
-// $Id: views_rss.module,v 1.7.2.7 2007/01/16 06:00:50 merlinofchaos Exp $
-
-function views_rss_help($section = 'admin/help#views_rss') {
-  $output = '';
-  switch ($section) {
-    case 'admin/modules#description':
-      return t('RSS plugin for the views feed selector argument.');
-  }
-}
+// $Id: views_rss.module,v 1.12.2.3 2007/01/19 00:22:46 merlinofchaos Exp $
 
 /**
  * Provide views plugins for the feed types we support.
@@ -90,13 +82,7 @@ function views_rss_views_feed_argument($op, &$view, $arg) {
       $filters = drupal_query_string_encode($view->used_filters);
     }
 
-    drupal_add_link(array('rel' => 'alternate',
-                          'type' => 'application/rss+xml',
-                          'title' => check_plain($title),
-                          'href' => url($url, $filters, NULL, TRUE)));
-    if ($view->build_type != 'block') {
-      return theme('feed_icon', url($url, $filters));
-    }
+    drupal_add_feed(url($url, $filters), $title);
   }
 }
 
@@ -110,6 +96,8 @@ function theme_views_rss_feed($view, $nodes, $type) {
   global $base_url;
 
   $channel = array(
+    // a check_plain isn't required on these because format_rss_channel
+    // already does this.
     'title'       => views_get_title($view, 'page'),
     'link'        => url($view->real_url, NULL, NULL, true),
     'description' => $view->description,

@@ -1,0 +1,30 @@
+/* $Id: simplemenu_rtl.css,v 1.1.2.1 2007/04/07 05:41:34 m3avrck Exp $ */
+
+#simplemenu li
+{
+	float:right;
+	border-right:1px solid #eee;
+	border-left:1px solid #999;
+}
+
+#simplemenu a
+{
+	padding:.3em .6em .3em 2em;
+}
+
+#simplemenu li.expanded > a
+{
+	background:url(left-green.gif) no-repeat 3%;
+	padding-left:2em;
+}
+
+#simplemenu li.root > a
+{
+	font-weight:700;
+	background:url(down-green.gif) no-repeat 3%;
+}
+
+#simplemenu li li:hover ul,#simplemenu li li.sfhover ul
+{
+	left:-14.2em;
+}

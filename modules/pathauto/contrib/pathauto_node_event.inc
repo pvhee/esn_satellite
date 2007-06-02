@@ -1,11 +1,11 @@
 <?php
-// $Id: pathauto_node_event.inc,v 1.1.4.1 2006/10/11 21:36:02 greggles Exp $
+// $Id: pathauto_node_event.inc,v 1.3 2006/10/12 14:54:15 greggles Exp $
 
 /*
  * Implementation of hook_pathauto_node()
  */
 
-function event_pathauto_node($op, $node=NULL) {
+function event_pathauto_node($op, $node = NULL) {
   switch ($op) {
     case 'placeholders':
       $placeholders = array();

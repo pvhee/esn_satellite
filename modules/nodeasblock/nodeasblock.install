@@ -1,7 +1,0 @@
-<?php
-
-function nodeasblock_install() {
-  $table = " CREATE TABLE {nodeasblock} (nid int primary key) ";
-  db_query($table);
-  drupal_set_message(t('Node as block installed'));
-}

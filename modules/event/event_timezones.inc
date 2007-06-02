@@ -1,8 +1,8 @@
 <?php
-// $Id: event_timezones.inc,v 1.4.2.3 2006/05/22 13:35:07 killes Exp $
+// $Id: event_timezones.inc,v 1.5.2.3 2007/03/29 21:23:18 killes Exp $
 /**
  * Check if time is in Daylight Savings Time
- * 
+ *
  * @param
  *   $region a drupal dst region code, corresponding to those from event_get_dst_regions()
  * @param
@@ -105,8 +105,15 @@ function event_is_dst($region, $timestamp) {
       $dstend = strtotime("-1 week sunday GMT", strtotime("1 november $year GMT")) + 7200;
       break;
     case 15: // Northern America (where applicable)
-      // start of DST  (where applicable) (first Sunday in April 2 am local time)
+      // start of DST  (where applicable) (first Sunday in April before 2007,
+      // after that second Sunday in March, 2 am local time)
       $dststart = strtotime("1 week sunday GMT", strtotime("1 april $year GMT")) + 7200;
+      if ($year < 2007) {
+        $dststart = strtotime("0 week sunday GMT", strtotime("1 april $year GMT")) + 7200;
+      }
+      else {
+        $dststart = strtotime("1 week sunday GMT", strtotime("1 march $year GMT")) + 7200;
+      }
       // end of DST (where applicable) (last Sunday in October 2 am local time)
       $dstend = strtotime("-1 week sunday GMT", strtotime("1 november $year GMT")) + 7200;
       break;
@@ -536,7 +543,7 @@ function event_get_timezones() {
                     282 => array('timezone' => t('Brazil/West'), 'offset' => '-14400', 'offset_dst' => '-14400', 'dst_region' => '0'),
                     285 => array('timezone' => t('Canada/Atlantic'), 'offset' => '-14400', 'offset_dst' => '-10800', 'dst_region' => '15'),
                     286 => array('timezone' => t('Canada/Central'), 'offset' => '-21600', 'offset_dst' => '-18000', 'dst_region' => '15'),
-                    287 => array('timezone' => t('Canada/East-Saskatchewan'), 'offset' => '-21600', 'offset_dst' => '-21600', 'dst_region' => '0'),
+                    287 => array('timezone' => t('Canada/Central-Saskatchewan'), 'offset' => '-21600', 'offset_dst' => '-21600', 'dst_region' => '0'),
                     288 => array('timezone' => t('Canada/Eastern'), 'offset' => '-18000', 'offset_dst' => '-14400', 'dst_region' => '15'),
                     289 => array('timezone' => t('Canada/Mountain'), 'offset' => '-25200', 'offset_dst' => '-21600', 'dst_region' => '15'),
                     290 => array('timezone' => t('Canada/Newfoundland'), 'offset' => '-12600', 'offset_dst' => '-9000', 'dst_region' => '15'),

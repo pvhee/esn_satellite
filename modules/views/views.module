@@ -1,299 +1,6 @@
 <?php
-// $Id: views.module,v 1.159.2.32 2007/01/22 02:13:01 merlinofchaos Exp $
-
-function views_init() {
-  // hook init is called even on cached pages, but we don't want to
-  // actually do anything in that case.
-  if (!function_exists('drupal_get_path')) {
-    return;
-  }
-  // Load all our module 'on behalfs'.
-  $path = drupal_get_path('module', 'views') . '/modules';
-  $files = system_listing('views_.*\.inc$', $path, 'name', 0);
-
-  foreach($files as $file) {
-    // The filename format is very specific. It must be views_MODULENAME.inc
-    $module = substr_replace($file->name, '', 0, 6);
-    if (module_exist($module)) {
-      require_once("./$file->filename");
-    }
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Acquire Views Data
-
-/**
- * Return the arguments array; construct one if we haven't already. The
- * array is cached in a global, safely named variable so that arguments
- * are only constructed once per run.
- */
-function _views_get_arguments($titles = false) {
-  static $views_arguments;
-  global $locale;
-
-  if (!$views_arguments) {
-    $data = cache_get("views_arguments:$locale");
-    $cache = unserialize($data->data);
-    if (is_array($cache)) {
-      $views_arguments = $cache;
-    }
-    else {
-      $arguments = module_invoke_all('views_arguments');
-      uasort($arguments, '_views_sort_arrays');
-      foreach ($arguments as $name => $arg) {
-        if ($arg['option'] && !is_array($arg['option'])) {
-          if ($arg['option'] == 'string' || $arg['option'] == 'integer') {
-            $arg['option'] = array('#type' => 'textfield', '#size' => 10, '#maxlength' => 255);
-          }
-          else {
-            $arg['option'] = array('#type' => 'select', '#options' => $arg['option']);
-          }
-        }
-        $views_arguments['base'][$name] = $arg['name'];
-        $views_arguments['title'][$name] = $arg;
-      }
-      $cache = $views_arguments;
-      cache_set("views_arguments:$locale", serialize($cache));
-    }
-  }
-  return ($titles ? $views_arguments['base'] : $views_arguments['title']);
-}
-
-/**
- * Constructs the full table information array. Caches it into a global array
- * so that it will only be called once per run.
- */
-function _views_get_tables($full = false) {
-  static $views_tables;
-  global $locale;
-
-  if (!$views_tables) {
-    $data = cache_get("views_tables:$locale");
-    $cache = unserialize($data->data);
-
-    if (is_array($cache)) {
-      $views_tables = $cache;
-    }
-    else {
-      $table_data = module_invoke_all('views_tables');
-      $views_tables['tables'] = $table_data;
-
-      foreach ($table_data as $name => $table) {
-        if (is_array($table['filters'])) {
-          foreach ($table['filters'] as $filter => $data) {
-            $data['table'] = $name;
-            // translate for deprecated APIs...
-            if ($data['option'] && !is_array($data['option'])) {
-              if ($data['option'] == 'string' || $data['option'] == 'integer') {
-                $data['option'] = array('#type' => 'textfield', '#size' => 10, '#maxlength' => 255);
-              }
-              else {
-                $data['option'] = array('#type' => 'select', '#options' => $data['option']);
-              }
-            }
-            if ($data['list']) {
-              $data['value'] = array('#type' => 'select', '#options' => $data['list']);
-              if ($data['list-type'] != 'select') {
-                $data['value']['#multiple'] = TRUE;
-              }
-            }
-            else if (!$data['value']) {
-              $data['value'] = array('#type' => 'textfield', '#size' => 10, '#maxlength' => 255);
-            }
-            $views_tables['filters']['titles']["$name.$filter"] = $data['name'];
-            $views_tables['filters']['base']["$name.$filter"] = $data;
-          }
-        }
-        if (is_array($table['fields'])) {
-          foreach ($table['fields'] as $field => $data) {
-            if ($data['option'] && !is_array($data['option'])) {
-              if ($data['option'] == 'string' || $data['option'] == 'integer') {
-                $data['option'] = array('#type' => 'textfield', '#size' => 10, '#maxlength' => 255);
-              }
-              else {
-                $data['option'] = array('#type' => 'select', '#options' => $data['option']);
-              }
-            }
-            $data['table'] = $name;
-            $views_tables['fields']['titles']["$name.$field"] = $data['name'];
-            $views_tables['fields']['base']["$name.$field"] = $data;
-          }
-        }
-        if (is_array($table['sorts'])) {
-          foreach ($table['sorts'] as $field => $data) {
-            $data['table'] = $name;
-            if ($data['option'] && !is_array($data['option'])) {
-              if ($data['option'] == 'string' || $data['option'] == 'integer') {
-                $data['option'] = array('#type' => 'textfield', '#size' => 10, '#maxlength' => 255);
-              }
-              else {
-                $data['option'] = array('#type' => 'select', '#options' => $data['option']);
-              }
-            }
-            $views_tables['sorts']['titles']["$name.$field"] = $data['name'];
-            $views_tables['sorts']['base']["$name.$field"] = $data;
-          }
-        }
-      }
-      cache_set("views_tables:$locale", serialize($views_tables));
-    }
-  }
-  return ($full ? $views_tables : $views_tables['tables']);
-}
-
-/**
- * Gets the filter information; if it doesn't exist, call the function
- * that constructs all that.
- */
-function _views_get_filters($titles = false) {
-  $table_data = _views_get_tables(true);
-  return ($titles ? $table_data['filters']['titles'] : $table_data['filters']['base']);
-}
-
-/**
- * Gets the field information; if it doesn't exist, call the function
- * that constructs all that.
- */
-function _views_get_fields($titles = false) {
-  $table_data = _views_get_tables(true);
-  return ($titles ? $table_data['fields']['titles'] : $table_data['fields']['base']);
-}
-
-/**
- * Gets the sort information; if it doesn't exist, call the function
- * that constructs all that.
- */
-function _views_get_sorts($titles = false) {
-  $table_data = _views_get_tables(true);
-  return ($titles ? $table_data['sorts']['titles'] : $table_data['sorts']['base']);
-}
-
-/**
- * Invalidate the views cache, forcing a rebuild on the next grab of table data.
- */
-function views_invalidate_cache() {
-  cache_clear_all('views_', true);
-}
-
-/**
- * Ensures that views have legitimate information; a bit more is stored on
- * the $view object than is in the database, and this isn't necessarily
- * set when a view is constructed externally.
- */
-function views_sanitize_view(&$view) {
-  _views_check_arrays($view); // so reference works.
-  foreach ($view->field as $i => $field) {
-    if (!isset($view->field[$i]['id'])) {
-      $view->field[$i]['id'] = $view->field[$i]['fullname'] = "$field[tablename].$field[field]";
-      $view->field[$i]['queryname'] = "$field[tablename]_$field[field]";
-    }
-  }
-
-  foreach ($view->filter as $i => $filter) {
-    if (!isset($view->filter[$i]['id'])) {
-      $view->filter[$i]['id'] = $view->filter[$i]['field'] = "$filter[tablename].$filter[field]";
-    }
-  }
-
-  foreach ($view->exposed_filter as $i => $exposed_filter) {
-    if (!isset($view->exposed_filter[$i]['id'])) {
-      $view->exposed_filter[$i]['id'] = $view->exposed_filter[$i]['field'] = "$exposed_filter[tablename].$exposed_filter[field]";
-    }
-  }
-
-  foreach ($view->sort as $i => $sort) {
-    if (!isset($view->sort[$i]['id'])) {
-      $view->sort[$i]['id'] = $view->sort[$i]['field'] = "$sort[tablename].$sort[field]";
-    }
-  }
-
-  foreach ($view->argument as $i => $argument) {
-    if (!isset($view->argument[$i]['id'])) {
-      $view->argument[$i]['id'] = $view->argument[$i]['type'];
-    }
-  }
-}
-
-/**
- * Build default view information from all modules and cache it.
- */
-function _views_get_default_views() {
-  static $views_default_views;
-  global $locale;
-
-  if (!$views_default_views) {
-    $data = cache_get("views_default_views:$locale");
-    $cache = unserialize($data->data);
-
-    if (is_array($cache)) {
-      $views_default_views = $cache;
-    }
-    else {
-      // We have to make sure table data is built in order to be sure about providers.
-      $tables = array_keys(_views_get_tables());
-
-      $views = module_invoke_all('views_default_views');
-      uasort($views, '_views_sort_arrays');
-      $views_default_views = array();
-      foreach ($views as $i => $view) {
-        if (!is_array($view->requires) || !array_diff($view->requires, $tables)) {
-          views_sanitize_view($view);
-          $views_default_views[$i] = $view;
-        }
-      }
-      cache_set("views_default_views:$locale", serialize($views_default_views));
-    }
-  }
-  return $views_default_views;
-}
-
-/**
- * sort callback
- */
-function _views_sort_arrays($a, $b) {
-  $a = (array) $a; // safety -- something send objects.
-  $b = (array) $b;
-  if ($a['weight'] == $b['weight']) {
-    if ($a['name'] == $b['name']) {
-      return 0;
-    }
-    return ($a['name'] < $b['name']) ? -1 : 1;
-  }
-  return ($a['weight'] > $b['weight']) ? -1 : 1;
-}
-
-/**
- * Return the style plugins; construct one if we haven't already. The
- * array is cached in a static variable so that arguments
- * are only constructed once per run.
- */
-function _views_get_style_plugins($titles = false) {
-  static $views_style_plugins;
-  global $locale;
-
-  if (!$views_style_plugins) {
-    $data = cache_get("views_style_plugins:$locale");
-    $cache = unserialize($data->data);
-    if (is_array($cache)) {
-      $views_style_plugins = $cache;
-    }
-    else {
-      $arguments = module_invoke_all('views_style_plugins');
-      uasort($arguments, '_views_sort_arrays');
-      foreach ($arguments as $name => $arg) {
-        if (!isset($arg['summary_theme'])) {
-          $arg['summary_theme'] = 'views_summary';
-        }
-        $views_style_plugins['title'][$name] = $arg['name'];
-        $views_style_plugins['base'][$name] = $arg;
-      }
-      $cache = $views_style_plugins;
-      cache_set("views_style_plugins:$locale", serialize($cache));
-    }
-  }
-  return ($titles ? $views_style_plugins['title'] : $views_style_plugins['base']);
-}
+// $Id: views.module,v 1.166.2.6 2007/01/21 21:03:37 merlinofchaos Exp $
+// $Name: DRUPAL-5--1-5 $
 
 // ---------------------------------------------------------------------------
 // Drupal Hooks
@@ -304,8 +11,7 @@ function _views_get_style_plugins($titles = false) {
 function views_help($section) {
   switch ($section) {
     case 'admin/help#views':
-    case 'admin/modules#description':
-      return t('The views module creates customized views of node lists.');
+      return t('The views module creates customized views of node lists. You may need to activate the Views UI module to get to the user administration pages.');
   }
 }
 
@@ -317,9 +23,10 @@ function views_menu($may_cache) {
   global $locale;
 
   if ($may_cache) {
+    views_load_cache();
     // Invalidate the views cache to ensure that views data gets rebuilt.
     // This is the best way to tell that module configuration has changed.
-    if (arg(0) == 'admin' && arg(1) == 'modules') {
+    if (arg(0) == 'admin' && arg(2) == 'modules') {
       views_invalidate_cache();
     }
 
@@ -346,6 +53,7 @@ function views_menu($may_cache) {
     foreach ($default_views as $name => $view) {
       if ($view->page && !$used[$name] &&
        ($views_status[$name] == 'enabled' || (!$view->disabled && $views_status[$name] != 'disabled'))) {
+
         if (strrpos($view->url, '$arg') !== FALSE) {
           continue;
         }
@@ -355,7 +63,7 @@ function views_menu($may_cache) {
     }
   }
   else {
-    $data = cache_get("views_with_inline_args:$locale");
+    $data = cache_get("views_with_inline_args:$locale", 'cache');
     if ($data == 0) {
       // There's no cache for our language, regenerate it.
       views_reset_inline_args_cache($locale);
@@ -414,6 +122,7 @@ function views_reset_inline_args_cache($locale = 'en') {
     $views_with_inline_args[$view->name] = $view;
   }
 
+  views_load_cache();
   $default_views = _views_get_default_views();
   $views_status = variable_get('views_defaults', array());
 
@@ -424,7 +133,7 @@ function views_reset_inline_args_cache($locale = 'en') {
       }
     }
   }
-  cache_set("views_with_inline_args:$locale", serialize($views_with_inline_args));
+  cache_set("views_with_inline_args:$locale", 'cache', serialize($views_with_inline_args));
 }
 
 /**
@@ -494,6 +203,7 @@ function _views_menu_type($view) {
 function views_block($op = 'list', $delta = 0) {
   $block = array();
   if ($op == 'list') {
+    views_load_cache();
     // Grab views from the database and provide them as blocks.
     $result = db_query("SELECT vid, block_title, page_title, name FROM {view_view} WHERE block = 1");
     while ($view = db_fetch_object($result)) {
@@ -539,6 +249,7 @@ function _views_check_arrays(&$view) {
  * for a default view by that name.
  */
 function views_get_view($view_name) {
+  views_load_cache();
   $view = _views_load_view($view_name);
   if ($view) {
     return $view;
@@ -589,6 +300,7 @@ function views_view_page() {
  * This views a view by block. Can be used as a callback or programmatically.
  */
 function views_view_block($vid) {
+  views_load_cache();
   $view = views_get_view($vid);
 
   if (!$view || !$view->block) {
@@ -614,6 +326,22 @@ function views_view_block($vid) {
   else {
     return NULL;
   }
+}
+
+function &views_set_current_view(&$view) {
+  static $current_view = NULL;
+  if ($view !== NULL) {
+    unset($current_view);
+    $current_view = &$view;
+    unset($GLOBALS['current_view']);
+    $GLOBALS['current_view'] = &$view;
+  }
+  return $current_view;
+}
+
+function &views_get_current_view() {
+  $dummy = NULL;
+  return views_set_current_view($dummy);
 }
 
 /**
@@ -655,15 +383,20 @@ function views_view_block($vid) {
  * @param $page
  *   $use_pager is false, and $limit is !0, $page tells it what page to start
  *   on, in case for some reason a particular section of view is needed,
+ * @param $offset
+ *   If $use_pager == false, skip the first $offset results. Does not work
+ *   with pager.
  *   without paging on.
 */
 function views_build_view($type, &$view, $args = array(), $use_pager = false, $limit = 0, $page = 0, $offset = 0) {
+  views_load_cache();
+
   // Fix a number of annoying whines when NULL is passed in..
   if ($args == NULL) {
     $args = array();
   }
 
-  $GLOBALS['current_view'] = &$view;
+  views_set_current_view($view);
 
   $view->build_type = $type;
   $view->type = ($type == 'block' ? $view->block_type : $view->page_type);
@@ -677,14 +410,13 @@ function views_build_view($type, &$view, $args = array(), $use_pager = false, $l
     ob_end_clean();
   }
 
-  $plugins = _views_get_style_plugins();
-
   // Call a hook that'll let modules modify the view query before it is created
   foreach (module_implements('views_pre_query') as $module) {
     $function = $module .'_views_pre_query';
     $output .= $function($view);
   }
 
+  $plugins = _views_get_style_plugins();
   if ($view->query) {
     $info['query'] = $view->query;
     $info['countquery'] = $view->countquery;
@@ -694,8 +426,7 @@ function views_build_view($type, &$view, $args = array(), $use_pager = false, $l
     }
   }
   else {
-    $path = drupal_get_path('module', 'views');
-    require_once("./$path/views_query.inc");
+    views_load_query();
 
     $info = _views_build_query($view, $args);
     if ($info['fail']) {
@@ -769,6 +500,22 @@ function views_build_view($type, &$view, $args = array(), $use_pager = false, $l
 
 // ---------------------------------------------------------------------------
 // Utility
+
+/**
+ * Load the cache sub-module
+ */
+function views_load_cache() {
+  $path = drupal_get_path('module', 'views');
+  require_once("./$path/views_cache.inc");
+}
+
+/**
+ * Load the query sub-module
+ */
+function views_load_query() {
+  $path = drupal_get_path('module', 'views');
+  require_once("./$path/views_query.inc");
+}
 
 /**
  * Easily theme any item to a view.
@@ -905,6 +652,7 @@ function views_get_title($view, $context = 'menu', $args = NULL) {
     return $title;
   }
 
+  views_load_cache();
   $arginfo = _views_get_arguments();
   foreach ($view->argument as $i => $arg) {
     if (!isset($args[$i])) {
@@ -949,6 +697,13 @@ function _views_is_cacheable(&$view) {
     }
   }
   return true;
+}
+
+/**
+ * Invalidate the views cache, forcing a rebuild on the next grab of table data.
+ */
+function views_invalidate_cache() {
+  cache_clear_all('views_', 'cache', true);
 }
 
 // ---------------------------------------------------------------------------
@@ -1037,6 +792,7 @@ function _views_load_view($arg) {
 
   $result = db_query("SELECT * FROM {view_filter} WHERE vid = $view->vid ORDER BY position ASC");
 
+  views_load_cache();
   $filters = _views_get_filters();
   $view->filter = array();
   while ($filter = db_fetch_array($result)) {
@@ -1081,8 +837,7 @@ function _views_save_view($view) {
 
   // cache the query
   if (_views_is_cacheable($view)) {
-    $path = drupal_get_path('module', 'views');
-    require_once("./$path/views_query.inc");
+    views_load_query();
 
     $info = _views_build_query($view);
     $view->query = _views_replace_args($info['query'], $info['args']);
@@ -1375,25 +1130,23 @@ function _views_construct_header($view, $fields) {
     else if ($field['label']) {
       $header['data'] = $field['label'];
     }
-    
+
     if ($field['defaultsort']) {
       $header['sort'] = strtolower($field['defaultsort']);
     }
 
     // Add CSS id to table cell header cell.
     $header['class'] = "view-cell-header" . views_css_safe(' view-field-'. $field['queryname']);
-
     $headers[] = $header;
   }
   return $headers;
 }
 
 function theme_views_display_filters($view) {
-  $form = views_filters_form($view);
-  return drupal_get_form("views_filters_$view->name", $form, 'views_filters');
+  return drupal_get_form("views_filters", $view);
 }
 
-function views_filters_form($view) {
+function views_filters($view) {
   $filters = _views_get_filters();
   foreach ($view->exposed_filter as $count => $expose) {
     $id = $expose['id'];
@@ -1452,8 +1205,8 @@ function views_filters_form($view) {
     $form["filter$count"] = $item;
   }
   $form['#method'] = 'get';
-  $form['#action'] = url($view->real_url ? $view->real_url : $view->url, NULL, NULL, true);
   $form['#process'] = array('views_filters_process' => array());
+  $form['#action'] = url($view->real_url ? $view->real_url : $view->url, NULL, NULL, true);
   $form['view'] = array('#type' => 'value', '#value' => $view);
   $form['submit'] = array('#type' => 'button', '#name' => '', '#value' => t('Submit'));
     // clean URL get forms breaks if we don't give it a 'q'.
@@ -1465,25 +1218,27 @@ function views_filters_form($view) {
       );
     }
 
+
   return $form;
 }
 
 function views_filters_process($form) {
   unset($form['form_id']);
+  unset($form['form_token']);
   return $form;
 }
 function theme_views_filters($form) {
   $view = $form['view']['#value'];
 
   foreach ($view->exposed_filter as $count => $expose) {
-    $row[] = form_render($form["op$count"]) . form_render($form["filter$count"]);
+    $row[] = drupal_render($form["op$count"]) . drupal_render($form["filter$count"]);
     $label[] = $expose['label'];
   }
-  $row[] = form_render($form['submit']);
+  $row[] = drupal_render($form['submit']);
   $label[] = ''; // so the column count is the same.
 
   // make the 'q' come first
-  return form_render($form['q']) . theme('table', $label, array($row)) . form_render($form);
+  return drupal_render($form['q']) . theme('table', $label, array($row)) . drupal_render($form);
 }
 
 /**
@@ -1904,6 +1659,22 @@ function views_handler_operator_yesno() {
   return array('1' => t('Yes'), '0' => t('No'));
 }
 
+/*
+ * Break x,y,z and x+y+z into an array. Numeric only.
+ */
+function _views_break_phrase($str) {
+  if (preg_match('/^([0-9]+[+ ])+[0-9]+$/', $str)) {
+    // The '+' character in a query string may be parsed as ' '.
+    return array('or', preg_split('/[+ ]/', $str));
+  }
+  else if (preg_match('/^([0-9]+,)*[0-9]+$/', $str)) {
+    return array('and', explode(',', $str));
+  }
+  else {
+    return NULL;
+  }
+}
+
 /**
  * Default Views style plugins. Implementation of hook_views_style_plugins()
  */
@@ -2046,23 +1817,6 @@ function views_handler_filter_date_value_form() {
     '#attributes' => array('class' => 'jscalendar'),
   );
 }
-
-/*
- * Break x,y,z and x+y+z into an array.
- */
-function _views_break_phrase($str) {
-  if (preg_match('/^([0-9]+[+ ])+[0-9]+$/', $str)) {
-    // The '+' character in a query string may be parsed as ' '.
-    return array('or', preg_split('/[+ ]/', $str));
-  }
-  else if (preg_match('/^([0-9]+,)*[0-9]+$/', $str)) {
-    return array('and', explode(',', $str));
-  }
-  else {
-    return NULL;
-  }
-}
-
 /**
  * Substitute current time; this works with cached queries.
  */
@@ -2104,8 +1858,9 @@ function theme_view($view_name, $limit = NULL, $use_pager = NULL, $type = 'embed
   }
 }
 
+
 /**
- * Provides a central place to manage some translatable text strings
+ * This function is used as a central place to manage some translatable text strings
  * that are used in different places.
  * @param $text
  *   which string to return.

@@ -1,12 +1,12 @@
 <?php
-// $Id: views_taxonomy.inc,v 1.20.2.10 2007/01/18 05:49:04 merlinofchaos Exp $
+// $Id: views_taxonomy.inc,v 1.27.2.4 2007/01/19 00:22:46 merlinofchaos Exp $
 
 /**
  * This include file implements views functionality on behalf of taxonomy.module
  */
 
 function taxonomy_views_tables() {
-  if (module_exist('taxonomy')) {
+  if (module_exists('taxonomy')) {
     $table = views_new_table('term_node', 'internal', 'node', 'nid', 'nid');
     views_table_add_field($table, 'name', 'Taxonomy: All Terms', 'This will display all taxonomy terms associated with the node. Note that this causes one extra query per row displayed, and might have a minor performance impact.', array(
       'sortable' => false,
@@ -174,7 +174,7 @@ function taxonomy_views_default_views() {
   $view->access = array (
 );
   $view->page = TRUE;
-  $view->page_title = t('taxonomy');
+  $view->page_title = t('Taxonomy');
   $view->page_header = '';
   $view->page_header_format = '1';
   $view->page_type = 'teaser';
@@ -249,13 +249,14 @@ function views_handler_field_allterms($fieldinfo, $fielddata, $value, $data) {
     foreach ($terms as $term) {
       $links[] = check_plain($term->name);
     }
+    $links = !empty($links) ? implode(' | ', $links) : '';
   }
   else {
     $node = new stdClass();
     $node->taxonomy = $terms;
-    $links = taxonomy_link('taxonomy terms', $node);
+    $links = theme('links', taxonomy_link('taxonomy terms', $node));
   }
-  return !empty($links) ? theme('links', $links) : '';
+  return $links;
 }
 
 /**
@@ -531,3 +532,4 @@ function _views_add_vocabulary($op, $value, $depth, &$query) {
     }
   }
 }
+

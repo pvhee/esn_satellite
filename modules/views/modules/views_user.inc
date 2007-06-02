@@ -1,5 +1,5 @@
 <?php
-// $Id: views_user.inc,v 1.11.2.2 2007/01/18 05:49:04 merlinofchaos Exp $
+// $Id: views_user.inc,v 1.14.2.4 2007/01/19 00:22:46 merlinofchaos Exp $
 
 /**
  * This include file implements views functionality on behalf of user.module
@@ -105,13 +105,13 @@ function user_views_default_views() {
   $view->description = t('Shows all new activity on system.');
   $view->page = true;
   $view->url = 'tracker';
-  $view->page_title = t('recent posts');
+  $view->page_title = t('Recent posts');
   $view->page_type = 'table';
   $view->use_pager = true;
   $view->nodes_per_page = '25';
 
   $view->menu = true;
-  $view->menu_title = 'recent posts';
+  $view->menu_title = t('Recent posts');
   $view->block = false;
   $view->field = array (
     array (
@@ -185,9 +185,14 @@ function user_views_query_substitutions($view) {
  */
 function views_handler_field_username($fieldinfo, $fielddata, $value, $data) {
   $obj = new stdClass();
-  $obj->name = $value;
   $uidfield = $fielddata['tablename'] . "_"  . $fieldinfo['uid'];
-  $obj->uid = $data->$uidfield;
+  if (!$value && $data->$uidfield) {
+    $obj = user_load(array('uid' => $data->$uidfield));
+  }
+  else {
+    $obj->name = $value;
+    $obj->uid = $data->$uidfield;
+  }
   return theme('username', $obj);
 }
 
@@ -338,7 +343,7 @@ function views_handler_filter_usercurrent_custom($op, $filter, $filterinfo, &$qu
  * Add special info to see if a user either authored OR commented on a post
  */
 function views_handler_filter_uid_touched($op, $filter, $filterinfo, &$query) {
-  if (!module_exist('comment')) { // not much to do in this case
+  if (!module_exists('comment')) { // not much to do in this case
     $query->add_where("node.uid = '%s'", $filter['value']);
     return;
   }

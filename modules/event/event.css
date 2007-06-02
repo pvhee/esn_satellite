@@ -1,42 +1,35 @@
-
 /*  event calendar table styles  */
 .event-calendar table {
   border: 1px solid #242;
-  border: none;
   border-collapse: collapse;
   border-spacing: 0;
-  width: 100%;
+  width: 98%; /* Setting at 100% causes problem in Internet Explorer. */
   margin-bottom: 1em;
 }
 .event-calendar tr {
   padding: 0;
   margin: 0;
   background: white;
-  font: 10px verdana;
 }
-.event-calendar .table1 th {
+.event-calendar th {
   color: #000;
-  font: 10px verdana;
-  background: #9EE5FA;
+  background: #aac;
   text-align: center;
-  padding: 5px;
+  padding: 1px 0.33em;
   border: 1px solid #242;
-  border: none;
-  width: 100px;
 }
-.event-calendar .table1 td {
-  border: 1px solid #E3F6FD;
-  color: #007095;
+.event-calendar .month-view td,
+.event-calendar .week-view td {
+  width: 14%; /* 14% is about 1/7 of total table width */
+}
+.event-calendar td {
+  border: 1px solid #bbb;
+  color: #777;
   text-align: right;
   vertical-align: top;
-  background: #EAF8FE;
   margin: 0;
-  padding: 5px 3px 7px 0px;
-  font: 10px verdana;
-  width: 100px;
-
+  padding: 0;
 }
-
 .event-calendar th.heading {
   border-width: 1px 0px;
 }
@@ -50,32 +43,24 @@
 }
 .event-calendar th a {
   font-weight: bold;
-  color: #007095;
+  color: #363636;
 }
 .event-calendar td a {
-  color: #007095;
+  color: #222244;
   font-weight: bold;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .event-calendar td a:hover {
   text-decoration: underline;
 }
 .event-calendar td.sat, .event-calendar td.sun {
-  background: #F0D1E3;
-}
-.event-calendar td.sat a, .event-calendar td.sun a{
-  color: #fff;
-  text-decoration: underline;
-}
-.event-calendar td.sat, .event-calendar td.sun{
-  color: #fff;
-}
-.event-calendar td.today {
-  background: #90D165;
+  background: #fdd;
 }
 .event-calendar td.selected {
-  background: #9EE5FA;
-  color: white;
+  background: #99f;
+}
+.event-calendar td.today {
+  background: #f99;
 }
 .event-calendar td.year, .event-calendar td.month {
   text-align: center;
@@ -84,10 +69,10 @@
 
 /*  days of the week header cells */
 .event-calendar td.days {
-  color: white;
-  background: #9EE5FA;
+  color: #cce;
+  background: #224;
   text-align: center;
-  border: none;
+  border: 1px solid #242;
   border-width: 0 1px 1px 0;
 }
 
@@ -95,31 +80,11 @@
 .event-calendar div.day {
   float: right;
   text-align: center;
-  border: 1px solid #8DC6D9;
-  border: none;  
+  border: 1px solid gray;
   border-width: 0 0 1px 1px;
-  border-width:0;
-  padding: 5px 0.25em 0 0.25em;
+  padding: 0.125em 0.25em 0 0.25em;
   margin: 0;
-  font-family: arial;
-  font-weight: bold;
-  font-size: 18px;
-  color: #81E0FA;
-  
   background: #f3f3f3;
-  background: none;
-}
-
-.event-calendar div .sun .day {
-	color: #F078C0;
-}
-
-.event-calendar div .sat .day {
-	color: #F078C0;
-}
-
-.event-calendar div .today .day {
-	color: #fff;
 }
 
 /*  event node times for the body */
@@ -131,24 +96,20 @@
 
 /*  individual node container  */
 .event-calendar div.event {
-  font-style: normal;
-  background-color: #F3F7FA;
+  font-style: italic;
+  background-color: #fff;
   border: solid 1px #555;
-  border: none;
   text-align: left;
   margin: 0.25em 0 0.5em 0.25em;
-  color: #007095;
 }
 .event-calendar div.title {
   padding-left: 3px;
 }
 .event-calendar div.title a {
-  color: #00A8EB;
-  line-height: 14px;
-  text-decoration: none;
+  color: #000;
 }
 .event-calendar div.title a:hover {
-  color: #E51182;
+  color: #c00;
 }
 .event-calendar .content {
   margin: 5px;
@@ -161,11 +122,10 @@
   font-size: 0.8em;
 }
 .event-calendar div.type a {
-  color: #E51182;
-  text-decoration: none;
+  color: #00c;
 }
 .event-calendar div.type a:hover {
-  color: #E51182;
+  color: #c00;
 }
 .event-calendar div.links {
   padding-left: 3px;
@@ -174,7 +134,7 @@
   color: #00c;
 }
 .event-calendar div.links a:hover {
-  color: #E51182;
+  color: #c00;
 }
 .event-calendar .start {
   font-style: normal;
@@ -203,10 +163,9 @@
   padding-left: 3px;
 }
 
-
 /*  individual node view styles  */
 .event-calendar div.monthview .title {
-  font-size: 11px;
+  font-size: 0.8em;
 }
 .event-calendar div.dayview {
   width: auto;
@@ -216,10 +175,14 @@
 }
 .event-calendar div.tableview .links {
 }
-
 .event-calendar .event-empty {
   min-height: 6em;
 }
+/* hack to make Internet Explorer for Windows display calendar height correctly \*/
+* html .event-calendar .event-empty {
+  height: 6em;
+}
+/* end of hack */
 .container-inline .day input {
   width: auto;
   display: inline;
@@ -279,14 +242,22 @@
   height: 5px;
   width: 100%;
 }
-
+.event-calendar div.month-view table.event-block thead,
+.event-calendar div.month-view table.event-block tbody {
+  font-size: .9em;
+}
+.event-calendar div.month-view table.event-block th { 
+  font-weight: normal;
+}
 #block-event-1 .item-list ul li a { 
   margin-top: 8px; 
 }
 
 span.event-timeleft {
-  color: #00A8EB;
+  padding-bottom: 3px;
+  text-align: right;
   width: auto;
+  display: block;
 }
 span.event-nodetype {
   padding: 0px 0px 0px 5px;
@@ -297,4 +268,7 @@ span.event-nodetype {
 }
 .ical-link {
   text-align: right;
+}
+.event div.form-item {
+  white-space: normal;
 }

@@ -1,11 +1,11 @@
 <?php
-/* $Id: ical.inc,v 1.3.2.3 2006/05/22 13:35:07 killes Exp $ */
+/* $Id: ical.inc,v 1.6.2.3 2007/03/29 21:23:18 killes Exp $ */
 
 /**
  * @file
  * API for event import/export in iCalendar format as outlined in Internet Calendaring and Scheduling Core Object Specification
  * http://www.ietf.org/rfc/rfc2445.txt
- * 
+ *
  * This module is IN DEVELOPMENT and not a finished product
  */
 
@@ -32,10 +32,12 @@
  */
 function ical_export($events, $calname = NULL) {
   $output .= "BEGIN:VCALENDAR\nVERSION:2.0\n";
-  $output .= 'X-WR-CALNAME:'. variable_get('site_name', '') .' | '. $calname ."\n";
+  $output .= "METHOD:PUBLISH\n";
+  $output .= 'X-WR-CALNAME:'. variable_get('site_name', '') .' | '. ical_escape_text($calname) ."\n";
   $output .= "PRODID:-//strange bird labs//Drupal iCal API//EN\n";
   foreach ($events as $uid => $event) {
     $output .= "BEGIN:VEVENT\n";
+    $output .= "DTSTAMP;VALUE=DATE:".gmdate("Ymd\THis\Z", time())."\n";
     if ($event['allday_start'] && $event['allday_end']) {
       $output .= "DTSTART;VALUE=DATE:" . $event['allday_start'] . "\n";
       $output .= "DTEND;VALUE=DATE:" . $event['allday_end'] . "\n";
@@ -51,11 +53,11 @@ function ical_export($events, $calname = NULL) {
     else if ($event['start']) {
       $output .= "DTSTART;VALUE=DATE-TIME:" . gmdate("Ymd\THis\Z", $event['start']) . "\n";
     }
+    $output .= "UID:" . ($event['uid'] ? $event['uid'] : $uid) . "\n";
+    if ($event['url']) $output .= "URL;VALUE=URI:" . $event['url'] . "\n";
+    if ($event['location']) $output .= "LOCATION:" . ical_escape_text($event['location']) . "\n";
     $output .= "SUMMARY:" . ical_escape_text($event['summary']) . "\n";
     if ($event['description']) $output .= "DESCRIPTION:" . ical_escape_text($event['description']) . "\n";
-    if ($event['url']) $output .= "URL;VALUE=URI:" . $event['url'] . "\n";
-    if ($event['location']) $output .= "LOCATION:" . $event['location'] . "\n";
-    $output .= "UID:" . ($event['uid'] ? $event['uid'] : $uid) . "\n";
     $output .= "END:VEVENT\n";
   }
   $output .= "END:VCALENDAR\n";
@@ -73,33 +75,33 @@ function ical_export($events, $calname = NULL) {
  *
  */
 function ical_escape_text($text) {
-  $text = strip_tags($text);
-  $text = str_replace("\"", "DQUOTE", $text);
+  //$text = strip_tags($text);
+  $text = str_replace('"', '\"', $text);
   $text = str_replace("\\", "\\\\", $text);
   $text = str_replace(",", "\,", $text);
-  $text = str_replace(":", "\":\"", $text);
+  $text = str_replace(":", "\:", $text);
   $text = str_replace(";", "\;", $text);
   $text = str_replace("\n", "\n ", $text);
   return $text;
 }
 
-/**                                                                                                                                                                   
+/**
  * Given the location of a valide iCalendar file, will return an array of event information
  *
  * @param $filename
  *   Location (local or remote) of a valid iCalendar file
- *                                                                                                                                                                   
- * @return                                                                                                                                                     
- *   An array of associative arrays where                                                                                                                             
+ *
+ * @return
+ *   An array of associative arrays where
  *      'start'         => Unix timestamp (GMT) of start time
  *      'end'           => Unix timestamp (GMT) of end time
  *      'allday_start'  => Start date of all-day event in YYYYMMDD format
- *      'allday_end'    => End date of all-day event in YYYYMMDD format                                                                              
- *      'summary'       => Title of event                                                                                                                      
- *      'description'   => Description of event                                                                                                                
- *      'location'      => Location of event                                                                                                                   
+ *      'allday_end'    => End date of all-day event in YYYYMMDD format
+ *      'summary'       => Title of event
+ *      'description'   => Description of event
+ *      'location'      => Location of event
  *      'uid'           => ID of the event in calendaring program
- *      'url'           => URL of event information                                                                                                                    * 
+ *      'url'           => URL of event information                                                                                                                    *
  */
 function ical_import($filename) {
   $items = array();
@@ -180,7 +182,7 @@ function ical_import($filename) {
 	    $tz_tmp = explode('=', $field);
 	    $tz_dtstart = $tz_tmp[1];
 	    unset($tz_tmp);
-	  } 
+	  }
 	  elseif ($zulu_time) {
 	    $tz_dtstart = 'GMT';
 	  }
@@ -194,7 +196,7 @@ function ical_import($filename) {
 	  if (isset($tz_dtstart)) {
 	    if ($tz = _ical_tz($tz_dtstart)) {
 	      $offset_tmp = date('I', $start_unixtime) ? $tz->offset_dst : $tz->offset;
-	    } 
+	    }
 	    else {
 	      $offset_tmp = '+0000';
 	    }
@@ -229,7 +231,7 @@ function ical_import($filename) {
 	    $tz_tmp = explode('=', $field);
 	    $tz_dtend = $tz_tmp[1];
 	    unset($tz_tmp);
-	  } 
+	  }
 	  elseif ($zulu_time) {
 	    $tz_dtend = 'GMT';
 	  }
@@ -242,7 +244,7 @@ function ical_import($filename) {
 	  if (isset($tz_dtend)) {
 	    if ($tz = _ical_tz($tz_dtend)) {
 	      $offset_tmp = date('I', $end_unixtime) ? $tz->offset_dst : $tz->offset;
-	    } 
+	    }
 	    else {
 	      $offset_tmp = '+0000';
 	    }
@@ -263,12 +265,12 @@ function ical_import($filename) {
 	break;
       case 'DURATION':
 	if (!stristr($field, '=DURATION')) {
-	  ereg ('^P([0-9]{1,2}[W])?([0-9]{1,2}[D])?([T]{0,1})?([0-9]{1,2}[H])?([0-9]{1,2}[M])?([0-9]{1,2}[S])?', $data, $duration); 
-	  $weeks = str_replace('W', '', $duration[1]); 
-	  $days = str_replace('D', '', $duration[2]); 
-	  $hours = str_replace('H', '', $duration[4]); 
-	  $minutes = str_replace('M', '', $duration[5]); 
-	  $seconds = str_replace('S', '', $duration[6]); 
+	  ereg ('^P([0-9]{1,2}[W])?([0-9]{1,2}[D])?([T]{0,1})?([0-9]{1,2}[H])?([0-9]{1,2}[M])?([0-9]{1,2}[S])?', $data, $duration);
+	  $weeks = str_replace('W', '', $duration[1]);
+	  $days = str_replace('D', '', $duration[2]);
+	  $hours = str_replace('H', '', $duration[4]);
+	  $minutes = str_replace('M', '', $duration[5]);
+	  $seconds = str_replace('S', '', $duration[6]);
 	  $the_duration = ($weeks * 60 * 60 * 24 * 7) + ($days * 60 * 60 * 24) + ($hours * 60 * 60) + ($minutes * 60) + ($seconds);
 	}
 	break;
@@ -305,10 +307,14 @@ function ical_help($section) {
     return t('iCalendar API for Events Modules');
     break;
   }
-} 
+}
 
 function _ical_tz($tz) {
-  return db_fetch_object(db_query("SELECT * FROM {ical_timezones} WHERE timezone = '%s'", $tz));
+  include_once(drupal_get_path('module', 'event') .'/event_timezones.inc');
+  foreach (event_get_timezones() as $delta => $zone) {
+    if ($tz == $zone['timezone']);
+    return (object) $zone;
+  }
 }
 
 function _ical_chooseOffset($time, $timezone) {
@@ -346,4 +352,55 @@ function _ical_calcOffset($offset_str) {
   $secs = ((int)$hours * 3600) + ((int)$mins * 60);
   if ($sign == '-') $secs = 0 - $secs;
   return $secs;
+}
+
+/**
+ *  escape ical separators in quoted-printable encoded code
+ */
+function ical_quoted_printable_escaped($string) {
+  $replace = array(";" => "\;", ":" => "\:");
+  return strtr(ical_quoted_printable_encode($string), $replace);
+}
+
+/**
+ *  encode text using quoted-printable standard
+ */
+function ical_quoted_printable_encode($text, $line_max = 76) {
+  $hex       = array('0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F');
+  $lines     = preg_split("/(?:\r\n|\r|\n)/", $text);
+  $eol       = "\r\n";
+  $linebreak = "=0D=0A";
+  $escape    = "=";
+  $output    = "";
+
+  for ($x = 0; $x < count($lines); $x++) {
+    $line     = $lines[$x];
+    $line_len = strlen($line);
+    $newline  = "";
+    for ($i = 0; $i < $line_len; $i++) {
+	  $c   = substr($line, $i, 1);
+	  $dec = ord($c);
+      // convert space at end of line
+	  if ( ($dec == 32) && ($i == ($line_len - 1)) ) {
+        $c = $escape ."20";
+	  }
+      // convert tab and special chars
+      elseif ( ($dec == 61) || ($dec < 32 ) || ($dec > 126) ) {
+        $h2 = floor($dec/16);
+        $h1 = floor($dec%16);
+        $c  = $escape . $hex["$h2"] . $hex["$h1"];
+      }
+      // see if new output line is needed
+      if ( (strlen($newline) + strlen($c)) >= $line_max ) {
+        $output .= $newline . $escape . $eol;
+        $newline = "";
+      }
+      $newline .= $c;
+    }
+    $output .= $newline;
+
+    // skip last line feed
+    if ($x < count($lines) - 1) $output .= $linebreak;
+  }
+  return trim($output);
 }

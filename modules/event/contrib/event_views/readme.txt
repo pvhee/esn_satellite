@@ -11,9 +11,6 @@ You can change the format of the output. The default views display a list of eve
 but you can change it to a table or a teaser list in the Page settings. You can also 
 add or remove fields from the view.
 
-The module also includes plug-in themes that mimic standard events calendar displays.
-To use them, select one of the calendar displays as the page type for your view.
-
 You can filter events in several ways. Use filters to pre-select a date range, expose 
 those filters to allow the viewer to select a date range, or eliminate the filters and 
 give the view year, month, and day arguments to filter the events by the 
@@ -26,12 +23,6 @@ granularity. For each argument you add, you need to select a display. For lower-
 arguments, like the year argument in a year/month combination, select the option to 
 provide a summary view. That will display a list of all the months that have events 
 in that year. You can then click on the month to see the events for that month.
-
-Note that views arguments behave a little differently than the traditional event arguments. 
-To view a month calendar in views, you would set up arguments for year and month, then go 
-to the url YYYY/MM to view it. If you add a day argument to the view, set it up to display 
-as a calendar month, then go to YYYY/MM/DD you will see a month calendar that only has the 
-one day in it, since the /DD argument tells views to filter out just that one day. 
 
 To view a week calendar, create a view with Year and Week arguments, the go to YYYY/WW
 where WW is the week number (1-53) that you want to see.

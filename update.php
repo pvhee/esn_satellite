@@ -1,5 +1,5 @@
 <?php
-// $Id: update.php,v 1.186.2.1 2006/10/18 20:14:41 killes Exp $
+// $Id: update.php,v 1.211 2006/12/25 21:22:03 drumm Exp $
 
 /**
  * @file
@@ -28,9 +28,11 @@ function update_sql($sql) {
  * Save result of SQL commands in $ret array.
  *
  * Note: when you add a column with NOT NULL and you are not sure if there are
- * already rows in the table, you MUST also add DEFAULT. Otherwise PostgreSQL won't
- * work when the table is not empty. If NOT NULL and DEFAULT are set the
- * PostgreSQL version will set values of the added column in old rows to the
+ * already rows in the table, you MUST also add DEFAULT. Otherwise PostgreSQL
+ * won't work when the table is not empty, and db_add_column() will fail.
+ * To have an empty string as the default, you must use: 'default' => "''"
+ * in the $attributes array. If NOT NULL and DEFAULT are set the PostgreSQL
+ * version will set values of the added column in old rows to the
  * DEFAULT value.
  *
  * @param $ret
@@ -44,7 +46,7 @@ function update_sql($sql) {
  * @param $attributes
  *   Additional optional attributes. Recognized attributes:
  *     not null => TRUE|FALSE
- *     default  => NULL|FALSE|value (with or without '', it won't be added)
+ *     default  => NULL|FALSE|value (the value must be enclosed in '' marks)
  * @return
  *   nothing, but modifies $ret parameter.
  */
@@ -318,6 +320,15 @@ function update_selection_page() {
   $output = '<p>The version of Drupal you are updating from has been automatically detected. You can select a different version, but you should not need to.</p>';
   $output .= '<p>Click Update to start the update process.</p>';
 
+  drupal_set_title('Drupal database update');
+  // Prevent browser from using cached drupal.js or update.js
+  drupal_add_js('misc/update.js', 'core', 'header', FALSE, TRUE);
+  $output .= drupal_get_form('update_script_selection_form');
+
+  return $output;
+}
+
+function update_script_selection_form() {
   $form = array();
   $form['start'] = array(
     '#tree' => TRUE,
@@ -326,16 +337,27 @@ function update_selection_page() {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+
+  // Ensure system.module's updates appear first
+  $form['start']['system'] = array();
+
   foreach (module_list() as $module) {
     $updates = drupal_get_schema_versions($module);
     if ($updates !== FALSE) {
       $updates = drupal_map_assoc($updates);
       $updates[] = 'No updates available';
+      $default = drupal_get_installed_schema_version($module);
+      foreach (array_keys($updates) as $update) {
+        if ($update > $default) {
+          $default = $update;
+          break;
+        }
+      }
 
       $form['start'][$module] = array(
         '#type' => 'select',
         '#title' => $module . ' module',
-        '#default_value' => array_search(drupal_get_installed_schema_version($module), $updates) + 1,
+        '#default_value' => $default,
         '#options' => $updates,
       );
     }
@@ -350,31 +372,28 @@ function update_selection_page() {
     '#type' => 'submit',
     '#value' => 'Update',
   );
-
-  drupal_set_title('Drupal database update');
-  // Prevent browser from using cached drupal.js or update.js
-  drupal_add_js('misc/update.js', TRUE);
-  $output .= drupal_get_form('update_script_selection_form', $form);
-
-  return $output;
+  return $form;
 }
 
 function update_update_page() {
   // Set the installed version so updates start at the correct place.
-  $_SESSION['update_remaining'] = array();
-  foreach ($_POST['edit']['start'] as $module => $version) {
+  foreach ($_POST['start'] as $module => $version) {
     drupal_set_installed_schema_version($module, $version - 1);
-    $max_version = max(drupal_get_schema_versions($module));
+    $updates = drupal_get_schema_versions($module);
+    $max_version = max($updates);
     if ($version <= $max_version) {
-      foreach (range($version, $max_version) as $update) {
-        $_SESSION['update_remaining'][] = array('module' => $module, 'version' => $update);
+      foreach ($updates as $update) {
+        if ($update >= $version) {
+          $_SESSION['update_remaining'][] = array('module' => $module, 'version' => $update);
+        }
       }
     }
   }
+
   // Keep track of total number of updates
   $_SESSION['update_total'] = count($_SESSION['update_remaining']);
 
-  if ($_POST['edit']['has_js']) {
+  if ($_POST['has_js']) {
     return update_progress_page();
   }
   else {
@@ -384,8 +403,8 @@ function update_update_page() {
 
 function update_progress_page() {
   // Prevent browser from using cached drupal.js or update.js
-  drupal_add_js('misc/progress.js', TRUE);
-  drupal_add_js('misc/update.js', TRUE);
+  drupal_add_js('misc/progress.js', 'core', 'header', FALSE, TRUE);
+  drupal_add_js('misc/update.js', 'core', 'header', FALSE, TRUE);
 
   drupal_set_title('Updating');
   $output = '<div id="progress"></div>';
@@ -401,7 +420,7 @@ function update_progress_page() {
  *   the overall percentage finished. The second element is a status message.
  */
 function update_do_updates() {
-  while (($update = reset($_SESSION['update_remaining']))) {
+  while (isset($_SESSION['update_remaining']) && ($update = reset($_SESSION['update_remaining']))) {
     $update_finished = update_data($update['module'], $update['version']);
     if ($update_finished == 1) {
       // Dequeue the completed update.
@@ -420,9 +439,13 @@ function update_do_updates() {
     $percentage = 100;
   }
 
-  // When no updates remain, clear the cache.
+  // When no updates remain, clear the caches in case the data has been updated.
   if (!isset($update['module'])) {
-    db_query('DELETE FROM {cache}');
+    cache_clear_all('*', 'cache', TRUE);
+    cache_clear_all('*', 'cache_page', TRUE);
+    cache_clear_all('*', 'cache_menu', TRUE);
+    cache_clear_all('*', 'cache_filter', TRUE);
+    drupal_clear_css_cache();
   }
 
   return array($percentage, isset($update['module']) ? 'Updating '. $update['module'] .' module' : 'Updating complete');
@@ -458,7 +481,7 @@ function update_progress_page_nojs() {
     // Error handling: if PHP dies, it will output whatever is in the output
     // buffer, followed by the error message.
     ob_start();
-    $fallback = '<p class="error">An unrecoverable error has occurred. You can find the error message below. It is advised to copy it to the clipboard for reference. Please continue to the <a href="update.php?op=error">update summary</a>.</p><p class="error">';
+    $fallback = '<p class="error">An unrecoverable error has occurred. You can find the error message below. It is advised to copy it to the clipboard for reference. Please continue to the <a href="update.php?op=error">update summary</a>.</p>';
     print theme('maintenance_page', $fallback, FALSE, TRUE);
 
     list($percentage, $message) = update_do_updates();
@@ -492,11 +515,11 @@ function update_finished_page($success) {
 
   // Report end result
   if ($success) {
-    $output = '<p>Updates were attempted. If you see no failures below, you may proceed happily to the <a href="index.php?q=admin">administration pages</a>. Otherwise, you may need to update your database manually. All errors have been <a href="index.php?q=admin/logs">logged</a>.</p>';
+    $output = '<p>Updates were attempted. If you see no failures below, you may proceed happily to the <a href="index.php?q=admin">administration pages</a>. Otherwise, you may need to update your database manually. All errors have been <a href="index.php?q=admin/logs/watchdog">logged</a>.</p>';
   }
   else {
     $update = reset($_SESSION['update_remaining']);
-    $output = '<p class="error">The update process was aborted prematurely while running <strong>update #'. $update['version'] .' in '. $update['module'] .'.module</strong>. All other errors have been <a href="index.php?q=admin/logs">logged</a>. You may need to check the <code>watchdog</code> database table manually.</p>';
+    $output = '<p class="error">The update process was aborted prematurely while running <strong>update #'. $update['version'] .' in '. $update['module'] .'.module</strong>. All other errors have been <a href="index.php?q=admin/logs/watchdog">logged</a>. You may need to check the <code>watchdog</code> database table manually.</p>';
   }
 
   if ($GLOBALS['access_check'] == FALSE) {
@@ -558,9 +581,15 @@ function update_access_denied_page() {
 </ol>';
 }
 
-// This code may be removed later.  It is part of the Drupal 4.5 to 4.7 migration.
+// This code may be removed later. It is part of the Drupal 4.5 to 4.8 migration.
 function update_fix_system_table() {
   drupal_bootstrap(DRUPAL_BOOTSTRAP_DATABASE);
+  $core_modules = array('aggregator', 'archive', 'block', 'blog', 'blogapi', 'book', 'comment', 'contact', 'drupal', 'filter', 'forum', 'help', 'legacy', 'locale', 'menu', 'node', 'page', 'path', 'ping', 'poll', 'profile', 'search', 'statistics', 'story', 'system', 'taxonomy', 'throttle', 'tracker', 'upload', 'user', 'watchdog');
+  foreach ($core_modules as $module) {
+    $old_path = "modules/$module.module";
+    $new_path = "modules/$module/$module.module";
+    db_query("UPDATE {system} SET filename = '%s' WHERE filename = '%s'", $new_path, $old_path);
+  }
   $row = db_fetch_object(db_query_range('SELECT * FROM {system}', 0, 1));
   if (!isset($row->weight)) {
     $ret = array();
@@ -577,7 +606,7 @@ function update_fix_system_table() {
   }
 }
 
-// This code may be removed later.  It is part of the Drupal 4.6 to 4.7 migration.
+// This code may be removed later. It is part of the Drupal 4.6 to 4.7 migration.
 function update_fix_access_table() {
   if (variable_get('update_access_fixed', FALSE)) {
     return;
@@ -653,16 +682,97 @@ function update_convert_table_utf8($table) {
   return $ret;
 }
 
+/**
+ * Create tables for the split cache.
+ *
+ * This is part of the Drupal 4.7.x to 5.x migration.
+ */
+function update_create_cache_tables() {
+
+  // If cache_filter exists, update is not necessary
+  if (db_table_exists('cache_filter')) {
+    return;
+  }
+
+  $ret = array();
+  switch ($GLOBALS['db_type']) {
+    case 'mysql':
+    case 'mysqli':
+      $ret[] = update_sql("CREATE TABLE {cache_filter} (
+        cid varchar(255) NOT NULL default '',
+        data longblob,
+        expire int NOT NULL default '0',
+        created int NOT NULL default '0',
+        headers text,
+        PRIMARY KEY (cid),
+        INDEX expire (expire)
+      ) /*!40100 DEFAULT CHARACTER SET UTF8 */ ");
+      $ret[] = update_sql("CREATE TABLE {cache_menu} (
+        cid varchar(255) NOT NULL default '',
+        data longblob,
+        expire int NOT NULL default '0',
+        created int NOT NULL default '0',
+        headers text,
+        PRIMARY KEY (cid),
+        INDEX expire (expire)
+      ) /*!40100 DEFAULT CHARACTER SET UTF8 */ ");
+      $ret[] = update_sql("CREATE TABLE {cache_page} (
+        cid varchar(255) BINARY NOT NULL default '',
+        data longblob,
+        expire int NOT NULL default '0',
+         created int NOT NULL default '0',
+        headers text,
+        PRIMARY KEY (cid),
+        INDEX expire (expire)
+      ) /*!40100 DEFAULT CHARACTER SET UTF8 */ ");
+      break;
+    case 'pgsql':
+      $ret[] = update_sql("CREATE TABLE {cache_filter} (
+        cid varchar(255) NOT NULL default '',
+        data bytea,
+        expire int NOT NULL default '0',
+        created int NOT NULL default '0',
+        headers text,
+        PRIMARY KEY (cid)
+     )");
+     $ret[] = update_sql("CREATE TABLE {cache_menu} (
+       cid varchar(255) NOT NULL default '',
+       data bytea,
+       expire int NOT NULL default '0',
+       created int NOT NULL default '0',
+       headers text,
+       PRIMARY KEY (cid)
+     )");
+     $ret[] = update_sql("CREATE TABLE {cache_page} (
+       cid varchar(255) NOT NULL default '',
+       data bytea,
+       expire int NOT NULL default '0',
+       created int NOT NULL default '0',
+       headers text,
+       PRIMARY KEY (cid)
+     )");
+     $ret[] = update_sql("CREATE INDEX {cache_filter}_expire_idx ON {cache_filter} (expire)");
+     $ret[] = update_sql("CREATE INDEX {cache_menu}_expire_idx ON {cache_menu} (expire)");
+     $ret[] = update_sql("CREATE INDEX {cache_page}_expire_idx ON {cache_page} (expire)");
+     break;
+  }
+  return $ret;
+}
+
 // Some unavoidable errors happen because the database is not yet up-to-date.
 // Our custom error handler is not yet installed, so we just suppress them.
 ini_set('display_errors', FALSE);
 
 include_once './includes/bootstrap.inc';
 update_fix_system_table();
-update_fix_access_table();
 
 drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
 drupal_maintenance_theme();
+
+// This must happen *after* drupal_bootstrap(), since it calls
+// variable_(get|set), which only works after a full bootstrap.
+update_fix_access_table();
+update_create_cache_tables();
 
 // Turn error reporting back on. From now on, only fatal errors (which are
 // not passed through the error handler) will cause a message to be printed.
@@ -672,6 +782,7 @@ ini_set('display_errors', TRUE);
 if (($access_check == FALSE) || ($user->uid == 1)) {
 
   include_once './includes/install.inc';
+  drupal_load_updates();
 
   update_fix_schema_version();
   update_fix_watchdog_115();
@@ -681,22 +792,15 @@ if (($access_check == FALSE) || ($user->uid == 1)) {
   $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : '';
   switch ($op) {
     case 'Update':
-      // Check for a valid form token to protect against cross site request forgeries.
-      if (drupal_valid_token($_REQUEST['edit']['form_token'], 'update_script_selection_form', TRUE)) {
-        $output = update_update_page();
-      }
-      else {
-        form_set_error('form_token', t('Validation error, please try again.  If this error persists, please contact the site administrator.'));
-        $output = update_selection_page();
-      }
+      $output = update_update_page();
       break;
 
     case 'finished':
-      $output = update_finished_page(true);
+      $output = update_finished_page(TRUE);
       break;
 
     case 'error':
-      $output = update_finished_page(false);
+      $output = update_finished_page(FALSE);
       break;
 
     case 'do_update':

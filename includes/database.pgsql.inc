@@ -1,5 +1,5 @@
 <?php
-// $Id: database.pgsql.inc,v 1.29.2.4 2006/11/15 21:51:38 killes Exp $
+// $Id: database.pgsql.inc,v 1.43 2006/12/27 22:13:56 dries Exp $
 
 /**
  * @file
@@ -10,6 +10,36 @@
  * @ingroup database
  * @{
  */
+
+/**
+ * Report database status.
+ */
+function db_status_report() {
+  $t = get_t();
+
+  $version = db_version();
+
+  $form['pgsql'] = array(
+    'title' => $t('PostgreSQL database'),
+    'value' => $version,
+  );
+
+  if (version_compare($version, DRUPAL_MINIMUM_PGSQL) < 0) {
+    $form['pgsql']['severity'] = REQUIREMENT_ERROR;
+    $form['pgsql']['description'] = $t('Your PostgreSQL Server is too old. Drupal requires at least PostgreSQL %version.', array('%version' => DRUPAL_MINIMUM_PGSQL));
+  }
+
+  return $form;
+}
+
+/**
+ * Returns the version of the database server currently in use.
+ *
+ * @return Database server version
+ */
+function db_version() {
+  return db_result(db_query("SHOW SERVER_VERSION"));
+}
 
 /**
  * Initialize a database connection.
@@ -61,7 +91,8 @@ function db_connect($url) {
     drupal_maintenance_theme();
     drupal_set_header('HTTP/1.1 503 Service Unavailable');
     drupal_set_title('Unable to connect to database');
-    print theme('maintenance_page', '<p>This either means that the database information in your <code>settings.php</code> file is incorrect or we can\'t contact the PostgreSQL database server. This could mean your hosting provider\'s database server is down.</p>
+    print theme('maintenance_page', '<p>If you still have to install Drupal, proceed to the <a href="'. base_path() .'install.php">installation page</a>.</p>
+<p>If you have already finished installed Drupal, this either means that the username and password information in your <code>settings.php</code> file is incorrect or that we can\'t connect to the PostgreSQL database server. This could mean your hosting provider\'s database server is down.</p>
 <p>The PostgreSQL error was: '. theme('placeholder', decode_entities($php_errormsg)) .'</p>
 <p>Currently, the database is '. theme('placeholder', substr($url['path'], 1)) .', the username is '. theme('placeholder', $url['user']) .', and the database server is '. theme('placeholder', $url['host']) .'.</p>
 <ul>
@@ -171,7 +202,7 @@ function db_num_rows($result) {
  * @param $row
  *   The index of the row whose result is needed.
  * @return
- *   The resulting field.
+ *   The resulting field or FALSE.
  */
 function db_result($result, $row = 0) {
   if ($result && pg_num_rows($result) > $row) {
@@ -179,6 +210,7 @@ function db_result($result, $row = 0) {
 
     return $res[0];
   }
+  return FALSE;
 }
 
 /**
@@ -196,6 +228,9 @@ function db_error() {
  * database tables. Instead, this function is used to return a new unique ID
  * of the type requested. If necessary, a new sequence with the given name
  * will be created.
+ *
+ * Note that the table name should be in curly brackets to preserve compatibility
+ * with table prefixes. For example, db_next_id('{node}_nid');
  */
 function db_next_id($name) {
   $id = db_result(db_query("SELECT nextval('%s_seq')", db_prefix_tables($name)));
@@ -353,12 +388,21 @@ function db_unlock_tables() {
 }
 
 /**
+ * Check if a table exists.
+ */
+function db_table_exists($table) {
+  return db_num_rows(db_query("SELECT relname FROM pg_class WHERE relname = '{" . db_escape_table($table) . "}'"));
+}
+
+/**
  * Verify if the database is set up correctly.
  */
 function db_check_setup() {
+  $t = get_t();
+
   $encoding = db_result(db_query('SHOW server_encoding'));
   if (!in_array(strtolower($encoding), array('unicode', 'utf8'))) {
-    drupal_set_message(t('Your PostgreSQL database is set up with the wrong character encoding (%encoding). It is possible it will not work as expected. It is advised to recreate it with UTF-8/Unicode encoding. More information can be found in the <a href="%url">PostgreSQL documentation</a>.', array('%encoding' => $encoding, '%url' => 'http://www.postgresql.org/docs/7.4/interactive/multibyte.html')), 'status');
+    drupal_set_message($t('Your PostgreSQL database is set up with the wrong character encoding (%encoding). It is possible it will not work as expected. It is advised to recreate it with UTF-8/Unicode encoding. More information can be found in the <a href="@url">PostgreSQL documentation</a>.', array('%encoding' => $encoding, '@url' => 'http://www.postgresql.org/docs/7.4/interactive/multibyte.html')), 'status');
   }
 }
 
@@ -376,7 +420,7 @@ function db_check_setup() {
 function db_distinct_field($table, $field, $query) {
   $field_to_select = 'DISTINCT ON ('. $table .'.'. $field .") $table.$field";
   // (?<!text) is a negative look-behind (no need to rewrite queries that already use DISTINCT).
-  $query = preg_replace('/(SELECT.*)('. $table .'\.)?(?<!DISTINCT\()(?<!DISTINCT\('. $table .'\.)'. $field .'(.*FROM )/AUsi', '\1'. $field_to_select .'\3', $query);
+  $query = preg_replace('/(SELECT.*)(?:'. $table .'\.|\s)(?<!DISTINCT\()(?<!DISTINCT\('. $table .'\.)'. $field .'(.*FROM )/AUsi', '\1 '. $field_to_select .'\2', $query);
   $query = preg_replace('/(ORDER BY )(?!'.$table.'\.'.$field.')/', '\1'."$table.$field, ", $query);
   return $query;
 }

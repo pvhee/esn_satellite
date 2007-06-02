@@ -1,5 +1,5 @@
 <?php
-  // $Id: views.install,v 1.21.2.3 2007/01/16 06:17:48 merlinofchaos Exp $
+  // $Id: views.install,v 1.21.4.4 2007/01/19 00:25:11 merlinofchaos Exp $
 
   function views_install() {
     drupal_set_message('Installing views');
@@ -230,11 +230,21 @@
 
   db_query("UPDATE {system} SET weight = 10 WHERE name = 'views'");
   if ($success) {
+    module_enable(array('views_ui'));
     drupal_set_message(t('Views module installed tables successfully.'));
   }
   else {
     drupal_set_message(t('The installation of views module was unsuccessful.'), 'error');
   }
+}
+
+function views_uninstall() {
+  db_query("DROP TABLE IF EXISTS {view_view}");
+  db_query("DROP TABLE IF EXISTS {view_sort}");
+  db_query("DROP TABLE IF EXISTS {view_argument}");
+  db_query("DROP TABLE IF EXISTS {view_tablefield}");
+  db_query("DROP TABLE IF EXISTS {view_filter}");
+  db_query("DROP TABLE IF EXISTS {view_exposed_filter}");
 }
 
 /*
@@ -274,7 +284,7 @@ function views_update_3() {
         single int(1),
         position int(2),
         KEY (vid)
-      ) /*!40100 DEFAULT CHARACTER SET utf8 */");
+      ) TYPE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 */;");
       break;
     case 'pgsql':
       $ret[] = update_sql("CREATE TABLE {view_exposed_filter} (

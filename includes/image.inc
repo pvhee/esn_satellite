@@ -1,5 +1,5 @@
 <?php
-// $Id: image.inc,v 1.12.2.3 2007/01/04 21:10:43 killes Exp $
+// $Id: image.inc,v 1.17 2006/12/26 14:01:41 dries Exp $
 
 /**
  * Return a list of available toolkits.
@@ -36,20 +36,11 @@ function image_get_toolkit() {
       include_once $toolkit_file;
     }
     elseif (!image_gd_check_settings()) {
-      $toolkit = false;
+      $toolkit = FALSE;
     }
   }
 
   return $toolkit;
-}
-
-/**
- * Validates toolkit selection.
- */
-function image_toolkit_validate($formelement, $fieldname) {
-  if ($formelement['#value'] == 'gd' && image_gd_check_settings() == false) {
-    form_set_error('image_toolkit', t("The built-in GD image toolkit requires that the GD module for PHP be installed and configured properly. For more information see %url.", array('%url' => '<a href="http://php.net/image">http://php.net/image</a>')));
-  }
 }
 
 /**
@@ -67,8 +58,8 @@ function image_toolkit_invoke($method, $params = array()) {
       return call_user_func_array($function, $params);
     }
     else {
-      watchdog('php', t("The selected image handling toolkit '%toolkit' can not correctly process '%function'.", array('%toolkit' => "<em>$toolkit</em>", '%function' => "<em>$function</em>")), WATCHDOG_ERROR);
-      return false;
+      watchdog('php', t("The selected image handling toolkit %toolkit can not correctly process %function.", array('%toolkit' => $toolkit, '%function' => $function)), WATCHDOG_ERROR);
+      return FALSE;
     }
   }
   else {
@@ -91,10 +82,10 @@ function image_toolkit_invoke($method, $params = array()) {
  */
 function image_get_info($file) {
   if (!is_file($file)) {
-    return false;
+    return FALSE;
   }
 
-  $details = false;
+  $details = FALSE;
   $data = @getimagesize($file);
   $file_size = @filesize($file);
 
@@ -120,14 +111,14 @@ function image_get_info($file) {
  * @param $width          The target width
  * @param $height         The target height
  *
- * @return True or false, based on success
+ * @return True or FALSE, based on success
  */
 function image_scale($source, $destination, $width, $height) {
   $info = image_get_info($source);
 
   // don't scale up
   if ($width >= $info['width'] && $height >= $info['height']) {
-    return false;
+    return FALSE;
   }
 
   $aspect = $info['height'] / $info['width'];
@@ -186,14 +177,28 @@ function image_crop($source, $destination, $x, $y, $width, $height) {
  */
 
 /**
- * Retrieve settings for the GD2 toolkit (not used).
+ * Retrieve settings for the GD2 toolkit.
  */
 function image_gd_settings() {
   if (image_gd_check_settings()) {
-    return array('#type' => 'item', '#value' => t('The built-in GD2 toolkit is installed and working properly.'));
+    $form = array();
+    $form['status'] = array('#value' => t('The built-in GD2 toolkit is installed and working properly.'));
+
+    $form['image_jpeg_quality'] = array(
+      '#type' => 'textfield',
+      '#title' => t('JPEG quality'),
+      '#description' => t('Define the image quality for JPEG manipulations. Ranges from 0 to 100. Higher values mean better image quality but bigger files.'),
+      '#size' => 10,
+      '#maxlength' => 3,
+      '#default_value' => variable_get('image_jpeg_quality', 75),
+      '#field_suffix' => t('%'),
+    );
+
+    return $form;
   }
   else {
-    return array('#type' => 'item', '#value' => t('The built-in GD image toolkit requires that the GD module for PHP be installed and configured properly. For more information see %url.', array('%url' => l('http://php.net/image', 'http://php.net/image'))));
+    form_set_error('image_toolkit', t('The built-in GD image toolkit requires that the GD module for PHP be installed and configured properly. For more information see <a href="@url">PHP\'s image documentation</a>.', array('@url' => 'http://php.net/image')));
+    return FALSE;
   }
 }
 
@@ -206,10 +211,10 @@ function image_gd_check_settings() {
   if ($check = get_extension_funcs('gd')) {
     if (in_array('imagegd2', $check)) {
       // GD2 support is available.
-      return true;
+      return TRUE;
     }
   }
-  return false;
+  return FALSE;
 }
 
 /**
@@ -217,17 +222,17 @@ function image_gd_check_settings() {
  */
 function image_gd_resize($source, $destination, $width, $height) {
   if (!file_exists($source)) {
-    return false;
+    return FALSE;
   }
 
   $info = image_get_info($source);
   if (!$info) {
-    return false;
+    return FALSE;
   }
 
   $im = image_gd_open($source, $info['extension']);
   if (!$im) {
-    return false;
+    return FALSE;
   }
 
   $res = imageCreateTrueColor($width, $height);
@@ -252,17 +257,17 @@ function image_gd_resize($source, $destination, $width, $height) {
  */
 function image_gd_rotate($source, $destination, $degrees, $bg_color = 0) {
   if (!function_exists('imageRotate')) {
-    return false;
+    return FALSE;
   }
 
   $info = image_get_info($source);
   if (!$info) {
-    return false;
+    return FALSE;
   }
 
   $im = image_gd_open($source, $info['extension']);
   if (!$im) {
-    return false;
+    return FALSE;
   }
 
   $res = imageRotate($im, $degrees, $bg_color);
@@ -277,7 +282,7 @@ function image_gd_rotate($source, $destination, $degrees, $bg_color = 0) {
 function image_gd_crop($source, $destination, $x, $y, $width, $height) {
   $info = image_get_info($source);
   if (!$info) {
-    return false;
+    return FALSE;
   }
 
   $im = image_gd_open($source, $info['extension']);
@@ -298,7 +303,7 @@ function image_gd_open($file, $extension) {
   $extension = str_replace('jpg', 'jpeg', $extension);
   $open_func = 'imageCreateFrom'. $extension;
   if (!function_exists($open_func)) {
-    return false;
+    return FALSE;
   }
   return $open_func($file);
 }
@@ -310,9 +315,14 @@ function image_gd_close($res, $destination, $extension) {
   $extension = str_replace('jpg', 'jpeg', $extension);
   $close_func = 'image'. $extension;
   if (!function_exists($close_func)) {
-    return false;
+    return FALSE;
   }
-  return $close_func($res, $destination);
+  if ($extension == 'jpeg') {
+    return $close_func($res, $destination, variable_get('image_jpeg_quality', 75));
+  }
+  else {
+    return $close_func($res, $destination);
+  }
 }
 
 

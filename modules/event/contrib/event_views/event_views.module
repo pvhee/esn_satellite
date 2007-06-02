@@ -1,9 +1,8 @@
 <?php
-// $Id: event_views.module,v 1.8.2.3 2006/06/28 23:03:24 karens Exp $
-
+// $Id: event_views.module,v 1.19 2007/01/07 12:58:42 karens Exp $
 /**
  * @file
- * Views-enables the event module, adds calendar display themes to views.
+ * Views-enables the event module.
  */
 
 /**
@@ -11,456 +10,182 @@
  */
 function event_views_help($section) {
   switch ($section) {
-    case 'admin/modules#description':
-      return t('Views-enables the event fields, adds event calendar themes to views display options, and creates default event views. Requires the event module and the views module.');
     case 'admin/help#event_views':
-      $output  = t('<p>The Event Views module makes the event fields available to the Views module, ' .
-        'and creates default event views that filter dates using a drop-down date selector, the jscalendar selector, or by arguments in the url. '.
-        'Set up a default event view by going to %link and select <strong>add</strong>. Save the default views as-is or make any changes you like.</p>', array('%link' => l('admin/views', 'admin/views')));
+      $output  = t('<p>The Event Views module makes the event fields available to the Views module, and creates default event views that filter dates using a drop-down date selector, the jscalendar selector, or by arguments in the url. Set up a default event view by going to %link and select <strong>add</strong>. Save the default views as-is or make any changes you like.</p>', array('%link' => l('admin/views', 'admin/views')));
       $output .= t('<p>You can change the format of the output. The default views display a list of events, but you can change it to a table or a teaser list in the <strong>Page</strong> settings. You can also add or remove fields from the view.</p>');
-      $output .= t('<p>You can filter events in several ways. Use filters to pre-select a date range, expose those filters to allow the viewer to select a date range, '.
-        'or eliminate the filters and give the view year, month, and day arguments to filter the events by the url (i.e. YYYY/MM/DD).</p>');
-      $output .= t('<p>You can display your selected events in a calendar by choosing a calendar option instead of the option to display results in a table or list.</p>');
-      $output .= t('<p>There is also an option to display other date fields in a calendar. Select the Calendar:Start Time and Calendar:End Time fields and select the date field to use. '.
-        'The same options are available on filters and arguments, where you can select any date field as the field you want to filter on.</p>');
+      $output .= t('<p>You can filter events in several ways. Use filters to pre-select a date range, expose those filters to allow the viewer to select a date range, or eliminate the filters and give the view year, month, and day arguments to filter the events by the url (i.e. YYYY/MM/DD).</p>');
       return $output;
   }
 }
 
 /**
- * Implementation of hook_field_info().
- */
-function event_views_info() {
-  return array(
-    'event_views' => array('label' => 'Event Views'),
-  );
-}
-
-/**
- *  Implementation of hook_views_style_plugins()
- */
-function event_views_views_style_plugins() {
-  
-  $plugins = array();
-  $types = event_views_view_types();
-  foreach ($types as $name => $type) {
-    $plugins[$name] = array(
-      'name' => $type,
-      'theme' => 'event_views_display',
-      'validate' => 'views_ui_plugin_validate_table',
-      'needs_fields' => TRUE,
-      'needs_table_header' => FALSE,
-      );
-  }
-  return $plugins;
-}
-
-/**
- *  Event Views plugin theme, overrides default views theme
- */
-function theme_event_views_display($view, $items) {
-  
-  // option to set the view by appending it after the view's other arguments
-  // i.e. 2006/5/12/day will use the calendar day page type to display the items for a view
-  // (assuming the view has already been created with year/month/day arguments)
-  if (array_key_exists($view->args[sizeof($view->argument)], event_views_view_types())) {
-    $view->page_type = $view->args[sizeof($view->argument)];
-  }
-  
-  // see if any special formatting of the output was selected in the view
-  foreach ($view->field as $data) {
-    if ($data['field'] == 'calendar_start') $start_format = $data['handler'];
-    if ($data['field'] == 'calendar_end')   $end_format = $data['handler'];
-  }
-  if ($start_format && !$end_format) $end_format = $start_format;
-
-  // iterate through the $items array returned by the query and create event or pseudo event nodes
-
-  $nodes = array();
-  foreach ($items as $item) {
-    $node = node_load($item->nid);
-
-    if (!isset($node->event_start) && !isset($item->calendar_start)) {
-      // no date for the node and no date in the item
-      // no way to display it on the calendar
-      break;
-
-    } elseif ($item->calendar_start) {
-      
-      // if calendar_start field holds a numeric value, treat it as a unix timestamp
-      // if string, convert to timestamp using strtotime
-      if (is_numeric($item->calendar_start)) {
-        $node->event_start = $item->calendar_start;
-        if ($item->calendar_end) {
-          $node->event_end = $item->calendar_end;
-        } else {
-          $node->event_end = $node->event_start;
-        }
-      } else {
-        $node->event_start = strtotime($item->calendar_start);
-        if ($item->calendar_end) {
-          $node->event_end = strtotime($item->calendar_end);
-        } else {
-          $node->event_end = $node->event_start;
-        }
-      }
-      // may need to come back to this and do something better with timezone handling
-      // keep it simple until things are basically working
-      $node->start_offset = $timezone = _views_get_timezone();
-      $node->end_offset   = $node->start_offset;
-
-      if (function_exists($start_format) && $node->event_start) {
-        $node->start_time_format = $start_format(NULL, NULL, $node->event_start, NULL);
-      }
-      if (function_exists($end_format) && $node->event_end) {
-        $node->end_time_format   = $end_format(NULL, NULL, $node->event_end, NULL);
-      }
-
-    } else {
-      // no special date field supplied in the view but there is an event date in the node so use it
-      // no action needed
-    }
-    $nodes[$item->nid] = $node;
-  }
-  
-  if (sizeof($nodes) == 0) {
-
-    // make sure there is at least one item in $nodes to force the calendar to display
-    // set the hour to 12 to minimize timezone adjustments that might push it to previous or next day
-    $nodes = array(_event_views_make_node(NULL, NULL, _views_get_timezone(), $view->year, $view->month, $view->day, 12, 0));
-
-  } 
-  
-  if (_event_views_is_valid($view->year, 'year')) {
-    
-    // valid year is a test that indicates if arguments were available to establish a date for the calendar
-    // a full view with an argument date will display a single month, day or week calendar page
-    // with navigation that mimics regular event calendar
-    
-    // trim off date values that are outside the selected range to prevent display of incomplete extra calendars
-    $nodes = _event_views_limit_nodes($nodes, $view->page_type, $view->year, $view->month, $view->day, $view->week, _views_get_timezone());
-    
-    // hide the intermediate header rows created by the event api and
-    // push title and navigation into calendar header 
-    $params['hide_header'] = true;
-    $title = theme('table', event_views_nav($view), array());
-
-    // standard api displays a whole month instead of a single week
-    // adjust here for single week display
-    if ($view->page_type == 'week' && $view->week) {
-      $params['force_week'] = $view->week;
-    }
-  
-  } else {
-    
-    // if this is a summary page or any view that doesn't use arguments
-    // view results may contain multiple calendar months, days or weeks
-    // the standard event api (not using the $params and $title above)
-    // will display multiple calendar months, weeks, or days with no navigation
-    // make no change to api, just set title
-    $title = $view->subtitle ? $view->subtitle : $view->page_type;
-  }
-  
-  // use event_get_calendar api to draw the calendar
-  // need patches for the calendar api, so I am temporarily using an copy of the api so no one needs to patch it
-  // once changes are confirmed and specifications are fixed, we can commit the api changes to the event module
-  
-  include_once('event_views_api.inc');
-  return event_views_get_calendar($view->page_type, $nodes, 'event_views', $title, $params);
-  
-}
-
-/**
- *  Function to construct back and next navigation from views arguments
- */
-function event_views_nav($view) {
-  
-  if (!_event_views_is_valid($view->year, 'year')) return $view->subtitle;
-
-  if (_event_views_is_valid($view->week, 'week')) {
-    $timezone = _views_get_timezone();
-    $cur_stamp = strtotime('Jan 1, '.$view->year.' + '.intval($view->week).' weeks GMT') - $timezone;
-  } else {
-    $cur_stamp = mktime(0, 0, 0, ($view->month ? $view->month : 1), ($view->day ? $view->day : 1), ($view->year ? $view->year : date("Y", time())));
-  }
-
-  // build an array of the current path and its parts
-  $i = 0;
-  $path[$i]     = array(
-    'path' => $view->url,
-    'type' => 'url',
-      );
-  foreach ($view->argument as $key => $arg) {
-    $i++;
-    $pathtype = str_replace('event_', '', $arg['type']);
-    $path[$i] = array(
-      'path' => $view->$pathtype,
-      'type' => $pathtype,
-      );
-  }
-  
-  // if there are other arguments after the view arguments, add them to the navigation links
-  while($i < sizeof($view->args)) {
-    $i++;
-    $path[$i] = array(
-      'path' => $view->args[intval($i - 1)],
-      'type' => '',
-    );
-  }
-  
-  // reverse through the path, creating a $nextpath and $prevpath arrays
-  for ($x = $i; $x >= 0; $x--) {
-    switch ($path[$x]['type']) {
-    case ('day'):
-      $day = $path[$x]['path'];
-      $next_stamp = $cur_stamp + (86400);
-      $prev_stamp = $cur_stamp - (86400);
-      $nextpath[$x] = date('j', $next_stamp);
-      $prevpath[$x] = date('j', $prev_stamp);
-      break;
-    case ('week'):
-      $week = $path[$x]['path'];
-      $year = $view->year;
-      if (!$next_stamp) {
-        $next_stamp = $cur_stamp + (604800);
-        $prev_stamp = $cur_stamp - (604800);
-      }
-      $nextpath[$x] = date('W', $next_stamp);
-      $prevpath[$x] = date('W', $prev_stamp);
-      break;
-    case ('month'):
-      $month = $path[$x]['path'];
-      $year  = $view->year;
-      if (!$next_stamp) {
-        $next_stamp = mktime(0, 0, 0, ($month < 12 ? $month + 1 : 1), 1, ($month < 12 ? $year : $year + 1));
-        $prev_stamp = mktime(0, 0, 0, ($month > 1  ? $month - 1 : 12), 1, ($month > 1 ? $year : $year - 1));
-      }
-      $nextpath[$x] = date('n', $next_stamp);
-      $prevpath[$x] = date('n', $prev_stamp);
-      break;
-    case ('year'):
-      if (!$next_stamp) {
-        $next_stamp = mktime(0, 0, 0, 1, 1, ($year + 1));
-        $prev_stamp = mktime(0, 0, 0, 12, 1, ($year - 1));
-      }
-      $nextpath[$x] = date('Y', $next_stamp);
-      $prevpath[$x] = date('Y', $prev_stamp);
-      break;
-    default:
-      // all other arguments are just passed through
-      $nextpath[$x] = $path[$x]['path'];
-      $prevpath[$x] = $path[$x]['path'];
-      break;
-    }
-  }
-  // make the navigation into a header, with prev and next links
-  // use the event_nav themes to mimic standard event calendar navigation
-  $header = array();
-  $header[]  = array('data' => theme('event_nav_prev', implode('/', array_reverse($prevpath))), 'class' => 'prev');
-  $header[]  = array('data' => $view->subtitle, 'class' => 'heading', 'colspan' => 5);
-  $header[]  = array('data' => theme('event_nav_next', implode('/', array_reverse($nextpath))), 'class' => 'next');
-  return $header;
-}
-
-/**
- *  A function to create a psuedo event
- *   - create a blank date to force a calendar display even when there is no data
- */
-function _event_views_make_node($node = NULL, $timestamp = NULL, $offset = NULL, $year = NULL, $month = NULL, $day = NULL, $hour = NULL, $minute = NULL) {
-
-  $offset = $offset ? $offset : _views_get_timezone();
-    
-  if (!$timestamp) {
-    $year   = _event_views_is_valid($year, 'year')     ? $year   : date('Y', time());
-    $month  = _event_views_is_valid($month, 'month')   ? $month  : date('m', time());
-    $day    = _event_views_is_valid($day, 'day')       ? $day    : date('j', time());
-    $hour   = _event_views_is_valid($hour, 'hour')     ? $hour   : date('H', time());
-    $minute = _event_views_is_valid($minute, 'minute') ? $minute : date('i', time());
-    $timestamp = gmmktime($hour, $minute, 0, $month, $day, $year);
-  }
-  
-  if (!$node) {
-    $node = new stdClass();
-    $node->nid = 0;
-  }
-
-  $node->event_start  = $timestamp;
-  $node->start_offset = $offset;
-  $node->event_end    = $timestamp;
-  $node->end_offset   = $offset;
-
-  return $node;
-}
-
-/**
- *  A function to adjust node values to slice off times before and after the selected view
- *  used for events that span days, months, or years since the event api
- *  automatically creates additional calendars for events that extend into another time period
- *  and the additional calendars will be incomplete (only containing cross-over events)
- */
-function _event_views_limit_nodes($nodes, $type, $year, $month, $day, $week, $offset) {
-  
-  switch ($type) {
-  case ('day'):
-    $min_date = _event_mktime(0, 0, 0, $month, $day, $year, $offset);
-    $max_date = $min_date;
-    break;
-  case ('week'):
-    // use strtotime to find first day of requested week
-    $min_date = strtotime('Jan 1, '.$year.' + '.intval($week - 1).' weeks');
-    $max_date = $min_date + (604800);
-    break;
-  case ('month');
-    $min_date = _event_mktime(0, 0, 0, $month, 1, $year, $offset);
-    // find the first day of the next month and subtract one day
-    if ($month < 12) {
-      $max_date = _event_mktime(0, 0, 0, intval($month + 1), 1, $year, $offset) - (86400);
-    } else {
-      $max_date = _event_mktime(0, 0, 0, 1, 1, intval($year + 1), $offset) - (86400);
-    }
-    break;
-  }
-
-  foreach ($nodes as $nid => $node) {
-    
-    // store real event start and end dates to swap back in before displaying the node
-    $nodes[$nid]->real_start = $node->event_start;
-    $nodes[$nid]->real_end   = $node->event_end;
-    
-    // change event_start and event_end to cut off node values outside the current range
-    // this will keep event api from rendering incomplete calendars for those values
-    if ($node->event_start < $min_date ) $nodes[$nid]->event_start = $min_date;
-    if ($node->event_end   > $max_date ) $nodes[$nid]->event_end   = $max_date; 
-  }
-  
-  return $nodes;
-
-}
-
-/**
- *  Implementation of hook_event_node() from the event_get_calendar() api
- *  event api is expecting a function for each calendar type but
- *  all of them need the same processing, so run them through a single function
- *  instead of duplicating the processing for each one
- */
-function event_views_event_node_month($node) {
-  return event_views_event_node($node, 'month');
-}
-function event_views_event_node_day($node) {
-  return event_views_event_node($node, 'day');
-}
-function event_views_event_node_week($node) {
-  return event_views_event_node($node, 'week');
-}
-function event_views_event_node($node, $type) {
-  // restore real event start and end times if they were adjusted to limit calendar range
-  if ($node->real_start) $node->event_start = $node->real_start;
-  if ($node->real_end)   $node->event_end   = $node->real_end;
-
-  if ($node->nid > 0) {
-    // this is a real event, go ahead and display it
-    return theme('event_node', $type, $node);
-  
-  } else {
-    // surpress display of psuedo events added to force display of a blank calendar
-    // have to return some value for blank day so not overridden by normal event node theme
-    // a blank space seems to be sufficient to do that
-    return ' ';
-  }
-}
-
-/**
- *  Implementation of hook_views_pre_view()
- */
-function event_views_views_pre_view(&$view, &$items) {
-  
-  // set year, month, day, and week values from arguments so they can be retrieved in theme & navigation
-  if (sizeof($view->argument) > 0) {
-    
-    $timezone = _views_get_timezone();
-
-    foreach ($view->argument as $key => $arg) {
-      
-      switch ($arg['type']) {
-      case ('event_year'):
-        if (_event_views_is_valid($view->args[$key], 'year')) {
-          $year = $view->args[$key];
-          $view->year = $year;
-          $view->subtitle = $year;
-        }
-        break;
-      case ('event_month'):
-        if (_event_views_is_valid($view->args[$key], 'month')) {
-          $view->month = $view->args[$key];
-          $month = substr('00'. $view->month, -2);
-          // use the second day of the month because gm functions sometimes return the previous month
-          $view->subtitle = date('F Y', strtotime("$year-$month-02"));
-        }
-        break;
-      case ('event_day'):
-        if (_event_views_is_valid($view->args[$key], 'day')) {
-          $view->day = $view->args[$key];
-          $day = substr('00'. $view->day, -2);
-          $view->subtitle = date('l, F j Y', strtotime("$year-$month-$day"));
-        }
-        break;
-      case ('event_week'):
-        if (_event_views_is_valid($view->args[$key], 'week')) {
-          // use strtotime to find first day of requested week
-          $week  = $view->args[$key];
-          $view->week = $week;
-          $date = strtotime('Jan 1, '.$year.' + '.intval($week - 1).' weeks');
-          $view->subtitle = t("Week of %date", array('%date' => date('F j Y', $date)));
-        }
-        break;
-      case ('event_view'):
-        if ($view->args[$key]) {
-          $view->page_type = $view->args[$key];
-        }
-        break;
-      }
-    }
-  } 
-  
-  // did something without valid date info get this far? if so, create a title
-  if (!$year) {
-    $view->subtitle = $view->page_type;
-  }
-  
-  // add this so empty calendar results will produce blank calendar page
-  // needed for smooth prev/next transitions
-  if (in_array($view->page_type, event_views_view_types()) && $year) {
-    $view->page_empty .= theme('event_views_display', $view, array());
-    $view->page_empty_format = 3;
-  }
-
-  return;
-}
-
-/**
- *  Implementation of hook_views_tables()
+ *  Implementation of hook_views_tables().
+ *  Expose event fields and filters to the views module.
  */
 function event_views_views_tables() {
-  include_once('event_views_tables.inc');
-  return _event_views_views_tables();
+
+  // Create an option list of event content types.
+  $event_node_types = array_merge(event_get_types('all'), event_get_types('solo'));
+  $type_options = array();
+  foreach ($event_node_types as $type) {
+    $type_options[$type] = node_get_types('name', $type);
+  }
+
+  // Use this to default to current time.
+  $current = array('***CURRENT_TIME***' => t('now'));
+
+  // Limit years to years that have events.
+  $years   = ($current + drupal_map_assoc(range(intval(date("Y", variable_get('event_range_prev', time()))), intval(date("Y", variable_get('event_range_next',time()))))));
+  $months  = ($current + drupal_map_assoc(range(1, 12), 'map_month'));
+  $days    = ($current + drupal_map_assoc(range(1, 31)));
+    
+  $tables['event'] = array(
+    'name' => 'event', 
+    'join' => array(
+      'left' => array(
+        'table' => 'node',
+        'field' => 'nid'
+      ), 
+      'right' => array(
+        'field' => 'nid'
+      ), 
+    ),
+    'fields' => array(
+      'event_start' => array(
+        'name' => t('Event: Start Time'), 
+        'sortable' => true,
+        'handler' => views_handler_field_dates(),
+        'option' => 'string',
+        'addlfields' => array('event_start', 'event_end', 'timezone'),
+        ),
+      'event_end' => array(
+        'name' => t('Event: End Time'),
+        'sortable' => true,
+        'handler' => views_handler_field_dates(),
+        'option' => 'string',
+        'addlfields' => array('event_start', 'event_end', 'timezone'),
+        ),
+      'timezone' => array(
+        'name' => t('Event: Timezone'),
+        'handler' => 'event_timezone_display_handler',
+        'query_handler' => 'event_views_query_handler',
+        'sortable' => true,
+      ),
+    ),
+    'sorts' => array(
+      'event_start' => array('name' => t('Event: Start Time')),
+      'event_end' => array('name' => t('Event: End Time')),
+    ),
+    'filters' => array(
+      'event_start' => array(
+        'field' => 'event_start',
+        'name' => t('Event: Start Date'),
+        'operator' => 'views_handler_operator_gtlt',
+        'value' => views_handler_filter_date_value_form(),
+        'option' => 'string',
+        'handler' => 'event_views_handler_filter_timestamp',
+        'help' => t('This filter allows events to be filtered by their start date. Enter dates in the format: CCYY-MM-DD HH:MM:SS. Enter \'now\' to use the current time. You may enter a delta (in seconds) to the option that will be added to the time; this is most useful when combined with now. If you have the jscalendar module from jstools installed, you can use a popup date picker here.'),
+      ),
+      'event_end' => array(
+        'field' => 'event_end',
+        'name' => t('Event: End Date'),
+        'operator' => 'views_handler_operator_gtlt',
+        'value' => views_handler_filter_date_value_form(),
+        'option' => 'string',
+        'handler' => 'event_views_handler_filter_timestamp',
+        'help' => t('This filter allows events to be filtered by their end date. Enter dates in the format: CCYY-MM-DD HH:MM:SS. Enter \'now\' to use the current time. You may enter a delta (in seconds) to the option that will be added to the time; this is most useful when combined with now. If you have the jscalendar module from jstools installed, you can use a popup date picker here.'),
+      ),
+      'year' => array(
+        'field' => 'event_start',
+        'name' => t('Event: Start Year'),
+        'operator' => 'views_handler_operator_gtlt',
+        'list' => $years,
+        'list-type' => 'select',
+        'handler' => 'event_views_handler_filter_ymd',
+        'type' => 'YEAR',
+        'help' => t('Filter by year. Use the option to select the date field to filter on.'),
+      ),
+      'month' => array(
+        'field' => 'event_start',
+        'name' => t('Event: Start Month'),
+        'operator' => 'views_handler_operator_gtlt',
+        'list' => $months,
+        'list-type' => 'select',
+        'handler' => 'event_views_handler_filter_ymd',
+        'type' => 'MONTH',
+        'help' => t('Filter by month. Use the option to select the date field to filter on.'),
+      ),
+      'day' => array(
+        'field' => 'event_start',
+        'name' => t('Event: Start Day'),
+        'operator' => 'views_handler_operator_gtlt',
+        'list' => $days,
+        'list-type' => 'select',
+        'handler' => 'event_views_handler_filter_ymd',
+        'type' => 'DAYOFMONTH',
+        'help' => t('Filter by day. Use the option to select the date field to filter on.'),
+      ),
+    ),
+  );
+  
+  // add a pseudo table to set up additional fields and filters for node table
+  $tables['event_views'] = array(
+    'name' => 'node', 
+    'join' => array(
+      'left' => array(
+        'table' => 'node',
+        'field' => 'nid'
+      ), 
+      'right' => array(
+        'field' => 'nid'
+      ), 
+    ),
+   // here's a filter that is limited to event content types to be used for exposed filters that should not contain other values
+   'filters' => array(
+      'event_type' => array(
+        'field' => 'type',
+        'name' => t('Event: Type'),
+        'list' => $type_options,
+        'list-type' => 'list',
+        'operator' => 'views_handler_operator_or',
+        'value-type' => 'array',
+        'help' => t('A node type selector that is limited to event-enabled node types. Use as exposed filter that only contains event node types.'),
+        ),
+      ),
+    );
+
+   return $tables;
 }
 
 /**
  *  Implementation of hook_views_arguments()
  */
 function event_views_views_arguments() {
-  include_once('event_views_tables.inc');
-  return _event_views_views_arguments();
+  $arguments = array(
+    'event_year' => array(
+      'name' => t('Event: Start Year'),
+      'handler' => 'event_views_handler_arg_year',
+      'help' => t('Filter by the event year (YYYY).'),
+    ),
+    'event_month' => array(
+      'name' => t('Event: Start Month'),
+      'handler' => 'event_views_handler_arg_month',
+      'help' => t("Filter by the event month (1-12). Place this argument after a 'Year' argument."),
+    ),
+    'event_day' => array(
+      'name' => t('Event: Start Day'),
+      'handler' => 'event_views_handler_arg_day',
+      'help' => t("Filter by the event day (1-31). Place this argument after a 'Year' and a 'Month' argument."),
+    ),
+    'event_week' => array(
+      'name' => t('Event: Start Week'),
+      'handler' => 'event_views_handler_arg_week',
+      'help' => t("Filter by the week number (1-52). Place this argument after a 'Year' argument."),
+    ),
+  );
+  return $arguments;
 }
 
-/**
- *  Implementation of hook_views_default_views()
- */
-function event_views_views_default_views() {
-  include_once('event_views_tables.inc');
-  return _event_views_views_default_views();
-}
-  
 /**
  *  Handle a timestamp filter. 
  *  would use version in views.module except we have to ensure the events table is in the query
@@ -490,33 +215,12 @@ function event_views_timezone_display_handler($fieldinfo, $fielddata, $value, $d
  */
 function event_views_calendar_query_handler(&$field, &$fieldinfo, &$query) {
   
-  // parse out the field and table that will be used as the calendar date
-  $option     = explode('.', $field['options']);
-  $table      = $option[0];
-  $field_name = $option[1];
+  $option = event_views_get_field($field['options']);
   
   // make sure the table is joined into the query and have the selected field serve AS the calendar date
-  $query->ensure_table($table);
-  $query->add_field("{$field_name} AS {$field[field]}", $table);
+  $query->ensure_table($option['table']);
+  $query->add_field($option['field'] ." AS ". $field[field] ."", $option['table']);
   
-}
-
-/**
- *  A form element that will display all available views fields in the views ui
- *  Used for selecting the fields that will be used as calendar start and end dates
- */
-function event_views_calendar_form($form) {
-  // for now, just display all available fields
-  // might be nice later to try to figure out how to display only valid date fields
-  // including any cck date fields that have been created
-  // but that's a TODO for another time
-  $fields2 = _views_get_fields(TRUE);
-  $fields1 = array(
-    'event.event_start' => t('Event: Start Time'),
-    'event.event_end' => t('Event: End Time'),
-    );
-  // force event fields to the top of the list
-  return $fields1 + $fields2;
 }
 
 /*
@@ -526,6 +230,7 @@ function event_views_calendar_form($form) {
  * @param $filterinfo[type] is year, month, or day
  */
 function event_views_handler_filter_ymd($op, $filter, $filterinfo, &$query) {
+  
   switch(trim($filter[value])) {
     case(''):
     case('all'):
@@ -538,15 +243,8 @@ function event_views_handler_filter_ymd($op, $filter, $filterinfo, &$query) {
       $compare = intval($filter['value']);
       break;
   }
-  $fullname = $filterinfo['field'];
-  $table = explode('.', $fullname);
-
-  if (_event_views_date_type($fullname) == 'string') {
-    $sql = $filterinfo['type'] ."($fullname)";
-  } else {
-    $sql = $filterinfo['type'] ."(from_UNIXTIME($fullname))";
-  }
-  $query->ensure_table($table[0]);
+  $sql = $filterinfo['type'] ."(from_UNIXTIME(event.event_start))";
+  $query->ensure_table('event');
   $query->add_where("$sql $filter[operator] $compare");
 }
 
@@ -568,13 +266,12 @@ function event_views_handler_arg_week($op, &$query, $argtype, $arg = '') {
 }
 function event_views_handler_arg_type($op, &$query, $argtype, $arg, $field_name, $field_type) {
   
-  $timezone   = _views_get_timezone();
-  $fullname   = is_array($argtype) ? $argtype['options'] : $arg;
-  $table      = explode('.', $fullname);
+  $timezone = _views_get_timezone();
   
   switch ($field_type) {
   case ('MONTH'):
-    $title = date('F', strtotime("2006-{$query->event_month}-01"));
+    $month = $arg ? $arg : $query->event_month ? $query->event_month : '';
+    $title = $month ? date('F', strtotime("2006-{$month}-01")) : $query->$field_name;
     $sql_adj = '';
     break;
   case ('WEEK'):
@@ -590,17 +287,13 @@ function event_views_handler_arg_type($op, &$query, $argtype, $arg, $field_name,
 
   // not yet postgres compatible, goal is to get it working reliably, then try to figure out
   // postgres support
-  if (_event_views_date_type($fullname) == 'string') {
-    $sql = "$field_type($fullname$sql_adj)";
-  } else {
-    $sql = "$field_type(from_UNIXTIME($fullname)$sql_adj)";
-  }
-
+  $sql = "$field_type(from_UNIXTIME(event.event_start)$sql_adj)";
+  
   switch($op) {
     case 'summary':
       $fieldinfo['field'] = $sql;
       $fieldinfo['fieldname'] = $field_name;
-      $query->ensure_table($table[0]);
+      $query->ensure_table('event');
       return $fieldinfo;
       break;
     case 'sort':
@@ -609,7 +302,7 @@ function event_views_handler_arg_type($op, &$query, $argtype, $arg, $field_name,
     case 'filter':
       $event_year = intval($arg);
       $query->add_where("$sql = ". $arg);
-      $query->ensure_table($table[0]);
+      $query->ensure_table('event');
       break;
     case 'link':
       if ($title != t('N/A')) {
@@ -623,99 +316,334 @@ function event_views_handler_arg_type($op, &$query, $argtype, $arg, $field_name,
 }
 
 /**
- *  Possible event views page display types
+ *  Implementation of hook_views_default_views()
+ *   Create default event views
  */
-function event_views_view_types() {
-  return array('month' => t('Calendar Month'), 'day' => t('Calendar Day'), 'week' => t('Calendar Week'));
-}
+function event_views_views_default_views() {
+  
+  // avoid miscellaneous problems by forcing the cache to clear before creating a default view
+  views_invalidate_cache();
 
-/**
- *  A form element for a view selector
- */
-function _event_views_view_type_form($view = NULL) {
-  $form['event_view'] = array(
-    '#type' => 'select',
-    '#options' => event_views_view_types(),
-    '#default_value' => $view ? $view->page_type : 'month',
-    '#title' => t('View'),
+  $event_node_types = array_merge(event_get_types('all'), event_get_types('solo'));
+  
+  $view = new stdClass();
+  $view->name = t('event_select');
+  $view->description = t('Events list filtered by drop-down date selector.');
+  $view->disabled = TRUE;
+  $view->access = array (
     );
-  return $form;
-}
+  $view->view_args_php = '';
+  $view->page = TRUE;
+  $view->page_title = t('event list');
+  $view->page_header = '';
+  $view->page_header_format = '1';
+  $view->page_footer = '';
+  $view->page_footer_format = '1';
+  $view->page_empty = '';
+  $view->page_empty_format = '1';
+  $view->page_type = 'table';
+  $view->url = 'event/select';
+  $view->use_pager = TRUE;
+  $view->nodes_per_page = '10';
+  $view->menu = FALSE;
+  $view->menu_title = '';
+  $view->menu_tab = FALSE;
+  $view->menu_tab_default = FALSE;
+  $view->menu_weight = '';
+  $view->sort = array (
+    );
+  $view->argument = array (
+    );
+  $view->field = array (
+    array (
+      'tablename' => 'node',
+      'field' => 'title',
+      'label' => t('Title'),
+      'handler' => 'views_handler_field_nodelink',
+      'sortable' => '1',
+    ),
+    array (
+      'tablename' => 'event',
+      'field' => 'event_start',
+      'label' => t('Start Time:'),
+      'handler' => 'views_handler_field_date_small',
+      'sortable' => '1',
+    ),
+    array (
+      'tablename' => 'event',
+      'field' => 'event_end',
+      'label' => t('End Time:'),
+      'handler' => 'views_handler_field_date_small',
+      'sortable' => '1',
+    ),
+  );
+  $view->filter = array (
+    array (
+      'tablename' => 'node',
+      'field' => 'status',
+      'operator' => '=',
+      'options' => '',
+      'value' => '1',
+      ),
+    array (
+      'tablename' => 'node',
+      'field' => 'type',
+      'operator' => 'OR',
+      'options' => '',
+      'value' => $event_node_types,
+      ),
+   array (
+      'tablename' => 'event',
+      'field' => 'year',
+      'operator' => '=',
+      'options' => '',
+      'value' => '***CURRENT_TIME***',
+    ),
+    array (
+      'tablename' => 'event',
+      'field' => 'month',
+      'operator' => '>=',
+      'options' => '',
+      'value' => '***CURRENT_TIME***',
+    ),
+    array (
+      'tablename' => 'event',
+      'field' => 'day',
+      'operator' => '>=',
+      'options' => '',
+      'value' => '1',
+    ),
+ 
+   );
+  $view->exposed_filter = array (
+     array (
+      'tablename' => 'event',
+      'field' => 'year',
+      'label' => t('Start Year:'),
+      'optional' => 0,
+      'is_default' => 0,
+      'operator' => 0,
+      'single' => 0,
+    ),
+    array (
+      'tablename' => 'event',
+      'field' => 'month',
+      'label' => t('Start Month:'),
+      'optional' => 0,
+      'is_default' => 0,
+      'operator' => 0,
+      'single' => 0,
+    ),
+     array (
+      'tablename' => 'event',
+      'field' => 'day',
+      'label' => t('Start Day:'),
+      'optional' => 0,
+      'is_default' => 0,
+      'operator' => 0,
+      'single' => 0,
+    ),
+  );
+  $view->requires = array(node, event);
+  $views[$view->name] = $view;
 
-/**
- *  A function to test the validity of various date parts
- */
-function _event_views_is_valid($value, $type) {
-  $value = intval($value);
-  if ($value <= 0) return false;
-  switch ($type) {
-  case ('year'):
-    if ($value < 1970) return false;
-    break;
-  case ('month'):
-    if ($value < 0 || $value > 12) return false;
-    break;
-  case ('day'):
-    if ($value < 0 || $value > 31) return false;
-    break;
-  case ('week'):
-    if ($value < 0 || $value > 53) return false;
-  }
-  return true;
-}
+  $view = new stdClass();
+  $view->name = t('event_js');
+  $view->description = t('Events list filtered by js date selector.');
+  $view->disabled = TRUE;
+  $view->access = array (
+    );
+  $view->view_args_php = '';
+  $view->page = TRUE;
+  $view->page_title = t('event list');;
+  $view->page_header = '';
+  $view->page_header_format = '1';
+  $view->page_footer = '';
+  $view->page_footer_format = '1';
+  $view->page_empty = '';
+  $view->page_empty_format = '1';
+  $view->page_type = 'table';
+  $view->url = 'event/selector';
+  $view->use_pager = TRUE;
+  $view->nodes_per_page = '10';
+  $view->menu = FALSE;
+  $view->menu_title = '';
+  $view->menu_tab = FALSE;
+  $view->menu_tab_default = FALSE;
+  $view->menu_weight = '';
+  $view->sort = array (
+  );
+  $view->argument = array (
+  );
+  $view->field = array (
+    array (
+    'tablename' => 'node',
+    'field' => 'title',
+    'label' => t('Title'),
+    'handler' => 'views_handler_field_nodelink',
+    'sortable' => '1',
+    ),
+    array (
+    'tablename' => 'event',
+    'field' => 'event_start',
+    'label' => t('Start Time:'),
+    'handler' => 'views_handler_field_date_small',
+    'sortable' => '1',
+    ),
+    array (
+    'tablename' => 'event',
+    'field' => 'event_end',
+    'label' => t('End Time:'),
+    'handler' => 'views_handler_field_date_small',
+    'sortable' => '1',
+    ),
+  );
+  $view->filter = array (
+    array (
+    'tablename' => 'node',
+    'field' => 'status',
+    'operator' => '=',
+    'options' => '',
+    'value' => '1',
+    ),
+    array (
+    'tablename' => 'node',
+    'field' => 'type',
+    'operator' => 'OR',
+    'options' => '',
+    'value' => $event_node_types,
+    ),
+    array (
+    'tablename' => 'event',
+    'field' => 'event_start',
+    'operator' => '>',
+    'options' => '',
+    'value' => 'now',
+    ),
+    array (
+    'tablename' => 'event',
+    'field' => 'event_end',
+    'operator' => '>',
+    'options' => '',
+    'value' => 'now',
+    ),
+  );
+  $view->exposed_filter = array (
+  array (
+    'tablename' => 'event',
+    'field' => 'event_start',
+    'label' => t('Start Date'),
+    'optional' => 0,
+    'is_default' => 0,
+    'operator' => 0,
+    'single' => 0,
+  ),
+  array (
+    'tablename' => 'event',
+    'field' => 'event_end',
+    'label' => t('End Date'),
+    'optional' => 0,
+    'is_default' => 0,
+    'operator' => 0,
+    'single' => 0,
+  ),
+  );
 
-/**
- *  A function to sort out whether a date field is a unix timestamp or an iso date
- *  For now assuming only cck fields use iso dates
- *  and that numeric value indicates a unix timestamp
- */
-function _event_views_date_type($field_name, $value = NULL) {
+  $view->requires = array(node, event);
+  $views[$view->name] = $view;
+
+
+  $view = new stdClass();
+  $view->name = t('event_date');
+  $view->description = t('Events list filtered by url arguments.');
+  $view->disabled = TRUE;
+  $view->access = array (
+    );
+  $view->view_args_php = '';
+  $view->page = TRUE;
+  $view->page_title = t('event list');;
+  $view->page_header = '';
+  $view->page_header_format = '1';
+  $view->page_footer = '';
+  $view->page_footer_format = '1';
+  $view->page_empty = '';
+  $view->page_empty_format = '1';
+  $view->page_type = 'table';
+  $view->url = 'event/date';
+  $view->use_pager = TRUE;
+  $view->nodes_per_page = '10';
+  $view->menu = FALSE;
+  $view->menu_title = '';
+  $view->menu_tab = FALSE;
+  $view->menu_tab_default = FALSE;
+  $view->menu_weight = '';
+  $view->sort = array (
+    );
+  $view->argument = array (
+    );
+  $view->field = array (
+   array (
+      'tablename' => 'node',
+      'field' => 'title',
+      'label' => t('Title'),
+      'handler' => 'views_handler_field_nodelink',
+      'sortable' => '1',
+    ),
+     array (
+      'tablename' => 'event',
+      'field' => 'event_start',
+      'label' => t('Start Time:'),
+      'handler' => 'views_handler_field_date_small',
+      'sortable' => '1',
+    ),
+    array (
+      'tablename' => 'event',
+      'field' => 'event_end',
+      'label' => t('End Time:'),
+      'handler' => 'views_handler_field_date_small',
+      'sortable' => '1',
+    ),
+  );
+  $view->filter = array (
+    array (
+      'tablename' => 'node',
+      'field' => 'status',
+      'operator' => '=',
+      'options' => '',
+      'value' => '1',
+      ),
+    array (
+      'tablename' => 'node',
+      'field' => 'type',
+      'operator' => 'OR',
+      'options' => '',
+      'value' => $event_node_types,
+      ),
+  );
+  $view->exposed_filter = array ();
+  $view->argument = array (
+    array (
+      'type' => 'event_year',
+      'argdefault' => '6',
+      'title' => t('Year'),
+      'options' => '',
+    ),
+    array (
+      'type' => 'event_month',
+      'argdefault' => '6',
+      'title' => t('Month'),
+      'options' => '',
+    ),
+    array (
+      'type' => 'event_day',
+      'argdefault' => '6',
+      'title' => t('Day'),
+      'options' => '',
+    ),
+  );
+  $view->requires = array(node, event);
+  $views[$view->name] = $view;
   
-  $table = explode('.', $field_name);
-  
-  // for cck content types, figure out if this is an iso or unix date type
-  if (strstr($table[0], 'node_data_field') || ($value && !is_numeric($value))) {
+   return $views;
 
-    $fields = _views_get_fields();
-    $type = $fields[$field_name]['content_db_info']['columns']['value']['type'];
-    switch ($type) {
-    case ('varchar'):
-      return 'string';
-    case ('integer'):
-      return 'timestamp';
-    }
-  } 
-  // all other types are assumed to be unix
-  return 'timestamp';
-  
-}
-
-/**
- *  Make sure both views and event are enabled
- * hunmonk's module dependency check: see http://drupal.org/node/54463
- */
-function event_views_form_alter($form_id, &$form) {
-  if ($form_id == 'system_modules' && !$_POST) {
-    event_views_system_module_validate($form);
-  }
-}
-
-/**
- * hunmonk's module dependency check: see http://drupal.org/node/54463
- */
-function event_views_system_module_validate(&$form) {
-  $module = 'event_views';
-  $dependencies = array('views', 'event');
-  foreach ($dependencies as $dependency) {
-      if (!in_array($dependency, $form['status']['#default_value'])) {
-        $missing_dependency = TRUE;
-        $missing_dependency_list[] = $dependency;
-      }
-  }
-  if (in_array($module, $form['status']['#default_value']) && isset($missing_dependency)) {
-    db_query("UPDATE {system} SET status = 0 WHERE type = 'module' AND name = '%s'", $module);
-    $key = array_search($module, $form['status']['#default_value']);
-    unset($form['status']['#default_value'][$key]);
-    drupal_set_message(t('The module %module was deactivated--it requires the following disabled/non-existant modules to function properly: %dependencies', array('%module' => $module, '%dependencies' => implode(', ', $missing_dependency_list))), 'error');
-  }
 }

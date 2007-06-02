@@ -1,20 +1,10 @@
 <?php
-// $Id: userreference.module,v 1.22.2.21 2007/01/29 20:46:33 yched Exp $
+// $Id: userreference.module,v 1.30.2.16 2007/03/05 21:58:47 yched Exp $
 
 /**
  * @file
  * Defines a field type for referencing a user from a node.
  */
-
-/**
- * Implementation of hook_help().
- */
-function userreference_help($section) {
-  switch ($section) {
-    case 'admin/modules#description':
-      return t('<strong>CCK:</strong> Defines a field type for referencing a user from a node. <em>Note: Requires content.module.</em>');
-  }
-}
 
 /**
  * Implementation of hook_field_info().
@@ -35,7 +25,6 @@ function userreference_field_settings($op, $field) {
       $form['referenceable_roles'] = array(
         '#type' => 'checkboxes',
         '#title' => t('User roles that can be referenced'),
-        '#multiple' => TRUE,
         '#default_value' => isset($field['referenceable_roles']) ? $field['referenceable_roles'] : array(),
         '#options' => user_roles(1),
       );
@@ -73,7 +62,7 @@ function userreference_field($op, &$node, $field, &$items, $teaser, $page) {
         $error_field = isset($item['error_field']) ? $item['error_field'] : '';
         unset($item['error_field']);
         if (!empty($item['uid']) && !in_array($item['uid'], array_keys(_userreference_potential_references($field)))) {
-          form_set_error($error_field, t('Invalid user.'));
+          form_set_error($error_field, t('%name : Invalid user.', array('%name' => t($field['widget']['label']))));
         }
       }
       return;
@@ -164,7 +153,7 @@ function userreference_widget($op, &$node, $field, &$items) {
           '#size' => $field['multiple'] ? min(count($options), 6) : 0,
           '#options' => $options,
           '#required' => $field['required'],
-          '#description' => $field['widget']['description'],
+          '#description' => t($field['widget']['description']),
         );
 
         return $form;
@@ -174,7 +163,7 @@ function userreference_widget($op, &$node, $field, &$items) {
           // drop the 'none' option
           unset($items['uids']['none']);
           if (!empty($items['uids'])) {
-            $items = content_transpose_array_rows_cols(array('uid' => $items['uids']));
+            $items = array_values(content_transpose_array_rows_cols(array('uid' => $items['uids'])));
           }
           else {
             $items[0]['uid'] = '';
@@ -185,8 +174,8 @@ function userreference_widget($op, &$node, $field, &$items) {
         }
         // Remove the widget's data representation so it isn't saved.
         unset($items['uids']);
-        foreach($items as $delta => $item) {
-          $items[$delta]['error_field'] =  $field['field_name'].'][uids';
+        foreach ($items as $delta => $item) {
+          $items[$delta]['error_field'] =  $field['field_name'] .'][uids';
         }
     }
   }
@@ -206,7 +195,7 @@ function userreference_widget($op, &$node, $field, &$items) {
 
         if ($field['multiple']) {
           $form[$field['field_name']]['#type'] = 'fieldset';
-          $form[$field['field_name']]['#description'] = $field['widget']['description'];
+          $form[$field['field_name']]['#description'] = t($field['widget']['description']);
           $delta = 0;
           foreach ($items as $item) {
             if ($item['uid']) {
@@ -237,7 +226,7 @@ function userreference_widget($op, &$node, $field, &$items) {
             '#autocomplete_path' => 'user/autocomplete',
             '#default_value' => $items[0]['default user_name'],
             '#required' => $field['required'],
-            '#description' => $field['widget']['description'],
+            '#description' => t($field['widget']['description']),
           );
         }
         return $form;
@@ -251,7 +240,7 @@ function userreference_widget($op, &$node, $field, &$items) {
           // Remove the widget's data representation so it isn't saved.
           unset($items[$delta]['user_name']);
           $items[$delta]['uid'] = $uid;
-          $items[$delta]['error_field'] = $field['field_name'].']['.$delta.'][user_name';
+          $items[$delta]['error_field'] = $field['field_name'] .']['. $delta .'][user_name';
           // Don't save empty fields except the first value
           if (empty($uid) && $delta > 0) {
             unset($items[$delta]);
@@ -266,10 +255,11 @@ function userreference_widget($op, &$node, $field, &$items) {
  */
 function _userreference_potential_references($field) {
   $roles = array();
-  if (isset($field['referenceable_roles'])) {
+  if (is_array($field['referenceable_roles'])) {
+    // keep only selected checkboxes
+    $roles = array_filter($field['referenceable_roles']);
     // filter invalid values that seems to get through sometimes ??
-    $field['referenceable_roles'] = array_intersect(user_roles(1), $field['referenceable_roles']);
-    $roles = array_keys(array_filter($field['referenceable_roles']));
+    $roles = array_intersect(array_keys(user_roles(1)), $roles);
   }
   if (empty($roles) || in_array(DRUPAL_AUTHENTICATED_RID, $roles)) {
     $result = db_query('SELECT u.name, u.uid FROM {users} u WHERE uid > 0 ORDER BY u.name ASC');

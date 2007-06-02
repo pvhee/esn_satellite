@@ -1,0 +1,103 @@
+/* $Id: simplemenu.css,v 1.10.2.3 2007/04/07 06:22:55 m3avrck Exp $ */
+#simplemenu
+{
+	background:#ddd;
+	color:#333;
+	margin:0;
+	padding:0;
+	z-index:48;
+	border-bottom:1px solid #999;
+	font:11px Verdana, Helvetica, sans-serif;
+	left:0;
+	position:absolute;
+	top:0;
+	width:100%;
+	height:20px;
+	z-index:48;
+}
+
+#simplemenu li
+{
+	background:#ddd;
+	border-right:1px solid #999;
+	border-left:1px solid #eee;
+	float:left;
+	list-style:none;
+	position:relative;
+	margin:0;
+	padding:0;
+	z-index:48;
+	text-align: left;
+}
+
+#simplemenu a
+{
+	color:#333;
+	display:block;
+	float:left;
+	padding:.3em 2em .3em .6em;
+	text-decoration:none;
+	background:#ddd;
+}
+
+#simplemenu li.expanded > a
+{
+	background:url(right-green.gif) no-repeat 97%;
+	padding-right:2em;
+}
+
+#simplemenu li.root > a
+{
+	font-weight:700;
+	background:url(down-green.gif) no-repeat 97%;
+}
+
+#simplemenu li ul
+{
+	float:none;
+	top:-999em;
+	position:absolute;
+	margin:0;
+	padding:0;
+	z-index:48;
+	width:14em;
+	background:#ddd;
+	border:1px solid #999;
+}
+
+#simplemenu li:hover,#simplemenu li.sfhover,#simplemenu a:focus,#simplemenu a:hover,#simplemenu a:active
+{
+	background:#3875d7;
+	color:#fff;
+}
+
+#simplemenu li:hover ul,#simplemenu li.sfhover ul
+{
+	left:-1px;
+	top:20px;
+}
+
+#simplemenu li:hover li ul,#simplemenu li.sfhover li ul
+{
+	top:-999em;
+}
+
+#simplemenu li li:hover ul,#simplemenu li li.sfhover ul
+{
+	left:14em;
+	top:-1px;
+	width:14em;
+}
+
+#simplemenu li li
+{
+	background:#ddd;
+	float:none;
+	border:none;
+}
+
+#simplemenu li li a
+{
+	float:none;
+	padding-right:0;
+}

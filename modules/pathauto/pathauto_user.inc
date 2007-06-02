@@ -1,5 +1,5 @@
 <?php
-// $Id: pathauto_user.inc,v 1.12.2.2 2006/10/11 21:36:02 greggles Exp $
+// $Id: pathauto_user.inc,v 1.17 2006/11/11 23:17:58 greggles Exp $
 
 /**
  * Implementation of hook_pathauto() for user aliases
@@ -75,7 +75,7 @@ function tracker_pathauto($op) {
 /**
  * Implementation of hook_user() for users, trackers, and blogs
  */
-function pathauto_user($op, &$edit, &$user, $category=FALSE) {
+function pathauto_user($op, &$edit, &$user, $category = FALSE) {
   switch ($op) {
     case 'insert':
     case 'update':
@@ -89,11 +89,11 @@ function pathauto_user($op, &$edit, &$user, $category=FALSE) {
         $placeholders[t('[uid]')] = $user->uid;
         $src = 'user/'.$user->uid;
         $alias = pathauto_create_alias('user', $op, $placeholders, $src);
-        if (module_exist('blog')) {
+        if (module_exists('blog')) {
           $src = 'blog/'.$user->uid;
           $alias = pathauto_create_alias('blog', $op, $placeholders, $src);
         }
-        if (module_exist('tracker')) {
+        if (module_exists('tracker')) {
           $src = 'user/'.$user->uid.'/track';
           $alias = pathauto_create_alias('tracker', $op, $placeholders, $src);
         }
@@ -106,10 +106,10 @@ function pathauto_user($op, &$edit, &$user, $category=FALSE) {
       */
       $user = (object) $user;
       path_set_alias('user/'.$user->uid);
-      if (module_exist('blog')) {
+      if (module_exists('blog')) {
         path_set_alias('blog/'.$user->uid);
       }
-      if (module_exist('tracker')) {
+      if (module_exists('tracker')) {
         path_set_alias('user/'.$user->uid.'/track');
       }
       break;
@@ -120,12 +120,10 @@ function pathauto_user($op, &$edit, &$user, $category=FALSE) {
 
 // Generate aliases for all users without aliases
 function user_pathauto_bulkupdate() {
-  $query = 'SELECT uid,name,src,dst FROM {users} '.
-    "LEFT JOIN {url_alias} ON CONCAT('user/', uid) = src ".
-    'WHERE uid > 0';
+  $query = "SELECT uid,name,src,dst FROM {users} LEFT JOIN {url_alias} ON CONCAT('user/', uid) = src WHERE uid > 0";
   $result = db_query($query);
   $user = db_fetch_object($result);
-
+  
   $count = 0;
   $placeholders = array();
   while ($user) {
@@ -140,17 +138,15 @@ function user_pathauto_bulkupdate() {
   
   drupal_set_message(format_plural($count,
     "Bulk update of users completed, one alias generated.",
-    "Bulk update of users completed, %count aliases generated."));
+    "Bulk update of users completed, @count aliases generated."));
 }
 
 // Generate aliases for all blogs without aliases
 function blog_pathauto_bulkupdate() {
-  $query = 'SELECT uid,name,src,dst FROM {users} '.
-    "LEFT JOIN {url_alias} ON CONCAT('user/', uid) = src ".
-    'WHERE uid > 0';
+  $query = "SELECT uid,name,src,dst FROM {users} LEFT JOIN {url_alias} ON CONCAT('user/', uid) = src WHERE uid > 0";
   $result = db_query($query);
   $user = db_fetch_object($result);
-
+  
   $count = 0;
   $placeholders = array();
   while ($user) {
@@ -162,20 +158,18 @@ function blog_pathauto_bulkupdate() {
     }
     $user = db_fetch_object($result);
   }
-
+  
   drupal_set_message(format_plural($count,
     "Bulk update of user blogs completed, one alias generated.",
-    "Bulk update of user blogs completed, %count aliases generated."));
+    "Bulk update of user blogs completed, @count aliases generated."));
 }
 
 // Generate aliases for all tracker pages without aliases
 function tracker_pathauto_bulkupdate() {
-  $query = 'SELECT uid,name,src,dst FROM {users} '.
-    "LEFT JOIN {url_alias} ON CONCAT('user/', uid) = src ".
-    'WHERE uid > 0';
+  $query = "SELECT uid,name,src,dst FROM {users} LEFT JOIN {url_alias} ON CONCAT('user/', uid) = src WHERE uid > 0";
   $result = db_query($query);
   $user = db_fetch_object($result);
-
+  
   $count = 0;
   $placeholders = array();
   while ($user) {
@@ -187,9 +181,9 @@ function tracker_pathauto_bulkupdate() {
     }
     $user = db_fetch_object($result);
   }
-
+  
   drupal_set_message(format_plural($count,
     "Bulk update of user tracker pages completed, one alias generated.",
-    "Bulk update of user tracker pages completed, %count aliases generated."));
+    "Bulk update of user tracker pages completed, @count aliases generated."));
 }
 

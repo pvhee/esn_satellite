@@ -1,5 +1,5 @@
 <?php
-// $Id: tablesort.inc,v 1.38.2.2 2006/12/01 09:40:03 killes Exp $
+// $Id: tablesort.inc,v 1.43 2006/12/01 08:50:33 dries Exp $
 
 /**
  * @file
@@ -63,7 +63,7 @@ function tablesort_sql($header, $before = '') {
 function tablesort_header($cell, $header, $ts) {
   // Special formatting for the currently sorted column header.
   if (is_array($cell) && isset($cell['field'])) {
-    $title = t('sort by %s', array('%s' => $cell['data']));
+    $title = t('sort by @s', array('@s' => $cell['data']));
     if ($cell['data'] == $ts['name']) {
       $ts['sort'] = (($ts['sort'] == 'asc') ? 'desc' : 'asc');
       if (isset($cell['class'])) {

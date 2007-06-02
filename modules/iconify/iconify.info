@@ -1,0 +1,5 @@
+; $Id: iconify.info,v 0.1 2007-03-08 morten.dk Exp $
+name = Iconify
+description = this module adds icons/graphix in the admin baby :]
+version = "5.x-dev-1"
+package = Other

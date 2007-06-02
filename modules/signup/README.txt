@@ -1,4 +1,4 @@
-$Id: README.txt,v 1.3.2.2 2006/06/16 17:14:19 thehunmonkgroup Exp $
+$Id: README.txt,v 1.7 2006/06/16 17:12:22 thehunmonkgroup Exp $
 
 The signup module allows users to sign up for nodes of any type.  For
 each signup-enabled node, this module provides options for sending a

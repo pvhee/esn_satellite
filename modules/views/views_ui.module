@@ -1,5 +1,5 @@
 <?php
-// $Id: views_ui.module,v 1.36.2.14 2007/01/21 21:03:42 merlinofchaos Exp $
+// $Id: views_ui.module,v 1.44.2.6 2007/01/21 21:03:37 merlinofchaos Exp $
 
 // ---------------------------------------------------------------------------
 // Drupal Hooks
@@ -11,18 +11,16 @@ function views_ui_help($section) {
   switch ($section) {
     case 'admin/help#views_ui':
       return _views_ui_help_add();
-    case 'admin/modules#description':
-      return t('The views module creates customized views of node lists.');
-    case 'admin/views/import':
+    case 'admin/build/views/import':
       return t('You may import a view by cut-and-pasting the results of an export view. If the import is successful you will be taken to the Add View page with all of the settings of the imported view..');
-    case 'admin/views':
+    case 'admin/build/views':
       return t('This screen shows all of the views that are currently defined in your system. The default views are provided by Views and other modules and are automatically available. If a customized view of the same name exists, it will be used in place of a default view.');
   }
-  if (!strncmp($section, 'admin/views', 11)) {
+  if (!strncmp($section, 'admin/build/views', 11)) {
     switch (arg(2)) {
       case 'add':
       case 'edit':
-        return t('Please see %s or the views documentation on drupal.org for help here.', array('%s' => l(t('the views help page'), 'admin/help/views_ui')));
+        return t('Please see !s or the views documentation on drupal.org for help here.', array('!s' => l(t('the views help page'), 'admin/help/views_ui')));
       case 'export':
         return t('You may cut & paste this view into an import function on another system. The view will only work if all modules required by the view are installed on the target location.');
     }
@@ -44,6 +42,7 @@ function _views_ui_help_add() {
       <dt><em>Random Node</em></dt><dd>This will show a single random node's full view.</dd>
     </dl>");
 
+  views_load_cache();
   $output .= t("<h3>Fields</h3>\n");
   $output .= t("<p>When using List or Table view, it is necessary to choose which fields will be displayed to the user.</p><dl>\n");
   $fields = _views_get_fields();
@@ -93,87 +92,61 @@ function views_ui_menu($may_cache) {
   $items = array();
 
   if ($may_cache) {
-    $items[] = array('path' => 'admin/views',
-      'title' => t('views'),
+    $items[] = array('path' => 'admin/build/views',
+      'title' => t('Views'),
       'callback' => 'views_ui_admin_page',
       'access' => user_access('administer views'),
+      'description' => t('Views are customized lists of content on your system; they are highly configurable and give you control over how lists of content are presented.'),
       'type' => MENU_NORMAL_ITEM);
-    $items[] = array('path' => 'admin/views/list',
-      'title' => t('list'),
+    $items[] = array('path' => 'admin/build/views/list',
+      'title' => t('List'),
       'callback' => 'views_ui_admin_page',
       'access' => user_access('administer views'),
       'type' => MENU_DEFAULT_LOCAL_TASK,
       'weight' => '-1');
-    $items[] = array('path' => 'admin/views/add',
-      'title' => t('add'),
+    $items[] = array('path' => 'admin/build/views/add',
+      'title' => t('Add'),
       'callback' => 'views_ui_admin_add_page',
       'access' => user_access('administer views'),
       'type' => MENU_LOCAL_TASK);
-    $items[] = array('path' => 'admin/views/clone',
-      'title' => t('clone'),
+    $items[] = array('path' => 'admin/build/views/clone',
+      'title' => t('Clone'),
       'callback' => 'views_ui_admin_clone_page',
       'access' => user_access('administer views'),
       'type' => MENU_CALLBACK);
-    $items[] = array('path' => 'admin/views/edit',
-      'title' => t('edit view'),
+    $items[] = array('path' => 'admin/build/views/edit',
+      'title' => t('Edit view'),
       'callback' => 'views_ui_admin_edit_page',
       'access' => user_access('administer views'),
       'type' => MENU_CALLBACK);
-    $items[] = array('path' => 'admin/views/import',
-      'title' => t('import'),
+    $items[] = array('path' => 'admin/build/views/import',
+      'title' => t('Import'),
       'callback' => 'views_ui_admin_import_page',
       'access' => user_access('administer views'),
       'type' => MENU_LOCAL_TASK);
-    $items[] = array('path' => 'admin/views/export',
-      'title' => t('export view'),
-      'callback' => 'views_ui_admin_export_page',
+    $items[] = array('path' => 'admin/build/views/export',
+      'title' => t('Export view'),
+      'callback' => 'drupal_get_form',
+      'callback arguments' => array('views_ui_admin_export_page'),
       'access' => user_access('administer views'),
       'type' => MENU_CALLBACK);
-    $items[] = array('path' => 'admin/views/delete',
-      'title' => t('edit view'),
-      'callback' => 'views_ui_admin_delete_page',
+    $items[] = array('path' => 'admin/build/views/delete',
+      'title' => t('Edit view'),
+      'callback' => 'drupal_get_form',
+      'callback arguments' => array('views_ui_admin_delete_confirm'),
       'access' => user_access('administer views'),
       'type' => MENU_CALLBACK);
-    $items[] = array('path' => 'admin/views/enable',
+    $items[] = array('path' => 'admin/build/views/enable',
       'callback' => 'views_ui_admin_enable_page',
       'access' => user_access('administer views'),
       'type' => MENU_CALLBACK);
-    $items[] = array('path' => 'admin/views/disable',
+    $items[] = array('path' => 'admin/build/views/disable',
       'callback' => 'views_ui_admin_disable_page',
       'access' => user_access('administer views'),
       'type' => MENU_CALLBACK);
 
   }
   return $items;
-}
-
-/**
- * hunmonk's module dependency check: see http://drupal.org/node/54463
- */
-function views_ui_form_alter($form_id, &$form) {
-  if ($form_id == 'system_modules' && !$_POST) {
-    views_ui_system_module_validate($form);
-  }
-}
-
-/**
- * hunmonk's module dependency check: see http://drupal.org/node/54463
- */
-function views_ui_system_module_validate(&$form) {
-  $module = 'views_ui';
-  $dependencies = array('views');
-  foreach ($dependencies as $dependency) {
-      if (!in_array($dependency, $form['status']['#default_value'])) {
-        $missing_dependency = TRUE;
-        $missing_dependency_list[] = $dependency;
-      }
-  }
-  if (in_array($module, $form['status']['#default_value']) && isset($missing_dependency)) {
-    db_query("UPDATE {system} SET status = 0 WHERE type = 'module' AND name = '%s'", $module);
-    $key = array_search($module, $form['status']['#default_value']);
-    unset($form['status']['#default_value'][$key]);
-    drupal_set_message(t('The module %module was deactivated--it requires the following disabled/non-existant modules to function properly: %dependencies', array('%module' => $module, '%dependencies' => implode(', ', $missing_dependency_list))), 'error');
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -183,6 +156,8 @@ function views_ui_system_module_validate(&$form) {
  * This page lists all system views and provides links to edit them.
  */
 function views_ui_admin_page() {
+  views_load_cache();
+
   $numViews = 25;
 
   drupal_set_title(t('administer views'));
@@ -208,10 +183,10 @@ function views_ui_admin_page() {
       implode(', ', $provides), 
       $url, 
       theme('links', array(
-        l(t('edit'), "admin/views/edit/$view->vid"), 
-        l(t('export'), "admin/views/export/$view->vid"), 
-        l(t('delete'), "admin/views/delete/$view->vid"),
-        l(t('clone'), "admin/views/clone/$view->vid"),
+        array('title' => t('Edit'), 'href' => "admin/build/views/edit/$view->vid"), 
+        array('title' => t('Export'), 'href' => "admin/build/views/export/$view->vid"), 
+        array('title' => t('Delete'), 'href' => "admin/build/views/delete/$view->vid"),
+        array('title' => t('Clone'), 'href' => "admin/build/views/clone/$view->vid"),
       ))
     );
   }
@@ -267,19 +242,20 @@ function views_ui_admin_page() {
       $provides[] = t('Menu');
     }
 
-    $links = array(l(t('add'), "admin/views/add/$view->name"));
+    $links = array();
+    $links[] = array('title' => t('Add'), 'href' => "admin/build/views/add/$view->name");
     if ($status == t('Enabled')) {
-      $links[] = l(t('disable'), "admin/views/disable/$view->name");
+      $links[] = array('title' => t('Disable'), 'href' => "admin/build/views/disable/$view->name");
     }
     else if ($status == t('Disabled')) {
-      $links[] = l(t('enable'), "admin/views/enable/$view->name");
+      $links[] = array('title' => t('Enable'), 'href' => "admin/build/views/enable/$view->name");
     }
 
     $items[] = array($view->name, views_get_title($view, 'menu'), $view->description, implode(', ', $provides), $url, $status, theme('links', $links));
   }
 
   if ($items) {
-    $output .= theme('table', array(t('Default View'), t('Title'), t('Description'), t('Provides'), t('URL'), t('Status'), t('Actions')), $items, array("cellpadding" => "4"), t('Default Views'));
+    $output .= theme('table', array(t('Default view'), t('Title'), t('Description'), t('Provides'), t('URL'), t('Status'), t('Actions')), $items, array("cellpadding" => "4"), t('Default Views'));
   }
   else {
     $output .= t('<p>No views have currently been defined.</p>');
@@ -292,38 +268,47 @@ function views_ui_admin_page() {
  * Page to enable a disabled default view
  */
 function views_ui_admin_enable_page($view = '') {
+  views_load_cache();
+
   if ($view) {
     $views_status = variable_get('views_defaults', array());
     $views_status[$view] = 'enabled';
     variable_set('views_defaults', $views_status);
     menu_rebuild();
   }
-  drupal_goto('admin/views');
+  drupal_goto('admin/build/views');
 }
 
 /*
  * Page to disable an enabled default view
  */
 function views_ui_admin_disable_page($view = '') {
+  views_load_cache();
+
   if ($view) {
     $views_status = variable_get('views_defaults', array());
     $views_status[$view] = 'disabled';
     variable_set('views_defaults', $views_status);
     menu_rebuild();
   }
-  drupal_goto('admin/views');
+  drupal_goto('admin/build/views');
 }
 
 /*
  * Provide a textarea to paste a view export into.
  */
 function views_ui_admin_import_page() {
-  $op = $_POST['edit']['name'];
+  views_load_cache();
 
-  if ($op) {
+  if ($_POST['form_id'] == 'views_edit_view') {
     return views_ui_admin_add_page();
   }
   drupal_set_title("Import a View");
+
+  return drupal_get_form('views_ui_admin_import', $form);
+}
+
+function views_ui_admin_import() {
   $form['view'] = array(
     '#type' => 'textarea',
     '#title' => t('Import View Code'),
@@ -337,13 +322,14 @@ function views_ui_admin_import_page() {
     '#value' => t("Submit"),
   );
 
-  return drupal_get_form('views_import_view', $form);
+  $form['#redirect'] = NULL;
+  return $form;
 }
 
 /*
  * Handle the submit button on importing a view.
  */
-function views_import_view_submit($formid, $form) {
+function views_ui_admin_import_submit($formid, $form) {
   ob_start();
   eval($form['view']);
   ob_end_clean();
@@ -353,7 +339,7 @@ function views_import_view_submit($formid, $form) {
     if (!is_array($view->requires) || !array_diff($view->requires, $tables)) {
       views_sanitize_view($view);
       drupal_set_title(t('Add a View'));
-      $output = _views_view_form($view, NULL);
+      $output = drupal_get_form('views_edit_view', $view, NULL);
       print theme('page', $output);
       exit;
     }
@@ -370,6 +356,8 @@ function views_import_view_submit($formid, $form) {
  * Export a view for cut & paste.
  */
 function views_ui_admin_export_page($vid = '') {
+  views_load_cache();
+
   $code = views_create_view_code($vid);
   $lines = substr_count($code, "\n");
   $form['code'] = array(
@@ -377,32 +365,36 @@ function views_ui_admin_export_page($vid = '') {
     '#title' => $view->name,
     '#default_value' => $code,
     '#rows' => $lines);
-  return drupal_get_form('views_export', $form);
+  return $form;
 }
 
 /*
  * Provide a form to add a view. Allow adding a view from default templates.
  */
 function views_ui_admin_add_page($template = NULL) {
+  views_load_cache();
+
   $op = $_POST['op'];
   if ($op == t('Cancel')) {
-    return 'admin/views';
+    return 'admin/build/views';
   }
 
   $view = _views_get_default_view($template);
 
   drupal_set_title(t('Add a View'));
 
-  return _views_view_form($view, $op);
+  return drupal_get_form('views_edit_view', $view, $op);
 }
 
 /*
  * Provide a form to clone a view.
  */
 function views_ui_admin_clone_page($viewname) {
+  views_load_cache();
+
   $op = $_POST['op'];
   if ($op == t('Cancel')) {
-    return 'admin/views';
+    return 'admin/build/views';
   }
 
   $view = views_load_view($viewname);
@@ -413,58 +405,60 @@ function views_ui_admin_clone_page($viewname) {
   unset($view->vid);
   drupal_set_title(t('Add a View'));
 
-  return _views_view_form($view, $op);
+  return drupal_get_form('views_edit_view', $view, $op);
 }
 
 /*
  * Provide a form to edit a view.
  */
 function views_ui_admin_edit_page($vid = '') {
+  views_load_cache();
+
   $op = $_POST['op'];
   if ($op == t('Cancel')) {
-    drupal_goto('admin/views');
+    drupal_goto('admin/build/views');
   }
 
   if ($op == t('Delete')) {
-    drupal_goto("admin/views/delete/$vid");
+    drupal_goto("admin/build/views/delete/$vid");
   }
 
   if (!($view = _views_load_view($vid))) {
-    drupal_goto('admin/views');
+    drupal_goto('admin/build/views');
   }
 
   drupal_set_title(t('Edit view %n', array('%n' => $view->name)));
-  return _views_view_form($view, $op);
+  return drupal_get_form('views_edit_view', $view, $op);
 }
 
 /*
  * Provide a form to confirm deletion of a view.
  */
-function views_ui_admin_delete_page($vid = '') {
+function views_ui_admin_delete_confirm($vid = '') {
   $view = _views_load_view($vid);
 
   if (!$view) {
-    return 'admin/views';
+    return drupal_goto('admin/build/views');
   }
 
   $form['vid'] = array('#type' => 'value', '#value' => $view->vid);
-  return confirm_form('views_delete_confirm', $form,
+// bdragon note: Did you mean to drop the above line on the floor with this?
+  $form = confirm_form($form,
     t('Are you sure you want to delete %title?', array('%title' => $view->name)),
-    $_GET['destination'] ? $_GET['destination'] : 'admin/views',
+    $_GET['destination'] ? $_GET['destination'] : 'admin/build/views',
     t('This action cannot be undone.'),
     t('Delete'), t('Cancel')
   );
+  return $form;
 }
 
 /*
  * Handle the submit button to delete a view.
  */
-function views_delete_confirm_submit($formid, $form) {
-  if ($form['confirm']) {
-    _views_delete_view((object) $form);
-    menu_rebuild();
-    return 'admin/views';
-  }
+function views_ui_admin_delete_confirm_submit($form_id, $form) {
+  _views_delete_view((object) $form);
+  menu_rebuild();
+  drupal_goto('admin/build/views');
 }
 
 /*
@@ -674,7 +668,7 @@ function views_ui_setup_widget($widget, $default_value, $argument = NULL) {
 /**
  * Display all the guts of a view in a form for editing.
  */
-function _views_view_form($view, $op = '') {
+function views_edit_view($view, $op = '') {
   _views_check_arrays($view); // make sure arrays that might be empty get set
 
   // Put in all our add buttons, then process them to see if they've been hit.
@@ -803,7 +797,7 @@ function _views_view_form($view, $op = '') {
   $form['page-info']['nodes_per_page'] = array(
     '#type' => 'textfield',
     '#title' => t('Nodes per Page'),
-    '#default_value' => $view->nodes_per_page,
+    '#default_value' => intval($view->nodes_per_page),
     '#size' => 5,
     '#maxlength' => 5,
     '#description' => t('The number of nodes to display per page. If 0, all nodes will be displayed. If not using a pager, this will be the maximum number of nodes in the list.'),
@@ -1048,7 +1042,7 @@ function _views_view_form($view, $op = '') {
       '#cols' => 60,
       '#rows' => 6,
       '#description' => '<p>'. t('Advanced Usage Only: PHP code that returns a custom array of arguments for the view. Should not include &lt;?php ?&gt; delimiters.') .'</p>' .
-                        '<p>'. t('For more information, please see the <a href="%arg">Argument Handling Code documentation</a> in the Drupal handbook.', array('%arg' => 'http://drupal.org/node/70145')) .'</p>',
+                        '<p>'. t('For more information, please see the <a href="!arg">Argument Handling Code documentation</a> in the Drupal handbook.', array('%arg' => 'http://drupal.org/node/70145')) .'</p>',
     );
   } else {
     $form['view_args_php_fieldset']['view_args_php'] = array(
@@ -1061,6 +1055,10 @@ function _views_view_form($view, $op = '') {
     '#type' => 'submit',
     '#value' => t('Save'),
   );
+  $form['save_and_edit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save and edit'),
+  );
   if ($view->vid) {
     $form['delete'] = array(
       '#type' => 'submit',
@@ -1072,13 +1070,16 @@ function _views_view_form($view, $op = '') {
     '#value' => t('Cancel'),
   );
 
-  return drupal_get_form('views_edit_view', $form);
+  return $form;
 }
 
 /**
  * separately build a piece of the form
  */
 function views_ui_build_form(&$form) {
+  // NOT REALLY SURE WHY THIS SORT OF WORKS. IT'S MAGIC THAT CHX POINTED ME TO
+  // IN THE POLL MODULE.
+  $form['#post'] = $_POST;
   $form = form_builder('views_edit_view', $form);
 }
 
@@ -1484,13 +1485,13 @@ function views_ui_add_button($image, $name, $text) {
  */
 function theme_views_edit_view($form) {
 
-  $output .= form_render($form['basic-info'], false);
-  $output .= form_render($form['page-info'], false);
-  $output .= form_render($form['block-info'], false);
+  $output .= drupal_render($form['basic-info'], false);
+  $output .= drupal_render($form['page-info'], false);
+  $output .= drupal_render($form['block-info'], false);
 
   $allbut = $form['allbut']['#value'];
 
-  // form_render wants a reference so use full array notation.
+  // drupal_render wants a reference so use full array notation.
 
   // fields
   $collapsed = $allbut && $allbut != 'field';
@@ -1508,7 +1509,7 @@ function theme_views_edit_view($form) {
 
   $group .= views_ui_render_section_add($form['argument']['add'], array('id', 'button'), t('Add Argument'));
 
-  $group .= form_render($form['view_args_php_fieldset']);
+  $group .= drupal_render($form['view_args_php_fieldset']);
 
   $group .= '<p>'. t('Arguments are parsed directly from the URL. They are not necessary to any given view, but allow flexibility.') .'</p>';
   $output .= theme('fieldset', array('#title' => t('Arguments'), '#children' => $group,
@@ -1545,7 +1546,7 @@ function theme_views_edit_view($form) {
   $output .= theme('fieldset', array('#title' => t('Sort Criteria'), '#children' => $group,
     '#collapsible' => true, '#collapsed' => $collapsed,));
 
-  $output .= form_render($form, false);
+  $output .= drupal_render($form, false);
   return $output;
 }
 
@@ -1571,12 +1572,12 @@ function views_ui_render_section(&$form, $items, $header, $section, &$collapsed)
         $row[] = '&nbsp;'; // array('data' => '&nbsp;', 'width' => 16);
       }
       else {
-        $row[] = form_render($form[$i][$item], false);
+        $row[] = drupal_render($form[$i][$item], false);
       }
     }
     $rows[] = $row;
     if (isset($form[$i]['help'])) {
-      $rows[] = array(array('data' => form_render($form[$i]['help']), 'colspan' => $num_items));
+      $rows[] = array(array('data' => drupal_render($form[$i]['help']), 'colspan' => $num_items));
     }
   }
   if (!$rows) {
@@ -1593,7 +1594,7 @@ function views_ui_render_section(&$form, $items, $header, $section, &$collapsed)
  */
 function views_ui_render_section_add(&$form, $items,  $label) {
   foreach ($items as $item) {
-    $row[] = form_render($form[$item], false);
+    $row[] = drupal_render($form[$item], false);
   }
   $rows[] = $row;
 
@@ -1605,8 +1606,9 @@ function views_ui_render_section_add(&$form, $items,  $label) {
  * Validate that a view sent via form is OK.
  */
 function views_edit_view_validate($form_id, $view, $form) {
-  $op = $_POST['op'];
-  if ($op != t('Save')) {
+  $op = $view['op'];
+
+  if ($op != t('Save') && $op != t('Save and edit')) {
     return; // only validate on saving!
   }
 
@@ -1714,7 +1716,10 @@ function views_edit_view_submit($form_id, $form) {
     drupal_set_message(t('View successfully added.'));
   }
 
-  return 'admin/views';
+  if ($form['op'] == t('Save')) {
+    return 'admin/build/views';
+  }
+  
 }
 
 /**

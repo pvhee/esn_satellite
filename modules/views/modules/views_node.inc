@@ -1,5 +1,5 @@
 <?php
-// $Id: views_node.inc,v 1.24.2.17 2007/01/21 23:17:29 merlinofchaos Exp $
+// $Id: views_node.inc,v 1.30.2.6 2007/01/21 23:17:39 merlinofchaos Exp $
 
 /**
  * This include file implements views functionality on behalf of node.module
@@ -75,7 +75,7 @@ function node_views_tables() {
         'handler' => 'views_handler_node_view',
         'notafield' => TRUE,
         'option' => 'string',
-        'help' => t('Display a link to view the node. Enter the text of this link into the option field; if blank the default "view" will be used.'),
+        'help' => t('Display a link to view the node. Enter the text of this link into the option field; if blank the default "View" will be used.'),
       ),
       'edit' => array(
         'name' => t('Node: Edit link'),
@@ -83,7 +83,7 @@ function node_views_tables() {
         'notafield' => TRUE,
         'addlfields' => array('type', 'uid'),
         'option' => 'string',
-        'help' => t('Display a link to edit the node. Enter the text of this link into the option field; if blank the default "edit" will be used.'),
+        'help' => t('Display a link to edit the node. Enter the text of this link into the option field; if blank the default "Edit" will be used.'),
       ),
       'delete' => array(
         'name' => t('Node: Delete link'),
@@ -91,7 +91,7 @@ function node_views_tables() {
         'notafield' => TRUE,
         'addlfields' => array('type', 'uid'),
         'option' => 'string',
-        'help' => t('Display a link to delete the node. Enter the text of this link into the option field; if blank the default "delete" will be used.'),
+        'help' => t('Display a link to delete the node. Enter the text of this link into the option field; if blank the default "Delete" will be used.'),
       ),
     ),
     'sorts' => array(
@@ -419,7 +419,7 @@ function views_handler_field_nodelink_with_mark($fieldinfo, $fielddata, $value, 
  * Format a field as a node type.
  */
 function views_handler_nodetype($fieldinfo, $fielddata, $value, $data) {
-  return node_get_name($value);
+  return node_get_types('name', $value);
 }
 
 /*
@@ -477,9 +477,9 @@ function views_handler_arg_nodetype($op, &$query, $argtype, $arg = '') {
       $query->add_where("node.type = '%s'", $where);
       break;
     case 'link':
-      return l(node_get_name($query->type), "$arg/$query->type");
+      return l(node_get_types('name', $query->type), "$arg/$query->type");
     case 'title':
-      $title = node_get_name($query);
+      $title = node_get_types('name', $query);
       return $title ? $title : check_plain($query);
   }
 }
@@ -593,7 +593,7 @@ function views_handler_arg_monthyear($op, &$query, $argtype, $arg = '') {
       return $fieldinfo;
       break;
     case 'sort':
-      $query->add_orderby(NULL, "DATE_FORMAT(FROM_UNIXTIME(node.created+$timezone), '%Y%m')", $argtype, 'name');
+      $query->add_orderby(NULL, "DATE_FORMAT(FROM_UNIXTIME(node.created+$timezone), '%Y%m')", $argtype, "name");
       break;
     case 'filter':
       $query->add_where("DATE_FORMAT(FROM_UNIXTIME(node.created+$timezone), '%Y%m') = '%s'", $arg);
@@ -681,7 +681,7 @@ function views_handler_filter_isnew($op, $filter, $filterinfo, &$query) {
   $limit = time() - NODE_NEW_LIMIT;
 
   $query->ensure_table('history');
-  if (module_exist('comment')) {
+  if (module_exists('comment')) {
     $query->ensure_table('node_comment_statistics');
     $clause = ("OR node_comment_statistics.last_comment_timestamp > (***CURRENT_TIME*** - $limit)");
     $clause2 = "OR history.timestamp < node_comment_statistics.last_comment_timestamp";
@@ -710,8 +710,8 @@ function views_handler_filter_role() {
  */
 function views_handler_filter_nodetype($op) {
   $nodes = array();
-  foreach (node_get_types() as $type => $name) {
-    $nodes[$type] = $name;
+  foreach (node_get_types() as $type => $info) {
+    $nodes[$type] = $info->name;
   }
   return $nodes;
 }
@@ -803,7 +803,7 @@ function views_post_view_make_url($view, $feed_id, $arg) {
         $args[] = $arg;
       }
       else if ($argdata['argdefault'] != 1) {
-        $args[] = '*';
+        $args[] = $argdata['wildcard'] ? check_plain($argdata['wildcard']) : '*';
       }
     }
   }
@@ -827,7 +827,7 @@ function views_post_view_make_args($view, $feed_id, $arg) {
         $args[] = $arg;
       }
       else if ($argdata['argdefault'] != 1) {
-        $args[] = $argdata['wildcard'] ? check_plain($argdata['wildcard']) : '*';
+        $args[] = '*';
       }
     }
   }
@@ -839,7 +839,7 @@ function views_post_view_make_args($view, $feed_id, $arg) {
  * display a link to view a node
  */
 function views_handler_node_view($fieldinfo, $fielddata, $value, $data) {
-  $link_text = $fielddata['options'] ? $fielddata['options'] : t('view');
+  $link_text = $fielddata['options'] ? $fielddata['options'] : t('View');
   return l($link_text, "node/$data->nid");
 }
 
@@ -851,7 +851,7 @@ function views_handler_node_edit($fieldinfo, $fielddata, $value, $data) {
   $data->type = $data->node_type;
   $data->uid = $data->node_uid;
   if (node_access('update', $data)) {
-    $link_text = $fielddata['options'] ? $fielddata['options'] : t('edit');
+    $link_text = $fielddata['options'] ? $fielddata['options'] : t('Edit');
     return l($link_text, "node/$data->nid/edit");
   }
 }
@@ -864,7 +864,7 @@ function views_handler_node_delete($fieldinfo, $fielddata, $value, $data) {
   $data->type = $data->node_type;
   $data->uid = $data->node_uid;
   if (node_access('delete', $data)) {
-    $link_text = $fielddata['options'] ? $fielddata['options'] : t('delete');
+    $link_text = $fielddata['options'] ? $fielddata['options'] : t('Delete');
     return l($link_text, "node/$data->nid/delete");
   }
 }

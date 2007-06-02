@@ -1,5 +1,5 @@
 <?php
-// $Id: content_views.inc,v 1.1.2.10 2007/01/31 02:57:31 yched Exp $
+// $Id: content_views.inc,v 1.2.2.11 2007/02/26 13:52:04 yched Exp $
 
 /**
  * @file
@@ -9,15 +9,42 @@
 /**
  * Implementation of hook_views_tables().
  *
- * Exposes all fields to the views system if the field has delegated its database
- * storage to content.module.
+ * Exposes all fields to the views system.
  */
 function content_views_tables() {
   $field_types = _content_field_types();
-
-  $tables = array();
+  $return = array();
   foreach (content_fields() as $field) {
-    $db_info = content_database_info($field);
+    $module = $field_types[$field['type']]['module'];
+    $result = module_invoke($module, 'field_settings', 'tables', $field);
+    if (empty($result)) {
+      $result = content_views_field_tables($field);
+    }
+    if (is_array($result)) {
+      $return = array_merge($return, $result);
+    }
+  }
+  return $return;
+}
+
+function content_views_field_tables($field) {
+  $field_types = _content_field_types();
+  $db_info = content_database_info($field);
+  
+  if (count($db_info['columns'])) {
+    $table = array();
+
+    $table['name'] = $db_info['table'];
+    $table['join'] = array(
+      'left' => array(
+        'table' => 'node',
+        'field' => 'vid',
+      ),
+      'right' => array(
+        'field' => 'vid',
+      ),
+    );
+
     $module = $field_types[$field['type']]['module'];
 
     $formatters = array();
@@ -27,73 +54,63 @@ function content_views_tables() {
       }
     }
 
-    if (count($db_info['columns'])) {
-      $table = array();
+    $columns = $db_info['columns'];
+    $main_column = array_shift($columns);
+    $addlfields = array();
+    foreach ($columns as $column => $attributes) {
+      $addlfields[] = $attributes['column'];
+    }
 
-      $table['name'] = $db_info['table'];
-      $table['join'] = array(
-        'left' => array(
-          'table' => 'node',
-          'field' => 'vid',
-        ),
-        'right' => array(
-          'field' => 'vid',
-        ),
-      );
-
-      $columns = $db_info['columns'];
-      $main_column = array_shift($columns);
-      $addlfields = array();
-      foreach ($columns as $column => $attributes) {
-        $addlfields[] = $attributes['column'];
-      }
-
-      $table['fields'] = array();
-      $table['fields'][$main_column['column']] = array(
+    $table['fields'] = array();
+    $table['fields'][$main_column['column']] = array(
+      'name' => $field_types[$field['type']]['label'] .': '. $field['widget']['label'] .' ('. $field['field_name'] .')',
+      'addlfields' => $addlfields,
+      'sortable' => isset($main_column['sortable']) ? $main_column['sortable'] : FALSE,
+      'query_handler' => 'content_views_field_query_handler',
+      'handler' => array('content_views_field_handler_group' => t('Group multiple values'),
+                         'content_views_field_handler_ungroup' => t('Do not group multiple values')),
+      'option' => array('#type' => 'select', '#options' => $formatters),
+      'content_db_info' => $db_info,
+      'content_field' => $field,
+      'content_field_module' => $module,
+    );
+    if (isset($main_column['sortable']) && $main_column['sortable']) {
+      $table['sorts'] = array();
+      $table['sorts'][$main_column['column']] = array(
         'name' => $field_types[$field['type']]['label'] .': '. $field['widget']['label'] .' ('. $field['field_name'] .')',
-        'addlfields' => $addlfields,
-        'sortable' => isset($main_column['sortable']) ? $main_column['sortable'] : FALSE,
-        'query_handler' => 'content_views_field_query_handler',
-        'handler' => array('content_views_field_handler_group' => t('Group multiple values'),
-                           'content_views_field_handler_ungroup' => t('Do not group multiple values')),
-        'option' => array('#type' => 'select', '#options' => $formatters),
+        'field' => $main_column['column'],
         'content_db_info' => $db_info,
         'content_field' => $field,
         'content_field_module' => $module,
       );
-      if (isset($main_column['sortable']) && $main_column['sortable']) {
-        $table['sorts'] = array();
-        $table['sorts'][$main_column['column']] = array(
-          'name' => $field_types[$field['type']]['label'] .': '. $field['widget']['label'] .' ('. $field['field_name'] .')',
-          'field' => $main_column['column'],
-        );
-      }
-
-      $filters = module_invoke($module, 'field_settings', 'filters', $field);
-      if (is_array($filters) && count($filters)) {
-        $table['filters'] = array();
-        foreach ($filters as $key => $filter) {
-          $filter_name = '';
-          if (count($filters) > 1) {
-            $filter_name = (!empty($filter['name'])) ? $filter['name'] : $key;
-            $filter_name = ' - '.$filter_name;
-          }
-          $name = $field_types[$field['type']]['label'] .': '. $field['widget']['label'] . $filter_name .' ('. $field['field_name'] .')';
-          $init = array(
-            'name' => $name,
-            'field' => $main_column['column'],
-          );
-          $table['filters'][$main_column['column'] .'_'. $key] = array_merge($filter, $init);
-        }
-      }
-
-      // We don't use $db_info['table'] for the key, since that may change during
-      // the lifetime of the field and we don't want to require users to redefine
-      // their views.
-      $tables['node_data_'. $field['field_name']] = $table;
     }
+
+    $filters = module_invoke($module, 'field_settings', 'filters', $field);
+    if (is_array($filters) && count($filters)) {
+      $table['filters'] = array();
+      foreach ($filters as $key => $filter) {
+        $filter_name = '';
+        if (count($filters) > 1) {
+          $filter_name = (!empty($filter['name'])) ? $filter['name'] : $key;
+          $filter_name = ' - '.$filter_name;
+        }
+        $name = $field_types[$field['type']]['label'] .': '. $field['widget']['label'] . $filter_name .' ('. $field['field_name'] .')';
+        $init = array(
+          'name' => $name,
+          'field' => $main_column['column'],
+          'content_db_info' => $db_info,
+          'content_field' => $field,
+          'content_field_module' => $module,
+        );
+        $table['filters'][$main_column['column'] .'_'. $key] = array_merge($filter, $init);
+      }
+    }
+
+    // We don't use $db_info['table'] for the key, since that may change during
+    // the lifetime of the field and we don't want to require users to redefine
+    // their views.
+    return array('node_data_'. $field['field_name'] => $table);
   }
-  return $tables;
 }
 
 function content_views_field_query_handler($field, &$fieldinfo, &$query) {
@@ -127,10 +144,10 @@ function content_views_field_handler_group($field_info, $field_data, $value, $da
     foreach ($field_info['content_db_info']['columns'] as $column => $attributes) {
       $query_columns[] = "node_data_$field[field_name].$attributes[column] AS $column";
     }
-    $query = "SELECT ".implode(', ', $query_columns).
+    $query = "SELECT ". implode(', ', $query_columns) .
              " FROM {node} node".
-             " LEFT JOIN {node_data_$field[field_name]} node_data_$field[field_name] ON node.vid = node_data_$field[field_name].vid".
-             " WHERE node.nid = ".$data->nid.
+             " LEFT JOIN {". $field_info['content_db_info']['table'] ."} node_data_$field[field_name] ON node.vid = node_data_$field[field_name].vid".
+             " WHERE node.nid = ". $data->nid .
              " ORDER BY node_data_$field[field_name].delta";
     $result = db_query(db_rewrite_sql($query, 'node'));
     while ($item = db_fetch_array($result)) {
@@ -147,8 +164,7 @@ function content_views_field_handler_ungroup($field_info, $field_data, $value, $
   $field = $field_info['content_field'];
   $item = array();
   foreach ($field_info['content_db_info']['columns'] as $column => $attributes) {
-    $view_column_name = $field_data['tablename'] .'_'. $attributes['column'];
-    $item[$column] = $data->$view_column_name;
+    $item[$column] = $data->$field_data['queryname'];
   }
   return content_format($field, $item, $field_data['options'], $data);
 }
@@ -163,27 +179,34 @@ function theme_content_view_multiple_field($items, $field, $data) {
 /**
  * Implementation of hook_views_arguments().
  *
- * Exposes all fields as filterable arguments if the field has delegated its database
- * storage to content.module.
+ * Exposes all fields as filterable arguments.
  */
 function content_views_arguments() {
   $field_types = _content_field_types();
-  $arguments = array();
-
+  $return = array();
   foreach (content_fields() as $field) {
-    $db_info = content_database_info($field);
     $module = $field_types[$field['type']]['module'];
-    if (count($db_info['columns'])) {
-      $main_column = reset($db_info['columns']);
-      $default_arguments = isset($main_column['default arguments']) ? $main_column['default arguments'] : TRUE;
-      $argument = array();
-      $argument['name'] = $field_types[$field['type']]['label'] .': '. $field['widget']['label'] .' ('. $field['field_name'] .')';
-      $argument['handler'] = 'content_views_argument_handler';
-
-      $arguments['content: '. $field['field_name']] = $argument;
+    $result = module_invoke($module, 'field_settings', 'arguments', $field);
+    if (empty($result)) {
+      $result = content_views_field_arguments($field);
+    }
+    if (is_array($result)) {
+      $return = array_merge($return, $result);
     }
   }
-  return $arguments;
+  return $return;
+}
+
+function content_views_field_arguments($field) {
+  $field_types = _content_field_types();
+  $db_info = content_database_info($field);
+  if (count($db_info['columns'])) {
+    $argument = array();
+    $argument['name'] = $field_types[$field['type']]['label'] .': '. $field['widget']['label'] .' ('. $field['field_name'] .')';
+    $argument['handler'] = 'content_views_argument_handler';
+
+    return array('content: '. $field['field_name'] => $argument);
+  }
 }
 
 /**
@@ -250,31 +273,53 @@ function content_views_argument_handler($op, &$query, $argtype, $arg = '') {
 }
 
 /**
- * Rebuild the cached queries for the views using a given field
- * used when a field changes its 'multiple' status
- * plus helper function for updates
+ * Rebuild the cached queries for the views using a given field.
+ * Called when a field changes its 'multiple' status.
+ * Can also be useful for updates.
  *
  * @param unknown_type $update_fields
  */
-function _content_views_rebuild_views($update_fields) {
 
-  $tables = _views_get_tables();
+function _content_views_rebuild_views($update_fields) {
+  $updated_views = array();
+  views_load_cache();
+  $tables = _views_get_tables(true);
   $result = db_query("SELECT name, query FROM {view_view} ORDER BY name");
+  // TODO : do we have to do that for default views as well ?
   while ($row = db_fetch_array($result)) {
     // if a query has been stored for the view
     if (!empty($row['query'])) {
       $view = views_get_view($row['name']);
-      // TODO : check for arguments / sorts / filters as well ?
+      $view_content_fields = array();
+
       foreach ($view->field as $field) {
-        // if the view contains one of the fields that require updating
-        $field_info = $tables[$field['tablename']]['fields'][$field['field']];
-        if (isset($field_info['content_field']) && in_array($field_info['content_field']['field_name'], $update_fields)) {
-          // re-save the view (forces the query to be updated)
-          _views_save_view($view);
-          break;
+        $info = $tables['fields']['base'][$field['fullname']];
+        if (isset($info['content_field'])) {
+          $view_content_fields[] = $info['content_field']['field_name'];
         }
+      }
+
+      foreach ($view->filter as $filter) {
+        $info = $tables['filters']['base'][$filter['field']];
+        if (isset($info['content_field'])) {
+          $view_content_fields[] = $info['content_field']['field_name'];
+        }
+      }
+
+      foreach ($view->sort as $sort) {
+        $info = $tables['sorts']['base'][$sort['field']];
+        if (isset($info['content_field'])) {
+          $view_content_fields[] = $info['content_field']['field_name'];
+        }
+      }
+
+      // no need to check arguments : a view with arguments is not cacheable
+
+      if (count(array_intersect($view_content_fields, $update_fields))) {
+        _views_save_view($view);
+        $updated_views[] = $view->name;
       }
     }
   }
+  return $updated_views;
 }
-

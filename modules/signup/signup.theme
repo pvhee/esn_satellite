@@ -1,6 +1,6 @@
 <?php
 
-// $Id: signup.theme,v 1.4.2.3 2006/06/16 17:14:19 thehunmonkgroup Exp $
+// $Id: signup.theme,v 1.7.2.3 2007/03/25 19:08:09 dww Exp $
 
 /**
  * Format a user signup for diplay in a schedule list
@@ -10,7 +10,7 @@
  */
 function theme_signup_user_schedule($node) {
   $output = '';
-  $output .= '<div class="signup-user-schedule"><div class="'. $node->type. 'signup-title"><h4>'. l(check_plain($node->title), "node/$node->nid") . '</h4></div></div>';
+  $output .= '<div class="signup-user-schedule"><div class="'. $node->type. 'signup-title"><h4>'. l($node->title, "node/$node->nid") . '</h4></div></div>';
 
   // event-based data, only if it's an event node
   if (isset($node->event_start)) {
@@ -29,20 +29,47 @@ function theme_signup_user_schedule($node) {
 }
 
 /**
- * You can alter this user signup form to suit your needs--feel free to alter any elements in this section,
- * remove them, or add any others.  In order for the form to be rendered properly, the name of the form element
- * must be in the form of $form['signup_form_data']['NameOfDataField'], where NameOfDataField is replaced with
- * the actual name of the data field.  It's also suggested that the displayed name of the field to the user be
- * the same as the name of the data field, but it's not required. See below for examples.  Note that the example
- * below is meant as a starting template only, and none of these form fields were designed to integrate with
- * existing drupal fields.  If that is desired, it will need to be coded.
+ * You can alter this user signup form to suit your needs -- feel free
+ * to alter any elements in this section, remove them, or add any
+ * others.
  *
- * @return An form array which is the form to be present to the user upon signup to a node
+ * In order for the form to be rendered properly, the name of the form
+ * element must be $form['signup_form_data']['NameOfDataField'], where
+ * NameOfDataField is replaced with the actual name of the data field.
+ * We suggest that the displayed name of the field (the '#title'
+ * property) be the same as the name of the data field, but it's not
+ * required.  See below for examples.
+ *
+ * Fieldsets are not currently supported in this form.  Any
+ * '#default_value' will be filled in by default when the form is
+ * presented to the user.  Any field marked '#required' must be filled
+ * in before the user can sign up.
+ *
+ * @return
+ *   Array defining the form to present to the user to signup for a node.
  */
 function theme_signup_user_form() {
+  global $user;
+
+  // This line is required for this form to function -- DO NOT EDIT OR REMOVE.
   $form['signup_form_data']['#tree'] = TRUE;
-  $form['signup_form_data']['Name'] = array('#type' => 'textfield', '#title' => t('Name'), '#size' => 40, '#maxlength' => 64);
-  $form['signup_form_data']['Phone'] = array('#type' => 'textfield', '#title' => t('Phone'), '#size' => 40, '#maxlength' => 64);
+
+  $form['signup_form_data']['Name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Name'),
+    '#size' => 40, '#maxlength' => 64,
+    '#required' => true,
+  );
+  $form['signup_form_data']['Phone'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Phone'),
+    '#size' => 40, '#maxlength' => 64,
+  );
+
+  // If the user is logged in, fill in their name by default.
+  if ($user->uid) {
+    $form['signup_form_data']['Name']['#default_value'] = $user->name;
+  }
 
   return $form;
 }

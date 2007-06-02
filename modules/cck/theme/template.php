@@ -1,5 +1,5 @@
 <?php
-// $Id: template.php,v 1.1.2.4 2007/01/20 01:45:15 yched Exp $
+// $Id: template.php,v 1.3.2.4 2007/03/05 22:19:04 yched Exp $
 
 function phptemplate_field(&$node, &$field, &$items, $teaser, $page) {
   $field_empty = TRUE;
@@ -17,7 +17,7 @@ function phptemplate_field(&$node, &$field, &$items, $teaser, $page) {
     'field_name' => $field['field_name'],
     'field_type_css' => strtr($field['type'], '_', '-'),
     'field_name_css' => strtr($field['field_name'], '_', '-'),
-    'label' => $field['widget']['label'],
+    'label' => t($field['widget']['label']),
     'label_display' => isset($field['display_settings']['label']['format']) ? $field['display_settings']['label']['format'] : 'above',
     'field_empty' => $field_empty,
     'items' => $items,
@@ -25,5 +25,5 @@ function phptemplate_field(&$node, &$field, &$items, $teaser, $page) {
     'page' => $page,
   );
 
-  return _phptemplate_callback('field', $variables, 'field-'. $field['field_name']);
+  return _phptemplate_callback('field', $variables, array('field-'. $field['field_name']));
 }

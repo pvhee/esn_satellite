@@ -1,20 +1,10 @@
 <?php
-// $Id: optionwidgets.module,v 1.8.2.7 2007/01/26 18:31:27 karens Exp $
+// $Id: optionwidgets.module,v 1.10.2.7 2007/02/09 19:36:39 yched Exp $
 
 /**
  * @file
  * Defines selection, check box and radio button widgets for text and numeric fields.
  */
-
-/**
- * Implementation of hook_help().
- */
-function optionwidgets_help($section) {
-  switch ($section) {
-    case 'admin/modules#description':
-      return t('<strong>CCK:</strong> Defines selection, check box and radio button widgets for text and numeric fields. <em>Note: Requires content.module, text.module and number.module.</em>');
-  }
-}
 
 /**
  * Implementation of hook_widget_info().
@@ -100,7 +90,7 @@ function optionwidgets_widget($op, &$node, $field, &$items) {
               '#size' => min(count($options), 6),
               '#options' => $options,
               '#required' => $field['required'],
-              '#description' => $field['widget']['description'],
+              '#description' => t($field['widget']['description']),
             );
           }
           else {
@@ -111,7 +101,7 @@ function optionwidgets_widget($op, &$node, $field, &$items) {
               '#multiple' => FALSE,
               '#options' => $options,
               '#required' => $field['required'],
-              '#description' => $field['widget']['description'],
+              '#description' => t($field['widget']['description']),
             );
           }
           break;
@@ -125,7 +115,7 @@ function optionwidgets_widget($op, &$node, $field, &$items) {
             '#title' => $options[$on_value],
             '#default_value' => $items['default keys'][0],
             '#return_value' => $on_value,
-            '#description' => $field['widget']['description'],
+            '#description' => t($field['widget']['description']),
             '#required' => FALSE,
           );
           break;
@@ -138,7 +128,7 @@ function optionwidgets_widget($op, &$node, $field, &$items) {
               '#default_value' => $items['default keys'],
               '#options' => $options,
               '#required' => $field['required'],
-              '#description' => $field['widget']['description'],
+              '#description' => t($field['widget']['description']),
             );
           }
           else {
@@ -149,7 +139,7 @@ function optionwidgets_widget($op, &$node, $field, &$items) {
               '#default_value' => $items['default key'],
               '#options' => $options,
               '#required' => $field['required'],
-              '#description' => $field['widget']['description'],
+              '#description' => t($field['widget']['description']),
             );
           }
           break;

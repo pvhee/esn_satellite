@@ -5,6 +5,7 @@
   <title><?php print $head_title ?></title>
   <?php print $head ?>
   <?php print $styles ?>
+  <?php print $scripts ?>
   <script type="text/javascript"><?php /* Needed to avoid Flash of Unstyle Content in IE */ ?> </script>
 </head>
 
@@ -18,8 +19,8 @@
       <?php if ($site_slogan) { ?><div class='site-slogan'><?php print $site_slogan ?></div><?php } ?>
     </td>
     <td id="menu">
-      <?php if (isset($secondary_links)) { ?><div id="secondary"><?php print theme('links', $secondary_links) ?></div><?php } ?>
-      <?php if (isset($primary_links)) { ?><div id="primary"><?php print theme('links', $primary_links) ?></div><?php } ?>
+      <?php if (isset($secondary_links)) { ?><?php print theme('links', $secondary_links, array('class' =>'links', 'id' => 'subnavlist')) ?><?php } ?>
+      <?php if (isset($primary_links)) { ?><?php print theme('links', $primary_links, array('class' =>'links', 'id' => 'navlist')) ?><?php } ?>
       <?php print $search_box ?>
     </td>
   </tr>
@@ -42,6 +43,7 @@
         <?php print $help ?>
         <?php print $messages ?>
         <?php print $content; ?>
+        <?php print $feed_icons; ?>
       </div>
     </td>
     <?php if ($sidebar_right) { ?><td id="sidebar-right">

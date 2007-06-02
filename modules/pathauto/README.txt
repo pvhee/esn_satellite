@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.8.4.2 2006/10/11 21:49:03 greggles Exp $
 
 **Description:
 The pathauto module provides support functions for other modules to 
@@ -18,21 +17,8 @@ relevant search engine hits for your page can be significantly
 enhanced.
 
 
-**Installation:
-
-Note that pathauto is an extension to the path module, which must
-be enabled.
-
-1. Unpack the pathauto folder and contents in the modules directory of 
-your Drupal installation.
-2. Enable the pathauto module in the administration tools.
-3. If you're not using Drupal's default administrative account, make
-sure "administer pathauto" is enabled through access control administration.
-4. Visit the pathauto settings page:
-  When first installing pathauto, to define the desired alias patterns.
-  When installing a new version of pathauto, to have any necessary
-    database and variable upgrades applied. 
-
+**Installation AND Upgrades:
+See the INSTALL.txt - especially step 4.
 
 **Notice
 
@@ -60,3 +46,8 @@ Matt England added the tracker support.
 Other suggestions and patches contributed by the Drupal community.
 
 Current maintainer: Greg Knaddison (greg AT knaddison DOT com)
+
+**Changes:
+See the CHANGELOG.txt
+
+$Id: README.txt,v 1.10.2.1 2006/11/12 17:25:39 greggles Exp $

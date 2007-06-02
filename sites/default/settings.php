@@ -1,9 +1,15 @@
 <?php
-// $Id: settings.php,v 1.27.2.2 2007/01/14 14:17:53 killes Exp $
+// $Id: settings.php,v 1.39 2007/01/14 02:05:15 unconed Exp $
 
 /**
  * @file
  * Drupal site-specific configuration file.
+ *
+ * IMPORTANT NOTE:
+ * This file may have been set to read-only by the Drupal installation
+ * program. If you make changes to this file, be sure to protect it again
+ * after making your modifications. Failure to remove write permissions
+ * to this file is a security risk.
  *
  * The configuration file to be loaded is based upon the rules below.
  *
@@ -32,7 +38,7 @@
  * 10. sites/default
  *
  * If you are installing on a non-standard port number, prefix the
- * hostname with that number.  For example,
+ * hostname with that number. For example,
  * http://www.drupal.org:8080/mysite/test/ could be loaded from
  * sites/8080.www.drupal.org.mysite.test/.
  */
@@ -85,7 +91,7 @@
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
 $db_url = 'mysql://username:password@localhost/databasename';
-$db_prefix = 'esnsatellite_';
+$db_prefix = '';
 
 /**
  * Base URL (optional).
@@ -129,6 +135,8 @@ ini_set('session.save_handler',     'user');
 ini_set('session.use_only_cookies', 1);
 ini_set('session.use_trans_sid',    0);
 ini_set('url_rewriter.tags',        '');
+ini_set('session.name',             'satellite_2_0_PHPSESSID');
+
 
 /**
  * We try to set the correct cookie domain. If you are experiencing problems
@@ -156,7 +164,7 @@ if (isset($_SERVER['HTTP_HOST'])) {
  */
 # $conf = array(
 #   'site_name' => 'My Drupal site',
-#   'theme_default' => 'pushbutton',
-#   'anonymous' => 'Visitor'
+#   'theme_default' => 'minnelli',
+#   'anonymous' => 'Visitor',
 # );
 

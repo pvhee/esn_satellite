@@ -1,5 +1,5 @@
 <?php
-// $Id: database.mysqli.inc,v 1.17.2.5 2007/01/01 17:52:00 killes Exp $
+// $Id: database.mysqli.inc,v 1.32 2006/12/27 22:50:09 dries Exp $
 
 /**
  * @file
@@ -14,6 +14,38 @@
  * @ingroup database
  * @{
  */
+
+/**
+ * Report database status.
+ */
+function db_status_report($phase) {
+  $t = get_t();
+
+  $version = db_version();
+
+  $form['mysql'] = array(
+    'title' => $t('MySQL database'),
+    'value' => ($phase == 'runtime') ? l($version, 'admin/logs/status/sql') : $version,
+  );
+
+  if (version_compare($version, DRUPAL_MINIMUM_MYSQL) < 0) {
+    $form['mysql']['severity'] = REQUIREMENT_ERROR;
+    $form['mysql']['description'] = $t('Your MySQL Server is too old. Drupal requires at least MySQL %version.', array('%version' => DRUPAL_MINIMUM_MYSQL));
+  }
+
+  return $form;
+}
+
+/**
+ * Returns the version of the database server currently in use.
+ *
+ * @return Database server version
+ */
+function db_version() {
+  global $active_db;
+  list($version) = explode('-', mysqli_get_server_info($active_db));
+  return $version;
+}
 
 /**
  * Initialise a database connection.
@@ -34,7 +66,13 @@ function db_connect($url) {
 
   // Decode url-encoded information in the db connection string
   $url['user'] = urldecode($url['user']);
-  $url['pass'] = urldecode($url['pass']);
+  // Test if database url has a password.
+  if(isset($url['pass'])) {
+    $url['pass'] = urldecode($url['pass']);
+  }
+  else {
+    $url['pass'] = '';
+  }
   $url['host'] = urldecode($url['host']);
   $url['path'] = urldecode($url['path']);
 
@@ -46,7 +84,8 @@ function db_connect($url) {
     drupal_maintenance_theme();
     drupal_set_header('HTTP/1.1 503 Service Unavailable');
     drupal_set_title('Unable to connect to database server');
-    print theme('maintenance_page', '<p>This either means that the username and password information in your <code>settings.php</code> file is incorrect or we can\'t contact the MySQL database server through the mysqli libraries. This could also mean your hosting provider\'s database server is down.</p>
+    print theme('maintenance_page', '<p>If you still have to install Drupal, proceed to the <a href="'. base_path() .'install.php">installation page</a>.</p>
+<p>If you have already finished installed Drupal, this either means that the username and password information in your <code>settings.php</code> file is incorrect or that we can\'t connect to the MySQL database server. This could mean your hosting provider\'s database server is down.</p>
 <p>The MySQL error was: '. theme('placeholder', mysqli_error($connection)) .'.</p>
 <p>Currently, the username is '. theme('placeholder', $url['user']) .' and the database server is '. theme('placeholder', $url['host']) .'.</p>
 <ul>
@@ -170,13 +209,14 @@ function db_num_rows($result) {
 * @param $row
 *   The index of the row whose result is needed.
 * @return
-*   The resulting field.
+*   The resulting field or FALSE.
 */
 function db_result($result, $row = 0) {
   if ($result && mysqli_num_rows($result) > $row) {
     $array = mysqli_fetch_array($result, MYSQLI_NUM);
     return $array[0];
   }
+  return FALSE;
 }
 
 /**
@@ -194,6 +234,9 @@ function db_error() {
  * database tables. Instead, this function is used to return a new unique ID
  * of the type requested. If necessary, a new sequence with the given name
  * will be created.
+ *
+ * Note that the table name should be in curly brackets to preserve compatibility
+ * with table prefixes. For example, db_next_id('{node}_nid');
  */
 function db_next_id($name) {
   $name = db_prefix_tables($name);
@@ -352,6 +395,13 @@ function db_unlock_tables() {
 }
 
 /**
+ * Check if a table exists.
+ */
+function db_table_exists($table) {
+  return db_num_rows(db_query("SHOW TABLES LIKE '{" . db_escape_table($table) . "}'"));
+}
+
+/**
  * Wraps the given table.field entry with a DISTINCT(). The wrapper is added to
  * the SELECT list entry of the given query and the resulting query is returned.
  * This function only applies the wrapper if a DISTINCT doesn't already exist in
@@ -365,7 +415,7 @@ function db_unlock_tables() {
 function db_distinct_field($table, $field, $query) {
   $field_to_select = 'DISTINCT('. $table .'.'. $field .')';
   // (?<!text) is a negative look-behind (no need to rewrite queries that already use DISTINCT).
-  return preg_replace('/(SELECT.*)('. $table .'\.)?(?<!DISTINCT\()(?<!DISTINCT\('. $table .'\.)'. $field .'(.*FROM )/AUsi', '\1'. $field_to_select .'\3', $query);
+  return preg_replace('/(SELECT.*)(?:'. $table .'\.|\s)(?<!DISTINCT\()(?<!DISTINCT\('. $table .'\.)'. $field .'(.*FROM )/AUsi', '\1 '. $field_to_select .'\2', $query);
 }
 
 /**

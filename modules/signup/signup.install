@@ -1,5 +1,5 @@
 <?php
-// $Id: signup.install,v 1.2.2.4 2006/06/16 17:14:19 thehunmonkgroup Exp $
+// $Id: signup.install,v 1.6.2.3 2007/03/20 07:27:21 dww Exp $
 
 /**
  * Implementation of hook_install()
@@ -42,12 +42,7 @@ function signup_install() {
                 KEY nid (nid)
             ) TYPE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 */;");
 
-      $q3 = db_query("INSERT INTO {signup} (nid, forwarding_email,
-                send_confirmation, confirmation_email, send_reminder,
-                reminder_days_before, reminder_email, close_in_advance_time,
-                close_signup_limit, completed) VALUES (0, '', 1,
-                'Enter your default confirmation email message here', 1, 0,
-                'Enter your default reminder email message here', 0, 0, 0);");
+      $q3 = signup_insert_default_signup_info();
 
       if ($q1 && $q2 && $q3) {
         $created = TRUE;
@@ -81,12 +76,7 @@ function signup_install() {
 
       $q4 = db_query("CREATE INDEX {signup_log}_nid_idx ON {signup_log}(nid);");
 
-      $q5 = db_query( "INSERT INTO {signup} (nid, forwarding_email,
-                send_confirmation, confirmation_email, send_reminder,
-                reminder_days_before, reminder_email, close_in_advance_time,
-                close_signup_limit, completed) VALUES (0, '', 1,
-                'Enter your default confirmation email message here', 1, 0,
-                'Enter your default reminder email message here', 0, 0, 0);");
+      $q5 = signup_insert_default_signup_info();
 
       if ($q1 && $q2 && $q3 && $q4 && $q5) {
         $created = TRUE;
@@ -100,6 +90,33 @@ function signup_install() {
   else {
     drupal_set_message(t('Table installation for the Signup module was unsuccessful. The tables may need to be installed by hand. See the signup.install file for a list of the installation queries.'), 'error');
   }
+}
+
+function signup_uninstall() {
+  if (db_table_exists('signup')) {
+    db_query("DROP TABLE {signup}");
+  }
+  if (db_table_exists('signup_log')) {
+    db_query("DROP TABLE {signup_log}");
+  }
+  $variables = db_query("SELECT name FROM {variable} WHERE name LIKE 'signup%%'");
+  while ($variable = db_fetch_object($variables)) {
+    variable_del($variable->name);
+  }
+}
+
+/**
+ * Helper method to insert the default signup information into the
+ * {signup} table (stored in a row for nid 0).  These are the default
+ * settings for new signup-enabled nodes.
+ */
+function signup_insert_default_signup_info() {
+  return db_query("INSERT INTO {signup} (nid, forwarding_email,
+    send_confirmation, confirmation_email, 
+    send_reminder, reminder_days_before, reminder_email,
+    close_in_advance_time, close_signup_limit, completed) VALUES (0, '',
+    1, 'Enter your default confirmation email message here',
+    1, 0, 'Enter your default reminder email message here', 0, 0, 0)");
 }
 
 /**
@@ -134,5 +151,49 @@ function signup_update_3() {
     break;
 
   }
+  return $ret;
+}
+
+/**
+ * Rename the signup permissions.
+ * See http://drupal.org/node/69283 for details.
+ * Also, remove the 'signup_user_view' setting in favor of a permission.
+ * See http://drupal.org/node/69367 for details.
+ */
+function signup_update_4() {
+  $ret = array();
+
+  // Setup arrays holding regexps to match and the corresponding
+  // strings to replace them with, for use with preg_replace(). 
+  $old_perms = array(
+    '/allow signups/', 
+    '/admin signups/', 
+    '/admin own signups/', 
+  );
+  $new_perms = array(
+    'sign up for content', 
+    'administer all signups', 
+    'administer signups for own content', 
+  );
+
+  // Now, loop over all the roles, and do the necessary transformations.
+  $query = db_query("SELECT rid, perm FROM {permission} ORDER BY rid");
+  while ($role = db_fetch_object($query)) {
+    $fixed_perm = preg_replace($old_perms, $new_perms, $role->perm);
+    if ($role->rid == 2 && variable_get('signup_user_view', 0)) {
+      // The setting is currently enabled, so add the new permission to
+      // the "authenticated user" role as a reasonable default.
+      if (!strpos($fixed_perm, 'view all signups')) {
+        $fixed_perm .= ', view all signups';
+        drupal_set_message(t('The old %signup_user_view setting was enabled on your site, so the %view_all_signups permission has been added to the %authenticated_user role. Please consider customizing what roles have this permission on the !access_control page.', array('%signup_user_view' => t('Users can view signups'), '%view_all_signups' => 'view all signups', '%authenticated_user' => 'Authenticated user', '!access_control' => l(t('Access control'), '/admin/user/access'))));
+      }
+    }
+    $ret[] = update_sql("UPDATE {permission} SET perm = '$fixed_perm' WHERE rid = $role->rid");
+  }
+
+  // Remove the stale setting from the {variable} table in the DB.
+  variable_del('signup_user_view');
+  drupal_set_message(t('The %signup_user_view setting has been removed.', array('%signup_user_view' => t('Users can view signups'))));
+
   return $ret;
 }

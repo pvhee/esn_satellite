@@ -1,5 +1,5 @@
 <?php
-// $Id: pathauto_taxonomy.inc,v 1.11.2.5 2006/10/19 15:38:27 greggles Exp $
+// $Id: pathauto_taxonomy.inc,v 1.20.2.2 2007/01/17 16:53:41 greggles Exp $
 
 /*
  * Implementation of hook_pathauto()
@@ -22,17 +22,16 @@ function taxonomy_pathauto($op) {
       // Look for extensions from other modules
       $placeholders = module_invoke_all('pathauto_taxonomy', 'placeholders');
       $settings['placeholders'] = array_merge($settings['placeholders'], $placeholders);
-
       $settings['supportsfeeds'] = '0/feed';
       $settings['bulkname'] = t('Bulk update category paths');
       $settings['bulkdescr'] = t('Generate aliases for all existing categories which do not already have aliases.');
 
       $vocabularies = taxonomy_get_vocabularies();
       if (sizeof($vocabularies) > 0) {
-        $settings['patternitems'] = array();  
+        $settings['patternitems'] = array();
         foreach ($vocabularies as $vocab) {
           $vocabname = $vocab->name;
-          $fieldlabel = t('Pattern for all %vocab-name paths', array('%vocab-name' => theme('placeholder', $vocabname)));
+          $fieldlabel = t('Pattern for all %vocab-name paths', array('%vocab-name' => $vocabname));
           $settings['patternitems'][$vocab->vid] = $fieldlabel;
         }
       }
@@ -57,22 +56,16 @@ function pathauto_taxonomy($op, $type, $object = NULL) {
           $category = (object) $object;
           if ($category->name) {
             $placeholders = array();
-
+            
             $vid = $category->vid;
             $vocabulary = taxonomy_get_vocabulary($vid);
             $placeholders[t('[vocab]')] = pathauto_cleanstring($vocabulary->name);
-
+            
             $placeholders[t('[cat]')] = pathauto_cleanstring($category->name);
             $placeholders[t('[tid]')] = $category->tid;
-
-            if ($category->parent) {
-              $catpath = pathauto_cleanstring($category->name);
-              $parents = taxonomy_get_parents_all($category->parent);
-            } else {
-              $catpath = '';
-              $parents = taxonomy_get_parents_all($category->tid);
-            }
             
+            $catpath = ''; 
+            $parents = taxonomy_get_parents_all($category->tid);
             foreach ($parents as $parent) {
               $catpath = pathauto_cleanstring($parent->name).'/'.$catpath;
             }
@@ -81,18 +74,14 @@ function pathauto_taxonomy($op, $type, $object = NULL) {
             // Append any additional extensions
             $extplaceholders = module_invoke_all('pathauto_taxonomy', 'values', $category);
             $placeholders = array_merge($placeholders, $extplaceholders);
-
+            
             $src = taxonomy_term_path($category);
-
-            $alias = pathauto_create_alias('taxonomy', $op, $placeholders, 
+            $alias = pathauto_create_alias('taxonomy', $op, $placeholders,
               $src, $vid);
           }
           break;
         case 'delete':
-          /*
-      	  ** If the category is deleted, remove the path aliases
-      	  **
-          */
+          //If the category is deleted, remove the path aliases
           $category = (object) $object;
           path_set_alias('taxonomy/term/'.$category->tid);
           path_set_alias('forum/'.$category->tid);
@@ -108,12 +97,10 @@ function pathauto_taxonomy($op, $type, $object = NULL) {
 
 // Generate aliases for all categories without aliases
 function taxonomy_pathauto_bulkupdate() {
-  $query = 'SELECT tid,vid,name,src,dst FROM {term_data} '.
-    "LEFT JOIN {url_alias} ON CONCAT('taxonomy/term/', tid) = src ".
-                          "OR CONCAT('forum/', tid) = src";
+  $query = "SELECT tid,vid,name,src,dst FROM {term_data} LEFT JOIN {url_alias} ON CONCAT('taxonomy/term/', tid) = src OR CONCAT('forum/', tid) = src";
   $result = db_query($query);
   $category = db_fetch_object($result);
-
+  
   $count = 0;
   $placeholders = array();
   while ($category) {
@@ -122,11 +109,12 @@ function taxonomy_pathauto_bulkupdate() {
     $placeholders[t('[vocab]')] = pathauto_cleanstring($vocabulary->name);
     $placeholders[t('[cat]')] = pathauto_cleanstring($category->name);
     $placeholders[t('[tid]')] = $category->tid;
-
+  
     if ($category->parent) {
       $catpath = pathauto_cleanstring($category->name);
       $parents = taxonomy_get_parents_all($category->parent);
-    } else {
+    } 
+    else {
       $catpath = '';
       $parents = taxonomy_get_parents_all($category->tid);
     }
@@ -135,21 +123,26 @@ function taxonomy_pathauto_bulkupdate() {
       $catpath = pathauto_cleanstring($parent->name).'/'.$catpath;
     }
     $placeholders['[catpath]'] = $catpath;
-
+    
     // Append any additional extensions
     $extplaceholders = module_invoke_all('pathauto_taxonomy', 'values', $category);
     $placeholders = array_merge($placeholders, $extplaceholders);
-
-    $src = taxonomy_term_path($category);
-    if ($alias = pathauto_create_alias('taxonomy', 'bulkupdate',
-                  $placeholders, $src, $vid)) {
+    
+    $forumvid = variable_get('forum_nav_vocabulary', '');
+    if ($forumvid == $vid) {
+      $src = 'forum/'.$category->tid;
+      if ($forumalias = pathauto_create_alias('taxonomy', 'bulkupdate', $placeholders, $src, $forumvid)) {
+        $count++;
+      }
+    }
+    $src = 'taxonomy/term/'.$category->tid;
+    if ($alias = pathauto_create_alias('taxonomy', 'bulkupdate', $placeholders, $src, $vid)) {
       $count++;
     }
     $category = db_fetch_object($result);
   }
-
+  
   drupal_set_message(format_plural($count,
     "Bulk update of terms completed, one alias generated.",
-    "Bulk update of terms completed, %count aliases generated."));
+    "Bulk update of terms completed, @count aliases generated."));
 }
-

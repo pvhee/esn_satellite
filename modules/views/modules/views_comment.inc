@@ -1,5 +1,5 @@
 <?php
-// $Id: views_comment.inc,v 1.4.2.10 2007/01/21 20:57:57 merlinofchaos Exp $
+// $Id: views_comment.inc,v 1.4.4.5 2007/01/21 20:57:48 merlinofchaos Exp $
 
 /**
  * This include file implements views functionality on behalf of comment.module
@@ -233,6 +233,18 @@ function views_handler_field_commentlink($fieldinfo, $fielddata, $value, $data) 
 }
 
 /*
+ * Format a field as a number of comments, plus the number of unread comments.
+ */
+function views_handler_comments_with_new($fieldinfo, $fielddata, $value, $data) {
+  $comments = intval($value);
+  if ($comments && $new = comment_num_new($data->nid)) {
+    $comments .= '<br />';
+    $comments .= l(t('@num new', array('@num' => $new)), "node/$data->nid", NULL, NULL, 'new');
+  }
+  return $comments;
+}
+
+/*
  * Format a field as a link to a 'mark', stating whether or not the comment has
  * updated since it was last viewed by the user.
  */
@@ -254,18 +266,6 @@ function views_handler_field_comment($fieldinfo, $fielddata, $value, $data) {
   $obj->comment = check_markup($data->comments_comment, $data->comments_format, FALSE);
   comment_invoke_comment($obj, 'view'); 
   return $obj->comment;
-}
-
-/*
- * Format a field as a number of comments, plus the number of unread comments.
- */
-function views_handler_comments_with_new($fieldinfo, $fielddata, $value, $data) {
-  $comments = intval($value);
-  if ($comments && $new = comment_num_new($data->nid)) {
-    $comments .= '<br />';
-    $comments .= l(t('%num new', array('%num' => $new)), "node/$data->nid", NULL, NULL, 'new');
-  }
-  return $comments;
 }
 
 /*

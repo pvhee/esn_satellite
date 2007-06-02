@@ -1,5 +1,5 @@
 <?php
-// $Id: plugin_reg.php,v 1.10.2.1 2006/05/06 20:11:55 m3avrck Exp $
+// $Id: plugin_reg.php,v 1.11.2.7 2007/02/25 20:02:44 nedjo Exp $
 
 /**
  * @file
@@ -101,9 +101,6 @@ $plugins['table']['theme_advanced_buttons3'] = array('tablecontrols');
 
 $plugins['zoom'] = array();
 $plugins['zoom']['theme_advanced_buttons2'] = array('zoom');
-
-$plugins['drupalbreak'] = array();
-$plugins['drupalbreak']['theme_advanced_buttons3'] = array('drupalbreak', 'drupalpagebreak');
 
 return $plugins;
 }
