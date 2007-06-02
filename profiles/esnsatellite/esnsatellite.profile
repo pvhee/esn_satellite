@@ -13,6 +13,10 @@ function esnsatellite_profile_modules() {
   'color', 'comment', 'menu', 'taxonomy',
   // More optional core modules.
   'help', 'throttle', 'search', 'statistics',
+  // Third party modules.
+  'cck', 'event', 'iconify', 'image', 'imagefield', 'imce',
+  'img_assist', 'link', 'menutree', 'pathauto', 'signup',
+  'simplemenu', 'tinymce', 'views',
   );
 }
 
