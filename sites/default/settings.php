@@ -90,9 +90,8 @@
  *   $db_url = 'mysqli://username:password@localhost/databasename';
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
-// $db_url = 'mysql://assi:andrea@localhost/assi';
-$db_url = 'mysql://assi:andrea@localhost/assi';
-$db_prefix = 'sat20c_';
+$db_url = 'mysql://username:password@localhost/databasename';
+$db_prefix = '';
 
 /**
  * Base URL (optional).

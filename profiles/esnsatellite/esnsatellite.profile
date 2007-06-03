@@ -13,8 +13,9 @@ function esnsatellite_profile_modules() {
   'color', 'comment', 'menu', 'taxonomy',
   // More optional core modules.
   'help', 'throttle', 'search', 'statistics',
-  // Third party modules.
+  // CCK does not need to be enabled.
   // 'cck',
+  // Third party modules.
   'event', 'iconify', 'image', 'imagefield', 'imce',
   'img_assist', 'link', 'menutree', 'pathauto', 'signup',
   'simplemenu', 'tinymce', 'views',
