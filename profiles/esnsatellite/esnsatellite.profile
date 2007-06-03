@@ -14,7 +14,8 @@ function esnsatellite_profile_modules() {
   // More optional core modules.
   'help', 'throttle', 'search', 'statistics',
   // Third party modules.
-  'cck', 'event', 'iconify', 'image', 'imagefield', 'imce',
+  // 'cck',
+  'event', 'iconify', 'image', 'imagefield', 'imce',
   'img_assist', 'link', 'menutree', 'pathauto', 'signup',
   'simplemenu', 'tinymce', 'views',
   );
