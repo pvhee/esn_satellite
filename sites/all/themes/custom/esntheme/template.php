@@ -278,7 +278,7 @@ function phptemplate_views_view_list_Partners($view, $nodes, $type) {
 
 function esntheme_icon($name, $style = '', $alt = '') {
 	global $base_path;
-	return '<img src="'.$base_path.'themes/esntheme/img/icons/'.$name.'" alt="'.$alt.'" style="display: inline; '.$style.'"/>';
+	return '<img src="'.$base_path.path_to_theme().'/img/icons/'.$name.'" alt="'.$alt.'" style="display: inline; '.$style.'"/>';
 }
 
 
