@@ -73,12 +73,14 @@ ul {margin: .3em 0 1.5em 0; list-style-type:none; padding-left: 25px;}
 ol {margin: .5em .5em 1.5em}
 ol li {margin-left: 1.4em;padding-left: 0;background: none; list-style-type: decimal}
 li {line-height: 1.4em;padding-left: 25px;background: transparent url(img/bullet_blue.png) no-repeat 0 0}
+ul.menu li {line-height: 1.4em;background: transparent;}
 li.doc {background-position: 3px -500px}
 ul.nomarker li {background:none;padding-left:0}
 
 dl {margin: 0 0 1em 0}
-dt {font-weight:bold;margin-top: 1.3em}
+dt {font-weight:bold;}
 dl dl {margin: 0 0 1.5em 30px}
+
 
 /* GENERAL */
 img {border:none} 
@@ -517,6 +519,7 @@ ul.primary {
   padding:0px 10px 0;
   list-style:none;
   color:#666;
+  border: none;  
   }
 
 ul.primary li {
@@ -525,6 +528,7 @@ ul.primary li {
   margin:0;
   padding:0 0 0 6px;
   color:#666;
+  border: none;  
   }
 
 ul.primary li a {
@@ -535,18 +539,22 @@ ul.primary li a {
   text-decoration:none;
   font-weight:bold;
   color:#999;
+  border: none;  
   }
   
   
   ul.primary li.active {
   background:url(img/tabs/left_on.gif) repeat left top;
   border-width:0;
-  }
+  border: none;  
+}
 
 ul.primary li.active a {
   background:url(img/tabs/right_on.gif) no-repeat right top;
   color:#00A8EB;
   padding-bottom:5px;
+  border: none;  
+  margin-right: 0px;
   }
 
   /* Commented Backslash Hack
@@ -614,3 +622,5 @@ ul.secondary li{ background: none; }
 #content .error {	background: #FFCFD1; border: 3px solid #9F272C; color: #9F272C; }
 
 
+dl.admin-list dd {padding-bottom: 15px; color: #999; font-size: 11px;}
+p.description {margin: 0 0 13px 0}
