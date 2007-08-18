@@ -15,12 +15,13 @@
 			#wrap {padding-bottom: 0px;}
 		</style>
 		 
-		<script type="text/javascript" src="<?php print $base_path . path_to_theme() ?>/js/jdMenu/jquery.js"></script>
-		<script type="text/javascript" src="<?php print $base_path . path_to_theme() ?>/js/jdMenu/jquery.dimensions.js"></script>
-		<script type="text/javascript" src="<?php print $base_path . path_to_theme() ?>/js/jdMenu/jquery.jdMenu.js"></script>	
 		
 		<?php print $styles;?>
 		<?php print $head; ?>
+    	<?php print $scripts; ?>
+		<script type="text/javascript" src="<?php print $base_path . path_to_theme() ?>/js/jdMenu/jquery.dimensions.js"></script>
+		<script type="text/javascript" src="<?php print $base_path . path_to_theme() ?>/js/jdMenu/jquery.jdMenu.js"></script>	
+
 
 	</head>
 	

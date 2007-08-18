@@ -1,6 +1,5 @@
 // Initialization, you can leave this here or move this somewhere else
 
-jQuery.noConflict();
 
 jQuery(function(){
 	jQuery('ul.jd_menu').jdMenu();
