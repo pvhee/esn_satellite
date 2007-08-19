@@ -1,5 +1,5 @@
 <?php
-// $Id: session.inc,v 1.37 2006/12/04 10:41:19 dries Exp $
+// $Id: session.inc,v 1.37.2.2 2007/07/26 19:16:45 drumm Exp $
 
 /**
  * @file
@@ -56,8 +56,9 @@ function sess_read($key) {
 function sess_write($key, $value) {
   global $user;
 
-  // If the client doesn't have a session, and one isn't being created ($value), do nothing.
-  if (empty($_COOKIE[session_name()]) && empty($value)) {
+  // If saving of session data is disabled or if the client doesn't have a session,
+  // and one isn't being created ($value), do nothing.
+  if (!session_save_session() || (empty($_COOKIE[session_name()]) && empty($value))) {
     return TRUE;
   }
 
@@ -65,10 +66,9 @@ function sess_write($key, $value) {
 
   if (!db_num_rows($result)) {
     // Only save session data when when the browser sends a cookie. This keeps
-    // crawlers out of session table. This improves speed up queries, reduces
-    // memory, and gives more useful statistics. We can't eliminate anonymous
-    // session table rows without breaking throttle module and "Who's Online"
-    // block.
+    // crawlers out of session table. This reduces memory and server load,
+    // and gives more useful statistics. We can't eliminate anonymous session
+    // table rows without breaking throttle module and "Who's Online" block.
     if ($user->uid || $value || count($_COOKIE)) {
       db_query("INSERT INTO {sessions} (sid, uid, cache, hostname, session, timestamp) VALUES ('%s', %d, %d, '%s', '%s', %d)", $key, $user->uid, $user->cache, $_SERVER["REMOTE_ADDR"], $value, time());
     }
@@ -152,4 +152,24 @@ function sess_gc($lifetime) {
   db_query("DELETE FROM {sessions} WHERE timestamp < %d", time() - $lifetime);
 
   return TRUE;
+}
+
+/**
+ * Determine whether to save session data of the current request.
+ *
+ * This function allows the caller to temporarily disable writing of session data,
+ * should the request end while performing potentially dangerous operations, such as
+ * manipulating the global $user object.
+ *
+ * @param $status
+ *   Disables writing of session data when FALSE, (re-)enables writing when TRUE.
+ *
+ * @return FALSE if writing session data has been disabled. Otherwise, TRUE.
+ */
+function session_save_session($status = NULL) {
+  static $save_session = TRUE;
+  if (isset($status)) {
+    $save_session = $status;
+  }
+  return ($save_session);
 }

@@ -1,3 +1,5 @@
+/* $Id: style.css,v 1.14.2.4 2007/07/09 03:50:59 drumm Exp $ */
+
 /**
  * Garland, for Drupal 5.0
  * Stefan Nagtegaal, iStyledThis [dot] nl
@@ -289,6 +291,11 @@ table .form-button, table .form-submit {
   margin-bottom: 0;
 }
 
+/* Avoid displaying content of script tags */
+#header-region script {
+  display: none;
+}
+
 #header-region p, #header-region img {
   margin-top: 0.5em;
 }
@@ -342,7 +349,7 @@ table .form-button, table .form-submit {
 body.sidebars {
   min-width: 980px;
 }
-/* With 2 columsn, require a minimum width of 800px. */
+/* With 2 columns, require a minimum width of 800px. */
 body.sidebar-left, body.sidebar-right {
   min-width: 780px;
 }
@@ -783,6 +790,11 @@ fieldset {
   padding: 1em;
   border: 1px solid #d9eaf5;
   background: #fff url(images/gradient-inner.png) repeat-x 0 0;
+}
+
+fieldset legend {
+  /* Fix disappearing legend in FFox */
+  display: block;
 }
 
 html.js fieldset.collapsed {

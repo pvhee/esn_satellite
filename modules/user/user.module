@@ -1,5 +1,5 @@
 <?php
-// $Id: user.module,v 1.745.2.1 2007/01/29 19:08:46 dries Exp $
+// $Id: user.module,v 1.745.2.13 2007/07/26 19:16:50 drumm Exp $
 
 /**
  * @file
@@ -154,6 +154,13 @@ function user_save($account, $array = array(), $category = 'account') {
       sess_destroy_uid($account->uid);
     }
 
+    // If the password changed, delete all open sessions and recreate
+    // the current one.
+    if (isset($array['pass'])) {
+      sess_destroy_uid($account->uid);
+      sess_regenerate();
+    }
+
     // Refresh user object
     $user = user_load(array('uid' => $account->uid));
     user_module_invoke('after_update', $array, $user, $category);
@@ -295,7 +302,7 @@ function user_validate_picture($file, &$edit, $user) {
       $form_values['picture'] = $file->filepath;
     }
     else {
-      form_set_error('picture_upload', t("Failed to upload the picture image; the %directory directory doesn't exist.", array('%directory' => variable_get('user_picture_path', 'pictures'))));
+      form_set_error('picture_upload', t("Failed to upload the picture image; the %directory directory doesn't exist or is not writable.", array('%directory' => variable_get('user_picture_path', 'pictures'))));
     }
   }
 }
@@ -434,7 +441,7 @@ function user_search($op = 'search', $keys = NULL) {
         $find = array();
         // Replace wildcards with MySQL/PostgreSQL wildcards.
         $keys = preg_replace('!\*+!', '%', $keys);
-        $result = pager_query("SELECT * FROM {users} WHERE LOWER(name) LIKE LOWER('%%%s%%')", 15, 0, NULL, $keys);
+        $result = pager_query("SELECT name, uid FROM {users} WHERE LOWER(name) LIKE LOWER('%%%s%%')", 15, 0, NULL, $keys);
         while ($account = db_fetch_object($result)) {
           $find[] = array('title' => $account->name, 'link' => url('user/'. $account->uid, NULL, NULL, TRUE));
         }
@@ -575,13 +582,13 @@ function user_block($op = 'list', $delta = 0, $edit = array()) {
 
       case 3:
         if (user_access('access content')) {
-          // Count users with activity in the past defined period.
+          // Count users active within the defined period.
           $interval = time() - variable_get('user_block_seconds_online', 900);
 
           // Perform database queries to gather online user lists.  We use s.timestamp
-          // rather than u.access because it is much faster is much faster..
+          // rather than u.access because it is much faster.
           $anonymous_count = sess_count($interval);
-          $authenticated_users = db_query('SELECT u.uid, u.name FROM {users} u INNER JOIN {sessions} s ON u.uid = s.uid WHERE s.timestamp >= %d AND s.uid > 0 ORDER BY s.timestamp DESC', $interval);
+          $authenticated_users = db_query('SELECT DISTINCT u.uid, u.name, s.timestamp FROM {users} u INNER JOIN {sessions} s ON u.uid = s.uid WHERE s.timestamp >= %d AND s.uid > 0 ORDER BY s.timestamp DESC', $interval);
           $authenticated_count = db_num_rows($authenticated_users);
 
           // Format the output with proper grammar.
@@ -649,7 +656,7 @@ function theme_user_profile($account, $fields) {
   $output .= theme('user_picture', $account);
   foreach ($fields as $category => $items) {
     if (strlen($category) > 0) {
-      $output .= '<h2 class="title">'. $category .'</h2>';
+      $output .= '<h2 class="title">'. check_plain($category) .'</h2>';
     }
     $output .= '<dl>';
     foreach ($items as $item) {
@@ -919,17 +926,17 @@ function user_login_validate($form_id, $form_values) {
   if ($form_values['name']) {
     if (user_is_blocked($form_values['name'])) {
       // blocked in user administration
-      form_set_error('login', t('The username %name has not been activated or is blocked.', array('%name' => $form_values['name'])));
+      form_set_error('name', t('The username %name has not been activated or is blocked.', array('%name' => $form_values['name'])));
     }
     else if (drupal_is_denied('user', $form_values['name'])) {
       // denied by access controls
-      form_set_error('login', t('The name %name is a reserved username.', array('%name' => $form_values['name'])));
+      form_set_error('name', t('The name %name is a reserved username.', array('%name' => $form_values['name'])));
     }
     else if ($form_values['pass']) {
       $user = user_authenticate($form_values['name'], trim($form_values['pass']));
 
       if (!$user->uid) {
-        form_set_error('login', t('Sorry, unrecognized username or password. <a href="@password">Have you forgotten your password?</a>', array('@password' => url('user/password'))));
+        form_set_error('name', t('Sorry, unrecognized username or password. <a href="@password">Have you forgotten your password?</a>', array('@password' => url('user/password'))));
         watchdog('user', t('Login attempt failed for %user.', array('%user' => $form_values['name'])));
       }
     }
@@ -1256,7 +1263,9 @@ function user_register_submit($form_id, $form_values) {
       $body = _user_mail_text('welcome_body', $variables);
       drupal_mail('user-register-welcome', $mail, $subject, $body, $from);
       user_authenticate($account->name, trim($pass));
-      drupal_goto();
+      $edit = array();
+      user_module_invoke('login', $edit, $account);
+      return '';
     }
     else if ($account->status || $notify) {
       // Create new user account, no administrator approval required.
@@ -1408,7 +1417,7 @@ function user_edit($category = 'account') {
   $edit = $_POST['op'] ? $_POST : (array)$account;
 
   if (arg(2) == 'delete') {
-    if ($edit['confirm']) {
+    if (!empty($edit['confirm'])) {
       user_delete($edit, $account->uid);
       drupal_goto('admin/user/user');
     }
@@ -2359,7 +2368,7 @@ function user_help($section) {
       return '<p>'. t('Drupal allows users to register, login, log out, maintain user profiles, etc. Users of the site may not use their own names to post content until they have signed up for a user account.') .'</p>';
     case 'admin/user/user/create':
     case 'admin/user/user/account/create':
-      return '<p>'. t('This web page allows the administrators to register a new users by hand. Note that you cannot have a user where either the e-mail address or the username match another user in the system.') .'</p>';
+      return '<p>'. t('This web page allows the administrators to register new users by hand. Note that you cannot have a user where either the e-mail address or the username match another user in the system.') .'</p>';
     case 'admin/user/rules':
       return '<p>'. t('Set up username and e-mail address access rules for new <em>and</em> existing accounts (currently logged in accounts will not be logged out). If a username or e-mail address for an account matches any deny rule, but not an allow rule, then the account will not be allowed to be created or to log in. A host rule is effective for every page view, not just registrations.') .'</p>';
     case 'admin/user/access':

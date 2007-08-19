@@ -1,5 +1,5 @@
 <?php
-// $Id: content_types.inc,v 1.24 2007/01/09 07:53:26 drumm Exp $
+// $Id: content_types.inc,v 1.24.2.2 2007/07/26 19:16:46 drumm Exp $
 
 /**
  * @file
@@ -18,7 +18,6 @@ function node_overview_types() {
   foreach ($names as $key => $name) {
     $type = $types[$key];
     if (function_exists($type->module .'_form')) {
-      $name = check_plain($name);
       $type_url_str = str_replace('_', '-', $type->type);
       // Populate the operations field.
       $operations = array();
@@ -194,6 +193,7 @@ function node_type_form($type = NULL) {
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save content type'),
+    '#weight' => 40,
   );
 
   if ($type->custom) {
@@ -201,6 +201,7 @@ function node_type_form($type = NULL) {
       $form['delete'] = array(
         '#type' => 'submit',
         '#value' => t('Delete content type'),
+        '#weight' => 45,
       );
     }
   }
@@ -208,6 +209,7 @@ function node_type_form($type = NULL) {
     $form['reset'] = array(
       '#type' => 'submit',
       '#value' => t('Reset to defaults'),
+      '#weight' => 50,
     );
   }
 

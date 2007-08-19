@@ -1,5 +1,5 @@
 <?php
-// $Id: locale.inc,v 1.105 2007/01/05 05:32:22 unconed Exp $
+// $Id: locale.inc,v 1.105.2.4 2007/05/21 00:20:02 drumm Exp $
 
 /**
  * @file
@@ -534,7 +534,7 @@ function _locale_import_read_po($op, $file, $mode = NULL, $lang = NULL) {
         $current["#"][] = substr($line, 1);
       }
       elseif (($context == "MSGSTR") || ($context == "MSGSTR_ARR")) { // End current entry, start a new one
-        _locale_import_one_string($op, $current, $mode, $lang);
+        _locale_import_one_string($op, $current, $mode, $lang, $file);
         $current = array();
         $current["#"][] = substr($line, 1);
         $context = "COMMENT";
@@ -560,7 +560,7 @@ function _locale_import_read_po($op, $file, $mode = NULL, $lang = NULL) {
     }
     elseif (!strncmp("msgid", $line, 5)) {
       if ($context == "MSGSTR") {   // End current entry, start a new one
-        _locale_import_one_string($op, $current, $mode, $lang);
+        _locale_import_one_string($op, $current, $mode, $lang, $file);
         $current = array();
       }
       elseif ($context == "MSGID") { // Already in this context? Parse error
@@ -634,7 +634,7 @@ function _locale_import_read_po($op, $file, $mode = NULL, $lang = NULL) {
 
   // End of PO file, flush last entry
   if (($context == "MSGSTR") || ($context == "MSGSTR_ARR")) {
-    _locale_import_one_string($op, $current, $mode, $lang);
+    _locale_import_one_string($op, $current, $mode, $lang, $file);
   }
   elseif ($context != "COMMENT") {
     _locale_import_message('The translation file %filename ended unexpectedly at line %line.', $file, $lineno);
@@ -673,8 +673,10 @@ function _locale_import_message($message, $file, $lineno = NULL) {
  *   Should existing translations be replaced ('overwrite' or 'keep')
  * @param $lang
  *   Language to store the string in
+ * @param $file
+ *   Object representation of file being imported, only required when op is 'db-store'
  */
-function _locale_import_one_string($op, $value = NULL, $mode = NULL, $lang = NULL) {
+function _locale_import_one_string($op, $value = NULL, $mode = NULL, $lang = NULL, $file = NULL) {
   static $additions = 0;
   static $updates = 0;
   static $headerdone = FALSE;
@@ -729,7 +731,7 @@ function _locale_import_one_string($op, $value = NULL, $mode = NULL, $lang = NUL
               $plid = 0;
             }
             $loc = db_fetch_object(db_query("SELECT lid FROM {locales_source} WHERE source = '%s'", $english[$key]));
-            if ($loc->lid) { // a string exists
+            if (!empty($loc->lid)) { // a string exists
               $lid = $loc->lid;
               // update location field
               db_query("UPDATE {locales_source} SET location = '%s' WHERE lid = %d", $comments, $lid);
@@ -766,7 +768,7 @@ function _locale_import_one_string($op, $value = NULL, $mode = NULL, $lang = NUL
           $english = $value['msgid'];
           $translation = $value['msgstr'];
           $loc = db_fetch_object(db_query("SELECT lid FROM {locales_source} WHERE source = '%s'", $english));
-          if ($loc->lid) { // a string exists
+          if (!empty($loc->lid)) { // a string exists
             $lid = $loc->lid;
             // update location field
             db_query("UPDATE {locales_source} SET location = '%s' WHERE source = '%s'", $comments, $english);
@@ -806,8 +808,10 @@ function _locale_import_one_string($op, $value = NULL, $mode = NULL, $lang = NUL
 /**
  * Parses a Gettext Portable Object file header
  *
- * @param $header A string containing the complete header
- * @return An associative array of key-value pairs
+ * @param $header
+ *   A string containing the complete header
+ * @return
+ *   An associative array of key-value pairs
  */
 function _locale_import_parse_header($header) {
   $hdr = array();
@@ -873,8 +877,10 @@ function _locale_import_parse_plural_forms($pluralforms, $filename) {
  * While parsing, we ensure, that the operators have the right
  * precedence and associativity.
  *
- * @param $string A string containing the arithmetic formula
- * @return The PHP version of the formula
+ * @param $string
+ *   A string containing the arithmetic formula
+ * @return
+ *   The PHP version of the formula
  */
 function _locale_import_parse_arithmetic($string) {
   // Operator precedence table
@@ -908,7 +914,7 @@ function _locale_import_parse_arithmetic($string) {
         $topop = array_pop($opstk);
       }
     }
-    elseif ($prec[$ctok]) {
+    elseif (!empty($prec[$ctok])) {
       // If it's an operator, then pop from $oparr into $elarr until the
       // precedence in $oparr is less than current, then push into $oparr
       $topop = array_pop($opstk);
@@ -968,8 +974,10 @@ function _locale_import_parse_arithmetic($string) {
 /**
  * Backward compatible implementation of token_get_all() for formula parsing
  *
- * @param $string A string containing the arithmetic formula
- * @return The PHP version of the formula
+ * @param $string
+ *   A string containing the arithmetic formula
+ * @return
+ *   The PHP version of the formula
  */
 function _locale_import_tokenize_formula($formula) {
   $formula = str_replace(" ", "", $formula);
@@ -1032,8 +1040,10 @@ function _locale_import_tokenize_formula($formula) {
  *
  * This is a callback function used via array_map()
  *
- * @param $entry An array element
- * @param $key Index of the array element
+ * @param $entry
+ *   An array element
+ * @param $key
+ *   Index of the array element
  */
 function _locale_import_append_plural($entry, $key) {
   // No modifications for 0, 1
@@ -1049,8 +1059,10 @@ function _locale_import_append_plural($entry, $key) {
 /**
  * Generate a short, one string version of the passed comment array
  *
- * @param $comment An array of strings containing a comment
- * @return Short one string version of the comment
+ * @param $comment
+ *   An array of strings containing a comment
+ * @return
+ *   Short one string version of the comment
  */
 function _locale_import_shorten_comments($comment) {
   $comm = '';
@@ -1069,8 +1081,10 @@ function _locale_import_shorten_comments($comment) {
 /**
  * Parses a string in quotes
  *
- * @param $string A string specified with enclosing quotes
- * @return The string parsed from inside the quotes
+ * @param $string
+ *   A string specified with enclosing quotes
+ * @return
+ *   The string parsed from inside the quotes
  */
 function _locale_import_parse_quoted($string) {
   if (substr($string, 0, 1) != substr($string, -1, 1)) {
@@ -1544,7 +1558,8 @@ function _locale_get_iso639_list() {
     "ne" => array("Nepali"),
     "ng" => array("Ndonga"),
     "nl" => array("Dutch", "Nederlands"),
-    "no" => array("Norwegian", "Norsk"),
+    "nb" => array("Norwegian Bokmål", "Bokmål"),
+    "nn" => array("Norwegian Nynorsk", "Nynorsk"),
     "nr" => array("South Ndebele"),
     "nv" => array("Navajo"),
     "ny" => array("Chichewa"),

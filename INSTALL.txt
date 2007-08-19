@@ -1,4 +1,4 @@
-// $Id: INSTALL.txt,v 1.39 2007/01/08 11:59:16 dries Exp $
+// $Id: INSTALL.txt,v 1.39.2.2 2007/07/26 05:29:58 drumm Exp $
 
 CONTENTS OF THIS FILE
 ---------------------
@@ -120,7 +120,7 @@ INSTALLATION
    following example crontab line will activate the cron tasks automatically on
    the hour:
 
-   0   *   *   *   *   wget -O - -q http://www.example.com/cron.php
+   0   *   *   *   *   wget -O - -q -t 1 http://www.example.com/cron.php
 
    More information about the cron scripts are available in the admin help pages
    and in the Drupal handbook at drupal.org. Example scripts can be found in the
@@ -134,10 +134,10 @@ few active modules and minimal user access rights.
 
 Use your administration panel to enable and configure services. For example:
 
-General Settings       administer > site configuration > site information
-Enable Modules         administer > site configuration > modules
-Set User Permissions   administer > users management > access control
-Configure Themes       administer > site building > themes
+General Settings       Administer > Site configuration > Site information
+Enable Modules         Administer > Site building > Modules
+Set User Permissions   Administer > User management > Access control
+Configure Themes       Administer > Site building > Themes
 
 For more information on configuration options, read the instructions which
 accompany the different configuration settings and consult the various help

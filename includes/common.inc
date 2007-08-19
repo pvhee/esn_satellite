@@ -1,5 +1,5 @@
 <?php
-// $Id: common.inc,v 1.611 2007/01/10 23:30:07 unconed Exp $
+// $Id: common.inc,v 1.611.2.9 2007/07/26 19:16:45 drumm Exp $
 
 /**
  * @file
@@ -197,8 +197,6 @@ function drupal_get_feeds($delimiter = "\n") {
  *   The array to be processed e.g. $_GET
  * @param $exclude
  *   The array filled with keys to be excluded. Use parent[child] to exclude nested items.
- * @param $urlencode
- *   If TRUE, the keys and values are both urlencoded.
  * @param $parent
  *   Should not be passed, only used in recursive calls
  * @return
@@ -411,6 +409,7 @@ function drupal_http_request($url, $headers = array(), $method = 'GET', $data = 
 
   // Parse the URL, and make sure we can handle the schema.
   $uri = parse_url($url);
+
   switch ($uri['scheme']) {
     case 'http':
       $port = isset($uri['port']) ? $uri['port'] : 80;
@@ -431,6 +430,7 @@ function drupal_http_request($url, $headers = array(), $method = 'GET', $data = 
   // Make sure the socket opened properly.
   if (!$fp) {
     $result->error = trim($errno .' '. $errstr);
+    $result->code = -$errno;
     return $result;
   }
 
@@ -548,7 +548,7 @@ function error_handler($errno, $message, $filename, $line) {
     $entry = $types[$errno] .': '. $message .' in '. $filename .' on line '. $line .'.';
 
     // Force display of error messages in update.php
-    if (variable_get('error_level', 1) == 1 || strstr($_SERVER['PHP_SELF'], 'update.php')) {
+    if (variable_get('error_level', 1) == 1 || strstr($_SERVER['SCRIPT_NAME'], 'update.php')) {
       drupal_set_message($entry, 'error');
     }
 
@@ -1164,7 +1164,7 @@ function url($path = NULL, $query = NULL, $fragment = NULL, $absolute = FALSE) {
   static $script;
   static $clean_url;
 
-  if (empty($script)) {
+  if (!isset($script)) {
     // On some web servers, such as IIS, we can't omit "index.php". So, we
     // generate "index.php?q=foo" instead of "?q=foo" on anything that is not
     // Apache.
@@ -1699,14 +1699,17 @@ function drupal_to_js($var) {
                               array('\r', '\n', '\x3c', '\x3e', '\x26'),
                               addslashes($var)) .'"';
     case 'array':
-      if (array_keys($var) === range(0, sizeof($var) - 1)) {
+      // Arrays in JSON can't be associative. If the array is empty or if it
+      // has sequential whole number keys starting with 0, it's not associative
+      // so we can go ahead and convert it as an array.
+      if (empty ($var) || array_keys($var) === range(0, sizeof($var) - 1)) {
         $output = array();
         foreach ($var as $v) {
           $output[] = drupal_to_js($v);
         }
         return '[ '. implode(', ', $output) .' ]';
       }
-      // Fall through
+      // Otherwise, fall through to convert the array as an object.
     case 'object':
       $output = array();
       foreach ($var as $k => $v) {
@@ -1728,17 +1731,19 @@ function drupal_to_js($var) {
  * Notes:
  * - For esthetic reasons, we do not escape slashes. This also avoids a 'feature'
  *   in Apache where it 404s on any path containing '%2F'.
- * - mod_rewrite's unescapes %-encoded ampersands and hashes when clean URLs
- *   are used, which are interpreted as delimiters by PHP. These characters are
- *   double escaped so PHP will still see the encoded version.
+ * - mod_rewrite unescapes %-encoded ampersands, hashes, and slashes when clean
+ *   URLs are used, which are interpreted as delimiters by PHP. These
+ *   characters are double escaped so PHP will still see the encoded version.
+ * - With clean URLs, Apache changes '//' to '/', so every second slash is
+ *   double escaped.
  *
  * @param $text
  *   String to encode
  */
 function drupal_urlencode($text) {
   if (variable_get('clean_url', '0')) {
-    return str_replace(array('%2F', '%26', '%23'),
-                       array('/', '%2526', '%2523'),
+    return str_replace(array('%2F', '%26', '%23', '//'),
+                       array('/', '%2526', '%2523', '/%252F'),
                        urlencode($text));
   }
   else {
@@ -1891,8 +1896,7 @@ function page_set_cache() {
 
 /**
  * Send an e-mail message, using Drupal variables and default settings.
- * More information in the <a href="http://php.net/manual/en/function.mail.php">
- * PHP function reference for mail()</a>
+ * More information in the PHP function reference for mail()
  * @param $mailkey
  *   A key to identify the mail sent, for altering.
  * @param $to
@@ -1923,8 +1927,15 @@ function drupal_mail($mailkey, $to, $subject, $body, $from = NULL, $headers = ar
     'Content-Transfer-Encoding' => '8Bit',
     'X-Mailer' => 'Drupal'
   );
-  if (isset($from)) {
-    $defaults['From'] = $defaults['Reply-To'] = $defaults['Return-Path'] = $defaults['Errors-To'] = $from;
+  // To prevent e-mail from looking like spam, the addresses in the Sender and
+  // Return-Path headers should have a domain authorized to use the originating
+  // SMTP server.  Errors-To is redundant, but shouldn't hurt.
+  $default_from = variable_get('site_mail', ini_get('sendmail_from'));
+  if ($default_from) {
+    $defaults['From'] = $defaults['Reply-To'] = $defaults['Sender'] = $defaults['Return-Path'] = $defaults['Errors-To'] = $default_from;
+  }
+  if ($from) {
+    $defaults['From'] = $defaults['Reply-To'] = $from;
   }
   $headers = array_merge($defaults, $headers);
   // Custom hook traversal to allow pass by reference
@@ -1938,26 +1949,24 @@ function drupal_mail($mailkey, $to, $subject, $body, $from = NULL, $headers = ar
     return drupal_mail_wrapper($mailkey, $to, $subject, $body, $from, $headers);
   }
   else {
-    /*
-    ** Note: if you are having problems with sending mail, or mails look wrong
-    ** when they are received you may have to modify the str_replace to suit
-    ** your systems.
-    **  - \r\n will work under dos and windows.
-    **  - \n will work for linux, unix and BSDs.
-    **  - \r will work for macs.
-    **
-    ** According to RFC 2646, it's quite rude to not wrap your e-mails:
-    **
-    ** "The Text/Plain media type is the lowest common denominator of
-    ** Internet e-mail, with lines of no more than 997 characters (by
-    ** convention usually no more than 80), and where the CRLF sequence
-    ** represents a line break [MIME-IMT]."
-    **
-    ** CRLF === \r\n
-    **
-    ** http://www.rfc-editor.org/rfc/rfc2646.txt
-    **
-    */
+    // Note: if you are having problems with sending mail, or mails look wrong
+    // when they are received you may have to modify the str_replace to suit
+    // your systems.
+    //  - \r\n will work under dos and windows.
+    //  - \n will work for linux, unix and BSDs.
+    //  - \r will work for macs.
+    //
+    // According to RFC 2646, it's quite rude to not wrap your e-mails:
+    //
+    // "The Text/Plain media type is the lowest common denominator of
+    // Internet e-mail, with lines of no more than 997 characters (by
+    // convention usually no more than 80), and where the CRLF sequence
+    // represents a line break [MIME-IMT]."
+    //
+    // CRLF === \r\n
+    //
+    // http://www.rfc-editor.org/rfc/rfc2646.txt
+
     $mimeheaders = array();
     foreach ($headers as $name => $value) {
       $mimeheaders[] = $name .': '. mime_header_encode($value);

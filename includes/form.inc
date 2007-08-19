@@ -1,5 +1,5 @@
 <?php
-// $Id: form.inc,v 1.174.2.3 2007/01/29 21:51:53 drumm Exp $
+// $Id: form.inc,v 1.174.2.11 2007/07/26 19:16:45 drumm Exp $
 
 /**
  * @defgroup form Form generation
@@ -21,10 +21,9 @@
  *
  *
  * For information on the format of the structured arrays used to define forms,
- * and more detailed explanations of the Form API workflow, see the reference at
- * http://api.drupal.org/api/HEAD/file/developer/topics/forms_api_reference.html
- * and the quickstart guide at
- * http://api.drupal.org/api/HEAD/file/developer/topics/forms_api.html
+ * and more detailed explanations of the Form API workflow, see the
+ * @link http://api.drupal.org/api/HEAD/file/developer/topics/forms_api_reference.html reference @endlink
+ * and the @link http://api.drupal.org/api/HEAD/file/developer/topics/forms_api.html quickstart guide. @endlink
  */
 
 /**
@@ -249,7 +248,7 @@ function drupal_process_form($form_id, &$form) {
   $form_button_counter = array(0, 0);
 
   drupal_prepare_form($form_id, $form);
-  if (($form['#programmed']) || (!empty($_POST) && (($_POST['form_id'] == $form_id) || ($_POST['form_id'] == $form['#base'])))) {
+  if (($form['#programmed']) || (!empty($_POST) && (($_POST['form_id'] == $form_id)))) {
     drupal_validate_form($form_id, $form);
     // IE does not send a button value when there is only one submit button (and no non-submit buttons)
     // and you submit by pressing enter.
@@ -418,6 +417,8 @@ function drupal_validate_form($form_id, $form) {
 function drupal_submit_form($form_id, $form) {
   global $form_values;
   $default_args = array($form_id, &$form_values);
+  $submitted = FALSE;
+  $goto = NULL;
 
   if (isset($form['#submit'])) {
     foreach ($form['#submit'] as $function => $args) {
@@ -426,12 +427,14 @@ function drupal_submit_form($form_id, $form) {
         // Since we can only redirect to one page, only the last redirect
         // will work.
         $redirect = call_user_func_array($function, $args);
+        $submitted = TRUE;
         if (isset($redirect)) {
           $goto = $redirect;
         }
       }
     }
   }
+
   return $goto;
 }
 
@@ -953,7 +956,7 @@ function form_select_options($element, $choices = NULL) {
     }
     else {
       $key = (string)$key;
-      if ($value_valid && ((string)$element['#value'] === $key || ($value_is_array && in_array($key, $element['#value'])))) {
+      if ($value_valid && (!$value_is_array && (string)$element['#value'] === $key || ($value_is_array && in_array($key, $element['#value'])))) {
         $selected = ' selected="selected"';
       }
       else {
@@ -1110,11 +1113,13 @@ function expand_password_confirm($element) {
     '#type' => 'password',
     '#title' => t('Password'),
     '#value' => $element['#value']['pass1'],
+    '#required' => $element['#required'],
   );
   $element['pass2'] =  array(
     '#type' => 'password',
     '#title' => t('Confirm password'),
     '#value' => $element['#value']['pass2'],
+    '#required' => $element['#required'],
   );
   $element['#validate'] = array('password_confirm_validate' => array());
   $element['#tree'] = TRUE;
@@ -1168,7 +1173,7 @@ function theme_date($element) {
  */
 function expand_date($element) {
   // Default to current date
-  if (!isset($element['#value'])) {
+  if (empty($element['#value'])) {
     $element['#value'] = array('day' => format_date(time(), 'custom', 'j'),
                             'month' => format_date(time(), 'custom', 'n'),
                             'year' => format_date(time(), 'custom', 'Y'));

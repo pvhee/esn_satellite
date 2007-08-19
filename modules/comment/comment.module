@@ -1,5 +1,5 @@
 <?php
-// $Id: comment.module,v 1.520.2.2 2007/01/29 21:51:53 drumm Exp $
+// $Id: comment.module,v 1.520.2.6 2007/07/26 19:16:45 drumm Exp $
 
 /**
  * @file
@@ -249,7 +249,7 @@ function comment_get_recent($number = 10) {
   // Select the $number nodes (visible to the current user) with the most
   // recent comments. This is efficient due to the index on
   // last_comment_timestamp.
-  $result = db_query_range(db_rewrite_sql("SELECT n.nid FROM {node_comment_statistics} n WHERE n.comment_count > 0 ORDER BY n.last_comment_timestamp DESC"), 0, $number);
+  $result = db_query_range(db_rewrite_sql("SELECT nc.nid FROM {node_comment_statistics} nc WHERE nc.comment_count > 0 ORDER BY nc.last_comment_timestamp DESC", 'nc'), 0, $number);
 
   $nids = array();
   while ($row = db_fetch_object($result)) {
@@ -415,7 +415,7 @@ function comment_nodeapi(&$node, $op, $arg = 0) {
       break;
 
     case 'insert':
-      db_query('INSERT INTO {node_comment_statistics} (nid, last_comment_timestamp, last_comment_name, last_comment_uid, comment_count) VALUES (%d, %d, NULL, %d, 0)', $node->nid, $node->created, $node->uid);
+      db_query('INSERT INTO {node_comment_statistics} (nid, last_comment_timestamp, last_comment_name, last_comment_uid, comment_count) VALUES (%d, %d, NULL, %d, 0)', $node->nid, $node->changed, $node->uid);
       break;
 
     case 'delete':
@@ -1075,23 +1075,8 @@ function comment_delete($cid = NULL) {
 
   $output = '';
 
-  // We'll only delete if the user has confirmed the
-  // deletion using the form in our else clause below.
-  if (is_object($comment) && is_numeric($comment->cid) && $_POST['confirm']) {
-    drupal_set_message(t('The comment and all its replies have been deleted.'));
-
-    // Delete comment and its replies.
-    _comment_delete_thread($comment);
-
-    _comment_update_node_statistics($comment->nid);
-
-    // Clear the cache so an anonymous user sees that his comment was deleted.
-    cache_clear_all();
-
-    drupal_goto("node/$comment->nid");
-  }
-  else if (is_object($comment) && is_numeric($comment->cid)) {
-    $output = drupal_get_form('comment_confirm_delete', $comment->subject, $comment->nid);
+  if (is_object($comment) && is_numeric($comment->cid)) {
+    $output = drupal_get_form('comment_confirm_delete', $comment);
   }
   else {
     drupal_set_message(t('The comment no longer exists.'));
@@ -1100,15 +1085,37 @@ function comment_delete($cid = NULL) {
   return $output;
 }
 
-function comment_confirm_delete($subject, $nid) {
+function comment_confirm_delete($comment) {
+
+  $form = array();
+  $form['comment'] = array(
+    '#type' => 'value',
+    '#value' => $comment,
+  );
+
   return confirm_form(
-    array(),
-    t('Are you sure you want to delete the comment %title?', array('%title' => $subject)),
-    'node/'. $nid,
+    $form,
+    t('Are you sure you want to delete the comment %title?', array('%title' => $comment->subject)),
+    'node/'. $comment->nid,
     t('Any replies to this comment will be lost. This action cannot be undone.'),
     t('Delete'),
     t('Cancel'));
 }
+
+function comment_confirm_delete_submit($form_id, $form_values) {
+  $comment = $form_values['comment'];
+
+  // Delete comment and its replies.
+  _comment_delete_thread($comment);
+  _comment_update_node_statistics($comment->nid);
+ // Clear the cache so an anonymous user sees that his comment was deleted.
+  cache_clear_all();
+
+  drupal_set_message(t('The comment and all its replies have been deleted.'));
+
+  return "node/$comment->nid";
+}
+
 
 /**
  * Comment operations. We offer different update operations depending on
@@ -1810,10 +1817,10 @@ function theme_comment_post_forbidden($nid) {
   else {
     // we cannot use drupal_get_destination() because these links sometimes appear on /node and taxo listing pages
     if (variable_get('comment_form_location', COMMENT_FORM_SEPARATE_PAGE) == COMMENT_FORM_SEPARATE_PAGE) {
-      $destination = "destination=". drupal_urlencode("comment/reply/$nid#comment_form");
+      $destination = "destination=". drupal_urlencode("comment/reply/$nid#comment-form");
     }
     else {
-      $destination = "destination=". drupal_urlencode("node/$nid#comment_form");
+      $destination = "destination=". drupal_urlencode("node/$nid#comment-form");
     }
 
     if (variable_get('user_register', 1)) {

@@ -1,5 +1,5 @@
 <?php
-// $Id: update.php,v 1.211 2006/12/25 21:22:03 drumm Exp $
+// $Id: update.php,v 1.211.2.2 2007/04/08 00:54:04 drumm Exp $
 
 /**
  * @file
@@ -391,7 +391,9 @@ function update_update_page() {
   }
 
   // Keep track of total number of updates
-  $_SESSION['update_total'] = count($_SESSION['update_remaining']);
+  if (isset($_SESSION['update_remaining'])) {
+    $_SESSION['update_total'] = count($_SESSION['update_remaining']);
+  }
 
   if ($_POST['has_js']) {
     return update_progress_page();
@@ -510,8 +512,8 @@ function update_progress_page_nojs() {
 function update_finished_page($success) {
   drupal_set_title('Drupal database update');
   // NOTE: we can't use l() here because the URL would point to 'update.php?q=admin'.
-  $links[] = '<a href="'. base_path() .'">main page</a>';
-  $links[] = '<a href="'. base_path() .'?q=admin">administration pages</a>';
+  $links[] = '<a href="'. base_path() .'">Main page</a>';
+  $links[] = '<a href="'. base_path() .'?q=admin">Administration pages</a>';
 
   // Report end result
   if ($success) {
@@ -529,7 +531,7 @@ function update_finished_page($success) {
   $output .= theme('item_list', $links);
 
   // Output a list of queries executed
-  if ($_SESSION['update_results']) {
+  if (!empty($_SESSION['update_results'])) {
     $output .= '<div id="update-results">';
     $output .= '<h2>The following queries were executed</h2>';
     foreach ($_SESSION['update_results'] as $module => $updates) {

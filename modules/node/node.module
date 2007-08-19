@@ -1,5 +1,5 @@
 <?php
-// $Id: node.module,v 1.776.2.1 2007/01/29 21:51:53 drumm Exp $
+// $Id: node.module,v 1.776.2.19 2007/07/26 19:16:46 drumm Exp $
 
 /**
  * @file
@@ -35,7 +35,7 @@ function node_help($section) {
       return '<p>'. t('To create a new content type, enter the human-readable name, the machine-readable name, and all other relevant fields that are on this page. Once created, users of your site will be able to create posts that are instances of this content type.') .'</p>';
   }
 
-  if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == 'revisions') {
+  if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == 'revisions' && arg(3) == NULL) {
     return '<p>'. t('The revisions let you track differences between multiple versions of a post.') .'</p>';
   }
 
@@ -103,7 +103,7 @@ function node_last_viewed($nid) {
   static $history;
 
   if (!isset($history[$nid])) {
-    $history[$nid] = db_fetch_object(db_query("SELECT timestamp FROM {history} WHERE uid = '$user->uid' AND nid = %d", $nid));
+    $history[$nid] = db_fetch_object(db_query("SELECT timestamp FROM {history} WHERE uid = %d AND nid = %d", $user->uid, $nid));
   }
 
   return (isset($history[$nid]->timestamp) ? $history[$nid]->timestamp : 0);
@@ -272,6 +272,9 @@ function node_types_rebuild() {
     if (!empty($info->is_new)) {
       node_type_save($info);
     }
+    if (!empty($info->disabled)) {
+      node_type_delete($info->type);
+    }
   }
 
   _node_types_build();
@@ -335,8 +338,10 @@ function node_type_update_nodes($old_type, $type) {
 }
 
 /**
- * Builds the list of available node types, by querying hook_node_info() in all
- * modules, and by looking for node types in the database.
+ * Builds and returns the list of available node types.
+ *
+ * The list of types is built by querying hook_node_info() in all modules, and
+ * by comparing this information with the node types in the {node_type} table.
  *
  */
 function _node_types_build() {
@@ -352,6 +357,12 @@ function _node_types_build() {
 
   $type_result = db_query(db_rewrite_sql('SELECT nt.type, nt.* FROM {node_type} nt ORDER BY nt.type ASC', 'nt', 'type'));
   while ($type_object = db_fetch_object($type_result)) {
+    // Check for node types from disabled modules and mark their types for removal.
+    // Types defined by the node module in the database (rather than by a separate
+    // module using hook_node_info) have a module value of 'node'.
+    if ($type_object->module != 'node' && empty($info_array[$type_object->type])) {
+       $type_object->disabled = TRUE;
+    }
     if (!isset($_node_types[$type_object->type]) || $type_object->modified) {
       $_node_types[$type_object->type] = $type_object;
       $_node_names[$type_object->type] = $type_object->name;
@@ -386,6 +397,12 @@ function _node_type_set_defaults($info) {
     $info['body_label'] = t('Body');
   }
 
+  if (!isset($info['help'])) {
+    $info['help'] = '';
+  }
+  if (!isset($info['min_word_count'])) {
+    $info['min_word_count'] = 0;
+  }
   if (!isset($info['custom'])) {
     $info['custom'] = FALSE;
   }
@@ -554,7 +571,7 @@ function node_save(&$node) {
     $node->is_new = TRUE;
 
     $node->nid = db_next_id('{node}_nid');
-    $node->vid = db_next_id('{node_revisions}_vid');;
+    $node->vid = db_next_id('{node_revisions}_vid');
   }
   else {
     // We need to ensure that all node fields are filled.
@@ -586,7 +603,7 @@ function node_save(&$node) {
                      'title' => "'%s'", 'body' => "'%s'",
                      'teaser' => "'%s'", 'timestamp' => '%d',
                      'uid' => '%d', 'format' => '%d');
-  if (!empty($node->log) || $node->is_new) {
+  if (!empty($node->log) || $node->is_new || $node->revision) {
     // Only store the log message if there's something to store; this prevents
     // existing log messages from being unintentionally overwritten by a blank
     // message. A new revision will have an empty log message (or $node->log).
@@ -672,7 +689,7 @@ function node_view($node, $teaser = FALSE, $page = FALSE, $links = TRUE) {
   $node = node_build_content($node, $teaser, $page);
 
   if ($links) {
-    $node->links = module_invoke_all('link', 'node', $node, !$page);
+    $node->links = module_invoke_all('link', 'node', $node, $teaser);
 
     foreach (module_implements('link_alter') AS $module) {
       $function = $module .'_link_alter';
@@ -1142,11 +1159,10 @@ function node_menu($may_cache) {
 
     foreach (node_get_types() as $type) {
       if (function_exists($type->module .'_form')) {
-        $name = check_plain($type->name);
         $type_url_str = str_replace('_', '-', $type->type);
         $items[] = array(
           'path' => 'node/add/'. $type_url_str,
-          'title' => drupal_ucfirst($name),
+          'title' => drupal_ucfirst($type->name),
           'access' => node_access('create', $type->type),
         );
       }
@@ -1195,11 +1211,26 @@ function node_menu($may_cache) {
           'weight' => 1,
           'type' => MENU_CALLBACK);
         $revisions_access = ((user_access('view revisions') || user_access('administer nodes')) && node_access('view', $node) && db_result(db_query('SELECT COUNT(vid) FROM {node_revisions} WHERE nid = %d', arg(1))) > 1);
-        $items[] = array('path' => 'node/'. arg(1) .'/revisions', 'title' => t('Revisions'),
+        $items[] = array(
+          'path' => 'node/'. arg(1) .'/revisions',
+          'title' => t('Revisions'),
           'callback' => 'node_revisions',
           'access' => $revisions_access,
           'weight' => 2,
-          'type' => MENU_LOCAL_TASK);
+          'type' => MENU_LOCAL_TASK,
+        );
+        if (!is_null(arg(3))) {
+          $items[] = array(
+            'path' => 'node/'. arg(1) .'/revisions/'. arg(3) .'/delete',
+            'callback' => 'node_revision_delete',
+            'callback arguments' => array(arg(1), arg(3)), 
+          );
+          $items[] = array(
+            'path' => 'node/'. arg(1) .'/revisions/'. arg(3) .'/revert',
+            'callback' => 'node_revision_revert',
+            'callback arguments' => array(arg(1), arg(3)), 
+          );
+        }
       }
     }
 
@@ -1213,7 +1244,6 @@ function node_menu($may_cache) {
         $type = node_get_types('type', $type_name);
 
         if (!empty($type)) {
-          $type->name = check_plain($type->name);
           $type_url_str = str_replace('_', '-', $type->type);
 
           $items[] = array(
@@ -1390,15 +1420,15 @@ function node_filter_form() {
       $value = module_invoke('taxonomy', 'get_term', $value);
       $value = $value->name;
     }
-    else if ($type == 'type') {
-      // Remove the type option if it is already being filtered on.
-      unset($filters['type']);
-    }
     else {
       $value = $filters[$type]['options'][$value];
     }
     $string = ($i++ ? '<em>and</em> where <strong>%a</strong> is <strong>%b</strong>' : '<strong>%a</strong> is <strong>%b</strong>');
     $form['filters']['current'][] = array('#value' => t($string, array('%a' => $filters[$type]['title'] , '%b' => $value)));
+    if ($type == 'type') {
+      // Remove the type option if it is already being filtered on.
+      unset($filters['type']);
+    }
   }
 
   foreach ($filters as $key => $filter) {
@@ -1532,7 +1562,6 @@ function node_admin_content() {
 }
 
 function node_admin_nodes() {
-  global $form_values;
   $filter = node_build_filter_query();
 
   $result = pager_query('SELECT n.*, u.name, u.uid FROM {node} n '. $filter['join'] .' INNER JOIN {users} u ON n.uid = u.uid '. $filter['where'] .' ORDER BY n.changed DESC', 50, 0, NULL, $filter['args']);
@@ -1553,7 +1582,7 @@ function node_admin_nodes() {
   while ($node = db_fetch_object($result)) {
     $nodes[$node->nid] = '';
     $form['title'][$node->nid] = array('#value' => l($node->title, 'node/'. $node->nid) .' '. theme('mark', node_mark($node->nid, $node->changed)));
-    $form['name'][$node->nid] =  array('#value' => node_get_types('name', $node));
+    $form['name'][$node->nid] =  array('#value' => check_plain(node_get_types('name', $node)));
     $form['username'][$node->nid] = array('#value' => theme('username', $node));
     $form['status'][$node->nid] =  array('#value' =>  ($node->status ? t('published') : t('not published')));
     $form['operations'][$node->nid] = array('#value' => l(t('edit'), 'node/'. $node->nid .'/edit', array(), $destination));
@@ -1666,9 +1695,8 @@ function node_revision_overview($node) {
     }
     $rows[] = array_merge($row, $operations);
   }
-  $output .= theme('table', $header, $rows);
 
-  return $output;
+  return theme('table', $header, $rows);
 }
 
 /**
@@ -1681,16 +1709,7 @@ function node_revision_revert($nid, $revision) {
   $node = node_load($nid, $revision);
   if ((user_access('revert revisions') || user_access('administer nodes')) && node_access('update', $node)) {
     if ($node->vid) {
-      $node->revision = 1;
-      $node->log = t('Copy of the revision from %date.', array('%date' => format_date($node->revision_timestamp)));
-      if (module_exists('taxonomy')) {
-        $node->taxonomy = array_keys($node->taxonomy);
-      }
-
-      node_save($node);
-
-      drupal_set_message(t('%title has been reverted back to the revision from %revision-date', array('%revision-date' => format_date($node->revision_timestamp), '%title' => $node->title)));
-      watchdog('content', t('@type: reverted %title revision %revision.', array('@type' => t($node->type), '%title' => $node->title, '%revision' => $revision)));
+      return drupal_get_form('node_revision_revert_confirm', $node);
     }
     else {
       drupal_set_message(t('You tried to revert to an invalid revision.'), 'error');
@@ -1698,6 +1717,31 @@ function node_revision_revert($nid, $revision) {
     drupal_goto('node/'. $nid .'/revisions');
   }
   drupal_access_denied();
+}
+
+/**
+ * Ask for confirmation of the reversion to prevent against CSRF attacks.
+ */
+function node_revision_revert_confirm($node) {
+  $form['node'] = array('#type' => 'value', '#value' => $node);
+  return confirm_form($form, t('Are you sure you want to revert to the revision from %revision-date?', array('%revision-date' =>  format_date($node->revision_timestamp))), 'node/'. $node->nid .'/revisions', '', t('Revert'), t('Cancel'));
+}
+
+function node_revision_revert_confirm_submit($form_id, $form_values) {
+  $node = $form_values['node'];
+
+  $node->revision = 1;
+  $node->log = t('Copy of the revision from %date.', array('%date' => format_date($node->revision_timestamp)));
+  if (module_exists('taxonomy')) {
+    $node->taxonomy = array_keys($node->taxonomy);
+  }
+
+  node_save($node);
+
+  drupal_set_message(t('%title has been reverted back to the revision from %revision-date', array('%revision-date' => format_date($node->revision_timestamp), '%title' => $node->title)));
+  watchdog('content', t('@type: reverted %title revision %revision.', array('@type' => t($node->type), '%title' => $node->title, '%revision' => $revision)));
+
+  return 'node/'. $node->nid .'/revisions';
 }
 
 /**
@@ -1710,27 +1754,50 @@ function node_revision_delete($nid, $revision) {
     if (node_access('delete', $node)) {
       // Don't delete the current revision
       if ($revision != $node->vid) {
-        $node = node_load($nid, $revision);
-
-        db_query("DELETE FROM {node_revisions} WHERE nid = %d AND vid = %d", $nid, $revision);
-        node_invoke_nodeapi($node, 'delete revision');
-        drupal_set_message(t('Deleted %title revision %revision.', array('%title' => $node->title, '%revision' => $revision)));
-        watchdog('content', t('@type: deleted %title revision %revision.', array('@type' => t($node->type), '%title' => $node->title, '%revision' => $revision)));
+        if ($node = node_load($nid, $revision)) {
+          return drupal_get_form('node_revision_delete_confirm', $node);
+        }
+        else {
+          drupal_set_message(t('Deletion failed. You tried to delete a non-existing revision.'));
+        }
       }
-
       else {
         drupal_set_message(t('Deletion failed. You tried to delete the current revision.'));
       }
+
       if (db_result(db_query('SELECT COUNT(vid) FROM {node_revisions} WHERE nid = %d', $nid)) > 1) {
-        drupal_goto("node/$nid/revisions");
+        drupal_goto('node/'. $nid .'/revisions');
       }
       else {
-        drupal_goto("node/$nid");
+        drupal_goto('node/'. $nid);
       }
     }
   }
 
   drupal_access_denied();
+}
+
+/**
+ * Ask confirmation for revision deletion to prevent against CSRF attacks.
+ */
+function node_revision_delete_confirm($node) {
+  $form['node'] = array('#type' => 'value', '#value' => $node);
+  return confirm_form($form, t('Are you sure you want to delete the revision from %revision-date?', array('%revision-date' =>  format_date($node->revision_timestamp))), 'node/'. $node->nid .'/revisions', t('This action cannot be undone.'), t('Delete'), t('Cancel'));
+}
+
+function node_revision_delete_confirm_submit($form_id, $form_values) {
+  $node = $form_values['node'];
+  db_query("DELETE FROM {node_revisions} WHERE nid = %d AND vid = %d", $node->nid, $node->vid);
+  node_invoke_nodeapi($node, 'delete revision');
+  drupal_set_message(t('Deleted %title revision %revision.', array('%title' => $node->title, '%revision' => $node->vid)));
+  watchdog('content', t('@type: deleted %title revision %revision.', array('@type' => t($node->type), '%title' => $node->title, '%revision' => $node->vid)));
+
+  if (db_result(db_query('SELECT COUNT(vid) FROM {node_revisions} WHERE nid = %d', $node->nid)) > 1) {
+    return 'node/'. $node->nid .'/revisions';
+  }
+  else {
+    return 'node/'. $node->nid;
+  }
 }
 
 /**
@@ -1866,8 +1933,7 @@ function node_submit($node) {
     $node->teaser = isset($node->body) ? node_teaser($node->body, isset($node->format) ? $node->format : NULL) : '';
   }
 
-  $access = user_access('administer nodes');
-  if ($access) {
+  if (user_access('administer nodes')) {
     // Populate the "authored by" field.
     if ($account = user_load(array('name' => $node->name))) {
       $node->uid = $account->uid;
@@ -1877,24 +1943,6 @@ function node_submit($node) {
     }
 
     $node->created = $node->date ? strtotime($node->date) : NULL;
-  }
-
-  // Process the workflow options and provide defaults. If the user
-  // can not administer nodes, ignore the form and either use the
-  // saved values if the node exists, or force the defaults.
-  if (!$access && $node->nid) {
-    $saved_node = node_load($node->nid);
-  }
-  else {
-    $node_options = variable_get('node_options_'. $node->type, array('status', 'promote'));
-  }
-  foreach (array('status', 'promote', 'sticky', 'revision') as $key) {
-    if (!$access && $node->nid) {
-      $node->$key = $saved_node->$key;
-    }
-    else if (!isset($node->$key) || !$access) {
-      $node->$key = in_array($key, $node_options);
-    }
   }
 
   // Do node-type-specific validation checks.
@@ -1987,7 +2035,9 @@ function node_form($node, $form_values = NULL) {
   $form['changed'] = array('#type' => 'hidden', '#default_value' => $node->changed);
 
   // Get the node-specific bits.
-  $form = array_merge_recursive($form, node_invoke($node, 'form', $form_values));
+  if ($extra = node_invoke($node, 'form', $form_values)) {
+    $form = array_merge_recursive($form, $extra);
+  }
   if (!isset($form['title']['#weight'])) {
     $form['title']['#weight'] = -5;
   }
@@ -1995,16 +2045,15 @@ function node_form($node, $form_values = NULL) {
   $node_options = variable_get('node_options_'. $node->type, array('status', 'promote'));
   // If this is a new node, fill in the default values.
   if (!isset($node->nid)) {
-    foreach (array('status', 'promote', 'sticky', 'revision') as $key) {
+    foreach (array('status', 'promote', 'sticky') as $key) {
       $node->$key = in_array($key, $node_options);
     }
     global $user;
     $node->uid = $user->uid;
   }
-  else {
-    // Nodes being edited should always be preset with the default revision setting.
-    $node->revision = in_array('revision', $node_options);
-  }
+  // Always use the default revision setting.
+  $node->revision = in_array('revision', $node_options);
+
   $form['#node'] = $node;
 
   // Add a log field if the "Create new revision" option is checked, or if the
@@ -2285,7 +2334,7 @@ function node_delete_confirm($node) {
 
  return confirm_form($form,
    t('Are you sure you want to delete %title?', array('%title' => $node->title)),
-   $_GET['destination'] ? $_GET['destination'] : 'node/'. $node->nid,
+   isset($_GET['destination']) ? $_GET['destination'] : 'node/'. $node->nid,
    t('This action cannot be undone.'),
    t('Delete'), t('Cancel'));
 }
@@ -2355,12 +2404,6 @@ function node_revisions() {
           }
         }
         break;
-      case 'revert':
-        node_revision_revert(arg(1), arg(3));
-        break;
-      case 'delete':
-        node_revision_delete(arg(1), arg(3));
-        break;
     }
   }
   drupal_not_found();
@@ -2369,7 +2412,11 @@ function node_revisions() {
 /**
  * Menu callback; Generate a listing of promoted nodes.
  */
-function node_page_default() {
+function node_page_default($arg = NULL) {
+  // Prevent fallback to this page for node/*.
+  if (isset($arg)) {
+    return MENU_NOT_FOUND;
+  }
 
   $result = pager_query(db_rewrite_sql('SELECT n.nid, n.sticky, n.created FROM {node} n WHERE n.promote = 1 AND n.status = 1 ORDER BY n.sticky DESC, n.created DESC'), variable_get('default_nodes_main', 10));
 
@@ -2394,8 +2441,8 @@ function node_page_default() {
       $default_message .= '<li>'. t('<strong>Create your administrator account</strong> To begin, <a href="@register">create the first account</a>. This account will have full administration rights and will allow you to configure your website.', array('@register' => url('user/register'))) .'</li>';
     }
     $default_message .= '<li>'. t('<strong>Configure your website</strong> Once logged in, visit the <a href="@admin">administration section</a>, where you can <a href="@config">customize and configure</a> all aspects of your website.', array('@admin' => url('admin'), '@config' => url('admin/settings'))) .'</li>';
-    $default_message .= '<li>'. t('<strong>Enable additional functionality</strong> Next, visit the <a href="@modules">module list</a> and enable features which suit your specific needs. You can find additional modules in the <a href="@download_modules">Drupal modules download section</a>.', array('@modules' => url('admin/build/modules'), '@download_modules' => 'http://drupal.org/project/modules')) .'</li>';
-    $default_message .= '<li>'. t('<strong>Customize your website design</strong> To change the "look and feel" of your website, visit the <a href="@themes">themes section</a>. You may choose from one of the included themes or download additional themes from the <a href="@download_themes">Drupal themes download section</a>.', array('@themes' => url('admin/build/themes'), '@download_themes' => 'http://drupal.org/project/themes')) .'</li>';
+    $default_message .= '<li>'. t('<strong>Enable additional functionality</strong> Next, visit the <a href="@modules">module list</a> and enable features which suit your specific needs. You can find additional modules in the <a href="@download_modules">Drupal modules download section</a>.', array('@modules' => url('admin/build/modules'), '@download_modules' => 'http://drupal.org/project/Modules')) .'</li>';
+    $default_message .= '<li>'. t('<strong>Customize your website design</strong> To change the "look and feel" of your website, visit the <a href="@themes">themes section</a>. You may choose from one of the included themes or download additional themes from the <a href="@download_themes">Drupal themes download section</a>.', array('@themes' => url('admin/build/themes'), '@download_themes' => 'http://drupal.org/project/Themes')) .'</li>';
     $default_message .= '<li>'. t('<strong>Start posting content</strong> Finally, you can <a href="@content">create content</a> for your website. This message will disappear once you have promoted a post to the front page.', array('@content' => url('node/add'))) .'</li>';
     $default_message .= '</ol>';
     $default_message .= '<p>'. t('For more information, please refer to the <a href="@help">help section</a>, or the <a href="@handbook">online Drupal handbooks</a>. You may also post at the <a href="@forum">Drupal forum</a>, or view the wide range of <a href="@support">other support options</a> available.', array('@help' => url('admin/help'), '@handbook' => 'http://drupal.org/handbooks', '@forum' => 'http://drupal.org/forum', '@support' => 'http://drupal.org/support')) .'</p>';
@@ -2535,7 +2582,7 @@ function node_form_alter($form_id, &$form) {
     }
 
     // Node types:
-    $types = node_get_types('names');
+    $types = array_map('check_plain', node_get_types('names'));
     $form['advanced']['type'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Only of the type(s)'),
@@ -2546,7 +2593,7 @@ function node_form_alter($form_id, &$form) {
     $form['advanced']['submit'] = array(
       '#type' => 'submit',
       '#value' => t('Advanced search'),
-      '#prefix' => '<div class="action clear-block">',
+      '#prefix' => '<div class="action">',
       '#suffix' => '</div>',
     );
 
@@ -2907,7 +2954,12 @@ function node_access_rebuild() {
     }
     $result = db_query("SELECT nid FROM {node}");
     while ($node = db_fetch_object($result)) {
-      node_access_acquire_grants(node_load($node->nid));
+      $loaded_node = node_load($node->nid, NULL, TRUE);
+      // To preserve database integrity, only aquire grants if the node
+      // loads successfully.
+      if (!empty($loaded_node)) {
+        node_access_acquire_grants($loaded_node);
+      }
     }
   }
   else {

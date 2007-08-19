@@ -1,12 +1,12 @@
 <?php
-// $Id: system.module,v 1.440.2.4 2007/01/29 21:51:53 drumm Exp $
+// $Id: system.module,v 1.440.2.15 2007/07/26 19:16:48 drumm Exp $
 
 /**
  * @file
  * Configuration system that lets administrators modify the workings of the site.
  */
 
-define('VERSION', '5.1');
+define('VERSION', '5.2');
 
 /**
  * Implementation of hook_help().
@@ -29,8 +29,8 @@ function system_help($section) {
       return '<p>'. t('Select which themes are available to your users and specify the default theme. To configure site-wide display settings, click the "configure" task above. Alternately, to override these settings in a specific theme, click the "configure" link for the corresponding theme. Note that different themes may have different regions available for rendering content like blocks. If you want consistency in what your users see, you may wish to enable only one theme.') .'</p>';
     case 'admin/build/themes/settings':
       return '<p>'. t('These options control the default display settings for your entire site, across all themes. Unless they have been overridden by a specific theme, these settings will be used.') .'</p>';
-    case 'admin/build/themes/settings/'. arg(3):
-      $reference = explode('.', arg(3), 2);
+    case 'admin/build/themes/settings/'. arg(4):
+      $reference = explode('.', arg(4), 2);
       $theme = array_pop($reference);
       return '<p>'. t('These options control the display settings for the <code>%template</code> theme. When your site is displayed using this theme, these settings will be used. By clicking "Reset to defaults," you can choose to use the <a href="@global">global settings</a> for this theme.', array('%template' => $theme, '@global' => url('admin/build/themes/settings'))) .'</p>';
     case 'admin/build/modules':
@@ -547,7 +547,8 @@ function system_site_information_settings() {
     '#type' => 'textfield',
     '#title' => t('E-mail address'),
     '#default_value' => variable_get('site_mail', ini_get('sendmail_from')),
-    '#description' => t('A valid e-mail address for this website, used by the auto-mailer during registration, new password requests, notifications, etc.')
+    '#description' => t('A valid e-mail address to be used as the "From" address by the auto-mailer during registration, new password requests, notifications, etc.  To lessen the likelihood of e-mail being marked as spam, this e-mail address should use the same domain as the website.'),
+    '#required' => TRUE,
   );
   $form['site_slogan'] = array(
     '#type' => 'textfield',
@@ -697,7 +698,7 @@ function system_performance_settings() {
   $form['bandwidth_optimizations']['preprocess_css'] = array(
     '#type' => 'radios',
     '#title' => t('Aggregate and compress CSS files'),
-    '#default_value' => variable_get('preprocess_css', FALSE) && $is_writable,
+    '#default_value' => intval(variable_get('preprocess_css', FALSE) && $is_writable),
     '#disabled' => !$is_writable,
     '#options' => array(t('Disabled'), t('Enabled')),
     '#description' => t("Some Drupal modules include their own CSS files. When these modules are enabled, each module's CSS file adds an additional HTTP request to the page, which can increase the load time of each page. These HTTP requests can also slightly increase server load. It is recommended to only turn this option on when your site is in production, as it can interfere with theme development. This option is disabled if you have not set up your files directory, or if your download method is set to private."),
@@ -1233,7 +1234,7 @@ function system_themes_submit($form_id, $form_values) {
  * Modules can be enabled or disabled and set for throttling if the throttle module is enabled.
  * The list of modules gets populated by module.info files, which contain each module's name,
  * description and dependencies.
- * @sa _module_parse_info_file for information on module.info descriptors.
+ * @see _module_parse_info_file for information on module.info descriptors.
  *
  * Dependency checking is performed to ensure that a module cannot be enabled if the module has
  * disabled dependencies and also to ensure that the module cannot be disabled if the module has
@@ -1541,7 +1542,7 @@ function theme_system_modules($form) {
   $modules = $form['validation_modules']['#value'];
   foreach ($modules as $module) {
     if (!isset($module->info['package']) || !$module->info['package']) {
-      $module->info['package'] = 'Other';
+      $module->info['package'] = t('Other');
     }
     $packages[$module->info['package']][$module->name] = $module->info;
   }
@@ -2010,7 +2011,7 @@ function system_theme_settings($key = '') {
         '#suffix' => '</div>',
       );
       foreach ($node_types as $type => $name) {
-        $form['node_info']["toggle_node_info_$type"] = array('#type' => 'checkbox', '#title' => $name, '#default_value' => $settings["toggle_node_info_$type"]);
+        $form['node_info']["toggle_node_info_$type"] = array('#type' => 'checkbox', '#title' => check_plain($name), '#default_value' => $settings["toggle_node_info_$type"]);
       }
     }
   }
@@ -2046,8 +2047,11 @@ function system_theme_settings($key = '') {
 
   // Icon settings
   if ((!$key) || in_array('toggle_favicon', $features)) {
-    $form['favicon'] = array('#type' => 'fieldset', '#title' => t('Shortcut icon settings'));
-    $form['favicon']['text'] = array('#value' => t('Your shortcut icon or \'favicon\' is displayed in the address bar and bookmarks of most browsers.'));
+    $form['favicon'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Shortcut icon settings'),
+      '#description' => t("Your shortcut icon or 'favicon' is displayed in the address bar and bookmarks of most browsers.")
+    );
     $form['favicon']['default_favicon'] = array(
       '#type' => 'checkbox',
       '#title' => t('Use the default shortcut icon.'),
@@ -2152,6 +2156,7 @@ function confirm_form($form, $question, $path, $description = NULL, $yes = NULL,
   $cancel = l($no ? $no : t('Cancel'), $path, array(), $query, $fragment);
 
   drupal_set_title($question);
+
   $form['#attributes'] = array('class' => 'confirmation');
   $form['description'] = array('#value' => $description);
   $form[$name] = array('#type' => 'hidden', '#value' => 1);

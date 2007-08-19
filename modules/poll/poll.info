@@ -4,7 +4,8 @@ description = Allows your site to capture votes on different topics in the form 
 package = Core - optional
 version = VERSION
 
-; Information added by drupal.org packaging script on 2007-01-30
-version = "5.1"
+; Information added by drupal.org packaging script on 2007-07-26
+version = "5.2"
 project = "drupal"
+datestamp = "1185477907"
 

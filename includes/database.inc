@@ -1,5 +1,5 @@
 <?php
-// $Id: database.inc,v 1.62 2007/01/03 10:59:02 dries Exp $
+// $Id: database.inc,v 1.62.2.4 2007/07/12 06:25:47 drumm Exp $
 
 /**
  * @file
@@ -177,7 +177,7 @@ define('DB_QUERY_REGEXP', '/(%d|%s|%%|%f|%b)/');
  *   A variable number of arguments which are substituted into the query
  *   using printf() syntax. Instead of a variable number of query arguments,
  *   you may also pass a single array containing the query arguments.
-
+ *
  *   Valid %-modifiers are: %s, %d, %f, %b (binary data, do not enclose
  *   in '') and %%.
  *
@@ -203,7 +203,7 @@ function db_query($query) {
 /**
  * Helper function for db_rewrite_sql.
  *
- * Collects JOIN and WHERE statements via hook_sql.
+ * Collects JOIN and WHERE statements via hook_db_rewrite_sql().
  * Decides whether to select primary_key or DISTINCT(primary_key)
  *
  * @param $query
@@ -281,6 +281,9 @@ function db_rewrite_sql($query, $primary_table = 'n', $primary_field = 'nid',  $
     }
     if (strpos($query, 'GROUP')) {
       $replace = 'GROUP';
+    }
+    elseif (strpos($query, 'HAVING')) {
+      $replace = 'HAVING';
     }
     elseif (strpos($query, 'ORDER')) {
       $replace = 'ORDER';

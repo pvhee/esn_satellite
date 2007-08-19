@@ -1,5 +1,5 @@
 <?php
-// $Id: bootstrap.inc,v 1.145 2007/01/15 11:52:02 unconed Exp $
+// $Id: bootstrap.inc,v 1.145.2.6 2007/07/26 19:16:45 drumm Exp $
 
 /**
  * @file
@@ -200,7 +200,7 @@ function conf_path() {
   }
 
   $confdir = 'sites';
-  $uri = explode('/', $_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_FILENAME']);
+  $uri = explode('/', $_SERVER['SCRIPT_NAME'] ? $_SERVER['SCRIPT_NAME'] : $_SERVER['SCRIPT_FILENAME']);
   $server = explode('.', implode('.', array_reverse(explode(':', rtrim($_SERVER['HTTP_HOST'], '.')))));
   for ($i = count($uri) - 1; $i > 0; $i--) {
     for ($j = count($server); $j > 0; $j--) {
@@ -230,11 +230,16 @@ function drupal_unset_globals() {
 }
 
 /**
- * Loads the configuration and sets the base URL correctly.
+ * Loads the configuration and sets the base URL, cookie domain, and
+ * session name correctly.
  */
 function conf_init() {
-  global $db_url, $db_prefix, $base_url, $base_path, $base_root, $conf, $installed_profile;
+  global $base_url, $base_path, $base_root;
+
+  // Export the following settings.php variables to the global namespace
+  global $db_url, $db_prefix, $cookie_domain, $conf, $installed_profile;
   $conf = array();
+
   include_once './'. conf_path() .'/settings.php';
 
   if (isset($base_url)) {
@@ -250,8 +255,14 @@ function conf_init() {
   else {
     // Create base URL
     $base_root = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
-    $base_url = $base_root .= '://'. $_SERVER['HTTP_HOST'];
-    if ($dir = trim(dirname($_SERVER['PHP_SELF']), '\,/')) {
+
+    // As $_SERVER['HTTP_HOST'] is user input, ensure it only contains
+    // characters allowed in hostnames.
+    $base_url = $base_root .= '://'. preg_replace('/[^a-z0-9-:._]/i', '', $_SERVER['HTTP_HOST']);
+
+    // $_SERVER['SCRIPT_NAME'] can, in contrast to $_SERVER['PHP_SELF'], not
+    // be modified by a visitor.
+    if ($dir = trim(dirname($_SERVER['SCRIPT_NAME']), '\,/')) {
       $base_path = "/$dir";
       $base_url .= $base_path;
       $base_path .= '/';
@@ -260,6 +271,38 @@ function conf_init() {
       $base_path = '/';
     }
   }
+
+  if (!$cookie_domain) {
+    // If the $cookie_domain is empty, try to use the session.cookie_domain.
+    $cookie_domain = ini_get('session.cookie_domain');
+  }
+  if ($cookie_domain) {
+    // If the user specifies the cookie domain, also use it for session name.
+    $session_name = $cookie_domain;
+  }
+  else {
+    // Otherwise use $base_url as session name, without the protocol
+    // to use the same session identifiers across http and https.
+    list( , $session_name) = explode('://', $base_url, 2);
+    // We try to set the cookie domain to the hostname.
+    // We escape the hostname because it can be modified by a visitor.
+    if (!empty($_SERVER['HTTP_HOST'])) {
+      $cookie_domain = check_plain($_SERVER['HTTP_HOST']);
+    }
+  }
+  // Strip leading periods, www., and port numbers from cookie domain.
+  $cookie_domain = ltrim($cookie_domain, '.');
+  if (strpos($cookie_domain, 'www.') === 0) {
+    $cookie_domain = substr($cookie_domain, 4);
+  }
+  $cookie_domain = explode(':', $cookie_domain);
+  $cookie_domain = '.'. $cookie_domain[0];
+  // Per RFC 2109, cookie domains must contain at least one dot other than the
+  // first. For hosts such as 'localhost' or IP Addresses we don't set a cookie domain.
+  if (count(explode('.', $cookie_domain)) > 2 && !is_numeric(str_replace('.', '', $cookie_domain))) {
+    ini_set('session.cookie_domain', $cookie_domain);
+  }
+  session_name('SESS'. md5($session_name));
 }
 
 /**
@@ -487,7 +530,7 @@ function drupal_load($type, $name) {
 function drupal_page_header() {
   header("Expires: Sun, 19 Nov 1978 05:00:00 GMT");
   header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-  header("Cache-Control: no-store, no-cache, must-revalidate");
+  header("Cache-Control: store, no-cache, must-revalidate");
   header("Cache-Control: post-check=0, pre-check=0", FALSE);
 }
 
@@ -599,10 +642,10 @@ function request_uri() {
   }
   else {
     if (isset($_SERVER['argv'])) {
-      $uri = $_SERVER['PHP_SELF'] .'?'. $_SERVER['argv'][0];
+      $uri = $_SERVER['SCRIPT_NAME'] .'?'. $_SERVER['argv'][0];
     }
     else {
-      $uri = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
+      $uri = $_SERVER['SCRIPT_NAME'] .'?'. $_SERVER['QUERY_STRING'];
     }
   }
 
@@ -677,6 +720,11 @@ function drupal_set_message($message = NULL, $type = 'status') {
  *   (optional) Only return messages of this type.
  * @param $clear_queue
  *   (optional) Set to FALSE if you do not want to clear the messages queue
+ * @return
+ *   An associative array, the key is the message type, the value an array
+ *   of messages. If the $type parameter is passed, you get only that type,
+ *   or an empty array if there are no such messages. If $type is not passed,
+ *   all message types are returned, or an empty array if none exist.
  */
 function drupal_get_messages($type = NULL, $clear_queue = TRUE) {
   if ($messages = drupal_set_message()) {
@@ -684,7 +732,9 @@ function drupal_get_messages($type = NULL, $clear_queue = TRUE) {
       if ($clear_queue) {
          unset($_SESSION['messages'][$type]);
       }
-      return array($type => $messages[$type]);
+      if (isset($messages[$type])) {
+        return array($type => $messages[$type]);
+      }
     }
     else {
       if ($clear_queue) {
@@ -742,6 +792,7 @@ function drupal_anonymous_user($session = '') {
   $user->roles = array();
   $user->roles[DRUPAL_ANONYMOUS_RID] = 'anonymous user';
   $user->session = $session;
+  $user->cache = 0;
   return $user;
 }
 

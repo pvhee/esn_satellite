@@ -1,5 +1,5 @@
 <?php
-// $Id: profile.module,v 1.189.2.1 2007/01/23 19:09:58 dries Exp $
+// $Id: profile.module,v 1.189.2.8 2007/07/26 19:16:48 drumm Exp $
 
 /**
  * @file
@@ -47,7 +47,7 @@ function profile_help($section) {
       $output .= '<p>'. t('For more information please read the configuration and customization handbook <a href="@profile">Profile page</a>.', array('@profile' => 'http://drupal.org/handbook/modules/profile/')) .'</p>';
       return $output;
     case 'admin/user/profile':
-      return '<p>'. t('Here you can define custom fields that users can fill in in their user profile (such as <em>country</em>, <em>real name</em>, <em>age</em>, ...).') .'</p>';
+      return '<p>'. t('Here you can define custom fields that users can fill in as part of their user profile (such as <em>country</em>, <em>real name</em>, <em>age</em>, ...).') .'</p>';
   }
 }
 
@@ -111,7 +111,7 @@ function profile_block($op = 'list', $delta = 0, $edit = array()) {
     $fields = array();
     $result = db_query('SELECT name, title, weight, visibility FROM {profile_fields} WHERE visibility IN (%d, %d) ORDER BY weight', PROFILE_PUBLIC, PROFILE_PUBLIC_LISTINGS);
     while ($record = db_fetch_object($result)) {
-      $fields[$record->name] = $record->title;
+      $fields[$record->name] = check_plain($record->title);
     }
     $fields['user_profile'] = t('Link to full user profile');
     $form['profile_block_author_fields'] = array('#type' => 'checkboxes',
@@ -172,8 +172,9 @@ function profile_user($type, &$edit, &$user, $category = NULL) {
     case 'register':
       return profile_form_profile($edit, $user, $category, TRUE);
     case 'update':
-    case 'insert':
       return profile_save_profile($edit, $user, $category);
+    case 'insert':
+      return profile_save_profile($edit, $user, $category, TRUE);
     case 'view':
       return profile_view_profile($user);
     case 'form':
@@ -395,10 +396,10 @@ function profile_field_delete_submit($form_id, $form_values) {
  */
 function profile_admin_overview() {
 
-  $result = db_query('SELECT * FROM {profile_fields} ORDER BY category, weight');
+  $result = db_query('SELECT title, name, type, category, fid FROM {profile_fields} ORDER BY category, weight');
   $rows = array();
   while ($field = db_fetch_object($result)) {
-    $rows[] = array(check_plain($field->title), $field->name, _profile_field_types($field->type), $field->category, l(t('edit'), "admin/user/profile/edit/$field->fid"), l(t('delete'), "admin/user/profile/delete/$field->fid"));
+    $rows[] = array(check_plain($field->title), check_plain($field->name), _profile_field_types($field->type), check_plain($field->category), l(t('edit'), "admin/user/profile/edit/$field->fid"), l(t('delete'), "admin/user/profile/delete/$field->fid"));
   }
   if (count($rows) == 0) {
     $rows[] = array(array('data' => t('No fields defined.'), 'colspan' => '6'));
@@ -432,8 +433,8 @@ function profile_browse() {
       drupal_not_found();
       return;
     }
-    // Do not allow browsing of private fields by non-admins.
-    if (!user_access('administer users') && $field->visibility == PROFILE_PRIVATE) {
+    // Do not allow browsing of private and hidden fields by non-admins.
+    if (!user_access('administer users') && ($field->visibility == PROFILE_PRIVATE || $field->visibility == PROFILE_HIDDEN)) {
        drupal_access_denied();
        return;
     }
@@ -510,7 +511,7 @@ function profile_browse() {
     $output .= '</div>';
     $output .= theme('pager', NULL, 20);
 
-    drupal_set_title(t('user list'));
+    drupal_set_title(t('User list'));
     return $output;
   }
 }
@@ -524,8 +525,8 @@ function profile_load_profile(&$user) {
   }
 }
 
-function profile_save_profile(&$edit, &$user, $category) {
-  $result = _profile_get_fields($category);
+function profile_save_profile(&$edit, &$user, $category, $register = FALSE) {
+  $result = _profile_get_fields($category, $register);
   while ($field = db_fetch_object($result)) {
     if (_profile_field_serialize($field->type)) {
        $edit[$field->name] = serialize($edit[$field->name]);
@@ -623,11 +624,11 @@ function _profile_form_explanation($field) {
 
 function profile_form_profile($edit, $user, $category, $register = FALSE) {
   $result = _profile_get_fields($category, $register);
-  $w = 0;
+  $w = 1;
   while ($field = db_fetch_object($result)) {
     $category = $field->category;
     if (!isset($fields[$category])) {
-      $fields[$category] = array('#type' => 'fieldset', '#title' => $category, '#weight' => $w++);
+      $fields[$category] = array('#type' => 'fieldset', '#title' => check_plain($category), '#weight' => $w++);
     }
     switch ($field->type) {
       case 'textfield':
@@ -758,7 +759,7 @@ function theme_profile_block($account, $fields = array()) {
         $output .= "<p>$field->value</p>\n";
       }
       else {
-        $output .= "<p><strong>$field->title</strong><br />$field->value</p>\n";
+        $output .= '<p><strong>'. check_plain($field->title) ."</strong><br />$field->value</p>\n";
       }
     }
   }

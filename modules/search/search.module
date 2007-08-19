@@ -1,5 +1,5 @@
 <?php
-// $Id: search.module,v 1.209.2.2 2007/01/29 23:36:39 drumm Exp $
+// $Id: search.module,v 1.209.2.5 2007/07/26 19:16:48 drumm Exp $
 
 /**
  * @file
@@ -211,7 +211,7 @@ function search_admin_settings() {
     }
   }
   $count = format_plural($remaining, 'There is 1 item left to index.', 'There are @count items left to index.');
-  $percentage = ((int)min(100, 100 * ($total - $remaining) / max(1, $total))) . '%';
+  $percentage = ((int)min(100, 100 * ($total - $remaining) / max(1, $total))) .'%';
   $status = '<p><strong>'. t('%percentage of the site has been indexed.', array('%percentage' => $percentage)) .' '. $count .'</strong></p>';
   $form['status'] = array('#type' => 'fieldset', '#title' => t('Indexing status'));
   $form['status']['status'] = array('#value' => $status);
@@ -363,7 +363,7 @@ function search_simplify($text) {
 
   // With the exception of the rules above, we consider all punctuation,
   // marks, spacers, etc, to be a word boundary.
-  $text = preg_replace('/['. PREG_CLASS_SEARCH_EXCLUDE . ']+/u', ' ', $text);
+  $text = preg_replace('/['. PREG_CLASS_SEARCH_EXCLUDE .']+/u', ' ', $text);
 
   return $text;
 }
@@ -974,6 +974,10 @@ function search_view() {
  *   An HTML string containing the search form.
  */
 function search_form($action = '', $keys = '', $type = NULL, $prompt = NULL) {
+
+  // Add CSS
+  drupal_add_css(drupal_get_path('module', 'search') .'/search.css', 'module', 'all', FALSE);
+
   if (!$action) {
     $action = url('search/'. $type);
   }
@@ -1072,8 +1076,6 @@ function theme_search_block_form($form) {
  * Perform a standard search on the given keys, and return the formatted results.
  */
 function search_data($keys = NULL, $type = 'node') {
-  // Add CSS
-  drupal_add_css(drupal_get_path('module', 'search') .'/search.css', 'module', 'all', FALSE);
 
   if (isset($keys)) {
     if (module_hook($type, 'search')) {
@@ -1165,7 +1167,7 @@ function search_excerpt($keys, $text) {
 
   // If we didn't find anything, return the beginning.
   if (count($ranges) == 0) {
-    return truncate_utf8($text, 256) . ' ...';
+    return truncate_utf8($text, 256) .' ...';
   }
 
   // Sort the text ranges by starting position.
@@ -1231,7 +1233,7 @@ function theme_search_item($item, $type) {
   $output = ' <dt class="title"><a href="'. check_url($item['link']) .'">'. check_plain($item['title']) .'</a></dt>';
   $info = array();
   if ($item['type']) {
-    $info[] = $item['type'];
+    $info[] = check_plain($item['type']);
   }
   if ($item['user']) {
     $info[] = $item['user'];
@@ -1242,7 +1244,7 @@ function theme_search_item($item, $type) {
   if (is_array($item['extra'])) {
     $info = array_merge($info, $item['extra']);
   }
-  $output .= ' <dd>'. ($item['snippet'] ? '<p>'. $item['snippet'] . '</p>' : '') . '<p class="search-info">' . implode(' - ', $info) .'</p></dd>';
+  $output .= ' <dd>'. ($item['snippet'] ? '<p>'. $item['snippet'] .'</p>' : '') .'<p class="search-info">'. implode(' - ', $info) .'</p></dd>';
   return $output;
 }
 

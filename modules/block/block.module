@@ -1,5 +1,5 @@
 <?php
-// $Id: block.module,v 1.246 2007/01/11 08:54:44 dries Exp $
+// $Id: block.module,v 1.246.2.5 2007/06/14 06:06:48 drumm Exp $
 
 /**
  * @file
@@ -131,7 +131,7 @@ function block_block($op = 'list', $delta = 0, $edit = array()) {
       break;
 
     case 'view':
-      $block = db_fetch_object(db_query('SELECT * FROM {boxes} WHERE bid = %d', $delta));
+      $block = db_fetch_object(db_query('SELECT body, format FROM {boxes} WHERE bid = %d', $delta));
       $data['content'] = check_markup($block->body, $block->format, FALSE);
       return $data;
   }
@@ -282,7 +282,7 @@ function block_admin_display_submit($form_id, $form_values) {
   foreach ($form_values as $block) {
     $block['status'] = $block['region'] != BLOCK_REGION_NONE;
     $block['region'] = $block['status'] ? $block['region'] : '';
-    db_query("UPDATE {blocks} SET status = %d, weight = %d, region = '%s', throttle = %d WHERE module = '%s' AND delta = '%s' AND theme = '%s'", $block['status'], $block['weight'], $block['region'], $block['throttle'], $block['module'], $block['delta'], $block['theme']);
+    db_query("UPDATE {blocks} SET status = %d, weight = %d, region = '%s', throttle = %d WHERE module = '%s' AND delta = '%s' AND theme = '%s'", $block['status'], $block['weight'], $block['region'], isset($block['throttle']) ? $block['throttle'] : 0, $block['module'], $block['delta'], $block['theme']);
   }
   drupal_set_message(t('The block settings have been updated.'));
   cache_clear_all();
@@ -359,7 +359,7 @@ function theme_block_admin_display($form) {
 }
 
 function block_box_get($bid) {
-  return db_fetch_array(db_query("SELECT bx.*, title FROM {boxes} bx INNER JOIN {blocks} bl ON bx.bid = bl.delta WHERE module = 'block' AND bid = %d", $bid));
+  return db_fetch_array(db_query("SELECT bx.*, bl.title FROM {boxes} bx INNER JOIN {blocks} bl ON bx.bid = bl.delta WHERE bl.module = 'block' AND bx.bid = %d", $bid));
 }
 
 /**
