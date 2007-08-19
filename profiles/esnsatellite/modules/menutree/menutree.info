@@ -1,8 +1,0 @@
-name = MenuTree
-description = Display a site-map page based on one or more menus.
-version = "$Name: DRUPAL-5 $"
-
-; Information added by drupal.org packaging script on 2007-03-31
-version = "5.x-1.x-dev"
-project = "menutree"
-

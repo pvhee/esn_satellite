@@ -1,9 +1,0 @@
-; $Id: image.info,v 1.2 2006/11/20 04:22:27 walkah Exp $
-name = Image
-description = Allows uploading, resizing and viewing of images.
-package = Image
-
-; Information added by drupal.org packaging script on 2007-03-25
-version = "5.x-1.0"
-project = "image"
-
