@@ -1,0 +1,199 @@
+<?php
+// $Id: signup.install,v 1.6.2.3 2007/03/20 07:27:21 dww Exp $
+
+/**
+ * Implementation of hook_install()
+ *
+ * This will automatically install the database tables for the Signup
+ * module for both the MySQL and PostgreSQL databases.
+ *
+ * If you are using another database, you will have to install the
+ * tables by hand, using the queries below as a reference.
+ *
+ * Note that the curly braces around table names are a drupal-specific
+ * feature to allow for automatic database table prefixing, and will
+ * need to be removed.
+ */
+function signup_install() {
+  switch ($GLOBALS['db_type']) {
+    case 'mysqli':
+    case 'mysql':
+      $q1 = db_query("CREATE TABLE IF NOT EXISTS {signup} (
+                nid int(10) unsigned NOT NULL default '0',
+                forwarding_email varchar(64) NOT NULL default '',
+                send_confirmation int(2) NOT NULL default '0',
+                confirmation_email longtext NOT NULL,
+                send_reminder int(2) NOT NULL default '0',
+                reminder_days_before int(4) unsigned NOT NULL default '0',
+                reminder_email longtext NOT NULL,
+                close_in_advance_time int(10) unsigned NOT NULL default '0',
+                close_signup_limit int(10) unsigned NOT NULL default '0',
+                completed int(2) NOT NULL default '0',
+                PRIMARY KEY  (nid)
+            ) TYPE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 */;");
+
+      $q2 = db_query("CREATE TABLE IF NOT EXISTS {signup_log} (
+                uid int(10) unsigned NOT NULL default '0',
+                nid int(10) unsigned NOT NULL default '0',
+                anon_mail varchar(255) NOT NULL default '',
+                signup_time int(10) unsigned NOT NULL default '0',
+                form_data longtext NOT NULL,
+                KEY uid (uid),
+                KEY nid (nid)
+            ) TYPE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 */;");
+
+      $q3 = signup_insert_default_signup_info();
+
+      if ($q1 && $q2 && $q3) {
+        $created = TRUE;
+      }
+      break;
+
+    case 'pgsql':
+      $q1 = db_query("CREATE TABLE {signup} (
+                nid SERIAL,
+                forwarding_email text NOT NULL default '',
+                send_confirmation integer NOT NULL default '0',
+                confirmation_email text NOT NULL default '',
+                send_reminder integer NOT NULL default '0',
+                reminder_days_before integer NOT NULL default '0',
+                reminder_email text NOT NULL default '',
+                close_in_advance_time integer NOT NULL default '0',
+                close_signup_limit integer NOT NULL default '0',
+                completed integer NOT NULL default '0',
+                PRIMARY KEY (nid)
+            );");
+
+      $q2 = db_query("CREATE TABLE {signup_log} (
+                uid integer NOT NULL default '0',
+                nid integer NOT NULL default '0',
+                anon_mail text NOT NULL default '',
+                signup_time integer NOT NULL default '0',
+                form_data text NOT NULL default ''
+            );");
+
+      $q3 = db_query("CREATE INDEX {signup_log}_uid_idx ON {signup_log}(uid);");
+
+      $q4 = db_query("CREATE INDEX {signup_log}_nid_idx ON {signup_log}(nid);");
+
+      $q5 = signup_insert_default_signup_info();
+
+      if ($q1 && $q2 && $q3 && $q4 && $q5) {
+        $created = TRUE;
+      }
+      break;
+  }
+
+  if ($created) {
+    drupal_set_message(t('Signup module installed successfully.'));
+  }
+  else {
+    drupal_set_message(t('Table installation for the Signup module was unsuccessful. The tables may need to be installed by hand. See the signup.install file for a list of the installation queries.'), 'error');
+  }
+}
+
+function signup_uninstall() {
+  if (db_table_exists('signup')) {
+    db_query("DROP TABLE {signup}");
+  }
+  if (db_table_exists('signup_log')) {
+    db_query("DROP TABLE {signup_log}");
+  }
+  $variables = db_query("SELECT name FROM {variable} WHERE name LIKE 'signup%%'");
+  while ($variable = db_fetch_object($variables)) {
+    variable_del($variable->name);
+  }
+}
+
+/**
+ * Helper method to insert the default signup information into the
+ * {signup} table (stored in a row for nid 0).  These are the default
+ * settings for new signup-enabled nodes.
+ */
+function signup_insert_default_signup_info() {
+  return db_query("INSERT INTO {signup} (nid, forwarding_email,
+    send_confirmation, confirmation_email, 
+    send_reminder, reminder_days_before, reminder_email,
+    close_in_advance_time, close_signup_limit, completed) VALUES (0, '',
+    1, 'Enter your default confirmation email message here',
+    1, 0, 'Enter your default reminder email message here', 0, 0, 0)");
+}
+
+/**
+ * UTF8 table update
+ */
+function signup_update_1() {
+  return _system_update_utf8(array('signup', 'signup_log'));
+}
+
+function signup_update_2() {
+  $ret = array();
+  $ret[] = update_sql("ALTER TABLE {signup} DROP permissions");
+  return $ret;
+}
+
+function signup_update_3() {
+  $ret = array();
+  switch ($GLOBALS['db_type']) {
+    case 'mysql':
+    case 'mysqli':
+      $ret[] = update_sql("ALTER TABLE {signup_log} ADD anon_mail VARCHAR( 255 ) NOT NULL default '' AFTER nid;");
+      $ret[] = update_sql("ALTER TABLE {signup_log} DROP INDEX uid_nid;");
+      $ret[] = update_sql("ALTER TABLE {signup_log} ADD INDEX (uid);");
+      $ret[] = update_sql("ALTER TABLE {signup_log} ADD INDEX (nid);");
+    break;
+
+    case 'pgsql':
+      db_add_column($ret, 'signup_log', 'anon_mail', 'text', array('not null' => TRUE, 'default' => "''"));
+      $ret[] = update_sql("DROP INDEX {signup_log}_uid_nid_idx;");
+      $ret[] = update_sql("CREATE INDEX {signup_log}_uid_idx ON {signup_log}(uid);");
+      $ret[] = update_sql("CREATE INDEX {signup_log}_nid_idx ON {signup_log}(nid);");
+    break;
+
+  }
+  return $ret;
+}
+
+/**
+ * Rename the signup permissions.
+ * See http://drupal.org/node/69283 for details.
+ * Also, remove the 'signup_user_view' setting in favor of a permission.
+ * See http://drupal.org/node/69367 for details.
+ */
+function signup_update_4() {
+  $ret = array();
+
+  // Setup arrays holding regexps to match and the corresponding
+  // strings to replace them with, for use with preg_replace(). 
+  $old_perms = array(
+    '/allow signups/', 
+    '/admin signups/', 
+    '/admin own signups/', 
+  );
+  $new_perms = array(
+    'sign up for content', 
+    'administer all signups', 
+    'administer signups for own content', 
+  );
+
+  // Now, loop over all the roles, and do the necessary transformations.
+  $query = db_query("SELECT rid, perm FROM {permission} ORDER BY rid");
+  while ($role = db_fetch_object($query)) {
+    $fixed_perm = preg_replace($old_perms, $new_perms, $role->perm);
+    if ($role->rid == 2 && variable_get('signup_user_view', 0)) {
+      // The setting is currently enabled, so add the new permission to
+      // the "authenticated user" role as a reasonable default.
+      if (!strpos($fixed_perm, 'view all signups')) {
+        $fixed_perm .= ', view all signups';
+        drupal_set_message(t('The old %signup_user_view setting was enabled on your site, so the %view_all_signups permission has been added to the %authenticated_user role. Please consider customizing what roles have this permission on the !access_control page.', array('%signup_user_view' => t('Users can view signups'), '%view_all_signups' => 'view all signups', '%authenticated_user' => 'Authenticated user', '!access_control' => l(t('Access control'), '/admin/user/access'))));
+      }
+    }
+    $ret[] = update_sql("UPDATE {permission} SET perm = '$fixed_perm' WHERE rid = $role->rid");
+  }
+
+  // Remove the stale setting from the {variable} table in the DB.
+  variable_del('signup_user_view');
+  drupal_set_message(t('The %signup_user_view setting has been removed.', array('%signup_user_view' => t('Users can view signups'))));
+
+  return $ret;
+}

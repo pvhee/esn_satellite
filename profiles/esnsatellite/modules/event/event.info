@@ -1,0 +1,12 @@
+; $Id: event.info,v 1.2.2.1 2007/03/29 21:23:18 killes Exp $
+name = Event
+description = Calendaring API, calendar display and export
+version = "$Name: DRUPAL-5--1-0 $"
+package = Event
+
+
+; Information added by drupal.org packaging script on 2007-06-04
+version = "5.x-1.0"
+project = "event"
+datestamp = "1180983605"
+
