@@ -36,4 +36,84 @@ function esnsatellite_profile_details() {
    );
 }
 
+/**
+ * Perform any final installation tasks for this profile.
+ *
+ * @return
+ *   An optional HTML string to display to the user on the final installation
+ *   screen.
+ */
+function esnsatellite_profile_final() {
+  // Set up Admin User
+  install_add_user('admin', 'admin', 'admin@admin.com', $roles = array(), $status = 1);
+  $user = user_authenticate('admin', 'admin');
+
+  // Theme Install
+  // --------
+  install_default_theme('esntheme'); // Theme Stuff
+  install_admin_theme('garland');
+}
+
+
+// Functions from crud.inc. 
+/**
+ * Set the permission for a certain role
+ */
+function install_set_permissions($rid, $perms) {
+  db_query('DELETE FROM {permission} WHERE rid = %d', $rid);
+  db_query("INSERT INTO {permission} (rid, perm) VALUES (%d, '%s')", $rid, implode(', ', $perms));
+}
+
+
+/**
+ * Add a user
+ */
+function install_add_user($username, $password, $email, $roles = array(), $status = 1) {
+  user_save(
+    new stdClass(),
+    array(
+      'name' => $username, 
+      'pass' => $password,
+      'mail' => $email,
+      'roles' => $roles,
+      'status' => $status
+    )
+  );
+}
+
+/**
+ * Add a role to the roles table.
+ */
+function install_add_role($name) {
+  db_query("INSERT INTO {role} (name) VALUES ('%s')", $name);
+  return install_get_rid($name);
+}
+/**
+* Set default theme
+* @param        $theme  Unique string that is the name of theme
+*/
+function install_default_theme($theme) {
+  install_enable_theme($theme);
+  variable_set('theme_default', $theme);
+}
+
+/**
+* Set admin theme
+* @param        $theme  Unique string that is the name of theme
+*/
+function install_admin_theme($theme) {
+  variable_set('admin_theme', $theme);
+}
+
+/**
+ * Enable theme
+ * @param        $theme  Unique string that is the name of theme
+ */
+function install_enable_theme($theme) {
+  system_theme_data();
+  db_query("UPDATE {system} SET status = 1 WHERE type = 'theme' and name = '%s'", $theme);
+  system_initialize_theme_blocks($theme);
+}
+
+
 ?>
