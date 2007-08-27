@@ -23,6 +23,8 @@ if(preg_match($valid_filename, $block->module) && preg_match($valid_filename, $b
 	$block_module_region = $theme_dir.$block->module.'-'.$block->region.'.tpl.php';
 	$block_module_delta_region = $theme_dir.$block->module.'-'.$block->delta.'-'.$block->region.'.tpl.php';
 	
+	//pr($block_module_delta);
+	
 	if (file_exists($block_module_delta_region)) {
 		include($block_module_delta_region);
 	} elseif (file_exists($block_module_delta)) {

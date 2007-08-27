@@ -8,7 +8,6 @@
 		<script type="text/javascript"><?php /* Needed to avoid Flash of Unstyle Content in IE */ ?> </script>
 		
 		
-		<style type="text/css" media="all">@import "<?php print $base_path . path_to_theme() ?>/style.css";</style>
 		
 		
 		<style type="text/css">
@@ -21,6 +20,11 @@
     	<?php print $scripts; ?>
 		<script type="text/javascript" src="<?php print $base_path . path_to_theme() ?>/js/jdMenu/jquery.dimensions.js"></script>
 		<script type="text/javascript" src="<?php print $base_path . path_to_theme() ?>/js/jdMenu/jquery.jdMenu.js"></script>	
+
+		<style type="text/css" media="all">@import "<?php print $base_path . path_to_theme() ?>/satellite.css";</style>
+		<style type="text/css" media="all">@import "<?php print $base_path . path_to_theme() ?>/main.css";</style>
+		<style type="text/css" media="all">@import "<?php print $base_path . path_to_theme() ?>/jdMenu.css";</style>
+		<style type="text/css" media="all">@import "<?php print $base_path . path_to_theme() ?>/event.css";</style>
 
 
 	</head>

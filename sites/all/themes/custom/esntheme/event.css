@@ -1,4 +1,306 @@
 
+
+
+
+
+
+
+
+
+
+.event-calendar table {
+border:medium none;
+border-collapse:collapse;
+border-spacing:0pt;
+margin-bottom:1em;
+width:100%;
+}
+.event-calendar tr {
+background:white none repeat scroll 0%;
+font-family:verdana;
+font-size:10px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+line-height:normal;
+margin:0pt;
+padding:0pt;
+}
+.event-calendar  th {
+background:#9EE5FA none repeat scroll 0%;
+border:medium none;
+color:#000000;
+font-family:verdana;
+font-size:10px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+line-height:normal;
+padding:5px;
+text-align:center;
+width:100px;
+}
+.event-calendar  td {
+background:#EAF8FE none repeat scroll 0%;
+border:1px solid #E3F6FD;
+color:#007095;
+font-family:verdana;
+font-size:10px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+line-height:normal;
+margin:0pt;
+padding:5px 3px 7px 0px;
+text-align:right;
+vertical-align:top;
+width:100px;
+}
+.event-calendar th.heading {
+border-width:1px 0px;
+}
+.event-calendar th.prev {
+border-width:1px 0px 1px 1px;
+text-align:left;
+}
+.event-calendar th.next {
+border-width:1px 1px 1px 0px;
+text-align:right;
+}
+.event-calendar th a {
+color:#007095;
+font-weight:bold;
+}
+.event-calendar td a {
+color:#007095;
+font-weight:bold;
+text-decoration:underline;
+}
+.event-calendar td a:hover {
+text-decoration:underline;
+}
+.event-calendar td.sat, .event-calendar td.sun {
+background:#F0D1E3 none repeat scroll 0%;
+}
+.event-calendar td.sat a, .event-calendar td.sun a {
+color:#FFFFFF;
+text-decoration:underline;
+}
+.event-calendar td.sat, .event-calendar td.sun {
+color:#FFFFFF;
+}
+.event-calendar td.today {
+background:#90D165 none repeat scroll 0%;
+}
+.event-calendar td.selected {
+background:#9EE5FA none repeat scroll 0%;
+color:white;
+}
+.event-calendar td.year, .event-calendar td.month {
+border-width:1px 0px;
+text-align:center;
+}
+.event-calendar td.days {
+background:#9EE5FA none repeat scroll 0%;
+border-color:-moz-use-text-color;
+border-style:none;
+border-width:0pt 1px 1px 0pt;
+color:white;
+text-align:center;
+}
+.event-calendar div.day {
+background:transparent none repeat scroll 0%;
+border:0pt none;
+color:#81E0FA;
+float:right;
+font-family:arial;
+font-size:18px;
+font-weight:bold;
+margin:0pt;
+padding:5px 0.25em 0pt;
+text-align:center;
+}
+.event-calendar div .sun .day {
+color:#F078C0;
+}
+.event-calendar div .sat .day {
+color:#F078C0;
+}
+.event-calendar div .today .day {
+color:#FFFFFF;
+}
+.event-nodeapi div {
+color:#000000;
+padding:0.5em 1em 0pt 0pt;
+}
+.event-nodeapi div label {
+color:#999999;
+}
+.event-calendar div.event {
+background-color:#F3F7FA;
+border:medium none;
+color:#007095;
+font-style:normal;
+margin:0.25em 0pt 0.5em 0.25em;
+text-align:left;
+}
+.event-calendar div.title {
+padding-left:3px;
+}
+.event-calendar div.title a {
+color:#00A8EB;
+line-height:14px;
+text-decoration:none;
+}
+.event-calendar div.title a:hover {
+color:#E51182;
+}
+.event-calendar .content {
+border-left:2px solid #DDDDDD;
+margin:5px;
+padding:3px 3px 3px 5px;
+}
+.event-calendar div.type {
+font-size:0.8em;
+margin-left:5px;
+}
+.event-calendar div.type a {
+color:#E51182;
+text-decoration:none;
+}
+.event-calendar div.type a:hover {
+color:#E51182;
+}
+.event-calendar div.links {
+padding-left:3px;
+}
+.event-calendar div.links a {
+color:#0000CC;
+}
+.event-calendar div.links a:hover {
+color:#E51182;
+}
+.event-calendar .start {
+color:#555555;
+font-style:normal;
+margin:2px 0pt;
+padding-left:3px;
+}
+.event-calendar .end {
+color:#555555;
+font-size:0.8em;
+font-style:normal;
+margin:2px 0pt;
+padding-left:9px;
+}
+.event-calendar .ongoing {
+color:#555555;
+font-size:0.8em;
+font-style:normal;
+margin:2px 0pt;
+padding-left:9px;
+}
+.event-calendar div.info {
+height:0px;
+overflow:hidden;
+padding-left:3px;
+visibility:hidden;
+}
+.event-calendar div.monthview .title {
+font-size:11px;
+}
+.event-calendar div.dayview {
+width:auto;
+}
+.event-calendar div.tableview {
+width:auto;
+}
+.event-calendar div.tableview .links {
+}
+.event-calendar .event-empty {
+min-height:6em;
+}
+.container-inline .day input {
+display:inline;
+width:auto;
+}
+.event-calendar .event .stripe {
+height:5px;
+}
+.event-calendar .event .stripe-1 {
+background-color:#FFFF66;
+height:5px;
+width:100%;
+}
+.event-calendar .event .stripe-2 {
+background-color:#FF6666;
+height:5px;
+width:100%;
+}
+.event-calendar .event .stripe-3 {
+background-color:#668CFF;
+height:5px;
+width:100%;
+}
+.event-calendar .event .stripe-4 {
+background-color:#FFB366;
+height:5px;
+width:100%;
+}
+.event-calendar .event .stripe-5 {
+background-color:#85FF66;
+height:5px;
+width:100%;
+}
+.event-calendar .event .stripe-6 {
+background-color:#A666FF;
+height:5px;
+width:100%;
+}
+.event-calendar .event .stripe-7 {
+background-color:#FFE066;
+height:5px;
+width:100%;
+}
+.event-calendar .event .stripe-8 {
+background-color:#66FFFF;
+height:5px;
+width:100%;
+}
+.event-calendar .event .stripe-9 {
+background-color:#FF66D9;
+height:5px;
+width:100%;
+}
+.event-calendar .event .stripe-10 {
+background-color:#DDDDDD;
+height:5px;
+width:100%;
+}
+#block-event-1 .item-list ul li a {
+margin-top:8px;
+}
+span.event-timeleft {
+color:#00A8EB;
+width:auto;
+}
+span.event-nodetype {
+display:block;
+float:right;
+padding:0px 0px 0px 5px;
+text-align:right;
+width:auto;
+}
+
+
+
+
 /*  event calendar table styles  */
 .event-calendar table {
   border: 1px solid #242;
@@ -8,13 +310,13 @@
   width: 100%;
   margin-bottom: 1em;
 }
-.event-calendar tr {
+.event-calendar table  tr {
   padding: 0;
   margin: 0;
   background: white;
   font: 10px verdana;
 }
-.event-calendar .table1 th {
+.event-calendar caption {
   color: #000;
   font: 10px verdana;
   background: #9EE5FA;
@@ -22,9 +324,9 @@
   padding: 5px;
   border: 1px solid #242;
   border: none;
-  width: 100px;
+  
 }
-.event-calendar .table1 td {
+.event-calendar  table  td {
   border: 1px solid #E3F6FD;
   color: #007095;
   text-align: right;
@@ -33,7 +335,6 @@
   margin: 0;
   padding: 5px 3px 7px 0px;
   font: 10px verdana;
-  width: 100px;
 
 }
 
@@ -298,3 +599,25 @@ span.event-nodetype {
 .ical-link {
   text-align: right;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
