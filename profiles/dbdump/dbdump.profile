@@ -6,6 +6,7 @@
  *  An array of modules to be enabled.
  */
 function dbdump_profile_modules() {
+	return array();	
 }
 
 /**
@@ -16,7 +17,7 @@ function dbdump_profile_modules() {
  */
 function dbdump_profile_details() {
    return array(
-      'name' => st('ESN Satellite 2.0'),
+      'name' => st('ESN Satellite 2.0 [DB DUMP]'),
       'description' => st('Select this profile to install ESN Satellite using a DATABASE DUMP. <b>This is the
                            recommended choice</b>.')
    );
@@ -30,6 +31,8 @@ function dbdump_profile_details() {
  *   screen.
  */
 function dbdump_profile_final() {	
+	// echo "Start final method<br>";
+	
 	$lines = file('./profiles/dbdump/satellite.sql'); // set to the .sql file
 	$str = "";
 	$ctr = $fail = 0;
@@ -41,6 +44,9 @@ function dbdump_profile_final() {
 			if(strlen($str) > 0) {
 				// Note: modify to omit table structure, or omit structure in dump
 				// Note: $str should be tested for validity; some entries seem to be invalid in dump
+				
+				// echo $str;
+				
 				(mysql_query($str) ? $ctr++ : $fail++); // Could prob use db_query
 				$str = "";
 			}
