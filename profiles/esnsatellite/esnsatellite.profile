@@ -53,36 +53,90 @@ function esnsatellite_profile_final() {
   install_default_theme('esntheme'); // Theme Stuff
   install_admin_theme('garland');
 
-  // Create content type: News.
-  // http://api.drupal.org/api/file/developer/hooks/node.php/5/source
-  $node_type = array(
-   'name' => st('News'),
-   // AP: This is undocumented.
-   'type' => 'news',
-   'module' => 'node',
-   'description' => st('All your ESN related news. Posting as news will put the news item into a news page and promote a teaser (short version of your news with a small image) to your front page. Use this for all dynamic content on your site.'),
-   'has_title' => TRUE,
-   'title_label' => st('Title'),
-   'has_body' => TRUE,
-   'body_label' => st('Body'),
-   'min_word_count' => 10,
-   'locked' => FALSE,
-   // AP: the following are undocumented.
-   'custom' => TRUE,
-   'modified' => TRUE,
-   'orig_type' => 'news',
-   'is_new' => TRUE,
-  );
-  node_type_save((object) $node_type);
-  // News should be published and promoted to front page by default.
-  // News should create new revisions by default.
-  variable_set('node_options_news', array('status', 'revision', 'promote'));
-  // If comments can be enabled, enable them for news.
-  variable_set('comment_news', COMMENT_NODE_READ_WRITE);
-
   // Include files necessary for CCK content type import.
   include_once('./'. drupal_get_path('module', 'node') .'/content_types.inc');
   include_once('./'. drupal_get_path('module', 'content') .'/content_admin.inc');
+
+  // Create a News content type via CCK import.
+  $values = array();
+  $values['type_name'] ='<create>';
+  $values['macro'] = <<<CONTENT_TYPE_DEF
+  \$content[type]  = array (
+  'name' => 'News',
+  'type' => 'news',
+  'description' => 'All your ESN related news. Posting as news will put the news item into a news page and promote a teaser (short version of your news with a small image) to your front page. Use this for all dynamic content on your site.',
+  'title_label' => 'Title',
+  'body_label' => 'Body',
+  'min_word_count' => '10',
+  'help' => 'Put here the content of your news item. You have to write at least 10 words.',
+  'node_options' => 
+  array (
+    'status' => true,
+    'promote' => true,
+    'sticky' => false,
+    'revision' => false,
+  ),
+  'comment' => '2',
+  'upload' => '1',
+  'event_nodeapi' => 'never',
+  'signup_form' => false,
+  'old_type' => 'news',
+  'orig_type' => '',
+  'module' => 'node',
+  'custom' => '1',
+  'modified' => '1',
+  'locked' => '0',
+);
+\$content[fields]  = array (
+  0 => 
+  array (
+    'widget_type' => 'image',
+    'label' => 'Image',
+    'weight' => '-2',
+    'max_resolution' => 0,
+    'image_path' => 'images-news',
+    'custom_alt' => 1,
+    'custom_title' => 1,
+    'description' => 'Add an image. This will make your post visually more attractive.',
+    'group' => false,
+    'required' => '1',
+    'multiple' => '0',
+    'field_name' => 'field_image',
+    'field_type' => 'image',
+    'module' => 'imagefield',
+  ),
+  1 => 
+  array (
+    'widget_type' => 'text',
+    'label' => 'Summary',
+    'weight' => '-1',
+    'rows' => '10',
+    'description' => 'A brief description of the news content, max. 500 characters. Tip: You can easily copy and paste the first rows from the news body.',
+    'default_value_widget' => 
+    array (
+      'field_summary' => 
+      array (
+        0 => 
+        array (
+          'value' => '',
+        ),
+      ),
+    ),
+    'default_value_php' => '',
+    'group' => false,
+    'required' => '1',
+    'multiple' => '0',
+    'text_processing' => '0',
+    'max_length' => '500',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'field_name' => 'field_summary',
+    'field_type' => 'text',
+    'module' => 'text',
+  ),
+);
+CONTENT_TYPE_DEF;
+drupal_execute("content_copy_import_form", $values);
 
   // Create a Partner content type via CCK import.
   $values = array();
