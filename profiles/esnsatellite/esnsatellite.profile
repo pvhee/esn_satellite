@@ -257,7 +257,20 @@ drupal_execute("content_copy_import_form", $values);
 
 $newnode = new stdClass();
 $newnode->title = 'Welcome to ESN Satellite 2.0';
-$newnode->body = 'Welcome to ESN Satellite 2.0, the free website template by the ESN International Webteam.';
+$newnode->summary = '<p>Welcome to ESN Satellite 2.0, the free website template by the ESN International Webteam.</p>';
+$newnode->body = '<p>ESN Satellite is the free website template for ESN sections, developed and maintained by the ESN International Webteam.</p>
+<p><strong><a href="http://galaxy.esn.org/index.php/downloads/add">Get your Satellite now!</a><br> <a href="http://video.google.com/videoplay?docid=-1165840751291490364&amp;hl=en">Watch the Galaxy AGM 2007 movie in Google Video</a></strong></p>
+<p>ESN Satellite is... </p>
+<ul>
+<li><strong>beautiful</strong>: a fresh, complete ESN looking design</li>
+<li><strong>easy</strong>: if you can use webmail, you can master a Satellite</li>
+<li><strong>unified</strong>: local, national and international websites share the same looks</li>
+
+<li><strong>tailored</strong> to the needs of ESN sections</li>
+<li><strong>high quality</strong> based on the widely adopted and solid Drupal  platform</li>
+<li><strong>free </strong>for all sections, national boards and ESN event organizers </li>
+<li><strong>part of the ESN Galaxy</strong></li>
+</ul>';
 $newnode->uid = 1;
 $newnode->type = 'news';
 $newnode->status = 1;
