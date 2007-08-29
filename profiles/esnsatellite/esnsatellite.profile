@@ -81,13 +81,13 @@ function esnsatellite_profile_final() {
   variable_set('comment_news', COMMENT_NODE_READ_WRITE);
 
   // Include files necessary for CCK content type import.
-  include_once './'. drupal_get_path('module', 'node') .'/content_types.inc';
+  include_once('./'. drupal_get_path('module', 'node') .'/content_types.inc');
   include_once('./'. drupal_get_path('module', 'content') .'/content_admin.inc');
 
   // Create a Partner content type via CCK import.
   $values = array();
   $values['type_name'] ='<create>';
-  $values['macro'] = <<<TOPICS
+  $values['macro'] = <<<CONTENT_TYPE_DEF
     \$content[type]  = array (
       'name' => 'Partner',
       'type' => 'partner',
@@ -198,6 +198,7 @@ function esnsatellite_profile_final() {
     'module' => 'link',
   ),
 );
+CONTENT_TYPE_DEF;
 drupal_execute("content_copy_import_form", $values);
 
 
