@@ -9,12 +9,10 @@ function esnsatellite_profile_modules() {
   return array(
   // Required core modules.
   'block', 'filter', 'help', 'node', 'poll', 'system', 'user', 'watchdog',
-  // Enable optional core modules.
-  'color', 'content', 'comment', 'menu', 'taxonomy',
+  // Enable optional core modules. CCK is 'content', CCK export is 'content_copy'.
+  'color', 'content', 'comment', 'content_copy', 'menu', 'taxonomy',
   // More optional core modules.
   'help', 'throttle', 'search', 'statistics',
-  // CCK does not need to be enabled.
-  // 'cck',
   // Third party modules.
   'event', 'iconify', 'image', 'imagefield', 'imce',
   'img_assist', 'link', 'menutree', 'pathauto', 'signup',
