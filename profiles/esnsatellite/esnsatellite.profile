@@ -8,9 +8,9 @@
 function esnsatellite_profile_modules() {
   return array(
   // Required core modules.
-  'block', 'filter', 'help', 'node', 'system', 'user', 'watchdog',
+  'block', 'filter', 'help', 'node', 'poll', 'system', 'user', 'watchdog',
   // Enable optional core modules.
-  'color', 'comment', 'menu', 'taxonomy',
+  'color', 'content', 'comment', 'menu', 'taxonomy',
   // More optional core modules.
   'help', 'throttle', 'search', 'statistics',
   // CCK does not need to be enabled.
@@ -54,21 +54,24 @@ function esnsatellite_profile_final() {
   install_admin_theme('garland');
 
   // Create content type: News.
+  // http://api.drupal.org/api/file/developer/hooks/node.php/5/source
   $node_type = array(
-   'type' => 'news',
    'name' => st('News'),
+   // AP: This is undocumented.
+   'type' => 'news',
    'module' => 'node',
    'description' => st('All your ESN related news. Posting as news will put the news item into a news page and promote a teaser (short version of your news with a small image) to your front page. Use this for all dynamic content on your site.'),
-   'custom' => TRUE,
-   'modified' => TRUE,
-   'locked' => FALSE,
    'has_title' => TRUE,
-   'has_body' => TRUE,
-   'orig_type' => 'news',
-   'is_new' => TRUE,
    'title_label' => st('Title'),
+   'has_body' => TRUE,
    'body_label' => st('Body'),
    'min_word_count' => 10,
+   'locked' => FALSE,
+   // AP: the following are undocumented.
+   'custom' => TRUE,
+   'modified' => TRUE,
+   'orig_type' => 'news',
+   'is_new' => TRUE,
   );
   node_type_save((object) $node_type);
   // News should be published and promoted to front page by default.
@@ -79,20 +82,22 @@ function esnsatellite_profile_final() {
 
   // Create content type: Partner.
   $node_type = array(
-   'type' => 'partner',
    'name' => st('Partner'),
+   // AP: This is undocumented.
+   'type' => 'partner',
    'module' => 'node',
    'description' => st('A partner from your ESN section, e.g. giving you ESN card discounts or sponsoring your section. Partners are grouped together and fetched in the ESN Galaxy.'),
-   'custom' => TRUE,
-   'modified' => TRUE,
-   'locked' => FALSE,
    'has_title' => TRUE,
-   'has_body' => TRUE,
-   'orig_type' => 'news',
-   'is_new' => TRUE,
    'title_label' => st('Title'),
+   'has_body' => TRUE,
    'body_label' => st('Body'),
    'min_word_count' => 0,
+   'locked' => FALSE,
+   // AP: The following are undocumented.
+   'custom' => TRUE,
+   'modified' => TRUE,
+   'orig_type' => 'partner',
+   'is_new' => TRUE,
   );
   node_type_save((object) $node_type);
   // Partners should be published by default.
