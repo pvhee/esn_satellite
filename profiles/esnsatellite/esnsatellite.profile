@@ -53,7 +53,7 @@ function esnsatellite_profile_final() {
   install_default_theme('esntheme'); // Theme Stuff
   install_admin_theme('garland');
 
-  // Define a node type, 'news'.
+  // Create content type: News.
   $node_type = array(
    'type' => 'news',
    'name' => st('News'),
@@ -66,6 +66,9 @@ function esnsatellite_profile_final() {
    'has_body' => TRUE,
    'orig_type' => 'news',
    'is_new' => TRUE,
+   'title_label' => st('Title'),
+   'body_label' => st('Body'),
+   'min_word_count' => 10,
   );
   node_type_save((object) $node_type);
   // News should be published and promoted to front page by default.
@@ -73,6 +76,29 @@ function esnsatellite_profile_final() {
   variable_set('node_options_news', array('status', 'revision', 'promote'));
   // If comments can be enabled, enable them for news.
   variable_set('comment_news', COMMENT_NODE_READ_WRITE);
+
+  // Create content type: Partner.
+  $node_type = array(
+   'type' => 'partner',
+   'name' => st('Partner'),
+   'module' => 'node',
+   'description' => st('A partner from your ESN section, e.g. giving you ESN card discounts or sponsoring your section. Partners are grouped together and fetched in the ESN Galaxy.'),
+   'custom' => TRUE,
+   'modified' => TRUE,
+   'locked' => FALSE,
+   'has_title' => TRUE,
+   'has_body' => TRUE,
+   'orig_type' => 'news',
+   'is_new' => TRUE,
+   'title_label' => st('Title'),
+   'body_label' => st('Body'),
+   'min_word_count' => 0,
+  );
+  node_type_save((object) $node_type);
+  // Partners should be published by default.
+  variable_set('node_options_partner', array('status'));
+  // If comments can be enabled, disable them for partners.
+  variable_set('comment_partner', COMMENT_NODE_DISABLED);
 
 }
 
