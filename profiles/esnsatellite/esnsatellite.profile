@@ -255,7 +255,14 @@ drupal_execute("content_copy_import_form", $values);
 CONTENT_TYPE_DEF;
 drupal_execute("content_copy_import_form", $values);
 
-
+$newnode = new stdClass();
+$newnode->title = 'Welcome to ESN Satellite 2.0';
+$newnode->body = 'Welcome to ESN Satellite 2.0, the free website template by the ESN International Webteam.';
+$newnode->uid = 1;
+$newnode->type = 'news';
+$newnode->status = 1;
+$newnode->promote = 1;
+node_save($newnode);
 }
 
 
