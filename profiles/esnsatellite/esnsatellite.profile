@@ -80,30 +80,126 @@ function esnsatellite_profile_final() {
   // If comments can be enabled, enable them for news.
   variable_set('comment_news', COMMENT_NODE_READ_WRITE);
 
-  // Create content type: Partner.
-  $node_type = array(
-   'name' => st('Partner'),
-   // AP: This is undocumented.
-   'type' => 'partner',
-   'module' => 'node',
-   'description' => st('A partner from your ESN section, e.g. giving you ESN card discounts or sponsoring your section. Partners are grouped together and fetched in the ESN Galaxy.'),
-   'has_title' => TRUE,
-   'title_label' => st('Title'),
-   'has_body' => TRUE,
-   'body_label' => st('Body'),
-   'min_word_count' => 0,
-   'locked' => FALSE,
-   // AP: The following are undocumented.
-   'custom' => TRUE,
-   'modified' => TRUE,
-   'orig_type' => 'partner',
-   'is_new' => TRUE,
-  );
-  node_type_save((object) $node_type);
-  // Partners should be published by default.
-  variable_set('node_options_partner', array('status'));
-  // If comments can be enabled, disable them for partners.
-  variable_set('comment_partner', COMMENT_NODE_DISABLED);
+  // Include files necessary for CCK content type import.
+  include_once './'. drupal_get_path('module', 'node') .'/content_types.inc';
+  include_once('./'. drupal_get_path('module', 'content') .'/content_admin.inc');
+
+  // Create a Partner content type via CCK import.
+  $values = array();
+  $values['type_name'] ='<create>';
+  $values['macro'] = <<<TOPICS
+    \$content[type]  = array (
+      'name' => 'Partner',
+      'type' => 'partner',
+      'description' => 'A partner from your ESN section, e.g. giving you ESN card discounts or sponsoring your section. Partners are grouped together and fetched in the ESN Galaxy.',
+      'title_label' => 'Title',
+      'body_label' => 'Body',
+      'min_word_count' => '0',
+      'help' => '',
+      'node_options' => 
+      array (
+        'status' => true,
+        'promote' => false,
+        'sticky' => false,
+        'revision' => false,
+      ),
+      'comment' => '0',
+      'upload' => '1',
+      'event_nodeapi' => 'never',
+      'signup_form' => false,
+      'old_type' => 'partner',
+      'orig_type' => '',
+      'module' => 'node',
+      'custom' => '1',
+      'modified' => '1',
+      'locked' => '0',
+    );
+    \$content[fields]  = array (
+      0 => 
+        array (
+          'widget_type' => 'image',
+          'label' => 'Logo',
+          'weight' => '-3',
+          'max_resolution' => 0,
+          'image_path' => 'images-partner',
+          'custom_alt' => 1,
+          'custom_title' => 1,
+          'description' => 'Put here the logo of your partner.',
+          'group' => false,
+          'required' => '1',
+          'multiple' => '0',
+          'field_name' => 'field_logo',
+          'field_type' => 'image',
+          'module' => 'imagefield',
+        ),
+      1 => 
+        array (
+    'widget_type' => 'text',
+    'label' => 'Short Description',
+    'weight' => '-1',
+    'rows' => '7',
+    'description' => '',
+    'default_value_widget' => 
+    array (
+      'field_shortdescription' => 
+      array (
+        0 => 
+        array (
+          'value' => '',
+        ),
+      ),
+    ),
+    'default_value_php' => '',
+    'group' => false,
+    'required' => '1',
+    'multiple' => '0',
+    'text_processing' => '0',
+    'max_length' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'field_name' => 'field_shortdescription',
+    'field_type' => 'text',
+    'module' => 'text',
+  ),
+  2 => 
+  array (
+    'widget_type' => 'link',
+    'label' => 'Partner website',
+    'weight' => '1',
+    'description' => 'Put here the website of your partner.',
+    'default_value_widget' => 
+    array (
+      'field_logolink' => 
+      array (
+        0 => 
+        array (
+          'url' => '',
+          'title' => '',
+        ),
+      ),
+    ),
+    'default_value_php' => '',
+    'group' => false,
+    'required' => '0',
+    'multiple' => '0',
+    'title' => 'optional',
+    'display' => 
+    array (
+      'url_cutoff' => '80',
+    ),
+    'attributes' => 
+    array (
+      'target' => 'default',
+      'rel' => 0,
+      'class' => '',
+    ),
+    'field_name' => 'field_logolink',
+    'field_type' => 'link',
+    'module' => 'link',
+  ),
+);
+drupal_execute("content_copy_import_form", $values);
+
 
 }
 
