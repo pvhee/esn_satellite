@@ -52,6 +52,28 @@ function esnsatellite_profile_final() {
   // --------
   install_default_theme('esntheme'); // Theme Stuff
   install_admin_theme('garland');
+
+  // Define a node type, 'news'.
+  $node_type = array(
+   'type' => 'news',
+   'name' => st('News'),
+   'module' => 'node',
+   'description' => st('All your ESN related news. Posting as news will put the news item into a news page and promote a teaser (short version of your news with a small image) to your front page. Use this for all dynamic content on your site.'),
+   'custom' => TRUE,
+   'modified' => TRUE,
+   'locked' => FALSE,
+   'has_title' => TRUE,
+   'has_body' => TRUE,
+   'orig_type' => 'news',
+   'is_new' => TRUE,
+  );
+  node_type_save((object) $node_type);
+  // News should be published and promoted to front page by default.
+  // News should create new revisions by default.
+  variable_set('node_options_news', array('status', 'revision', 'promote'));
+  // If comments can be enabled, enable them for news.
+  variable_set('comment_news', COMMENT_NODE_READ_WRITE);
+
 }
 
 
