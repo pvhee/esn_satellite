@@ -1,4 +1,4 @@
-<div id="left_box" style="margin-top: 20px;">
+<div id="left_box" style="margin-top: 0px;">
 	<div class="box content_orange">
 		<div class="w1">
 			<div class="w2">

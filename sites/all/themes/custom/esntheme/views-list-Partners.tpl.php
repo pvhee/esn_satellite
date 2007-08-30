@@ -30,20 +30,74 @@
 
  <?php 
  switch ($view_type) {
+	/*****************************************
+	 * PAGE VIEW 
+	 *****************************************/
+ 	case 'page':
+	?> 	
+		<div style="border: 1px solid rgb(208, 239, 251); padding: 15px; margin-top: 25px;clear: both;">
+				<div class="view-field view-data-created">
+				  <?php print $created?>
+				</div>
+				<h3><?php print $title?></h3>
+				
+				<?php //print pr($node) ?>
+				
+				<table>
+					<tr valign="top">
+						<td>
+							<div class="thumbnail">
+								<?php
+									$file = _imagefield_file_load($node->node_data_field_logo_field_logo_fid); 
+									if(!empty($file)) {
+										$img_alt = $node->node_data_field_logo_field_logo_alt;
+										$img_title = $node->node_data_field_logo_field_logo_title;
+										$img_attributes = array();
+										$img = theme('imagecache', 'logo', $file['filepath'], $img_alt, $img_title, $img_attributes);
+										print l($img, "node/$node->nid", null, null, null, false, true);
+									}
+								?>
+							</div>
+						</td>
+						<td>
+							<div style="font-size: 12px;">
+							  <?php print html_entity_decode($node->node_data_field_shortdescription_field_shortdescription_value); ?> 
+							   <b> <?php print l('Read more &raquo;', "node/$node->nid", array(), null, null, false, true); ?></b>
+							</div>				
+						</td>
+					</tr>
+				</table>
+				<b>Partner website</b>: <?php print l($node->node_data_field_logolink_field_logolink_title, $node->node_data_field_logolink_field_logolink_url, null, null, null, false, true)?>
+		</div>
+	<?php 		
+ 	break;
+	
  	/*****************************************
  	 * BLOCK VIEW
  	 *****************************************/
  	case 'block':
 	?> 	
-		<div style="margin-top: 15px; line-height: 21px; text-align: center;">
+		<div style="margin-top: 15px; line-height: 21px; text-align: center;">	
 			<?php 
-				list($width, $height, $type, $attr) = getimagesize(extract_src($field_logo_fid));
-				$style = ($width > 145) ? 'width="145px;"' : '';
-				if ($field_logo_fid) {
-					$img = '<img src="'.extract_src($field_logo_fid).'" style="margin-top: 7px; margin-left: -10px;" '.$style.'/><br>';
+				//list($width, $height, $type, $attr) = getimagesize(extract_src($field_logo_fid));
+				//$style = ($width > 145) ? 'width="145px;"' : '';
+				//if ($field_logo_fid) {
+				//	$img = '<img src="'.extract_src($field_logo_fid).'" style="margin-top: 7px; margin-left: -10px;" '.$style.'/><br>';
+				//	print l($img, "node/$node->nid", null, null, null, false, true);
+				//}
+				
+				// pr($node);
+				// print $title;
+				
+				$file = _imagefield_file_load($node->node_data_field_logo_field_logo_fid); 
+				if(!empty($file)) {				
+					$img_alt = $node->node_data_field_logo_field_logo_alt;
+					$img_title = $node->node_data_field_logo_field_logo_title;
+					$img_attributes = array('style' => 'margin-top: 7px; margin-left: -10px;');
+					$img = theme('imagecache', 'logo', $file['filepath'], $img_alt, $img_title, $img_attributes);
 					print l($img, "node/$node->nid", null, null, null, false, true);
 				}
-				print l($title, "node/$node->nid", array('style' => 'font-family: arial; text-decoration: none; font-size: 12px;font-weight: bold;'));
+				print l($node->node_data_field_logolink_field_logolink_title, $node->node_data_field_logolink_field_logolink_url, array('style' => 'font-family: arial; text-decoration: none; font-size: 12px;font-weight: bold;'));
 			?>
 		</div>
 	<?php 	 		

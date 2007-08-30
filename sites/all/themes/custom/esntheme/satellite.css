@@ -628,5 +628,8 @@ dl.admin-list dd {padding-bottom: 15px; color: #999; font-size: 11px;}
 p.description {margin: 0 0 13px 0}
 tbody {border-top: 0px;}
 
-
+/* css for news on front page */
+#news {
+	font-size: 11px;
+}
 
