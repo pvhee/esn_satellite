@@ -416,19 +416,23 @@ function esntheme_table($header, $rows, $attributes = array(), $caption = NULL) 
  * @return
  *   A string containing the themed links.
  */
-function esntheme_links($links, $delimiter = ' | ') {
-	if (!is_array($links)) {
-		return '';
-	}
-	//$out .= '<ul id="links">';
-	foreach ($links as $link) {
-		$out .= $link.' ';
-
-	}
-	//$out .= '</ul>';
-
-	return $out;
-}
+// Peter: deleted this function as it gave erroneous output for Drupal 5.x !
+// function esntheme_links($links, $delimiter = ' | ') {
+// 	if (!is_array($links)) {
+// 		return '';
+// 	}
+// 	//$out .= '<ul id="links">';
+// 	foreach ($links as $link) {
+// 		pr($link);
+// 		$out .= $link.' ';
+// 
+// 	}
+// 	//$out .= '</ul>';
+// 
+// 	echo $out;
+// 
+// 	return $out;
+// }
 
 /**
  * Define theme specific regions
