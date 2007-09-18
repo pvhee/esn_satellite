@@ -1,0 +1,1843 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Drupal 4.7\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2006-05-03 23:19-0800\n"
+"Last-Translator: Katrin Silvius <katie@nonsie.net>\n"
+"Language-Team: Katrin Silvius <katie@nonsie.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Estonian\n"
+"X-Poedit-Country: ESTONIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: update.php:289 modules/comment.module:1051 modules/node.module:1091 ;1145
+msgid "Update"
+msgstr "Uuenda"
+
+#: includes/common.inc:263 modules/system.module:456
+msgid ""
+"%site is currently under maintenance. We should be back shortly. Thank you "
+"for your patience."
+msgstr ""
+"%site lehel toimub haldustöö ning lehekülg on ajutiselt külastajatele "
+"suletud. "
+
+#: includes/common.inc:263 modules/system.module:456
+msgid "This drupal site"
+msgstr "See Drupali-põhine kodulehekülg"
+
+#: includes/common.inc:291 modules/aggregator.module:140 ;156
+#: modules/blogapi.module:229 ;284 modules/book.module:907 ;983
+#: modules/comment.module:139 ;631;732 modules/filter.module:238
+#: modules/legacy.module:61 ;67;73 modules/node.module:898
+#: ;902;1286;1295;1834;1843 modules/user.module:748
+msgid "view"
+msgstr "vaata"
+
+#: includes/common.inc:464 includes/image.inc:61 includes/unicode.inc:130 ;163
+msgid "php"
+msgstr "php"
+
+#: includes/locale.inc:68 modules/filter.module:434 ;513
+#: modules/locale.module:273 modules/system.module:700 ;800;832;918
+msgid "Save configuration"
+msgstr "Salvesta seadistus"
+
+#: includes/locale.inc:77 ;1091 modules/block.module:244
+#: modules/book.module:909 modules/comment.module:769
+#: modules/contact.module:236 modules/locale.module:94 modules/menu.module:486
+#: ;549 modules/node.module:909 ;1297 modules/path.module:270
+#: modules/profile.module:601 modules/user.module:753 ;1509
+msgid "delete"
+msgstr "kustuta"
+
+#: includes/locale.inc:80 modules/block.module:300 modules/comment.module:396
+#: modules/drupal.module:66 modules/statistics.module:331
+#: modules/system.module:269 ;310;412;821;936 modules/upload.module:152
+#: modules/user.module:1789
+msgid "Enabled"
+msgstr "Võimaldatud"
+
+#: includes/locale.inc:80 modules/filter.module:320 modules/system.module:821
+msgid "Default"
+msgstr "Vaikimisi"
+
+#: includes/locale.inc:80 ;1083 modules/aggregator.module:752 ;763
+#: modules/block.module:304 modules/book.module:899 ;1021
+#: modules/comment.module:1112 modules/contact.module:238
+#: modules/filter.module:320 modules/forum.module:284 modules/menu.module:477
+#: modules/node.module:1171 ;1252;1273 modules/path.module:263
+#: modules/profile.module:607 modules/statistics.module:172 ;199;227;281
+#: modules/system.module:821 modules/taxonomy.module:380 ;400
+#: modules/user.module:1504 ;1726;1746 modules/watchdog.module:105
+msgid "Operations"
+msgstr "Tehingud"
+
+#: includes/locale.inc:96 modules/locale.module:351
+msgid "Add language"
+msgstr "Lisa keel"
+
+#: includes/locale.inc:104 modules/locale.module:358
+msgid "Add custom language"
+msgstr "Lisa "
+
+#: includes/locale.inc:133 modules/locale.module:387
+msgid "Import"
+msgstr "Import"
+
+#: includes/locale.inc:737 ;745 modules/locale.module:420
+msgid "Export"
+msgstr "Eksport"
+
+#: includes/locale.inc:994 modules/locale.module:453
+msgid "Save translations"
+msgstr "Salvesta tõlked"
+
+#: includes/locale.inc:1091 modules/aggregator.module:755 ;766
+#: modules/book.module:908 modules/comment.module:770 ;775;1064
+#: modules/contact.module:236 modules/locale.module:92 modules/menu.module:483
+#: ;528 modules/node.module:904 ;1154 modules/path.module:270
+#: modules/profile.module:601 modules/taxonomy.module:413
+#: modules/user.module:750 ;924;1117;1509;1729;1759
+msgid "edit"
+msgstr "muuda"
+
+#: includes/locale.inc:1125 ;1129 modules/locale.module:448
+#: modules/search.module:143 ;975 modules/system.module:1157
+#: modules/user.module:1809
+msgid "Search"
+msgstr "Otsi"
+
+#: includes/locale.inc:1127 modules/locale.module:119
+msgid "Language"
+msgstr "keel"
+
+#: includes/locale.inc:32 ;285;805;826 modules/locale.module:314 ;401;0
+msgid "locale"
+msgstr "keel"
+
+#: includes/menu.inc:467 modules/node.module:1793
+msgid "Home"
+msgstr "Esileht"
+
+#: includes/menu.inc:957 modules/user.module:495 ;540
+msgid "Navigation"
+msgstr "Navigatsioon"
+
+#: includes/theme.inc:800 themes/engines/phptemplate/phptemplate.engine:269
+msgid "new"
+msgstr "uus"
+
+#: includes/theme.inc:950 modules/user.module:609
+msgid "View user profile."
+msgstr "Vaata kasutaja profiili."
+
+#: includes/xmlrpc.inc:385 includes/xmlrpcs.inc:53
+msgid "parse error. not well formed"
+msgstr "Viga parsimisel. MIttekorrektne vormistus"
+
+#: modules/aggregator.module:42 modules/system.module:315
+#: modules/taxonomy.module:235 ;442
+msgid "none"
+msgstr "puudub"
+
+#: modules/aggregator.module:46 modules/filter.module:69 ;71;975
+msgid "Allowed HTML tags"
+msgstr "Lubatud HTML märgised"
+
+#: modules/aggregator.module:109 modules/block.module:69
+#: modules/book.module:100 modules/comment.module:108
+#: modules/contact.module:48 modules/filter.module:211
+#: modules/forum.module:472 modules/locale.module:73 modules/menu.module:36
+#: modules/node.module:860 modules/path.module:64 modules/system.module:113
+#: modules/taxonomy.module:64 ;104 modules/user.module:687 ;710
+msgid "list"
+msgstr "nimekiri"
+
+#: modules/aggregator.module:114 modules/contact.module:51
+msgid "add category"
+msgstr "lisa kategooria"
+
+#: modules/aggregator.module:123 modules/taxonomy.module:60
+msgid "categories"
+msgstr "kategooriad"
+
+#: modules/aggregator.module:145 ;161 modules/block.module:242
+#: modules/comment.module:110 modules/filter.module:244 ;299
+#: modules/forum.module:481 modules/node.module:1256 modules/system.module:117
+#: ;790
+msgid "configure"
+msgstr "seadista"
+
+#: modules/aggregator.module:229 ;237;1038;1139 modules/blog.module:304
+#: modules/forum.module:393
+msgid "more"
+msgstr "lisa"
+
+#: modules/aggregator.module:646 ;680;752;763 modules/blog.module:231
+#: modules/book.module:254 ;899 modules/filter.module:107
+#: modules/menu.module:389 ;667 modules/node.module:1171 ;1273
+#: modules/page.module:94 modules/profile.module:571 ;607
+#: modules/story.module:89
+msgid "Title"
+msgstr "Pealkiri"
+
+#: modules/aggregator.module:647 modules/forum.module:198 ;220
+#: modules/menu.module:398 ;674 modules/system.module:936
+#: modules/taxonomy.module:120 ;214 modules/upload.module:415 ;461
+msgid "Description"
+msgstr "Kirjeldus"
+
+#: modules/aggregator.module:648 ;695;774;827;857 modules/contact.module:210
+#: modules/forum.module:123 ;204;226 modules/menu.module:260 ;352;419
+#: modules/node.module:1668 modules/taxonomy.module:139 ;252;1117;1154
+#: modules/user.module:1262 ;1300
+msgid "Submit"
+msgstr "Lisa"
+
+#: modules/aggregator.module:651 ;698;787;824;854 modules/block.module:433
+#: modules/comment.module:993 modules/contact.module:217 ;222
+#: modules/filter.module:369 modules/forum.module:114 ;188;206;228
+#: modules/locale.module:336 modules/menu.module:307 ;324
+#: modules/node.module:1670 ;1870;1987 modules/profile.module:563
+#: modules/taxonomy.module:141 ;204;255;368;1139 modules/upload.module:415
+#: ;461 modules/user.module:1291 ;1294;1302;1458
+msgid "Delete"
+msgstr "Kustuta"
+
+#: modules/aggregator.module:681 ;1159 modules/profile.module:656
+msgid "URL"
+msgstr "URL"
+
+#: modules/aggregator.module:755 ;1163 modules/comment.module:169
+#: modules/statistics.module:318 modules/tracker.module:113
+#: modules/user.module:1758
+msgid "%time ago"
+msgstr "%time tagasi"
+
+#: modules/aggregator.module:755 ;755 modules/user.module:1758
+msgid "never"
+msgstr "mitte kunagi"
+
+#: modules/aggregator.module:1071 modules/node.module:843 ;1435
+msgid "read more"
+msgstr "loe edasi"
+
+#: modules/aggregator.module:1085 ;1085 modules/drupal.module:206
+msgid "Drupal"
+msgstr "Drupal"
+
+#: modules/archive.module:117 modules/locale.module:0
+#: modules/system.module:433
+msgid "Sunday"
+msgstr "Pühapäev"
+
+#: modules/archive.module:117 modules/locale.module:0
+#: modules/system.module:433
+msgid "Monday"
+msgstr "Esmaspäev"
+
+#: modules/archive.module:117 modules/locale.module:0
+#: modules/system.module:433
+msgid "Tuesday"
+msgstr "Teisipäev"
+
+#: modules/archive.module:117 modules/locale.module:0
+#: modules/system.module:433
+msgid "Wednesday"
+msgstr "Kolmapäev"
+
+#: modules/archive.module:117 modules/locale.module:0 ;0
+#: modules/system.module:433
+msgid "Thursday"
+msgstr "Neljapäev"
+
+#: modules/archive.module:117 modules/locale.module:0
+#: modules/system.module:433
+msgid "Friday"
+msgstr "Reede"
+
+#: modules/archive.module:117 modules/locale.module:0
+#: modules/system.module:433
+msgid "Saturday"
+msgstr "Laupäev"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "January"
+msgstr "Januar"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "February"
+msgstr "Veebruar"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "March"
+msgstr "Märts"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "April"
+msgstr "Aprill"
+
+#: modules/archive.module:244 modules/locale.module:0 ;0
+msgid "May"
+msgstr "Mai"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "June"
+msgstr "Juuni"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "July"
+msgstr "Juuli"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "August"
+msgstr "August"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "September"
+msgstr "September"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "October"
+msgstr "Oktoober"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "November"
+msgstr "November"
+
+#: modules/archive.module:244 modules/locale.module:0
+msgid "December"
+msgstr "Detsember"
+
+#: modules/block.module:66 modules/menu.module:89
+msgid "blocks"
+msgstr "blokid"
+
+#: modules/block.module:297 modules/comment.module:237 ;252;396
+#: modules/drupal.module:66 modules/statistics.module:331 ;418
+#: modules/system.module:269 ;310;412 modules/taxonomy.module:123
+#: modules/upload.module:152 modules/user.module:1789
+msgid "Disabled"
+msgstr "Keelatud"
+
+#: modules/block.module:300 modules/book.module:270 ;324;899
+#: modules/contact.module:208 modules/filter.module:519
+#: modules/forum.module:201 ;223 modules/menu.module:416 ;696
+#: modules/node.module:779 modules/profile.module:578
+#: modules/taxonomy.module:128 ;239
+msgid "Weight"
+msgstr "Kaal"
+
+#: modules/block.module:302 modules/system.module:938
+#: modules/throttle.module:93
+msgid "Throttle"
+msgstr "Ventiill"
+
+#: modules/block.module:433 modules/comment.module:994 ;1158
+#: modules/contact.module:223 modules/filter.module:369
+#: modules/forum.module:188 modules/locale.module:336 modules/node.module:1215
+#: ;1870 modules/profile.module:563 modules/search.module:240
+#: modules/system.module:1210 modules/taxonomy.module:205 ;369
+#: modules/user.module:1459
+msgid "Cancel"
+msgstr "Tühista"
+
+#: modules/blogapi.module:229 ;284 modules/book.module:983
+#: modules/comment.module:617 ;631;732;751;1572 modules/node.module:592
+#: ;857;862;880;1344;1834;1843;1909
+#: themes/engines/phptemplate/phptemplate.engine:30
+msgid "content"
+msgstr "sisu"
+
+#: modules/blog.module:49 modules/user.module:471
+msgid "History"
+msgstr "Ajalugu"
+
+#: modules/blog.module:232 modules/book.module:256 modules/forum.module:601
+#: modules/page.module:97 modules/story.module:91
+msgid "Body"
+msgstr "Põhiosa"
+
+#: modules/blog.module:0 modules/legacy.module:55
+msgid "blog"
+msgstr "ajaveeb"
+
+#: modules/book.module:250 ;319 modules/forum.module:200 ;222
+#: modules/taxonomy.module:227
+msgid "Parent"
+msgstr "Vanem"
+
+#: modules/book.module:261 ;329 modules/page.module:102
+#: modules/story.module:94
+msgid "Log message"
+msgstr "Loogi kirje"
+
+#: modules/book.module:265 modules/page.module:106 modules/story.module:95
+msgid ""
+"An explanation of the additions or updates being made to help other authors "
+"understand your motivations."
+msgstr ""
+
+#: modules/book.module:983 modules/node.module:1834
+msgid "%type: updated %title."
+msgstr "%type: uuendati %title."
+
+#: modules/comment.module:121 modules/system.module:133
+msgid "settings"
+msgstr "määrangud"
+
+#: modules/comment.module:404 modules/node.module:814
+msgid "Optional"
+msgstr "Valikuline"
+
+#: modules/comment.module:404 modules/node.module:814
+#: modules/taxonomy.module:127
+msgid "Required"
+msgstr "Nõutud"
+
+#: modules/comment.module:524 modules/node.module:1549
+msgid "You have to specify a valid date."
+msgstr "Palun vali korrektne kuupäev."
+
+#: modules/comment.module:561 modules/filter.module:804
+msgid "The supplied input format is invalid."
+msgstr "Sisestuse formaaton ebakorrektne."
+
+#: modules/comment.module:1043 modules/node.module:1137
+msgid "Update options"
+msgstr "Uuendamise valikud"
+
+#: modules/comment.module:1106 modules/node.module:1112
+msgid "The update has been performed."
+msgstr "Uuendamine on edukalt läbi viidud."
+
+#: modules/comment.module:1112 ;1304 modules/contact.module:118 ;268
+#: modules/forum.module:588
+msgid "Subject"
+msgstr "Pealkiri"
+
+#: modules/comment.module:1112 modules/node.module:1171 ;1273
+#: modules/tracker.module:117
+msgid "Author"
+msgstr "Autor"
+
+#: modules/comment.module:1112 modules/statistics.module:169
+msgid "Time"
+msgstr "Aeg"
+
+#: modules/comment.module:1157 modules/contact.module:221
+#: modules/menu.module:324 modules/node.module:1214 ;1869
+#: modules/system.module:1202 modules/user.module:1457
+msgid "This action cannot be undone."
+msgstr "See tehing on pöördumatu."
+
+#: modules/comment.module:1274 modules/node.module:1644
+msgid "Authored by"
+msgstr "Lisas"
+
+#: modules/comment.module:1276 modules/node.module:1645
+msgid "Authored on"
+msgstr "Lisatud"
+
+#: modules/comment.module:1278 modules/node.module:1171
+#: modules/user.module:1171 ;1743
+msgid "Status"
+msgstr "Olek"
+
+#: modules/comment.module:1278 modules/node.module:1650 ;2078
+msgid "Published"
+msgstr "Avaldatud"
+
+#: modules/comment.module:1282 ;1287;1296 modules/contact.module:266
+msgid "Your name"
+msgstr "Sinu nimi"
+
+#: modules/comment.module:1290 ;1298 modules/user.module:1402 ;1494
+msgid "E-mail"
+msgstr "E-posti aadress"
+
+#: modules/comment.module:1290 ;1298 modules/profile.module:340
+msgid ""
+"The content of this field is kept private and will not be shown publicly."
+msgstr "Selle välja sisu ei avalikustata."
+
+#: modules/comment.module:1607 modules/forum.module:334
+msgid "Date - newest first"
+msgstr "Kuupäeva järgi -uuemad eesotsas"
+
+#: modules/comment.module:1608 modules/forum.module:334
+msgid "Date - oldest first"
+msgstr "Kuupäeva järgi - vanemad eesotsas"
+
+#: modules/comment.module:194 ;295 modules/node.module:75
+msgid "1 comment"
+msgid_plural "%count comments"
+msgstr[0] "1 kommentaar"
+msgstr[1] "%count kommentaari"
+
+#: modules/contact.module:119 ;272 modules/watchdog.module:103 ;160
+msgid "Message"
+msgstr "Teade"
+
+#: modules/contact.module:182 modules/profile.module:482
+msgid "You must enter a category."
+msgstr "Palun sisesta kategooria."
+
+#: modules/contact.module:205 ;238;270 modules/profile.module:570 ;607
+msgid "Category"
+msgstr "Kategooria"
+
+#: modules/contact.module:209 ;238 modules/system.module:215
+msgid "Selected"
+msgstr "Märgistatud"
+
+#: modules/contact.module:209 ;236 modules/menu.module:569
+msgid "No"
+msgstr "Ei"
+
+#: modules/contact.module:209 ;236 modules/menu.module:569
+msgid "Yes"
+msgstr "Jah"
+
+#: modules/drupal.module:113 ;167 modules/ping.module:66
+msgid "directory ping"
+msgstr "kataloogi ping"
+
+#: modules/filter.module:320 ;412;519 modules/forum.module:284
+#: modules/profile.module:607 modules/system.module:215 ;238;821;936
+#: modules/taxonomy.module:380 ;400 modules/user.module:1726
+msgid "Name"
+msgstr "Nimi"
+
+#: modules/filter.module:320 ;416 modules/user.module:1174
+msgid "Roles"
+msgstr "Rollid"
+
+#: modules/forum.module:262 modules/taxonomy.module:227 ;230
+msgid "root"
+msgstr "juur"
+
+#: modules/forum.module:723 modules/tracker.module:117
+msgid "Replies"
+msgstr "Vastused"
+
+#: modules/forum.module:902 modules/tracker.module:117
+msgid "Last post"
+msgstr "Viimane postitus"
+
+#: modules/help.module:16 ;0 modules/user.module:681
+msgid "help"
+msgstr "abi"
+
+#: modules/legacy.module:45 ;50 modules/taxonomy.module:0
+msgid "taxonomy"
+msgstr "taksonoomia"
+
+#: modules/menu.module:282 ;292 modules/node.module:1028 ;1088
+msgid "Reset"
+msgstr "Taasta"
+
+#: modules/menu.module:523 modules/user.module:1732
+msgid "locked"
+msgstr "lukus"
+
+#: modules/menu.module:653 modules/node.module:1666 ;1673;1792
+msgid "Preview"
+msgstr "Eelvaade"
+
+#: modules/node.module:806 modules/poll.module:157
+msgid "Unlimited"
+msgstr "Piiramatu"
+
+#: modules/node.module:867 modules/search.module:155 ;884;0
+#: modules/user.module:726
+msgid "search"
+msgstr "otsi"
+
+#: modules/node.module:1025 ;1077 modules/watchdog.module:96
+msgid "Filter"
+msgstr "Filter"
+
+#: modules/node.module:1171 ;1252 modules/profile.module:607
+#: modules/taxonomy.module:380 modules/tracker.module:117
+#: modules/watchdog.module:101 ;155
+msgid "Type"
+msgstr "Tüüp"
+
+#: modules/node.module:1273 modules/statistics.module:154
+#: modules/watchdog.module:102 ;156
+msgid "Date"
+msgstr "Kuupäev"
+
+#: modules/poll.module:158 modules/user.module:1171
+msgid "Active"
+msgstr "Aktiivne"
+
+#: modules/poll.module:213 ;463 modules/search.module:887
+msgid "results"
+msgstr "tulemused"
+
+#: modules/profile.module:581 ;584 modules/statistics.module:152
+msgid "Page title"
+msgstr "Lehe pealkiri"
+
+#: modules/statistics.module:127 ;180;206;238 modules/watchdog.module:47
+msgid "details"
+msgstr "detailid"
+
+#: modules/statistics.module:138 modules/tracker.module:52
+msgid "track"
+msgstr "jälgi"
+
+#: modules/statistics.module:153 ;170 modules/watchdog.module:159
+msgid "Referrer"
+msgstr "Viitaja"
+
+#: modules/statistics.module:155 ;171;226 modules/watchdog.module:104 ;157
+msgid "User"
+msgstr "Kasutaja"
+
+#: modules/statistics.module:156 modules/user.module:1409
+#: modules/watchdog.module:162
+msgid "Hostname"
+msgstr "Hostname"
+
+#: modules/system.module:91 modules/upload.module:82
+msgid "file download"
+msgstr "failii allalaadmine"
+
+#: modules/system.module:234 modules/upload.module:96
+msgid "General settings"
+msgstr "Üldised seadistused"
+
+#: modules/system.module:242 modules/user.module:961 ;1076;1168
+msgid "E-mail address"
+msgstr "E-posti aadress"
+
+#: modules/throttle.module:87 modules/user.module:570 ;573
+msgid "1 user"
+msgid_plural "%count users"
+msgstr[0] "1 kasutaja"
+msgstr[1] "%count kasutajat"
+
+#: modules/watchdog.module:70 ;70;150
+#: themes/engines/phptemplate/phptemplate.engine:327
+msgid "error"
+msgstr "viga"
+
+#: cron.php:19
+msgid "Last cron run did not complete."
+msgstr "Viimast cron päringut ei viidud lõpule."
+
+#: cron.php:30
+msgid "Cron run completed"
+msgstr "Cron päring teostatud"
+
+#: cron.php:19 ;30
+msgid "cron"
+msgstr "cron"
+
+#: update.php:258
+msgid ""
+"The version of Drupal you are updating from has been automatically detected. "
+"You can select a different version, but you should not need to."
+msgstr ""
+
+#: update.php:259
+msgid "Click Update to start the update process."
+msgstr "Kliki Uuenda uuendamise protsessi alustamiseks."
+
+#: update.php:276
+msgid "%name module"
+msgstr "%name moodul"
+
+#: includes/form.inc:121
+msgid ""
+"Validation error, please try again.  If this error persists, please contact "
+"the site administrator."
+msgstr ""
+"Viga andmete kontrollis, palun proovi uuesti. Kui see veateade kordub võta "
+"ühendust lehe haldajaga."
+
+#: includes/form.inc:146
+msgid "%name field is required"
+msgstr "%name väli on nõutud"
+
+#: includes/image.inc:21
+msgid "Built-in GD2 toolkit"
+msgstr "Sisseehitatud GD2 tarkvara"
+
+#: includes/image.inc:61
+msgid ""
+"The selected image handling toolkit '%toolkit' can not correctly process '%"
+"function'."
+msgstr ""
+"Valitud pildihalduse komplekt '%toolkit' ei oska töödelda '%function'-i."
+
+#: includes/image.inc:184
+msgid "The built-in GD2 toolkit is installed and working properly."
+msgstr "GD2 on installeeritud ning töötab korralikult."
+
+#: includes/image.inc:187
+msgid ""
+"The built-in GD image toolkit requires that the GD module for PHP be "
+"installed and configured properly. For more information see %url."
+msgstr ""
+"GD moodul PHP jaoks peab olema installeeritud ning korrektselt "
+"konfigureeritud. Lisainfot leiad lehel %url."
+
+#: includes/menu.inc:785
+msgid "edit primary links"
+msgstr "muuda esmaseid linke"
+
+#: includes/pager.inc:111
+msgid "first page"
+msgstr "esimene lehekülg"
+
+#: includes/pager.inc:112
+msgid "previous page"
+msgstr "eelmine lehekülg"
+
+#: includes/pager.inc:114
+msgid "next page"
+msgstr "järgmine lehekülg"
+
+#: includes/pager.inc:115
+msgid "last page"
+msgstr "viimane lehekülg"
+
+#: includes/tablesort.inc:78
+msgid "sort by %s"
+msgstr "sorteeri %s järgi"
+
+#: includes/theme.inc:739 ;742
+msgid "sort icon"
+msgstr "sorteerimise ikoon"
+
+#: includes/theme.inc:739
+msgid "sort ascending"
+msgstr "sorteeri kasvavalt"
+
+#: includes/theme.inc:742
+msgid "sort descending"
+msgstr "sorteeri kahanevalt"
+
+#: includes/theme.inc:803
+msgid "updated"
+msgstr "uuendatud"
+
+#: includes/theme.inc:857
+msgid "[<a href=\"%link\">more help...</a>]"
+msgstr "[<a href=\"%link\">lisainfo</a>]"
+
+#: includes/theme.inc:864 ;864
+msgid "XML feed"
+msgstr "XML andmevoog"
+
+#: includes/theme.inc:968
+msgid "not verified"
+msgstr "kinnitamata"
+
+#: includes/theme.inc:0
+msgid "theme"
+msgstr "kujundus"
+
+#: includes/xmlrpcs.inc:56
+msgid ""
+"server error. invalid xml-rpc. not conforming to spec. Request must be a "
+"method_call"
+msgstr ""
+"Serveri veateade.Ebakorrektne xml-rpc, ei vasta spetsifikatsioonile. Päring "
+"peab olema method_call"
+
+#: includes/xmlrpcs.inc:126
+msgid "Recursive calls to system.multicall are forbidden"
+msgstr "Rekursiivsed süsteemi päringud. Mitmesed päringud on keelatud"
+
+#: includes/xmlrpcs.inc:174 ;247
+msgid "server error. requested method %methodname not specified."
+msgstr "Serveri veateade. Nõutud meetodit %methodname on määratlemata."
+
+#: includes/xmlrpcs.inc:184
+msgid "server error. wrong number of method parameters"
+msgstr "Serveri veateade. Ebakorrektne meetodi parameetrite arv."
+
+#: includes/xmlrpcs.inc:221
+msgid "server error. invalid method parameters"
+msgstr "Serveri veateade. Ebakorrektsed meetodi parameetrid"
+
+#: includes/xmlrpcs.inc:227
+msgid "server error. requested method %methodname does not exist."
+msgstr "Serveri veateade. Nõutud meetodit %methodname ei ole olemas."
+
+#: includes/xmlrpcs.inc:239
+msgid "server error. requested function %method does not exist."
+msgstr "Serveri veateade. Nõutud funktsiooni %method ei ole olemas."
+
+#: includes/xmlrpcs.inc:250
+msgid "server error. requested method %methodname signature not specified."
+msgstr "Serveri veateade. Nõutud meetodi %methodname allkiri on määratlemata."
+
+#: includes/xmlrpcs.inc:0
+msgid "xmlrpc_server_method"
+msgstr "xmlrpc_serveri_meetod"
+
+#: modules/help.module:39
+msgid ""
+"\n"
+"  <p>This guide explains what the various modules in <a href=\"%Drupal"
+"\">Drupal</a> do and how to configure them.</p>\n"
+"  <p>It is not a substitute for the <a href=\"%handbook\">Drupal handbook</"
+"a> available online and should be used in conjunction with it. The online "
+"reference handbook might be more up-to-date and has helpful user-contributed "
+"comments. It is your definitive reference point for all Drupal documentation."
+"</p>\n"
+"  <h2>Help topics</h2>\n"
+"  <p>Help is available on the following items:</p>\n"
+"  %help_pages\n"
+"  <h2>Glossary of Drupal terminology</h2>\n"
+"  <dl>\n"
+"   <dt>Block</dt><dd>A small box containing information or content placed in "
+"the left-hand or right-hand sidebar of a web page.</dd>\n"
+"   <dt>Comment</dt><dd>A note attached to a node. Usually intended to "
+"clarify, explain, criticize, or express an opinion on the original material."
+"</dd>\n"
+"   <dt>Moderation</dt>\n"
+"   <dd>The activity of making sure a post to a Drupal site fits in with what "
+"is expected for that Drupal site.\n"
+"    <dl>\n"
+"     <dt>Approved</dt><dd>A moderated post which has been accepted by the "
+"moderators for publication. (See published).</dd>\n"
+"     <dt>Waiting</dt><dd>A moderated post which is still being voted on to "
+"be accepted for publication. (See published.)</dd>\n"
+"    </dl>\n"
+"   </dd>\n"
+"   <dt>Node</dt><dd>The basic data unit in Drupal. Everything is a node or "
+"an extension of a node.</dd>\n"
+"   <dt>Public</dt><dd>See published.</dd>\n"
+"   <dt>Published</dt><dd>A node that is viewable by everyone. (See "
+"unpublished.)</dd>\n"
+"   <dt>Role</dt><dd>A classification users are placed into for the purpose "
+"of setting users' permissions.</dd>\n"
+"   <dt>Taxonomy</dt><dd>A division of a collection of things into ordered, "
+"classified groups. (See <a href=\"%taxonomy\">taxonomy help</a>.)</dd>\n"
+"   <dt>Unpublished</dt><dd>A node that is only viewable by administrators "
+"and moderators.</dd>\n"
+"   <dt>User</dt><dd>A person who has an account at your Drupal site, and is "
+"logged in with that account.</dd>\n"
+"   <dt>Visitor</dt><dd>A person who does not have an account at your Drupal "
+"site or a person who has an account at your Drupal site but is <strong>not</"
+"strong> logged in with that account. Also termed \"anonymous user\".</dd>\n"
+"  </dl>"
+msgstr ""
+"\n"
+"  <p>Alljärgnev ülevaade selgitab mida erinevad <a href=\"%Drupal\">Drupali</"
+"a>moodulid teevad ning kuidas neid seadistada.</p>\n"
+"  <p>See ei asenda <a href=\"%handbook\">Drupali käsiraamatu</a>interneti "
+"versiooni vaid seda tuleks kasutada koos Drupali käsiraamatuga. Drupali "
+"kodulehel olev käsiraamat on ajakohasem ja sisaldab kasutajate poolt lisatud "
+"kommentaare.  Just see käsiraamat peaks olema algallikaks kogu Drupali "
+"dokumentatsioonile.</p>\n"
+"  <h2>Abi teemad</h2>\n"
+"  <p>Lisainfo on kättesaadav järgmistel teemadel:</p>\n"
+"  %help_pages\n"
+"  <h2>Drupali terminoloogia sõnastik</h2>\n"
+"  <dl>\n"
+"   <dt>Blokk</dt><dd>Väike kast, mis sisaldab informatsiooni või muud sisu "
+"paigutatuna vasakusse või paremasse menüüribasse.</dd>\n"
+"   <dt>Kommentaar</dt><dd>Teade, mis on lisatud sisu objektile. Tavaliselt "
+"on selle eesmärgiks selgitada, kritiseerida või arvamust väljendada.</dd>\n"
+"   <dt>Modereerimine</dt>\n"
+"   <dd>Tegevus, mille eesmärgiks on kindlaks teha, et postitus lehele "
+"tõepoolest sobib selle lehe jaoks.\n"
+"    <dl>\n"
+"     <dt>Lubatud</dt><dd>Modereeritud postitus, mis on modereerijate poolt "
+"avaldamiseks lubatud. (Vaata lisaks - avaldatud).</dd>\n"
+"     <dt>Ootel</dt><dd>Modereeritud postitus, millele antakse hinnanguid, et "
+"sellele avaldamisõigust anda.  (Vaata lisaks - avaldatud.)</dd>\n"
+"    </dl>\n"
+"   </dd>\n"
+"   <dt>Sisu objekt</dt><dd>Tüüpiline sisu üksus Drupali lehel. Kõik "
+"kodulehel on kas sisu objekt või selle täiendus.</dd>\n"
+"   <dt>Avalik</dt><dd>Vaata lisaks - avaldatud.</dd>\n"
+"   <dt>Avaldatud</dt><dd>Sisu objekt, mis on kõikide jaoks kättesaadav. "
+"(Vaata lisaks - avaldamata.)</dd>\n"
+"   <dt>Roll</dt><dd>Kasutajate kategoriseerimise vahend, mille eesmärgiks on "
+"kasutajatele õiguste andmine.</dd>\n"
+"   <dt>Taksonoomia</dt><dd>Asjade kogumi jaotamine järjestatud, "
+"kategoriseeritud gruppidesse. (Vaata <a href=\"%taxonomy\">taxonomy help</"
+"a>.)</dd>\n"
+"   <dt>Avaldamata</dt><dd>Sisu objekt, mis on kättesaadav vaid "
+"administraatoritele ja moderaatoritele.</dd>\n"
+"   <dt>Kasutaja</dt><dd>Isik, kel on kasutajakonto sinu lehel ja on sisse "
+"logitud selle konto kaudu.</dd>\n"
+"   <dt>Külastaja</dt><dd>Isik, kel puudub kasutajakonto sinu lehel või isik, "
+"kel on kasutajakonto, kuid <strong>pole</strong>sisse logitud. Vaata lisaks "
+"-  \"anonüümne kasutaja\".</dd>\n"
+"  </dl>"
+
+#: modules/help.module:88
+msgid ""
+"The help module displays context sensitive help information. Users can learn "
+"how to use modules and accomplish tasks quicker with less errors by clicking "
+"on links in provided by the help module."
+msgstr ""
+
+#: modules/help.module:89
+msgid ""
+"<p>Modules can make documentation available to other modules with this "
+"module. All user help should be presented using this module.  Some examples "
+"of help: </p>\n"
+"<ul>\n"
+"<li>The name of a module (unused, but there).</li>\n"
+"<li>The description found on the admin/system/modules page.</li>\n"
+"<li>The module's help text, displayed on the admin/help page and through the "
+"module's individual help link.</li>\n"
+"<li>The help for a distributed authorization module (if applicable).</li>\n"
+"<li>The description of a post type (if applicable).</li>\n"
+"</ul>\n"
+msgstr ""
+
+#: modules/help.module:98
+msgid "You can not administer the help system."
+msgstr "Sul ei ole lubatud hallata abiinfo süsteemi."
+
+#: modules/help.module:99
+msgid ""
+"For more information please read the configuration and customization "
+"handbook <a href=\"%help\">Help page</a>."
+msgstr ""
+
+#: modules/help.module:102
+msgid "Manages the display of online help."
+msgstr "Haldab internetipõhise abi kuvamist."
+
+#: modules/help.module:114
+msgid "No help is available for module %module."
+msgstr "Mooduli %module jaoks puudub abiinfo."
+
+#: modules/legacy.module:15
+msgid ""
+"The legacy module provides legacy handlers for upgrades from older "
+"installations.  These handlers help automatically redirect references to "
+"pages from old installations and prevent <em>page not found</em> errors for "
+"your site."
+msgstr ""
+
+#: modules/legacy.module:16
+msgid ""
+"The legacy module handles legacy style taxonomy page, taxonomy feed, and "
+"blog feed paths.  It also handles URL upgrades from Drupal 4.1.   It "
+"rewrites old-style URLs to new-style URLs (clean URLs). "
+msgstr ""
+
+#: modules/legacy.module:17
+msgid ""
+"<p>Example Mappings:</p>\n"
+"<ul>\n"
+"<li><em>taxonomy/page/or/52,97</em> to <em>taxonomy/term/52+97</em>.</li>\n"
+"<li><em>taxonomy/feed/or/52,97</em> to <em>taxonomy/term/52+97/0/feed</em>.</"
+"li>\n"
+"<li><em>blog/feed/52</em> to <em>blog/52/feed</em>.</li>\n"
+"<li><em>node/view/52</em> to <em>node/52</em>.</li>\n"
+"<li><em>book/view/52</em> to <em>node/52</em>.</li>\n"
+"<li><em>user/view/52</em> to <em>user/52</em>.</li>\n"
+"</ul>\n"
+msgstr ""
+
+#: modules/legacy.module:27
+msgid "Legacy module has no configurable options."
+msgstr "Pärandi moodulil puuduvad konfigureeritavad seaded."
+
+#: modules/legacy.module:28
+msgid ""
+"For more information please read the configuration and customization "
+"handbook <a href=\"%legacy\">Legacy page</a>."
+msgstr ""
+
+#: modules/legacy.module:31
+msgid "Provides legacy handlers for upgrades from older Drupal installations."
+msgstr "Võimaldab vanemate Drupali versioonide asendamist uuematega."
+
+#: modules/legacy.module:122
+msgid "Legacy filter"
+msgstr "Pärandi filter"
+
+#: modules/legacy.module:125
+msgid "Replaces URLs from Drupal 4.1 (and lower) with updated equivalents."
+msgstr ""
+"Asendab Drupal 4.1 (ja eelnevate) versioonide URL-id uuendatud vastetega."
+
+#: modules/legacy.module:0
+msgid "legacy"
+msgstr "pärand"
+
+#: modules/ping.module:15
+msgid ""
+"The ping module is useful for notifying interested sites that your site has "
+"changed.  It automatically sends notifications (called \"pings\") to the <a "
+"href=\"%external-http-pingomatic-com\">pingomatic</a> service to tell it "
+"that your site has changed. In turn pingomatic will ping other services such "
+"as weblogs.com, Technorati, blo.gs, BlogRolling, Feedster.com, Moreover, etc."
+msgstr ""
+"Pingimise moodul võib automaatselt saata teateid (ing. k. \"pings\")  sinu "
+"lehel toimunud muudatustest. See saadab automaatselt teateid %pingomatic-le "
+"teavitamaks lehel toimunud muudatustest. pingomatic.com omakorda teavitab "
+"teisi teenuseid nagu weblogs.com, Technorati, blo.gs, BlogRolling, Feedster."
+"com, Moreover jne."
+
+#: modules/ping.module:16
+msgid ""
+"The ping module requires <code>cron</code> or a similar periodic job "
+"scheduler to be enabled."
+msgstr ""
+"Ping moodul eeldab <code>cron</code>või mõne muu sarnase perioodilise "
+"teostuse ajakava võimaldamist."
+
+#: modules/ping.module:17
+msgid ""
+"<p>You can:</p>\n"
+"<ul>\n"
+"<li> enable or disable the ping module at <a href=\"%admin-modules"
+"\">administer &gt;&gt; modules</a>.</li>\n"
+"<li>run your cron job at your sites <a href=\"%file-cron\">cron page</a>.</"
+"li>\n"
+"<li>read about <a href=\"%external-http-drupal-org-node-23714\">configuring "
+"cron jobs</a>.</li>\n"
+"</ul></p>\n"
+msgstr ""
+
+#: modules/ping.module:24
+msgid ""
+"For more information please read the configuration and customization "
+"handbook <a href=\"%ping\">Ping page</a>."
+msgstr ""
+
+#: modules/ping.module:66
+msgid "Failed to notify pingomatic.com (site)."
+msgstr "Viga pingomatic.com (site) teavitamisel."
+
+#: modules/ping.module:0
+msgid "ping"
+msgstr "ping"
+
+#: modules/story.module:15
+msgid ""
+"The story module is used to create a content post type called <em>stories.</"
+"em> Stories are articles in their simplest form: they have a title, a teaser "
+"and a body. Stories are typically used to post news articles or as a group "
+"blog. "
+msgstr ""
+
+#: modules/story.module:16
+msgid ""
+"The story administration interface allows for complex configuration. It "
+"provides a submission form, workflow, default view permission, default edit "
+"permission, permissions for permission, and attachments.  Trackbacks can "
+"also be enabled."
+msgstr ""
+
+#: modules/story.module:17
+msgid ""
+"<p>You can</p>\n"
+"<ul>\n"
+"<li>post a story at <a href=\"%node-add-story\">create content &gt;&gt; "
+"story</a>.</li>\n"
+"<li>configure story at <a href=\"%admin-node-configure-types\"> administer "
+"&gt;&gt; content &gt;&gt; configure types &gt;&gt; story configure</a>.</"
+"li>\n"
+"</ul>\n"
+msgstr ""
+
+#: modules/story.module:23
+msgid ""
+"For more information please read the configuration and customization "
+"handbook <a href=\"%story\">Story page</a>."
+msgstr ""
+"Informatsiooni saamiseks loe konfigureerimise ja kohandamise juhendi <a href="
+"\"%story\">lehte</a>."
+
+#: modules/story.module:26
+msgid "Allows users to submit stories, articles or similar content."
+msgstr "Lubab kasutajatel lisada lugusid, artikleid ja muud sarnast sisu."
+
+#: modules/story.module:28
+msgid ""
+"Stories are articles in their simplest form: they have a title, a teaser and "
+"a body, but can be extended by other modules. The teaser is part of the body "
+"too. Stories may be used as a personal blog or for news articles."
+msgstr ""
+"Lugu on kõige lihtsam artikkli formaat: neil on pealkiri, sissejuhatus ja "
+"sisu, kuid neid võib täiendada teiste moodulite kaudu. Sissejuhatus on osa "
+"sisust. Lugusid võib kasutada isikliku ajaveebi kannete või uudiste jaoks."
+
+#: modules/story.module:36 ;70;0
+msgid "story"
+msgstr "lugu"
+
+#: modules/story.module:43
+msgid "create stories"
+msgstr "lisa lugusid"
+
+#: modules/story.module:43
+msgid "edit own stories"
+msgstr "muuda enda lugusid"
+
+#: themes/engines/phptemplate/phptemplate.engine:28
+msgid "left sidebar"
+msgstr "vasak menüüriba"
+
+#: themes/engines/phptemplate/phptemplate.engine:29
+msgid "right sidebar"
+msgstr "oarem menüüriba"
+
+#: themes/engines/phptemplate/phptemplate.engine:31
+msgid "header"
+msgstr "päis"
+
+#: themes/engines/phptemplate/phptemplate.engine:32
+msgid "footer"
+msgstr "jalus"
+
+#: themes/engines/phptemplate/phptemplate.engine:251 ;271
+msgid "Submitted by %a on %b."
+msgstr "Lisas %a  %b."
+
+#: themes/engines/phptemplate/phptemplate.engine:327
+msgid ""
+"PHPTemplate was instructed to override the %name theme function, but no "
+"valid template file was found."
+msgstr ""
+"PHPTemplate juhendati %name kujunduse funktsiooni üle kirjutama,kuid kohast "
+"templiidifaili ei ole leidunud."
+
+#: includes/common.inc:261
+msgid "Site offline"
+msgstr "Kodulehekülg on maas"
+
+#: includes/common.inc:271
+msgid "%page not found."
+msgstr "%page ei leitud."
+
+#: includes/common.inc:281
+msgid "Page not found"
+msgstr "Lehekülge ei leitud"
+
+#: includes/common.inc:291
+msgid "%page denied access."
+msgstr "Lehele %page on juurdepääs keelatud."
+
+#: includes/common.inc:301
+msgid "Access denied"
+msgstr "Juurdepääs keelatud"
+
+#: includes/common.inc:302
+msgid "You are not authorized to access this page."
+msgstr "Sul puuduvad juurdepääsuõigused sellele lehele."
+
+#: includes/common.inc:464
+msgid "%message in %file on line %line."
+msgstr "%message %file -s real %line."
+
+#: includes/common.inc:546
+msgid "n/a"
+msgstr "puudub"
+
+#: includes/common.inc:812
+msgid "bytes"
+msgstr "baiti"
+
+#: includes/common.inc:815
+msgid "KB"
+msgstr "KB"
+
+#: includes/common.inc:819
+msgid "MB"
+msgstr "MB"
+
+#: includes/common.inc:821
+msgid "%size %suffix"
+msgstr "%suffix %size"
+
+#: includes/common.inc:849
+msgid "0 sec"
+msgstr "0 sek"
+
+#: includes/common.inc:271
+msgid "page not found"
+msgstr "lehekülge ei leitud"
+
+#: includes/common.inc:291
+msgid "access denied"
+msgstr "juurdepääs keelatud"
+
+#: includes/common.inc:0
+msgid "1 year"
+msgid_plural "%count years"
+msgstr[0] "1 aasta"
+msgstr[1] "%count aastat"
+
+#: includes/common.inc:0
+msgid "1 week"
+msgid_plural "%count weeks"
+msgstr[0] "1 nädal"
+msgstr[1] "%count nädalat"
+
+#: includes/common.inc:0
+msgid "1 day"
+msgid_plural "%count days"
+msgstr[0] "1 päev"
+msgstr[1] "%count päeva"
+
+#: includes/common.inc:0
+msgid "1 hour"
+msgid_plural "%count hours"
+msgstr[0] "1 tund"
+msgstr[1] "%count tundi"
+
+#: includes/common.inc:0
+msgid "1 min"
+msgid_plural "%count min"
+msgstr[0] "1 min"
+msgstr[1] "%count min"
+
+#: includes/common.inc:0
+msgid "1 sec"
+msgid_plural "%count sec"
+msgstr[0] "1 sek"
+msgstr[1] "%count sek"
+
+#: modules/forum.module:15
+msgid ""
+"The forum module lets you create threaded discussion forums for a particular "
+"topic on your site. This is similar to a message board system such as phpBB. "
+"Forums are very useful because they allow community members to discuss "
+"topics with one another, and they are archived for future reference."
+msgstr ""
+
+#: modules/forum.module:16
+msgid ""
+"Forums can be organized under what are called <em>containers</em>. "
+"Containers hold forums and, in turn, forums hold threaded discussions. Both "
+"containers and forums can be placed inside other containers and forums. By "
+"planning the structure of your containers and forums well, you make it "
+"easier for users to find a topic area of interest to them.  Forum topics can "
+"be moved by selecting a different forum and can be left in the existing "
+"forum by selecting <em>leave a shadow copy</em>.  Forum topics can also have "
+"their own URL."
+msgstr ""
+
+#: modules/forum.module:17
+msgid ""
+"Forums module <strong>requires Taxonomy and Comments module</strong> be "
+"enabled."
+msgstr ""
+
+#: modules/forum.module:18
+msgid ""
+"<p>You can</p>\n"
+"<ul>\n"
+"<li>administer forums at <a href=\"%admin-forum\">administer &gt;&gt; "
+"forums</a>.</li>\n"
+"<li>enable the required comment and taxonomy modules at <a href=\"%admin-"
+"modules\">administer &gt;&gt; modules</a>.</li>\n"
+"<li>read about the comment module at <a href=\"%admin-help-comment"
+"\">administer &gt;&gt; help &gt;&gt; comment</a>.</li>\n"
+"<li>read about the taxonomy module at <a href=\"%admin-help-taxonomy"
+"\">administer &gt;&gt; help &gt;&gt; taxonomy</a>.</li>\n"
+"</ul>\n"
+msgstr ""
+
+#: modules/forum.module:26
+msgid ""
+"For more information please read the configuration and customization "
+"handbook <a href=\"%forum\">Forum page</a>."
+msgstr ""
+
+#: modules/forum.module:29
+msgid "Enables threaded discussions about general topics."
+msgstr ""
+
+#: modules/forum.module:31
+msgid ""
+"<p>This is a list of existing containers and forums that you can edit. "
+"Containers hold forums and, in turn, forums hold threaded discussions. Both "
+"containers and forums can be placed inside other containers and forums. By "
+"planning the structure of your containers and forums well, you make it "
+"easier for users to find a topic area of interest to them.</p>"
+msgstr ""
+
+#: modules/forum.module:33
+msgid ""
+"<p>Containers help you organize your forums. The job of a container is to "
+"hold, or contain, other forums that are related. For example, a container "
+"named \"Food\" might hold two forums named \"Fruit\" and \"Vegetables\".</p>"
+msgstr ""
+
+#: modules/forum.module:35
+msgid ""
+"<p>A forum holds discussion topics that are related. For example, a forum "
+"named \"Fruit\" might contain topics titled \"Apples\" and \"Bananas\".</p>"
+msgstr ""
+
+#: modules/forum.module:37
+msgid ""
+"This is where you can configure system-wide options for how your forums act "
+"and display."
+msgstr ""
+
+#: modules/forum.module:39
+msgid "Create a new topic for discussion in the forums."
+msgstr ""
+
+#: modules/forum.module:47;459
+msgid "forum topic"
+msgstr ""
+
+#: modules/forum.module:131
+msgid "Created new forum container %term."
+msgstr ""
+
+#: modules/forum.module:134
+msgid "The forum container %term has been updated."
+msgstr ""
+
+#: modules/forum.module:137
+msgid "The forum container %term has been deleted."
+msgstr ""
+
+#: modules/forum.module:144
+msgid "Created new forum %term."
+msgstr ""
+
+#: modules/forum.module:147
+msgid "The forum %term has been updated."
+msgstr ""
+
+#: modules/forum.module:150
+msgid "The forum %term has been deleted."
+msgstr ""
+
+#: modules/forum.module:187
+msgid "Are you sure you want to delete the forum %name?"
+msgstr ""
+
+#: modules/forum.module:188
+msgid ""
+"Deleting a forum or container will delete all sub-forums as well. This "
+"action cannot be undone."
+msgstr ""
+
+#: modules/forum.module:197
+msgid "Container name"
+msgstr ""
+
+#: modules/forum.module:197
+msgid "The container name is used to identify related forums."
+msgstr ""
+
+#: modules/forum.module:201
+msgid ""
+"When listing containers, those with with light (small) weights get listed "
+"before containers with heavier (larger) weights. Containers with equal "
+"weights are sorted alphabetically."
+msgstr ""
+
+#: modules/forum.module:219
+msgid "Forum name"
+msgstr ""
+
+#: modules/forum.module:219
+msgid "The forum name is used to identify related discussions."
+msgstr ""
+
+#: modules/forum.module:223
+msgid ""
+"When listing forums, those with with light (small) weights get listed before "
+"containers with heavier (larger) weights. Forums with equal weights are "
+"sorted alphabetically."
+msgstr ""
+
+#: modules/forum.module:271
+msgid ""
+"Containers are usually placed at the top (root) level of your forum but you "
+"can also place a container inside a parent container or forum."
+msgstr ""
+
+#: modules/forum.module:274
+msgid ""
+"You may place your forum inside a parent container or forum, or at the top "
+"(root) level of your forum."
+msgstr ""
+
+#: modules/forum.module:290;486
+msgid "edit container"
+msgstr ""
+
+#: modules/forum.module:293;489
+msgid "edit forum"
+msgstr ""
+
+#: modules/forum.module:299
+msgid ""
+"There are no existing containers or forums. You may add some on the <a href="
+"\"%container\">add container</a> or <a href=\"%forum\">add forum</a> pages."
+msgstr ""
+
+#: modules/forum.module:329
+msgid "Forum icon path"
+msgstr ""
+
+#: modules/forum.module:329
+msgid ""
+"The path to the forum icons.  Leave blank to disable icons. Don't add a "
+"trailing slash.  Default icons are available in the \"misc\" directory. You "
+"may use images of whatever size you wish, but it is recommended to use 15x15 "
+"or 16x16. "
+msgstr ""
+
+#: modules/forum.module:331
+msgid "Hot topic threshold"
+msgstr ""
+
+#: modules/forum.module:331
+msgid "The number of posts a topic must have to be considered hot."
+msgstr ""
+
+#: modules/forum.module:333
+msgid "Topics per page"
+msgstr ""
+
+#: modules/forum.module:333
+msgid ""
+"The default number of topics displayed per page; links to browse older "
+"messages are automatically being displayed."
+msgstr ""
+
+#: modules/forum.module:334
+msgid "Posts - most active first"
+msgstr ""
+
+#: modules/forum.module:334
+msgid "Posts - least active first"
+msgstr ""
+
+#: modules/forum.module:335
+msgid "Default order"
+msgstr ""
+
+#: modules/forum.module:335
+msgid "The default display order for topics."
+msgstr ""
+
+#: modules/forum.module:358;374
+msgid "Active forum topics"
+msgstr ""
+
+#: modules/forum.module:359;383
+msgid "New forum topics"
+msgstr ""
+
+#: modules/forum.module:363
+msgid "Number of topics"
+msgstr ""
+
+#: modules/forum.module:393
+msgid "Read the latest forum topics."
+msgstr ""
+
+#: modules/forum.module:437
+msgid "previous forum topic"
+msgstr ""
+
+#: modules/forum.module:441
+msgid "next forum topic"
+msgstr ""
+
+#: modules/forum.module:462;467
+msgid "forums"
+msgstr ""
+
+#: modules/forum.module:475
+msgid "add container"
+msgstr ""
+
+#: modules/forum.module:478
+msgid "add forum"
+msgstr ""
+
+#: modules/forum.module:555
+msgid "You have to specify a subject."
+msgstr ""
+
+#: modules/forum.module:565
+msgid ""
+"The item %forum is only a container for forums. Please select one of the "
+"forums below it."
+msgstr ""
+
+#: modules/forum.module:598
+msgid "Leave shadow copy"
+msgstr ""
+
+#: modules/forum.module:598
+msgid ""
+"If you move this topic, you can leave a link in the old forum to the new "
+"forum."
+msgstr ""
+
+#: modules/forum.module:629
+msgid "%time ago<br />by %author"
+msgstr ""
+
+#: modules/forum.module:722
+msgid "Topic"
+msgstr ""
+
+#: modules/forum.module:724
+msgid "Created"
+msgstr ""
+
+#: modules/forum.module:725
+msgid "Last reply"
+msgstr ""
+
+#: modules/forum.module:808
+msgid ""
+"The forum module requires both the taxonomy module and the comment module to "
+"be enabled and configured."
+msgstr ""
+
+#: modules/forum.module:854
+msgid "My forum discussions."
+msgstr ""
+
+#: modules/forum.module:857
+msgid "Active forum discussions."
+msgstr ""
+
+#: modules/forum.module:861
+msgid "Post new forum topic."
+msgstr ""
+
+#: modules/forum.module:864
+msgid "You are not allowed to post a new forum topic."
+msgstr ""
+
+#: modules/forum.module:867
+msgid "<a href=\"%login\">Login</a> to post a new forum topic."
+msgstr ""
+
+#: modules/forum.module:885
+msgid "No forums defined"
+msgstr ""
+
+#: modules/forum.module:902
+msgid "Forum"
+msgstr ""
+
+#: modules/forum.module:902
+msgid "Topics"
+msgstr ""
+
+#: modules/forum.module:902
+msgid "Posts"
+msgstr ""
+
+#: modules/forum.module:935;970
+msgid "%a new"
+msgstr ""
+
+#: modules/forum.module:963
+msgid "This topic has been moved"
+msgstr ""
+
+#: modules/forum.module:71
+msgid "create forum topics"
+msgstr ""
+
+#: modules/forum.module:71
+msgid "edit own forum topics"
+msgstr ""
+
+#: modules/forum.module:71
+msgid "administer forums"
+msgstr ""
+
+#: modules/forum.module:0
+msgid "forum"
+msgstr ""
+
+#: modules/locale.module:22
+msgid ""
+"The locale module allows you to present your Drupal site in a language other "
+"than the default English. You can use it to set up a multi-lingual web site "
+"or replace given <em>built-in</em> text with text which has been customized "
+"for your site. Whenever the locale module encounters text which needs to be "
+"displayed, it tries to translate it into the currently selected language. If "
+"a translation is not available, then the string is remembered, so you can "
+"look up untranslated strings easily."
+msgstr ""
+"Lokaliseerimise moodul võimaldab Drupali-põhise kodulehe kuvamist muudes "
+"keeltes peale vaikimisi valitud inglise keele. Selle mooduli abil on "
+"võimalik luua mitmekeelseid kodulehekülgi või asendada  <em>vaikimisi "
+"kuvatud</em> tekst kohasemaga. Iga kord kui lokaliseerimise moodul leiab "
+"kuvatava teksti üritab see teksti tõlkida valitud keelde. Kui tõlge puudub, "
+"märgistatakse see, mis omakorda võimaldab tõlkimtata tekste hiljem kergelt "
+"leida."
+
+#: modules/locale.module:23
+msgid ""
+"The locale module provides two options for providing translations. The first "
+"is the integrated web interface, via which you can search for untranslated "
+"strings, and specify their translations. An easier and less time-consuming "
+"method is to import existing translations for your language.  These "
+"translations are available as <em>GNU gettext Portable Object files</em> "
+"(<em>.po</em> files for short).  Translations for many languages are "
+"available for download from the translation page."
+msgstr ""
+
+#: modules/locale.module:24
+msgid ""
+"If an existing translation does not meet your needs, the <em>.po</em> files "
+"are easily edited with special editing tools. The locale module's import "
+"feature allows you to add strings from such files into your site's database. "
+"The export functionality enables you to share your translations with others, "
+"generating Portable Object files from your site strings."
+msgstr ""
+
+#: modules/locale.module:25
+msgid ""
+"<p>You can</p>\n"
+"<ul>\n"
+"<li>administer localization at <a href=\"%admin-locale\">administer &gt;&gt; "
+"localization</a>.</li>\n"
+"<li>manage strings for the localization: <a href=\"%admin-locale-string-"
+"search\">administer &gt;&gt; localization &gt;&gt; manage strings</a>.</li>\n"
+"<li>add a locale language: <a href=\"%admin-locale-language-add\">administer "
+"&gt;&gt; localization &gt;&gt; add language</a>.</li>\n"
+"<li>download translation files from the <a href=\"%external-http-drupal-org-"
+"project-Translations\">Drupal translations page</a>.\n"
+"</li>\n"
+"</ul>\n"
+msgstr ""
+
+#: modules/locale.module:34
+msgid ""
+"For more information please read the configuration and customization "
+"handbook <a href=\"%locale\">Locale page</a>."
+msgstr ""
+"Lisainfot leiad konfiguratsiooni ja kohaldamise käsiraamatu <a href=\"%locale"
+"\">lokaliseerimise lehelt</a>."
+
+#: modules/locale.module:37
+msgid ""
+"Enables the translation of the user interface to languages other than "
+"English."
+msgstr "Võimaldab kasutajaliidese tõlkimist teistesse keeletesse."
+
+#: modules/locale.module:40
+msgid ""
+"<p>Drupal provides support for the translation of its interface text into "
+"different languages.  This page provides an overview of the installed "
+"languages. You can add a language on the <a href=\"%add-language\">add "
+"language page</a>, or directly by <a href=\"%import\">importing a "
+"translation</a>. If multiple languages are enabled, registered users will be "
+"able to set their preferred language.  The site default will be used for "
+"anonymous visitors and for users without their own settings.</p><p>Drupal "
+"interface translations may be added or extended by several courses: by <a "
+"href=\"%import\">importing</a> an existing translation, by <a href=\"%search"
+"\">translating everything</a> from scratch, or by a combination of these "
+"approaches.</p>"
+msgstr ""
+
+#: modules/locale.module:42
+msgid ""
+"<p>You need to add all languages in which you would like to display the site "
+"interface. If you can't find the desired language in the quick-add dropdown, "
+"then you will need to provide the proper language code yourself. The "
+"language code may be used to negotiate with browsers and to present flags, "
+"etc., so it is important to pick a code that is standardised for the desired "
+"language. You can also add a language by <a href=\"%import\">importing a "
+"translation</a>.</p>"
+msgstr ""
+
+#: modules/locale.module:44
+msgid ""
+"<p>This page allows you to import a translation provided in the gettext "
+"Portable Object (.po) format.  The easiest way to get your site translated "
+"is to obtain an existing Drupal translation and to import it.  You can find "
+"existing translations on the <a href=\"%url\">Drupal translation page</a>. "
+"Note that importing a translation file might take a while.</p>"
+msgstr ""
+"<p>Sel lehel on võimalik importida olemasolev Portable Object (.po) "
+"formaadis tõlge. Kõige lihtsam moodus kodulehe tõlkimiseks on juba "
+"eksisteeriva Drupali tõlke hankimise ja importimise teel. Olemasolevad "
+"tõlked leiad <a href=\"%url\">Drupali tõlgete lehelt</a>. Meeles tuleks "
+"pidada, et tõlkefaili importimine on üsna ajamahukas tegevus."
+
+#: modules/locale.module:46
+msgid ""
+"<p>This page allows you to export Drupal strings. The first option is to "
+"export a translation so it can be shared.  The second option generates a "
+"translation template, which contains all Drupal strings, but without their "
+"translations. You can use this template to start a new translation using "
+"various software packages designed for this task.</p>"
+msgstr ""
+
+#: modules/locale.module:48
+msgid ""
+"<p>It is often convenient to get the strings from your setup on the <a href="
+"\"%export\">export page</a>, and use a desktop Gettext translation editor to "
+"edit the translations.  On this page you can search in the translated and "
+"untranslated strings, and the default English texts provided by Drupal.</p>"
+msgstr ""
+"<p>Üsna tihti on otstarbekam hakida tõlkefail<a href=\"%export"
+"\">eksportimise lehelt</a> ning sejärel muuta tõlkeid Gettext tekstieditori "
+"abil. Sel lehel on võimalik otsida tõlgitud ja tõlkimata tekstide seast ning "
+"Drupali vaikimisi valitud ingliskeelsete tekstide seast.</p>"
+
+#: modules/locale.module:62
+msgid "localization"
+msgstr "lokaliseerimine"
+
+#: modules/locale.module:66
+msgid "manage languages"
+msgstr "halda keeli"
+
+#: modules/locale.module:68
+msgid "manage strings"
+msgstr "halda tekste"
+
+#: modules/locale.module:76
+msgid "add language"
+msgstr "lisa keel"
+
+#: modules/locale.module:79
+msgid "import"
+msgstr "import"
+
+#: modules/locale.module:82
+msgid "export"
+msgstr "eksport"
+
+#: modules/locale.module:87
+msgid "confirm"
+msgstr "kinnita"
+
+#: modules/locale.module:118
+msgid "Interface language settings"
+msgstr "Kasutajaliidese keele määrangud"
+
+#: modules/locale.module:119
+msgid ""
+"Selecting a different locale will change the interface language of the site."
+msgstr "Teise keele valimine muudab kodulehe kasutajaliidese keele."
+
+#: modules/locale.module:312
+msgid "The language %locale has been removed."
+msgstr "%locale keel eemaldati."
+
+#: modules/locale.module:333
+msgid "Are you sure you want to delete the language %name?"
+msgstr "Kas oled kindel, et soovid kustutada %name keele?"
+
+#: modules/locale.module:335
+msgid ""
+"Deleting a language will remove all data associated with it. This action "
+"cannot be undone."
+msgstr ""
+"Keele kustutamise tulemusena eemaldatakse ka kõik sellega seostatud andmed "
+"jäädavalt"
+
+#: modules/locale.module:365
+msgid ""
+"The language code and the English name of the new language must be specified."
+msgstr "Keele kood ja keele inglisekeelne nimi peavad olema määratletud."
+
+#: modules/locale.module:372
+msgid "The language %language (%code) already exists."
+msgstr "%language keel (%code) on juba olemas."
+
+#: modules/locale.module:399
+msgid "The translation import of %filename failed."
+msgstr "%filename tõlke import ebaõnnestus."
+
+#: modules/locale.module:105
+msgid "administer locales"
+msgstr "halda keeli"
+
+#: modules/locale.module:0
+msgid "Jan"
+msgstr "Jaanuar"
+
+#: modules/locale.module:0
+msgid "Feb"
+msgstr "Veebruar"
+
+#: modules/locale.module:0
+msgid "Mar"
+msgstr "Märts"
+
+#: modules/locale.module:0
+msgid "Apr"
+msgstr "Aprill"
+
+#: modules/locale.module:0
+msgid "Jun"
+msgstr "Juuni"
+
+#: modules/locale.module:0
+msgid "Jul"
+msgstr "Juuli"
+
+#: modules/locale.module:0
+msgid "Aug"
+msgstr "August"
+
+#: modules/locale.module:0
+msgid "Sep"
+msgstr "September"
+
+#: modules/locale.module:0
+msgid "Oct"
+msgstr "Oktoober"
+
+#: modules/locale.module:0
+msgid "Nov"
+msgstr "November"
+
+#: modules/locale.module:0
+msgid "Dec"
+msgstr "Detsember"
+
+#: modules/locale.module:0;0
+msgid "Thu"
+msgstr "Neljap"
+
+#: modules/locale.module:0
+msgid "Fri"
+msgstr "Reede"
+
+#: modules/locale.module:0
+msgid "Sat"
+msgstr "Laup"
+
+#: modules/locale.module:0
+msgid "Sun"
+msgstr "Pühap"
+
+#: modules/locale.module:0
+msgid "Mon"
+msgstr "Esmasp"
+
+#: modules/locale.module:0
+msgid "Tue"
+msgstr "Teisip"
+
+#: modules/locale.module:0
+msgid "Wed"
+msgstr "Kolmap"
