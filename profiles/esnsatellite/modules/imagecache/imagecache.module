@@ -738,9 +738,17 @@ function theme_imagecache_formatter($field, $item, $formatter) {
   return $output;
 }
 
+
 function theme_imagecache($namespace, $path, $alt = '', $title = '', $attributes = NULL) {
   $attributes = drupal_attributes($attributes);
-  $imagecache_path = file_create_url(file_directory_path() .'/imagecache/'. $namespace .'/'. $path);
+  /**
+   * DEBUGGED!!! ;) was enough this if...
+   */
+  if(!file_exists(file_create_path('imagecache/'.$namespace.'/'.$path)) && variable_get('clean_url', 0) == 0) {
+  	  $imagecache_path = 'http://'.$_SERVER['HTTP_HOST'].base_path().'?q='.file_directory_path() .'/imagecache/'. $namespace .'/'. $path;
+  } else {
+  	  $imagecache_path = file_create_url(file_directory_path() .'/imagecache/'. $namespace .'/'. $path);
+  }
   return '<img src="'. $imagecache_path .'" alt="'. check_plain($alt) .'" title="'. check_plain($title) .'" '. $attributes .' />';
 }
 
@@ -755,4 +763,10 @@ function imagecache_image_flush($path) {
     $ipath = file_directory_path() .'/imagecache/'. $presetname .'/'. $path;
     file_delete($ipath);
   }
+}
+
+function debug_msg($var, $label = '') {
+	
+	print '<pre>'.$label.print_r($var, true).'</pre>';
+	
 }
