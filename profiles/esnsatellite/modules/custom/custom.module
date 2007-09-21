@@ -1,0 +1,13 @@
+<?php
+function custom_nodeapi(&$node, $op, $teaser, $page) {
+	switch($op) {
+		case 'rss item':
+			$extra = null;
+			if (isset($node->field_image[0])) {
+				$extra = l($node->field_image[0]['view'], "node/$node->nid", array(), null, null, false, true);
+			} 
+			$node->teaser = $extra . $node->teaser;
+			$node->body .= $extra . $node->body;
+		return;
+	}
+}
