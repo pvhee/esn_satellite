@@ -621,7 +621,7 @@ div.item-list ul li{ background: none; }
 #content .view .view-content .item-list ul li {list-style-type: none; margin-left: 0px;} 
 
 #content .status { background: #E5FFCF; border: 2px solid #5D9F27; color: #5D9F27; }
-#content .error {	background: #FFCFD1; border: 3px solid #9F272C; color: #9F272C; }
+#content .error { background: #FFCFD1; border: 3px solid #9F272C; color: #9F272C; }
 
 
 dl.admin-list dd {padding-bottom: 15px; color: #999; font-size: 11px;}
@@ -629,7 +629,6 @@ p.description {margin: 0 0 13px 0}
 tbody {border-top: 0px;}
 
 /* css for news on front page */
-#news {
-	font-size: 11px;
-}
-
+#news {	font-size: 11px;}
+#content .links ul li {padding-left: 25px;}
+ 
