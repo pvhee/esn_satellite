@@ -17,7 +17,16 @@
 		
 		<?php print $styles;?>
 		<?php print $head; ?>
-    	<?php print $scripts; ?>
+    	<?php //print $scripts; ?>
+
+
+<?php
+$js = drupal_add_js('misc/jquery.js', 'core', 'header');
+print drupal_get_js('header', $js);
+?>
+
+
+
 		<script type="text/javascript" src="<?php print $base_path . path_to_theme() ?>/js/jdMenu/jquery.dimensions.js"></script>
 		<script type="text/javascript" src="<?php print $base_path . path_to_theme() ?>/js/jdMenu/jquery.jdMenu.js"></script>	
 
