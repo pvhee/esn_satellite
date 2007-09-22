@@ -1,11 +1,23 @@
 <?php
 function custom_nodeapi(&$node, $op, $teaser, $page) {
+	
+	// enable to debug
+	// debug_msg($node);
+	
 	switch($op) {
 		case 'rss item':
 			$extra = null;
+			
+			// display images in the feed
 			if (isset($node->field_image[0])) {
 				$extra = l($node->field_image[0]['view'], "node/$node->nid", array(), null, null, false, true);
 			} 
+			
+			// display partner logos in the feed
+			if (isset($node->field_logo[0])) {
+				$extra = l($node->field_logo[0]['view'], "node/$node->nid", array(), null, null, false, true);
+			}
+			
 			$node->teaser = $extra . $node->teaser;
 			$node->body .= $extra . $node->body;
 		return;
