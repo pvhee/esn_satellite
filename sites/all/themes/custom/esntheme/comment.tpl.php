@@ -5,5 +5,5 @@
 <h3 class="title"><?php print $title; ?></h3><?php if ($new != '') { ?><span class="new"><?php print $new; ?></span><?php } ?>
     <div class="submitted"><?php print $submitted; ?></div>
     <div class="content"><?php print $content; ?></div>
-    <div class="links">&raquo; <?php print $links; ?></div>
+    <div class="links"><?php print $links; ?></div>
   </div>
