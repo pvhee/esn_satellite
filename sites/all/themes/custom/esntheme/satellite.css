@@ -632,4 +632,6 @@ tbody {border-top: 0px;}
 #news {	font-size: 11px;}
 #content .links ul li {padding-left: 25px;}
 td#content ul.links li {padding-left: 25px;}
+
+li.leaf {list-style: none; padding-left: 20px;}
  
