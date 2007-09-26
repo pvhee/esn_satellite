@@ -1,0 +1,27 @@
+********************************************************************
+Module name             : Birthdays
+Original Author         : David Gildeh
+5.x version by          : Maarten van Grootel
+********************************************************************
+CHANGELOG:
+
+2007-08-10:
+* All code rewritten according to coding guidelines of Drupal
+* Integrated with Profile module
+* Added 2 user options:
+  * Hide year & age
+  * Do not send mail on birthday
+* Shortened settings page
+* Birthday field now optionally on registration form
+* Birthday field now optionally required
+* Optimized and fixed bugs in queries
+* Made queries timezone dependent
+* Made displaying of birthdays independent of timezone
+* Added synchronization between Profile module and Birthdays module
+* Temporarily removed postcard
+* Added theme functions
+* Added proper commenting
+* Blocked users are hidden in the blocks and on the user listing
+
+
+
