@@ -16,6 +16,8 @@ $theme_dir = dirname(__FILE__).DIRECTORY_SEPARATOR.'blocks'.DIRECTORY_SEPARATOR;
 
 $block_default = $theme_dir.'default.tpl.php';
 	
+// print_r($block);	
+	
 if(preg_match($valid_filename, $block->module) && preg_match($valid_filename, $block->delta)) {
 
 	$block_module = $theme_dir.$block->module.'.tpl.php';

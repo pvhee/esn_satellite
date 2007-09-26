@@ -3,14 +3,16 @@ function custom_nodeapi(&$node, $op, $teaser, $page) {
 	
 	// enable to debug
 	// debug_msg($node);
+	// exit;
 	
 	switch($op) {
 		case 'rss item':
 			$extra = null;
+			$extra2 = null;
 			
 			// display images in the feed
 			if (isset($node->field_image[0])) {
-				$extra = l($node->field_image[0]['view'], "node/$node->nid", array(), null, null, false, true);
+				$extra = l($node->field_image[0]['view'], "node/$node->nid", array(), null, null, false, true);				
 			} 
 			
 			// display partner logos in the feed
@@ -18,7 +20,12 @@ function custom_nodeapi(&$node, $op, $teaser, $page) {
 				$extra = l($node->field_logo[0]['view'], "node/$node->nid", array(), null, null, false, true);
 			}
 			
-			$node->teaser = $extra . $node->teaser;
+			// display the news summary in the feed
+			if (isset($node->field_summary[0])) {
+				$extra2 = $node->field_summary[0]['view'];
+			}
+			
+			$node->teaser = $extra . $extra2 . $node->teaser;
 			$node->body .= $extra . $node->body;
 		return;
 	}
