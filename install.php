@@ -490,10 +490,17 @@ function install_select_locale_form($locales) {
 /**
  * Show an error page when there are no profiles available.
  */
+// function install_no_profile_error() {
+//   drupal_maintenance_theme();
+//   drupal_set_title(st('No profiles available'));
+//   print theme('install_page', '<p>'. st('We were unable to find any installer profiles. Installer profiles tell us what modules to enable and what schema to install in the database. A profile is necessary to continue with the installation process.') .'</p>');
+//   exit;
+// }
+
 function install_no_profile_error() {
   drupal_maintenance_theme();
-  drupal_set_title(st('No profiles available'));
-  print theme('install_page', '<p>'. st('We were unable to find any installer profiles. Installer profiles tell us what modules to enable and what schema to install in the database. A profile is necessary to continue with the installation process.') .'</p>');
+  drupal_set_title(st('Welcome to ESN Satellite 2.0'));
+  print theme('install_page', '<p>'. st('You have to dump the database file included in the database folder. Afterwards, edit the sites/default/settings.php page to your database settings and then you should be ready to use your ESN Satellite!') .'</p>');
   exit;
 }
 
