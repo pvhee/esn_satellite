@@ -1,30 +1,16 @@
-$Id: API.txt,v 1.3.4.1 2007/04/27 01:13:31 greggles Exp $
+$Id: API.txt,v 1.3 2006/10/11 21:26:18 greggles Exp $
 
 Implementing automatic aliases for a module
 
-There are three pieces a module must provide to support automatic aliasing 
-(see pathauto_node.inc, pathauto_taxonomy.inc, and pathauto_user.inc for 
-examples). 
-
-Ideally this code will be integrated into a module, but a developer may extend 
+There are three pieces a module which implements its own content type
+must provide to support automatic aliasing (see pathauto_node.inc, 
+pathauto_taxonomy.inc, and pathauto_user.inc for examples). Ideally 
+this code will be integrated into a module, but a developer may extend 
 a module they don't maintain by implementing these functions in a file 
 of the form pathauto_<module>.inc in the pathauto directory.
 
-Note that as of Pathauto 5-2 this API is vastly simplified.  If all you want is
-to enable tokens for your module you will simply need to implement two functions
-
-	hook_token_values
-	hook_token_list
-
-See the token.module for more information about this process.  
-
-Legacy information is retained below - and it may apply if you have a complex 
-module in which case you are encouraged to help the Pathauto maintainers figure 
-out what the below text should say ;)
-
-==================
 1 - Settings hook
-==================
+
 You must implement hook_pathauto($op), where $op is always (at this
 time) 'settings'. Return an object (NOT an array) containing the
 following members, which will be used by pathauto to build a group
@@ -56,10 +42,7 @@ bulkdescr - For modules which support a bulk update operation, a
   translated, more thorough description of what the operation will do 
   (e.g., t('Generate aliases for all existing nodes which do not already have aliases.'))
 
-
-==================
 2 - $alias = pathauto_create_alias($module, $op, $placeholders, $src, $type=NULL)
-==================
 
 At the appropriate time (usually when a new item is being created for
 which a generated alias is desired), call pathauto_create_alias() to
@@ -84,10 +67,7 @@ $type - For modules which provided patternitems in hook_autopath(),
 
 pathauto_create_alias() returns the alias that was created.
 
-
-==================
 3 - Bulk update function
-==================
 
 If a module supports bulk updating of aliases, it must provide a
 function of this form, to be called by pathauto when the corresponding
@@ -101,9 +81,8 @@ recommended that the function report on its success (e.g., with a
 count of created aliases) via drupal_set_message().
 
 
-==================
+
 Modules that extend node and/or taxonomy
-==================
 
 Many contributed Drupal modules extend the core node and taxonomy
 modules. To extend pathauto patterns to support their extensions, they

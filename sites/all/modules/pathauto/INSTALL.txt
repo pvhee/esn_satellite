@@ -11,6 +11,8 @@ your Drupal installation.
 sure "administer pathauto" is enabled through access control administration.
 4. Visit the pathauto settings page:
   When first installing pathauto, to define the desired alias patterns.
+  When installing a new version of pathauto, to have any necessary
+    database and variable upgrades applied.
 
 **Transliteration support:
 
@@ -21,21 +23,5 @@ i18n-ascii.example.txt to i18n-ascii.txt
 You can then freely edit the i18n-ascii.txt without worrying that your changes 
 will be over-written by upgrades of Pathauto.
 
-**Upgrading from previous versions:
-If you are upgrading from Pathauto 5.x-1.x to 5.x-2.x (or 6.x-2.x) then you will
-probably need to change your patterns.
 
-For content patterns:
-    [user] is now [author-name]
-    [cat] is now [term]
-
-There may be other changes as well.  Please review the pattern examples on
-      Administration > Site Configuration > Pathauto 
-
-NOTE: You must also have the token module installed.  If you upgraded from 
-Pathauto 5.x-1.x directly without enabling token first then you will need to
-1) download/install the token module 2) disable the Pathauto module 3) re-enable
-the Pathauto module 4) confirm the dependency on the token module.
-
-
-$Id: INSTALL.txt,v 1.1.4.5 2007/09/02 12:12:28 greggles Exp $
+$Id: INSTALL.txt,v 1.1.2.2 2007/01/17 17:02:42 greggles Exp $
