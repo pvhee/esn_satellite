@@ -91,7 +91,7 @@
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
 $db_url = 'mysql://username:password@localhost/databasename';
-$db_prefix = '';
+$db_prefix = 'satellite2_';
 
 /**
  * Base URL (optional).
