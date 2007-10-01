@@ -17,7 +17,19 @@
   </div>
 
   <div class="content">
-    <?php print $content ?>
+
+	<?php
+		$file = ($node->field_image[0]); 
+		if(!empty($file['filepath'])) {
+			$img_alt = $file['alt'];
+			$img_title = $file['title'];
+			$img_attributes = array('class' => 'left');
+			$img = theme('imagecache', 'mainimage', $file['filepath'], $img_alt, $img_title, $img_attributes);
+			print $img;
+		}
+	?>
+	<p><?php print html_entity_decode($node->content['field_summary']['#value']); ?></p>
+	<?php print html_entity_decode($node->content['body']['#value']); ?>
   </div>
 
 <?php
