@@ -1,0 +1,9 @@
+name = MenuTree
+description = Display a site-map page based on one or more menus
+dependencies = menu
+
+; Information added by drupal.org packaging script on 2007-10-18
+version = "5.x-1.1"
+project = "menutree"
+datestamp = "1192724717"
+
