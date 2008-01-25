@@ -1,17 +1,23 @@
 =======================================
-Satellite 2.0 - Erasmus Student Network
-2006 - 2007, ESN
+Satellite 2.2 - Erasmus Student Network
+2006 - 2008, ESN
 =======================================
 
 
 ---------------------
-ESN Webteam 2006-2007
+ESN Webteam 2006-2008
 ---------------------
 
 * Antonio De Marco
 * Andrea Pescetti
 * Peter Vanhee
 
+------------------------------
+Satellite 2.2: January 25th, 2008
+------------------------------
+
+* updated to drupal 5.6 core
+* upgraded contributed modules
 
 ------------------------------
 New features in SATELLITE 2.0
@@ -24,6 +30,7 @@ Released: September 27th, 2007
 * new modules in the core: i18n, simplenews
 * new admin panel (from Drupal 5.1) with easy-to-use top navigation
 * reworked RSS feeds
+
 
 
 ---------
