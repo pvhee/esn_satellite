@@ -1,0 +1,68 @@
+<?php
+// $Id: birthdays.install,v 1.2.2.7 2007/08/17 09:10:09 maartenvg Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+function birthdays_install() {
+  switch ($GLOBALS['db_type']) {
+    case 'mysql':
+    case 'mysqli':
+      db_query("CREATE TABLE IF NOT EXISTS {dob} (
+        uid int(10) unsigned NOT NULL default 0,
+        birthday date NOT NULL default '0000-00-00',
+        PRIMARY KEY (uid)
+      );");
+
+      // fetch current weight of the profile module, decrease with 1;
+      $weight = db_result(db_query("SELECT weight FROM {system} WHERE name = 'profile'")) - 1;
+      db_query("UPDATE {system} SET weight = $weight WHERE name = 'birthdays'");
+      break;
+    case 'pgsql':
+      // TODO
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_update_N()
+ */
+function birthdays_update_1() {
+  // 2007-08-12 for birthdays.install 1.2.2.2: Ensuring weight is lower than the weight of profile.module.
+  $ret = array();
+
+  switch ($GLOBALS['db_type']) {
+    case 'mysql':
+    case 'mysqli':
+      // fetch current weight of the profile module, decrease with 1;
+      $weight = db_result(db_query("SELECT weight FROM {system} WHERE name = 'profile'")) - 1;
+      $ret[] = update_sql("UPDATE {system} SET weight = $weight WHERE name = 'birthdays'");
+      break;
+    case 'pgsql':
+      // TODO
+      break;
+  }
+
+  return $ret;
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function birthdays_uninstall() {
+  db_query('DROP TABLE {dob}');
+
+  variable_del('birthdays_show_starsign');
+  variable_del('birthdays_field_name');
+  variable_del('birthdays_field_id');
+  variable_del('birthdays_send_user');
+  variable_del('birthdays_send_user_subject');
+  variable_del('birthdays_send_user_message');
+  variable_del('birthdays_remind');
+  variable_del('birthdays_hide_year');
+  variable_del('birthdays_block_number_by_days');
+  variable_del('birthdays_block_number_by_birthdays');
+  variable_del('birthdays_page_show_filters');
+  variable_del('birthdays_page_settings');
+  variable_del('birthdays_page_list_number');
+}

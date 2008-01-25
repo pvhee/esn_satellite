@@ -1,0 +1,175 @@
+<?php
+//$Id: menutree.module,v 1.2.2.8 2008/01/09 04:45:59 crell Exp $
+
+/**
+ * @file
+ * This module provides a simple "site map" tree based on the menu system rather
+ * than on taxonomies.
+ * 
+ * @author Larry Garfield
+ *
+ */
+
+
+/**
+ * Implementation of hook_perm().
+ */
+function menutree_perm() {
+  return array('view site tree', 'administer menu tree');
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function menutree_menu($may_cache) {
+  $items = array();
+
+  if ($may_cache) {
+    $items[] = array(
+      'path' => 'menutree', 
+      'title' => t('Sitemap'),
+      'access' => user_access('view site tree'),
+      'callback' => 'menutree_display',
+      'type' => MENU_CALLBACK,
+    );
+    $items[] = array(
+      'path' => 'admin/build/menutree',
+      'title' => t('Menu trees'),
+      'description' => t('Configure page titles and intro text for menu tree pages.'),
+      'access' => user_access('administer menu tree'),
+      'callback' => 'drupal_get_form',
+      'callback arguments' => 'menutree_settings',
+    );
+  }
+
+  return $items;
+}
+
+/**
+ * Form builder; Display menutree settings form.
+ */
+function menutree_settings() {
+  $form = array();
+  
+  $form['menutree'] = array('#tree' => FALSE);
+  
+  $menus = menu_get_root_menus();
+  foreach ($menus as $mid => $menu) {
+    $open = trim(variable_get('menutree_title_'. $mid, '') . variable_get('menutree_intro_text_'. $mid, ''));
+ 
+    $form['menutree'][$mid] = array(
+      '#type' => 'fieldset',
+      '#title' => $menu,
+      '#collapsible' => TRUE,
+      '#collapsed' => ($open ? FALSE : TRUE),
+      '#description' => t('The path <a href="@link">@path</a> will provide a complete tree of all menu items in this menu.  If you wish to set a custom title or header text, do so here.', array(
+        '@link' => url('menutree/'. $mid),  
+        '@path' => 'menutree/'. $mid,
+      )),
+    );
+    $form['menutree'][$mid]['menutree_title_'. $mid] = array(
+      '#type' => 'textfield',
+      '#title' => t('Page title'),
+      '#default_value' => variable_get('menutree_title_'. $mid, ''),
+      '#description' => t('A page title that is displayed instead of the root menu item title.'),
+    );
+    $form['menutree'][$mid]['menutree_intro_text_'. $mid] = array(
+      '#type' => 'textarea',
+      '#title' => t('Intro text'),
+      '#default_value' => variable_get('menutree_intro_text_'. $mid, ''),
+      '#resizable' => TRUE,
+      '#description' => t('An intro text that is displayed below the page title.'),
+    );
+  }
+  
+  return system_settings_form($form);
+}
+
+/**
+ * Display a fully-expanded version of the menu specified on the path
+ *
+ * @param int $pid
+ *  The menu to display.  If none is specified, we default to the Primary Links menu
+ */
+function menutree_display($pid = 0) {
+  $output = '';
+  
+  // Default to the Primary Links menu
+  if (!$pid) {
+    $pid = variable_get('menu_primary_menu', 0);
+  }
+  
+  $menu = menu_get_item($pid);
+  if (empty($menu)) {
+    drupal_not_found();
+  }
+  
+  $title = variable_get('menutree_title_'. $pid, '');
+  drupal_set_title(check_plain($title ? $title : $menu['title']));
+  $intro = variable_get('menutree_intro_text_'. $pid, '');
+  
+  // Output custom intro text.
+  if (!empty($intro)) {
+    $output .= check_markup($intro, FILTER_FORMAT_DEFAULT, FALSE);
+  }
+  
+  $tree = theme('menutree_tree', $pid);
+  $output .= theme('menutree_page', $tree);
+  
+  return $output;
+}
+
+/**
+ * Generate the HTML for a menu tree.
+ *
+ * @param $pid
+ *   The parent id of the menu.
+ *
+ * @ingroup themeable
+ */
+function theme_menutree_tree($pid = 1) {
+  if ($tree = menutree_tree($pid)) {
+    return "\n<ul class=\"menu\">\n". $tree ."\n</ul>\n";
+  }
+}
+
+/**
+ * Returns a rendered menu tree.
+ * 
+ * This is a near-direct copy of menu_tree() from menu.inc.
+ * The only difference is that we always call theme(menutree_tree) on the item 
+ * rather than only if it's in the breadcrumb
+ *
+ * @param $pid
+ *   The parent id of the menu.
+ */
+function menutree_tree($pid = 1) {
+  $menu = menu_get_menu();
+  $output = '';
+
+  if (isset($menu['visible'][$pid]) && $menu['visible'][$pid]['children']) {
+    foreach ($menu['visible'][$pid]['children'] as $mid) {
+      $type = isset($menu['visible'][$mid]['type']) ? $menu['visible'][$mid]['type'] : NULL;
+      $children = isset($menu['visible'][$mid]['children']) ? $menu['visible'][$mid]['children'] : NULL;
+      $output .= theme('menu_item', $mid, theme('menutree_tree', $mid), count($children) == 0);
+    }
+  }
+
+  return $output;
+}
+
+/**
+ * Theme the menutree
+ * 
+ * In practice this is already themed into lists, so this just wraps it in a div
+ *
+ * @param string $output
+ *  The menutree, pre-rendered
+ * @ingroup themeable
+ */
+function theme_menutree_page($output) {
+  
+  return '<div class="menutree-page">' . $output . "</div>\n";
+  
+}
+
