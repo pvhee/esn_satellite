@@ -1,9 +1,0 @@
-; $Id: birthdays.info,v 1.1.2.1 2007/08/10 10:15:48 maartenvg Exp $
-name = Birthdays
-description = Displays and reminds of upcoming users birthdays.
-dependencies = profile
-; Information added by drupal.org packaging script on 2007-11-06
-version = "5.x-1.0"
-project = "birthdays"
-datestamp = "1194374712"
-
