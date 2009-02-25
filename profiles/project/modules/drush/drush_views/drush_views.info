@@ -1,0 +1,7 @@
+; $Id$
+name = Drush Views
+description = List, import and export views from Drush.
+package = Drush
+dependencies[] = drush
+dependencies[] = views
+core = 6.x

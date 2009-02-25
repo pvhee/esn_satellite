@@ -1,0 +1,13 @@
+; $Id: demo.info,v 1.6 2008/02/13 23:38:55 sun Exp $
+name = Demo Site
+description = Create snapshots and reset the site for demonstration or testing purposes.
+package = Development
+core = 6.x
+
+
+; Information added by drupal.org packaging script on 2008-04-28
+version = "6.x-1.1"
+core = "6.x"
+project = "demo"
+datestamp = "1209423307"
+

@@ -1,0 +1,31 @@
+$items[] = array (
+  'namespace' => 'context_ui',
+  'attribute' => 'section',
+  'value' => 'events',
+  'node' => 
+  array (
+    'event' => 'event',
+  ),
+  'views' => 
+  array (
+    'events' => 'events',
+  ),
+  'menu' => 'events',
+  'block' => 
+  array (
+    'views_calendar-calendar_block_1' => 
+    array (
+      'module' => 'views',
+      'delta' => 'calendar-calendar_block_1',
+      'region' => 'right',
+      'weight' => '11',
+    ),
+    'views_calendar-block_1' => 
+    array (
+      'module' => 'views',
+      'delta' => 'calendar-block_1',
+      'region' => 'right',
+      'weight' => '12',
+    ),
+  ),
+);

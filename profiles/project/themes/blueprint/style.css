@@ -1,0 +1,109 @@
+/**
+ * Generic elements
+ */
+a, a:visited, a:link {color: #2b84bc;}
+fieldset { border:1px solid #d9eaf5; }
+h1,h2,h3,h4,h5,h6 {color: #2b84bc;}
+body {background: url(images/layout/bg_color.png);}
+
+/**
+ * Local tasks
+ */
+ul.primary, ul.primary li, ul.secondary, ul.secondary li {  border: 0;  background: none;  margin: 0;  padding: 0;}
+
+#tabs-wrapper {  border-bottom: 1px solid #e9eff3;  position: relative; margin:0 0 2.5em; padding:0;}
+ul.primary {  padding: 0.5em 0 10px;  float: left; /* LTR */ margin-top:0.3em;}
+ul.secondary {  clear: both;  text-align: left; /* LTR */  margin: -0.2em -26px 1em;  padding: 0.7em 26px 0.6em;}
+h2.with-tabs {  float: left; /* LTR */  margin: 0 1em 0 0; /* LTR */  padding: 0;}
+
+ul.primary li a, ul.primary li.active a, ul.primary li a:hover, ul.primary li a:visited,
+ul.secondary li a, ul.secondary li.active a, ul.secondary li a:hover, ul.secondary li a:visited {  border: 0;  background: transparent;  padding: 4px 1em;  margin: 0 0 0 1px; /* LTR */  height: auto;  text-decoration: none;  position: relative;  top: -1px; }
+ul.primary li.active a, ul.primary li.active a:link, ul.primary li.active a:visited, ul.primary li a:hover,
+ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active a:visited, ul.secondary li a:hover {  background: url(images/layout/bg-tab.png) repeat-x 0 50%;  color: #fff;}
+ul.primary li.active a, ul.secondary li.active a { font-weight: bold; }
+
+/**
+ * Primary Links
+ */
+#block-menu_block-1 a {text-transform: uppercase; height: 24px; display: block; padding: 5px 0;}
+#block-menu_block-1 { padding: 10px 0 10px 0px;}
+#block-menu_block-1 ul.menu { margin: 0;}
+#block-menu_block-1 ul.menu li  {height: 24px; list-style: none; float: left;}
+#block-menu_block-1 a span {height: 24px;}
+#block-menu_block-1 ul li a { padding: 0; }
+#block-menu_block-1 ul li a span {padding: 3px 10px 0px 10px; height: 24px; display: block;}
+#block-menu_block-1 ul li {padding: 0;}
+#block-menu_block-1 ul li a.active { color: #fff;}
+#block-menu_block-1 ul li a.active:hover { color: #fff;}
+#block-menu_block-1 ul li a.active {font-weight: normal;}
+#block-menu_block-1 div.content {clear: both;}
+
+#block-menu_block-1 ul li a.active span {background: transparent url(images/layout/tab_l.png) top left no-repeat; color: #fff;}
+#block-menu_block-1 ul li a.active {background: #a5b3bc url(images/layout/tab_r.png) top right no-repeat; font-weight: normal;}
+#block-menu_block-1 ul li a:hover span {background: transparent url(images/layout/tab_l_over.png) top left no-repeat; color: #5c7389;}
+
+
+/*******************************************************************
+ * Color Module: Don't touch                                       *
+ *******************************************************************/
+
+.clear {clear: both;}
+div.container {margin-top: 40px;}
+#shadow { background: url(images/layout/container_bg.png) top center repeat-y;}
+#shadow-top { background: url(images/layout/shadow_top.png) top center no-repeat;}
+#shadow-footer { background: url(images/layout/shadow_footer.png) bottom center no-repeat; padding: 30px 14px 13px 18px; }
+#wrapper { background: url(images/layout/footer_fade.png) bottom center repeat-x; padding:0 15px 150px;}
+
+#header  { height: 143px;}
+#footer { margin-top: 5em; padding-bottom: 1em;}
+
+body, h1, h2, h3, h4, h5, h6 {font-weight: lighter;}
+a, a:visited {text-decoration: none;}
+body {color: #444;}
+
+fieldset legend { background: transparent; border: 0px; display:block; font-size:1em; padding:0 0.4em; }
+fieldset {background: transparent url(images/layout/gradient-inner.png) repeat-x scroll 0 0; margin:1em 0;padding:1em;}
+
+div.help { background: transparent;}
+#block-menu_block-1 ul li a:hover {background: #cccccc  url(images/layout/tab_r_over.png) top right no-repeat; }
+
+.form-item .description {color:#999999;font-family:tahoma;font-size:0.85em;line-height:1.667em;}
+
+div.col-left div.block, div.col-center div.block, div.col-right div.block { border-top:1px solid #CCCCCC; margin-bottom:1.5em; padding: 1.5em 1.5em 0em 0.9em;}
+
+#block-menu_block-2 {font-size: .97em; padding: 0; border-top: 2px solid #ccc; padding-top: 1px;}
+#block-menu_block-2 ul { margin: 0; }
+
+#block-menu_block-2 li { margin: 0; margin: 0; padding:0; }
+
+#block-menu_block-2 a { padding: 5px 0;}
+#block-menu_block-2 a:hover {text-decoration: none;}
+#block-menu_block-2 a.active {font-weight: bold; text-decoration: none; }
+
+#block-menu_block-2 ul li ul { border-top: 0px;padding:0; }
+#block-menu_block-2 ul li ul li ul { border-top: 0px;padding:0; }
+#block-menu_block-2 ul li ul li ul li ul { border-top: 0px;padding:0; }
+#block-menu_block-2 ul li ul li ul li ul li ul { border-top: 0px;padding:0; }
+
+#block-menu_block-2 ul li a {text-transform: uppercase;  padding-left: 10px; font-size:1.1em; border-top: 1px solid #ccc; height: 1.7em; background: white url(images/nav_bg.png) repeat-x; }
+#block-menu_block-2 ul li ul li a {padding-left: 25px; font-size:1em;background: #eaf2f9;}
+#block-menu_block-2 ul li ul li ul li a {padding-left: 40px; font-size:0.9em;background: #ecf4fb;}
+#block-menu_block-2 ul li ul li ul li ul li a {padding-left: 50px; font-size:0.9em;background: #ecf4fb;}
+
+#block-menu_block-2 ul.menu ul { margin: 0em;}
+#block-menu_block-2 ul li, #block-menu_block-2 ul.menu li, #block-menu_block-2 li.leaf { margin: 0;}
+#block-menu_block-2 ul li, #block-menu_block-2 ul.menu li, #block-menu_block-2 li.leaf { list-style-type: none; list-style-image: none; }
+#block-menu_block-2 ul li.leaf a, #block-menu_block-2 ul li.expanded a, #block-menu_block-2 ul li.collapsed a { display: block; _height: 0; }
+#block-menu_block-2 ul.inline li { margin: 0; padding: 0;}
+
+#block-menu_block-2 ul li a:hover {background: #cddbeb;}
+#block-menu_block-2 ul li ul li a:hover {background: #d9e7fa;}
+#block-menu_block-2 ul li ul li ul li a:hover {background: #e1ecfa;}
+#block-menu_block-2 ul li ul li ul li ul li a:hover {background: #e1ecfa;}
+
+#block-menu_block-2 ul li.last a {border-bottom: 1px solid #ccc;}
+
+.w_content {margin: 0 1.5em;}
+
+
+

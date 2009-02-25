@@ -1,0 +1,70 @@
+/* $Id: preview.css,v 1.1 2006/10/29 13:17:38 unconed Exp $ */
+
+/* Positioning */
+#preview {
+  overflow: hidden;
+  max-width: 100%;
+}
+#preview, #preview #img {
+  width: 470px;
+  height: 406px;
+}
+#preview #gradient {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 19px;
+  height: 120px;
+  z-index: 2;
+}
+#preview #text {
+	font-size:0.5em;
+	height:120px;
+	line-height:1.6em;
+	position:absolute;
+	text-align:justify;
+	top:42px;
+	width:440px;
+	z-index:4;
+}
+
+#preview #text {font-family:"Helvetica Neue",Arial,Helvetica,sans-serif; font-weight: lighter;}
+#preview #text h2.p_title {font-size:18px;margin-top:0px;font-weight: lighter}
+#preview #text h2 {margin-left:116px;margin-top:20px;font-weight: lighter}
+#preview #text p {margin-left:116px;}
+#preview #text .p_subtitle {color:#999999;margin-left:116px;margin-top:-4px;}
+#preview #text .p_menu {margin-left:32px;margin-top:21px;}
+#preview #text .p_menu a.first {color: white !important}
+#preview #text .p_menu a {margin-right: 10px;}
+
+
+#preview #img {
+  position: relative;
+  z-index: 3;
+}
+#preview #gradient .gradient-line {
+  height: 10px;
+  overflow: hidden;
+}
+
+/* Basic styles to match */
+#preview {
+  font: 12px/170% Verdana;
+}
+#preview h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 160%;
+  line-height: 130%;
+}
+#preview p {
+  margin: .5em 0;
+}
+#preview a:link, #preview a:visited {
+  text-decoration: none;
+  font-weight: normal;
+}
+#preview a:hover {
+  text-decoration: underline;
+}
+#gradient {display: none;}

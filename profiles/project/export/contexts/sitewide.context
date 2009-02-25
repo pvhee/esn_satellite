@@ -1,0 +1,26 @@
+$items[] = array (
+  'namespace' => 'context_ui',
+  'attribute' => 'sitewide',
+  'value' => 'sitewide',
+  'sitewide' => 
+  array (
+    1 => '1',
+  ),
+  'block' => 
+  array (
+    'menu_menu-quick-links' => 
+    array (
+      'module' => 'menu',
+      'delta' => 'menu-quick-links',
+      'region' => 'right_top',
+      'weight' => '10',
+    ),
+    'search_0' => 
+    array (
+      'module' => 'search',
+      'delta' => '0',
+      'region' => 'right_top',
+      'weight' => '11',
+    ),
+  ),
+);

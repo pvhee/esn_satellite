@@ -1,0 +1,54 @@
+$items[] = array (
+  'namespace' => 'context_ui',
+  'attribute' => 'section',
+  'value' => 'outcomes',
+  'node' => 
+  array (
+    'outcome' => 'outcome',
+  ),
+  'views' => 
+  array (
+    'outcomes' => 'outcomes',
+  ),
+  'spaces' => 
+  array (
+    'label' => 'Outcomes',
+    'description' => 'The outcomes page feature',
+    'menu' => 
+    array (
+      0 => 
+      array (
+        'title' => 'Outcomes [Feature]',
+        'href' => 'outcomes',
+      ),
+    ),
+    'types' => 
+    array (
+      'site' => 'site',
+    ),
+  ),
+  'block' => 
+  array (
+    'views_outcomes-block_2' => 
+    array (
+      'module' => 'views',
+      'delta' => 'outcomes-block_2',
+      'region' => 'right',
+      'weight' => '-13',
+    ),
+    'views_outcomes-block_3' => 
+    array (
+      'module' => 'views',
+      'delta' => 'outcomes-block_3',
+      'region' => 'right',
+      'weight' => '-12',
+    ),
+    'views_outcomes-block_4' => 
+    array (
+      'module' => 'views',
+      'delta' => 'outcomes-block_4',
+      'region' => 'right',
+      'weight' => '-11',
+    ),
+  ),
+);

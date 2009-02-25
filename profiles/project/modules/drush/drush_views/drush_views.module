@@ -1,0 +1,159 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ *
+ */
+
+define('DRUSH_VIEWS_DEFAULT_PATH', "export/views");
+
+/**
+ * Implementation of hook_help().
+ */
+function drush_views_help($section) {
+  switch ($section) {
+      case 'drush:views export':
+        return t("Usage drush [options] views export <views>\n\n"
+                 ."Export the specified views to single .view files.\n"
+                 ."<views> should be a comma-separated list. For example: view1,view2,view3.\n"
+                 ."If <views> is omitted, all views are exported.\n\n"
+                 ."Available options:\n"
+                 ."--target-path=TARGET_PATH\n"
+                 ."  Store exported views in the TARGET_PATH directory.\n"
+                 ."  If omitted, the default path " . DRUSH_VIEWS_DEFAULT_PATH
+                 ." is used.\n");
+      case 'drush:views import':
+        return t("Usage drush [options] views import <views>\n\n"
+                 ."Import the specified views.\n"
+                 ."Existing views will be deleted, or overridden if they are default views.\n"
+                 ."<views> should be a comma-separated list of files, with an optional\n"
+                 .".view extension. For example: file1,file2,file3.\n"
+                 ."If <views> is a directory, all *.view files it contains will be imported.\n"
+                 ."If omitted, the default path ". DRUSH_VIEWS_DEFAULT_PATH ." is used.\n");
+     case 'drush:views list':
+       return t("Usage drush [options] views list\n\n"
+                 ."List all available views.");
+  }
+}
+
+/**
+ * Implementation of hook_drush_command().
+ */
+function drush_views_drush_command() {
+  $items['views export'] = array(
+    'callback' => 'drush_views_export',
+    'description' => 'Export one or more views.',
+  );
+  $items['views import'] = array(
+    'callback' => 'drush_views_import',
+    'description' => 'Import one or more non-default views.',
+  );
+$items['views list'] = array(
+  'callback' => 'drush_views_list',
+  'description' => 'List available views.',
+  );
+  return $items;
+}
+
+function drush_views_export($views = NULL) {
+  $target_path = drush_get_option('target-path');
+  if ($target_path=="")
+    $target_path = DRUSH_VIEWS_DEFAULT_PATH;
+  if (substr($target_path, -1) != "/")
+    $target_path .= "/";
+  $exports = array();
+  if (is_null($views)) {
+    $exports = views_get_all_views();
+  }
+  else {
+    $views = explode(',', $views);
+    foreach ($views as $view) {
+      $retrieved_view = views_get_view($view);
+      if (!is_object($retrieved_view))
+        drush_die(t("View '$view' not found."));
+      else
+        $exports[] = $retrieved_view;
+    }
+  }
+  drush_print(t("Exporting ". count($exports) ." views to directory $target_path:"));
+  @mkdir($target_path, 0777, TRUE);
+  foreach ($exports as $export) {
+    $filename=$target_path ."$export->name.view";
+    drush_print(t("- Exporting view $export->name to file $filename."));
+    if (!$fh = fopen($filename, 'w'))
+      drush_die(t("Cannot open '$filename' for writing."));
+    $code = $export->export();
+    fwrite($fh, $code);
+    fclose($fh);
+  }
+  drush_print(t("Done."));
+  return $result;
+}
+
+function drush_views_import($views = NULL) {
+  if (!$views)
+    $imports = array(DRUSH_VIEWS_DEFAULT_PATH);
+  else
+    $imports = explode(',', $views);
+  // If the user specified a directory name, import all views from there.
+  if (count($imports)==1) {
+    $source_path = $imports[0];
+    if (substr($source_path, -1) != "/")
+      $source_path .= "/";
+    if (is_dir($source_path)) {
+      drush_print(t("Importing all .view files from $source_path."));
+      $imports = glob($source_path ."*.view");
+    }
+  }
+  foreach ($imports as $key => $filename) {
+    if (!file_exists($filename)) {
+      $new_filename = "$filename.view";
+      if (file_exists($new_filename))
+        $imports[$key] = $new_filename;
+      else
+        drush_die("Cannot open file $filename or $new_filename.");
+    }
+  }
+  // Initialize Views.
+  views_include('view');
+  foreach ($imports as $import) {
+    drush_print(t("- Importing views from file $import."));
+    $code=file_get_contents("$import");
+    eval($code);
+    drush_print(t("  Importing view: ". $view->name));
+    $skip = FALSE;
+    if (is_object($old_view = views_get_view($view->name))) {
+      if ($old_view->type == t('Default'))
+        drush_print(t("    View ". $old_view->name ." is a default view, overriding."));
+      else {
+       drush_print(t("    View ". $old_view->name ." already exists, deleting."));
+       $old_view->delete();
+       views_object_cache_clear('view', $view->name);
+      }
+    }
+    drush_print(t("    Saving new view ". $view->name ."."));
+    $view->save();
+    menu_rebuild();
+    cache_clear_all('*', 'cache_views');
+    cache_clear_all();
+    views_object_cache_clear('view', $view->name);
+  }
+  drush_print(t("Done."));
+  return;
+}
+
+function _drush_views_name_sort($a, $b) {
+  return ($a->name < $b->name ? -1 : 1);
+}
+
+function drush_views_list() {
+  $views = views_get_all_views();
+  uasort($views, '_drush_views_name_sort');
+  drush_print(t("Available views:"));
+  foreach ($views as $view) {
+    drush_print("  ". $view->name . ($view->type == t('Default')?" DEFAULT":""));
+  }
+  drush_print(t(count($views) ." views available."));
+  return;
+}

@@ -1,0 +1,431 @@
+$content[type]  = array (
+  'name' => 'Outcome',
+  'type' => 'outcome',
+  'description' => 'An <em>outcome</em> is suitable for presenting outcomes of the project, such as meeting reports with presentations, files, external links, videos and images. The latest inserted outcomes are displayed on the front page.',
+  'title_label' => 'Title',
+  'body_label' => 'Body',
+  'min_word_count' => '10',
+  'help' => 'Specify a title, a text body and optionally a reference date for your outcome.<br/>
+You are required to attach at least one image, and you can attach more images or other files and specify external links.',
+  'node_options' => 
+  array (
+    'status' => true,
+    'promote' => true,
+    'sticky' => false,
+    'revision' => false,
+  ),
+  'upload' => '0',
+  'old_type' => 'outcome',
+  'orig_type' => '',
+  'module' => 'node',
+  'custom' => '1',
+  'modified' => '1',
+  'locked' => '0',
+  'comment' => '2',
+  'comment_default_mode' => '4',
+  'comment_default_order' => '1',
+  'comment_default_per_page' => '50',
+  'comment_controls' => '3',
+  'comment_anonymous' => 0,
+  'comment_subject_field' => '1',
+  'comment_preview' => '1',
+  'comment_form_location' => '0',
+);
+$content[fields]  = array (
+  0 => 
+  array (
+    'label' => 'Date',
+    'field_name' => 'field_date',
+    'type' => 'date',
+    'widget_type' => 'date_popup',
+    'change' => 'Change basic information',
+    'weight' => '-4',
+    'default_value' => 'now',
+    'default_value_code' => '',
+    'default_value2' => 'same',
+    'default_value_code2' => '',
+    'input_format' => 'd/m/Y',
+    'input_format_custom' => '',
+    'year_range' => '-3:+3',
+    'increment' => '1',
+    'advanced' => 
+    array (
+      'label_position' => 'above',
+      'text_parts' => 
+      array (
+        'year' => 0,
+        'month' => 0,
+        'day' => 0,
+        'hour' => 0,
+        'minute' => 0,
+        'second' => 0,
+      ),
+    ),
+    'label_position' => 'above',
+    'text_parts' => 
+    array (
+    ),
+    'description' => 'The date when the event to which this outcome refers was held. For instance, in case of a meeting report you should put the date of the meeting here.',
+    'group' => false,
+    'required' => 0,
+    'multiple' => '0',
+    'repeat' => 0,
+    'todate' => 'optional',
+    'granularity' => 
+    array (
+      'year' => 'year',
+      'month' => 'month',
+      'day' => 'day',
+    ),
+    'output_format_date' => 'j M Y',
+    'output_format_custom' => '',
+    'output_format_date_long' => 'm/d/Y',
+    'output_format_custom_long' => '',
+    'output_format_date_medium' => 'm/d/Y',
+    'output_format_custom_medium' => '',
+    'output_format_date_short' => 'm/d/Y',
+    'output_format_custom_short' => '',
+    'tz_handling' => 'none',
+    'timezone_db' => '',
+    'op' => 'Save field settings',
+    'module' => 'date',
+    'widget_module' => 'date',
+    'columns' => 
+    array (
+      'value' => 
+      array (
+        'type' => 'varchar',
+        'length' => 20,
+        'not null' => false,
+        'sortable' => true,
+      ),
+      'value2' => 
+      array (
+        'type' => 'varchar',
+        'length' => 20,
+        'not null' => false,
+        'sortable' => true,
+      ),
+    ),
+    'display_settings' => 
+    array (
+      'label' => 
+      array (
+        'format' => 'above',
+      ),
+      'teaser' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      0 => 
+      array (
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      1 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      2 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+  ),
+  1 => 
+  array (
+    'label' => 'Image',
+    'field_name' => 'field_image',
+    'type' => 'image',
+    'widget_type' => 'imagefield_widget',
+    'change' => 'Change basic information',
+    'weight' => '-2',
+    'file_extensions' => 'jpg jpeg png gif JPG JPEG PNG GIF',
+    'file_path' => '',
+    'max_filesize_per_file' => '',
+    'max_filesize_per_node' => '',
+    'max_resolution' => 0,
+    'min_resolution' => 0,
+    'custom_alt' => 0,
+    'alt' => '[site-name]',
+    'custom_title' => 0,
+    'title' => '[site-name]',
+    'description' => '',
+    'group' => false,
+    'required' => 1,
+    'multiple' => '1',
+    'list_default' => '1',
+    'force_list_default' => '1',
+    'show_description' => '0',
+    'op' => 'Save field settings',
+    'module' => 'imagefield',
+    'widget_module' => 'imagefield',
+    'columns' => 
+    array (
+      'fid' => 
+      array (
+        'type' => 'int',
+        'not null' => false,
+      ),
+      'list' => 
+      array (
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => false,
+      ),
+      'data' => 
+      array (
+        'type' => 'text',
+        'serialize' => true,
+      ),
+    ),
+    'display_settings' => 
+    array (
+      'label' => 
+      array (
+        'format' => 'above',
+      ),
+      'teaser' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      0 => 
+      array (
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      1 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      2 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+  ),
+  2 => 
+  array (
+    'label' => 'File',
+    'field_name' => 'field_file',
+    'type' => 'filefield',
+    'widget_type' => 'filefield_widget',
+    'change' => 'Change basic information',
+    'weight' => '-1',
+    'file_extensions' => 'txt doc rtf docx odt xls xlsx ods ppt pps pptx odp pdf zip rar tar gz bz2',
+    'file_path' => '',
+    'max_filesize_per_file' => '',
+    'max_filesize_per_node' => '',
+    'description' => '',
+    'group' => false,
+    'required' => 0,
+    'multiple' => '1',
+    'list_default' => '1',
+    'force_list_default' => '1',
+    'show_description' => '1',
+    'op' => 'Save field settings',
+    'module' => 'filefield',
+    'widget_module' => 'filefield',
+    'columns' => 
+    array (
+      'fid' => 
+      array (
+        'type' => 'int',
+        'not null' => false,
+      ),
+      'list' => 
+      array (
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => false,
+      ),
+      'data' => 
+      array (
+        'type' => 'text',
+        'serialize' => true,
+      ),
+    ),
+    'display_settings' => 
+    array (
+      'label' => 
+      array (
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      'teaser' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      4 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      2 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      3 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+  ),
+  3 => 
+  array (
+    'label' => 'Link',
+    'field_name' => 'field_link',
+    'type' => 'link',
+    'widget_type' => 'link',
+    'change' => 'Change basic information',
+    'weight' => 0,
+    'description' => 'When inserting external links, don\'t forget the <code>http://</code> prefix: write <code>http://www.youthagora.org</code> instead of <code>www.youthagora.org</code>.<br/>
+Use the "title" field to put a description of the link.',
+    'default_value' => 
+    array (
+      0 => 
+      array (
+        'title' => '',
+        'url' => '',
+      ),
+    ),
+    'default_value_php' => '',
+    'default_value_widget' => 
+    array (
+      'field_link' => 
+      array (
+        0 => 
+        array (
+          'title' => '',
+          'url' => '',
+        ),
+      ),
+    ),
+    'group' => false,
+    'required' => 0,
+    'multiple' => '1',
+    'url' => 0,
+    'title' => 'optional',
+    'title_value' => '',
+    'enable_tokens' => 0,
+    'display' => 
+    array (
+      'url_cutoff' => '80',
+    ),
+    'attributes' => 
+    array (
+      'target' => 'default',
+      'rel' => '',
+      'class' => '',
+    ),
+    'op' => 'Save field settings',
+    'module' => 'link',
+    'widget_module' => 'link',
+    'columns' => 
+    array (
+      'url' => 
+      array (
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => false,
+        'sortable' => true,
+      ),
+      'title' => 
+      array (
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => false,
+        'sortable' => true,
+      ),
+      'attributes' => 
+      array (
+        'type' => 'text',
+        'size' => 'medium',
+        'not null' => false,
+      ),
+    ),
+    'display_settings' => 
+    array (
+      'weight' => '-2',
+      'parent' => '',
+      'label' => 
+      array (
+        'format' => 'inline',
+      ),
+      'teaser' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      0 => 
+      array (
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      1 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      2 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+  ),
+);
+$content[extra]  = array (
+  'title' => '-5',
+  'body_field' => '-3',
+  'menu' => '1',
+);

@@ -1,0 +1,5 @@
+; $Id$
+name = Youth Agora Credits
+description = Provides a block with credits to Youth Agora
+package = Youth Agora
+core = 6.x

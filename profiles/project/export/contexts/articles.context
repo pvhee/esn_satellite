@@ -1,0 +1,13 @@
+$items[] = array (
+  'namespace' => 'context_ui',
+  'attribute' => 'section',
+  'value' => 'articles',
+  'node' => 
+  array (
+    'article' => 'article',
+  ),
+  'views' => 
+  array (
+    'articles' => 'articles',
+  ),
+);

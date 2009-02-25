@@ -1,0 +1,12 @@
+; $Id: context_prefix.info,v 1.3 2008/07/17 16:57:19 jmiccolis Exp $
+name = Context Prefix
+description = "Provides generalized context prefixing"
+dependencies[] = context
+package = Context
+core = "6.x"
+; Information added by drupal.org packaging script on 2009-01-04
+version = "6.x-1.0-alpha3"
+core = "6.x"
+project = "context"
+datestamp = "1231047607"
+

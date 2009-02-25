@@ -1,0 +1,4 @@
+; $Id: teleport.info,v 1.1.2.2 2008/10/13 03:32:12 incidentist Exp $
+name = Teleport
+description = Allows fast Quicksilver-like 'launching' to different pages. Searches node titles, menu items, users and taxonomy terms.
+core = 6.x
