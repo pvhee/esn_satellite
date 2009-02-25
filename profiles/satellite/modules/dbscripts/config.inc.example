@@ -9,13 +9,13 @@
  */
 
 // Location of dbscripts folder
-$script_path = './profiles/project/dbscripts';
+$script_path = './profiles/satellite/modules/dbscripts';
 
 // Location of settings.php
 $settings_path = './sites/default';
 
 // Location where database dump files will be stored
-$dump_path = './profiles/project/database';
+$dump_path = './profiles/satellite/database';
 
 // Location of mysql binaries (needs to be set if not in your path)
 $mysql = 'mysql';
