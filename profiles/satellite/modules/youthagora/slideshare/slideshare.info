@@ -1,9 +1,0 @@
-; $Id$
-
-name = Slideshare
-description = Exposes Slideshare provider to Embedded Media Field module
-
-core = 6.x
-dependencies[] = emfield
-package = Youth Agora
-core = 6.x
