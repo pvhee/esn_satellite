@@ -1,4 +1,4 @@
-// $Id: CHANGELOG.txt,v 1.5.2.3 2008/04/28 22:49:34 smk Exp $
+// $Id: CHANGELOG.txt,v 1.5.2.16 2009/02/06 18:17:22 smk Exp $
 
 Demo x.x-x.x, xxxx-xx-xx
 ------------------------
@@ -6,6 +6,19 @@ Demo x.x-x.x, xxxx-xx-xx
 
 Demo 6.x-1.x, xxxx-xx-xx
 ------------------------
+#329182 by sun: Moved menu items below admin/build.
+#299841 by sun: Fixed wrong function arguments for watchdog().
+#286781 by alex_b: Added function return value for demo_reset().
+#272820 by sun: Increased maxlength for snapshot file names.
+#269561 by smk-ka: Performance: Disable indices to speed up import.
+#272526 by smk-ka: Added file size to snapshot list.
+#268056 by sun: Fixed incomplete snapshots due to max_execution_time reached.
+#265801 by smk-ka: Added exclusion of data in cache tables for snapshots.
+#312215 by rondp: Added foreign key support.
+#294879 by smk-ka: Moved admin functions into include file.
+#369642 by smk-ka: Added checkbox to define new snapshot as default.
+#369711 by smk-ka: Added confirmation before deleting a snapshot.
+by smk-ka: Made watchdog messages translatable (fixed a potx warning).
 
 
 Demo 6.x-1.1, 2008-04-29
