@@ -391,45 +391,45 @@ INSERT INTO `blocks` VALUES (118,'views','calendar-block_1','base',0,-4,'',0,0,0
 INSERT INTO `blocks` VALUES (122,'book','0','base',0,-3,'',0,0,0,'','',5);
 INSERT INTO `blocks` VALUES (123,'menu','spaces','base',0,-1,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (124,'context_ui','devel','base',0,-2,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (130,'calendar','0','project',0,-1,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (131,'comment','0','project',0,-7,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (132,'context_ui','devel','project',0,8,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (133,'devel','0','project',0,6,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (134,'devel','2','project',0,-2,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (135,'menu','devel','project',0,-3,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (136,'menu','primary-links','project',0,-10,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (137,'menu','secondary-links','project',0,-6,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (138,'menu','spaces','project',0,9,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (139,'menu_block','1','project',0,-17,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (140,'menu_block','2','project',0,-12,'',0,0,1,'content/*','',-1);
-INSERT INTO `blocks` VALUES (141,'node','0','project',0,-5,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (142,'profile','0','project',0,-8,'',0,0,0,'','',5);
-INSERT INTO `blocks` VALUES (143,'search','0','project',0,-15,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (144,'system','0','project',0,-9,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (145,'user','0','project',0,-19,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (146,'user','1','project',0,-18,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (147,'user','2','project',0,-4,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (148,'user','3','project',0,12,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (130,'calendar','0','project',0,-6,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (131,'comment','0','project',0,-12,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (132,'context_ui','devel','project',0,1,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (133,'devel','0','project',0,-1,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (134,'devel','2','project',0,-7,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (135,'menu','devel','project',0,-8,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (136,'menu','primary-links','project',0,-15,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (137,'menu','secondary-links','project',0,-11,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (138,'menu','spaces','project',0,2,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (139,'menu_block','1','project',1,-20,'header',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (140,'menu_block','2','project',1,-18,'right_top',0,0,1,'content/*','',-1);
+INSERT INTO `blocks` VALUES (141,'node','0','project',0,-10,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (142,'profile','0','project',0,-13,'',0,0,0,'','',5);
+INSERT INTO `blocks` VALUES (143,'search','0','project',1,-19,'right_top',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (144,'system','0','project',0,-14,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (145,'user','0','project',1,-20,'right_bottom',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (146,'user','1','project',1,-19,'right_bottom',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (147,'user','2','project',0,-9,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (148,'user','3','project',0,4,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (150,'views','articles-block_1','project',1,-19,'right',0,0,1,'<front>','',-1);
-INSERT INTO `blocks` VALUES (151,'views','calendar-block_1','project',0,7,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (152,'views','calendar-calendar_block_1','project',0,-16,'',0,0,1,'events\r\nevent/*','',-1);
+INSERT INTO `blocks` VALUES (151,'views','calendar-block_1','project',0,0,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (152,'views','calendar-calendar_block_1','project',0,-19,'',0,0,1,'events\r\nevent/*','',-1);
 INSERT INTO `blocks` VALUES (153,'views','outcomes-block_1','project',1,-15,'content',0,0,1,'<front>','',-1);
-INSERT INTO `blocks` VALUES (154,'views','outcomes-block_2','project',0,-14,'',0,0,1,'outcome/*','',-1);
-INSERT INTO `blocks` VALUES (155,'views','outcomes-block_3','project',0,-13,'',0,0,1,'outcome/*','',-1);
-INSERT INTO `blocks` VALUES (156,'views','outcomes-block_4','project',0,-11,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (154,'views','outcomes-block_2','project',0,-18,'',0,0,1,'outcome/*','',-1);
+INSERT INTO `blocks` VALUES (155,'views','outcomes-block_3','project',0,-17,'',0,0,1,'outcome/*','',-1);
+INSERT INTO `blocks` VALUES (156,'views','outcomes-block_4','project',0,-16,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (157,'views','partners-block_1','project',1,-17,'right',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (158,'views','spotlights-block_1','project',1,-16,'content',0,0,1,'<front>','',-1);
-INSERT INTO `blocks` VALUES (159,'menu','menu-quick-links','project',0,11,'',0,0,0,'','<none>',-1);
-INSERT INTO `blocks` VALUES (160,'logintoboggan','0','project',0,10,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (159,'menu','menu-quick-links','project',1,-20,'right_top',0,0,0,'','<none>',-1);
+INSERT INTO `blocks` VALUES (160,'logintoboggan','0','project',0,3,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (162,'views','events-block_1','project',1,-18,'right',0,0,1,'<front>','',-1);
-INSERT INTO `blocks` VALUES (163,'service_links','0','project',0,5,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (164,'views','events-block_2','project',0,3,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (165,'views','events-block_3','project',0,4,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (166,'views','articles-block_2','project',0,1,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (167,'views','credits-block_1','project',0,2,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (168,'block','4','project',0,0,'',0,0,0,'','Get Updates',-1);
-INSERT INTO `blocks` VALUES (169,'ya_credits','0','project',0,0,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (171,'block','5','project',0,0,'',0,0,0,'','Navigation',-1);
+INSERT INTO `blocks` VALUES (163,'service_links','0','project',0,-2,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (164,'views','events-block_2','project',0,-4,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (165,'views','events-block_3','project',0,-3,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (166,'views','articles-block_2','project',0,-5,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (167,'views','credits-block_1','project',1,-20,'footer_bottom',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (168,'block','4','project',1,-20,'footer_right',0,0,0,'','Get Updates',-1);
+INSERT INTO `blocks` VALUES (169,'ya_credits','0','project',1,-20,'footer_center',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (171,'block','5','project',1,-20,'footer_left',0,0,0,'','Navigation',-1);
 /*!40000 ALTER TABLE `blocks` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `blocks_roles`;
@@ -1062,11 +1062,6 @@ CREATE TABLE `context_ui` (
 
 LOCK TABLES `context_ui` WRITE;
 /*!40000 ALTER TABLE `context_ui` DISABLE KEYS */;
-INSERT INTO `context_ui` VALUES (1,'context_ui','section','outcomes');
-INSERT INTO `context_ui` VALUES (2,'context_ui','sitewide','sitewide');
-INSERT INTO `context_ui` VALUES (3,'context_ui','section','events');
-INSERT INTO `context_ui` VALUES (4,'context_ui','section','partners');
-INSERT INTO `context_ui` VALUES (5,'context_ui','section','articles');
 /*!40000 ALTER TABLE `context_ui` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `context_ui_block`;
@@ -1081,24 +1076,6 @@ CREATE TABLE `context_ui_block` (
 
 LOCK TABLES `context_ui_block` WRITE;
 /*!40000 ALTER TABLE `context_ui_block` DISABLE KEYS */;
-INSERT INTO `context_ui_block` VALUES ('block','4','footer_right',10,2);
-INSERT INTO `context_ui_block` VALUES ('block','5','footer_left',10,2);
-INSERT INTO `context_ui_block` VALUES ('menu','menu-quick-links','right_top',10,2);
-INSERT INTO `context_ui_block` VALUES ('menu_block','1','header',10,2);
-INSERT INTO `context_ui_block` VALUES ('menu_block','2','right_top',12,2);
-INSERT INTO `context_ui_block` VALUES ('search','0','right_top',11,2);
-INSERT INTO `context_ui_block` VALUES ('user','0','right_bottom',10,2);
-INSERT INTO `context_ui_block` VALUES ('user','1','right_bottom',11,2);
-INSERT INTO `context_ui_block` VALUES ('views','articles-block_2','right',-11,5);
-INSERT INTO `context_ui_block` VALUES ('views','calendar-calendar_block_1','right',12,3);
-INSERT INTO `context_ui_block` VALUES ('views','credits-block_1','footer_bottom',10,2);
-INSERT INTO `context_ui_block` VALUES ('views','events-block_2','right',11,3);
-INSERT INTO `context_ui_block` VALUES ('views','events-block_3','right',13,3);
-INSERT INTO `context_ui_block` VALUES ('views','outcomes-block_2','right',-13,1);
-INSERT INTO `context_ui_block` VALUES ('views','outcomes-block_3','right',-12,1);
-INSERT INTO `context_ui_block` VALUES ('views','outcomes-block_4','right',-11,1);
-INSERT INTO `context_ui_block` VALUES ('views','partners-block_1','right',-11,4);
-INSERT INTO `context_ui_block` VALUES ('ya_credits','0','footer_center',10,2);
 /*!40000 ALTER TABLE `context_ui_block` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `context_ui_getter`;
@@ -1111,9 +1088,6 @@ CREATE TABLE `context_ui_getter` (
 
 LOCK TABLES `context_ui_getter` WRITE;
 /*!40000 ALTER TABLE `context_ui_getter` DISABLE KEYS */;
-INSERT INTO `context_ui_getter` VALUES ('menu','s:6:\"events\";',3);
-INSERT INTO `context_ui_getter` VALUES ('menu','s:8:\"partners\";',4);
-INSERT INTO `context_ui_getter` VALUES ('spaces','a:4:{s:5:\"label\";s:8:\"Outcomes\";s:11:\"description\";s:25:\"The outcomes page feature\";s:4:\"menu\";a:1:{i:0;a:2:{s:5:\"title\";s:18:\"Outcomes [Feature]\";s:4:\"href\";s:8:\"outcomes\";}}s:5:\"types\";a:1:{s:4:\"site\";s:4:\"site\";}}',1);
 /*!40000 ALTER TABLE `context_ui_getter` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `context_ui_setter`;
@@ -1126,15 +1100,6 @@ CREATE TABLE `context_ui_setter` (
 
 LOCK TABLES `context_ui_setter` WRITE;
 /*!40000 ALTER TABLE `context_ui_setter` DISABLE KEYS */;
-INSERT INTO `context_ui_setter` VALUES ('node','article',5);
-INSERT INTO `context_ui_setter` VALUES ('node','event',3);
-INSERT INTO `context_ui_setter` VALUES ('node','outcome',1);
-INSERT INTO `context_ui_setter` VALUES ('node','partner',4);
-INSERT INTO `context_ui_setter` VALUES ('sitewide','1',2);
-INSERT INTO `context_ui_setter` VALUES ('views','articles',5);
-INSERT INTO `context_ui_setter` VALUES ('views','events',3);
-INSERT INTO `context_ui_setter` VALUES ('views','outcomes',1);
-INSERT INTO `context_ui_setter` VALUES ('views','partners',4);
 /*!40000 ALTER TABLE `context_ui_setter` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `devel_queries`;
@@ -1519,7 +1484,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=1773 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1779 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -1707,7 +1672,7 @@ INSERT INTO `menu_links` VALUES ('navigation',410,408,'admin/build/trigger/unass
 INSERT INTO `menu_links` VALUES ('navigation',424,0,'yui_editor/flickr','yui_editor/flickr','','a:0:{}','system',-1,0,0,0,0,1,0,424,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',425,0,'yui_editor/image_upload','yui_editor/image_upload','','a:0:{}','system',-1,0,0,0,0,1,0,425,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',426,18,'admin/settings/yui_editor','admin/settings/yui_editor','YUI editor settings','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:31:\"View/modify YUI editor settings\";}}','system',0,0,0,0,0,3,0,2,18,426,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',429,0,'<front>','','<img class=\"admin-menu-icon\" src=\"/webdev/satellite/satellite/profiles/satellite/themes/project/favicon.ico\" width=\"16\" height=\"16\" alt=\"Home\" />','a:3:{s:11:\"extra class\";s:15:\"admin-menu-icon\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,1,1,0,-100,1,0,429,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',429,0,'<front>','','<img class=\"admin-menu-icon\" src=\"/satellite/profiles/satellite/themes/project/favicon.ico\" width=\"16\" height=\"16\" alt=\"Home\" />','a:3:{s:11:\"extra class\";s:15:\"admin-menu-icon\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,1,1,0,-100,1,0,429,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',430,0,'logout','logout','Log out @username','a:3:{s:11:\"extra class\";s:35:\"admin-menu-action admin-menu-logout\";s:1:\"t\";a:0:{}s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,-100,1,0,430,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',431,0,'user','user','icon_users','a:3:{s:11:\"extra class\";s:50:\"admin-menu-action admin-menu-icon admin-menu-users\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,-90,1,0,431,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',432,0,'admin/advanced_help','admin/advanced_help','Advanced help','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,9,1,0,432,0,0,0,0,0,0,0,0,0);
@@ -1976,18 +1941,8 @@ INSERT INTO `menu_links` VALUES ('navigation',974,15,'admin/help/jcalendar','adm
 INSERT INTO `menu_links` VALUES ('admin_menu',976,567,'http://drupal.org/project/issues/calendar','','Calendar issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,429,567,976,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',980,0,'calendar','calendar','','a:0:{}','system',-1,0,0,0,0,1,0,980,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',981,0,'calendar/ical','calendar/ical','','a:0:{}','system',-1,0,0,0,0,1,0,981,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',1005,17,'admin/build/context','admin/build/context','Context','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:84:\"Associate menus, views, blocks, etc. with different contexts to structure your site.\";}}','system',0,0,0,0,0,3,0,2,17,1005,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',1008,15,'admin/help/context_ui','admin/help/context_ui','context_ui','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1008,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',1013,1005,'admin/build/context/%','admin/build/context/%','','a:0:{}','system',-1,0,0,0,0,4,0,2,17,1005,1013,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1022,237,'admin/build/views/tools/export/results','admin/build/views/tools/export/results','','a:0:{}','system',-1,0,0,0,0,4,0,2,17,237,1022,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',1025,436,'admin/build/context','admin/build/context','Context','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,436,1025,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',1027,1025,'admin/build/context/add','admin/build/context/add','Add','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,3,0,436,1025,1027,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',1028,1025,'admin/build/context/prefix','admin/build/context/prefix','Context prefix','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,10,3,0,436,1025,1028,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',1029,1025,'admin/build/context/import','admin/build/context/import','Import','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,2,3,0,436,1025,1029,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',1030,1025,'admin/build/context/list','admin/build/context/list','List','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,3,0,436,1025,1030,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',1036,541,'admin/build/views/tools/export','admin/build/views/tools/export','Bulk export','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,4,0,436,486,541,1036,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',1037,1028,'admin/build/context/prefix/list','admin/build/context/prefix/list','Registered prefixes','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,10,4,0,436,1025,1028,1037,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',1038,1028,'admin/build/context/prefix/settings','admin/build/context/prefix/settings','Settings','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,4,0,436,1025,1028,1038,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',1040,567,'http://drupal.org/project/issues/context','','Context issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,429,567,1040,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',1041,567,'http://drupal.org/project/issues/spaces','','Spaces issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,429,567,1041,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('spaces',1072,0,'outcomes','outcomes','Outcomes [Feature]','a:0:{}','spaces',0,0,0,0,0,1,0,1072,0,0,0,0,0,0,0,0,0);
@@ -2164,7 +2119,7 @@ INSERT INTO `menu_links` VALUES ('admin_menu',1768,505,'admin/build/themes/setti
 INSERT INTO `menu_links` VALUES ('admin_menu',1769,505,'admin/build/themes/settings/blueprint','admin/build/themes/settings/blueprint','Blueprint','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,4,0,436,477,505,1769,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',1770,514,'admin/build/block/list/project','admin/build/block/list/project','Project','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,-10,4,0,436,444,514,1770,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',1771,505,'admin/build/themes/settings/project','admin/build/themes/settings/project','Project','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,4,0,436,477,505,1771,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',1772,429,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,429,1772,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',1778,429,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,429,1778,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -2222,21 +2177,6 @@ INSERT INTO `menu_router` VALUES ('admin/build/contact/delete/%','a:1:{i:4;s:12:
 INSERT INTO `menu_router` VALUES ('admin/build/contact/edit/%','a:1:{i:4;s:12:\"contact_load\";}','','user_access','a:1:{i:0;s:33:\"administer site-wide contact form\";}','drupal_get_form','a:3:{i:0;s:18:\"contact_admin_edit\";i:1;i:3;i:2;i:4;}',30,5,'','admin/build/contact/edit/%','Edit contact category','t','',4,'','','',0,'modules/contact/contact.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/build/contact/list','','','user_access','a:1:{i:0;s:33:\"administer site-wide contact form\";}','contact_admin_categories','a:0:{}',15,4,'admin/build/contact','admin/build/contact','List','t','',136,'','','',0,'modules/contact/contact.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/build/contact/settings','','','user_access','a:1:{i:0;s:33:\"administer site-wide contact form\";}','drupal_get_form','a:1:{i:0;s:22:\"contact_admin_settings\";}',15,4,'admin/build/contact','admin/build/contact','Settings','t','',128,'','','',2,'modules/contact/contact.admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','context_ui_admin','a:0:{}',7,3,'','admin/build/context','Context','t','',6,'','Associate menus, views, blocks, etc. with different contexts to structure your site.','',0,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/%','a:1:{i:3;s:20:\"context_ui_menu_load\";}','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:3:{i:0;s:15:\"context_ui_form\";i:1;s:4:\"edit\";i:2;i:3;}',14,4,'','admin/build/context/%','','t','',4,'','','',0,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/%/clone','a:1:{i:3;s:20:\"context_ui_menu_load\";}','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:3:{i:0;s:15:\"context_ui_form\";i:1;s:5:\"clone\";i:2;i:3;}',29,5,'admin/build/context/%','admin/build/context/%','Clone','t','',128,'','','',0,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/%/delete','a:1:{i:3;s:20:\"context_ui_menu_load\";}','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:3:{i:0;s:18:\"context_ui_confirm\";i:1;s:6:\"delete\";i:2;i:3;}',29,5,'admin/build/context/%','admin/build/context/%','Delete','t','',128,'','','',0,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/%/disable','a:1:{i:3;s:20:\"context_ui_menu_load\";}','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:3:{i:0;s:18:\"context_ui_confirm\";i:1;s:7:\"disable\";i:2;i:3;}',29,5,'admin/build/context/%','admin/build/context/%','Disable','t','',128,'','','',0,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/%/edit','a:1:{i:3;s:20:\"context_ui_menu_load\";}','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:3:{i:0;s:15:\"context_ui_form\";i:1;s:4:\"edit\";i:2;i:3;}',29,5,'admin/build/context/%','admin/build/context/%','Edit','t','',136,'','','',-1,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/%/edit/items','a:1:{i:3;s:20:\"context_ui_menu_load\";}','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:3:{i:0;s:15:\"context_ui_form\";i:1;s:4:\"edit\";i:2;i:3;}',59,6,'admin/build/context/%/edit','admin/build/context/%','Core attributes','t','',136,'','','',0,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/%/enable','a:1:{i:3;s:20:\"context_ui_menu_load\";}','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:3:{i:0;s:18:\"context_ui_confirm\";i:1;s:6:\"enable\";i:2;i:3;}',29,5,'admin/build/context/%','admin/build/context/%','Enable','t','',128,'','','',0,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/%/export','a:1:{i:3;s:20:\"context_ui_menu_load\";}','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:2:{i:0;s:17:\"context_ui_export\";i:1;i:3;}',29,5,'admin/build/context/%','admin/build/context/%','Export','t','',128,'','','',0,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/add','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:2:{i:0;s:15:\"context_ui_form\";i:1;s:3:\"add\";}',15,4,'admin/build/context','admin/build/context','Add','t','',128,'','Add a context to your site.','',1,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/import','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','context_ui_import_page','a:0:{}',15,4,'admin/build/context','admin/build/context','Import','t','',128,'','Import a context definition into your site.','',2,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/list','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','context_ui_admin','a:0:{}',15,4,'admin/build/context','admin/build/context','List','t','',136,'','','',0,'profiles/satellite/modules/context/context_ui/context_ui_admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/build/context/prefix','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:28:\"context_prefix_settings_form\";}',15,4,'admin/build/context','admin/build/context','Context prefix','t','',128,'','Settings for context prefix.','',10,'');
-INSERT INTO `menu_router` VALUES ('admin/build/context/prefix/list','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','context_prefix_admin','a:0:{}',31,5,'admin/build/context/prefix','admin/build/context','Registered prefixes','t','',128,'','','',10,'');
-INSERT INTO `menu_router` VALUES ('admin/build/context/prefix/settings','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:28:\"context_prefix_settings_form\";}',31,5,'admin/build/context/prefix','admin/build/context','Settings','t','',136,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/build/imagecache','','','user_access','a:1:{i:0;s:21:\"administer imagecache\";}','imagecache_ui_presets','a:0:{}',7,3,'','admin/build/imagecache','ImageCache','t','',6,'','Administer imagecache presets and actions.','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/build/imagecache/%','a:1:{i:3;s:25:\"imagecache_ui_preset_load\";}','','user_access','a:1:{i:0;s:21:\"administer imagecache\";}','drupal_get_form','a:2:{i:0;s:25:\"imagecache_ui_preset_form\";i:1;i:3;}',14,4,'','admin/build/imagecache/%','','imagecache_preset_title_callback','a:2:{i:0;s:24:\"Edit preset: !presetname\";i:1;i:3;}',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/build/imagecache/%/%','a:2:{i:3;s:25:\"imagecache_ui_preset_load\";i:4;s:22:\"imagecache_action_load\";}','','user_access','a:1:{i:0;s:21:\"administer imagecache\";}','drupal_get_form','a:3:{i:0;s:25:\"imagecache_ui_action_form\";i:1;i:3;i:2;i:4;}',28,5,'','admin/build/imagecache/%/%','','imagecache_preset_title_callback','a:3:{i:0;s:30:\"!action for preset !presetname\";i:1;i:3;i:2;i:4;}',4,'','','',0,'');
@@ -2482,7 +2422,6 @@ INSERT INTO `menu_router` VALUES ('admin/help/color','','','user_access','a:1:{i
 INSERT INTO `menu_router` VALUES ('admin/help/comment','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/comment','comment','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/contact','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/contact','contact','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/content','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/content','content','t','',4,'','','',0,'modules/help/help.admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/help/context_ui','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/context_ui','context_ui','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/date','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/date','date','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/dblog','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/dblog','dblog','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/devel','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/devel','devel','t','',4,'','','',0,'modules/help/help.admin.inc');
@@ -3179,10 +3118,10 @@ INSERT INTO `system` VALUES ('profiles/satellite/modules/cck/modules/number/numb
 INSERT INTO `system` VALUES ('profiles/satellite/modules/cck/modules/optionwidgets/optionwidgets.module','optionwidgets','module','',1,0,0,6001,0,'a:10:{s:4:\"name\";s:14:\"Option Widgets\";s:11:\"description\";s:82:\"Defines selection, check box and radio button widgets for text and numeric fields.\";s:12:\"dependencies\";a:1:{i:0;s:7:\"content\";}s:7:\"package\";s:3:\"CCK\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-2.1\";s:7:\"project\";s:3:\"cck\";s:9:\"datestamp\";s:10:\"1226449204\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/cck/modules/text/text.module','text','module','',1,0,0,6003,0,'a:10:{s:4:\"name\";s:4:\"Text\";s:11:\"description\";s:32:\"Defines simple text field types.\";s:12:\"dependencies\";a:1:{i:0;s:7:\"content\";}s:7:\"package\";s:3:\"CCK\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-2.1\";s:7:\"project\";s:3:\"cck\";s:9:\"datestamp\";s:10:\"1226449204\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/cck/modules/userreference/userreference.module','userreference','module','',1,0,0,6000,0,'a:10:{s:4:\"name\";s:14:\"User Reference\";s:11:\"description\";s:56:\"Defines a field type for referencing a user from a node.\";s:12:\"dependencies\";a:3:{i:0;s:7:\"content\";i:1;s:4:\"text\";i:2;s:13:\"optionwidgets\";}s:7:\"package\";s:3:\"CCK\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-2.1\";s:7:\"project\";s:3:\"cck\";s:9:\"datestamp\";s:10:\"1226449204\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
-INSERT INTO `system` VALUES ('profiles/satellite/modules/context/context.module','context','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:7:\"Context\";s:11:\"description\";s:66:\"Provide modules with a cache that lasts for a single page request.\";s:7:\"package\";s:7:\"Context\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-1.0-alpha3\";s:7:\"project\";s:7:\"context\";s:9:\"datestamp\";s:10:\"1231047607\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
-INSERT INTO `system` VALUES ('profiles/satellite/modules/context/context_prefix/context_prefix.module','context_prefix','module','',1,0,0,5,-20,'a:10:{s:4:\"name\";s:14:\"Context Prefix\";s:11:\"description\";s:38:\"Provides generalized context prefixing\";s:12:\"dependencies\";a:1:{i:0;s:7:\"context\";}s:7:\"package\";s:7:\"Context\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-1.0-alpha3\";s:7:\"project\";s:7:\"context\";s:9:\"datestamp\";s:10:\"1231047607\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
-INSERT INTO `system` VALUES ('profiles/satellite/modules/context/context_ui/context_ui.module','context_ui','module','',1,0,1,6002,0,'a:10:{s:4:\"name\";s:10:\"Context UI\";s:11:\"description\";s:68:\"Provides a simple UI for settings up a site structure using Context.\";s:12:\"dependencies\";a:1:{i:0;s:7:\"context\";}s:7:\"package\";s:7:\"Context\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-1.0-alpha3\";s:7:\"project\";s:7:\"context\";s:9:\"datestamp\";s:10:\"1231047607\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
-INSERT INTO `system` VALUES ('profiles/satellite/modules/context/context_ui/context_ui_contrib.module','context_ui_contrib','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:18:\"Context UI Contrib\";s:11:\"description\";s:112:\"Provides integration with Context UI on behalf of the following contrib modules: Nodequeue, Views, CSS Injector.\";s:12:\"dependencies\";a:2:{i:0;s:7:\"context\";i:1;s:10:\"context_ui\";}s:7:\"package\";s:7:\"Context\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-1.0-alpha3\";s:7:\"project\";s:7:\"context\";s:9:\"datestamp\";s:10:\"1231047607\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/context/context.module','context','module','',0,0,0,0,0,'a:10:{s:4:\"name\";s:7:\"Context\";s:11:\"description\";s:66:\"Provide modules with a cache that lasts for a single page request.\";s:7:\"package\";s:7:\"Context\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-1.0-alpha3\";s:7:\"project\";s:7:\"context\";s:9:\"datestamp\";s:10:\"1231047607\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/context/context_prefix/context_prefix.module','context_prefix','module','',0,0,0,5,-20,'a:10:{s:4:\"name\";s:14:\"Context Prefix\";s:11:\"description\";s:38:\"Provides generalized context prefixing\";s:12:\"dependencies\";a:1:{i:0;s:7:\"context\";}s:7:\"package\";s:7:\"Context\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-1.0-alpha3\";s:7:\"project\";s:7:\"context\";s:9:\"datestamp\";s:10:\"1231047607\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/context/context_ui/context_ui.module','context_ui','module','',0,0,0,6002,0,'a:10:{s:4:\"name\";s:10:\"Context UI\";s:11:\"description\";s:68:\"Provides a simple UI for settings up a site structure using Context.\";s:12:\"dependencies\";a:1:{i:0;s:7:\"context\";}s:7:\"package\";s:7:\"Context\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-1.0-alpha3\";s:7:\"project\";s:7:\"context\";s:9:\"datestamp\";s:10:\"1231047607\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/context/context_ui/context_ui_contrib.module','context_ui_contrib','module','',0,0,0,0,0,'a:10:{s:4:\"name\";s:18:\"Context UI Contrib\";s:11:\"description\";s:112:\"Provides integration with Context UI on behalf of the following contrib modules: Nodequeue, Views, CSS Injector.\";s:12:\"dependencies\";a:2:{i:0;s:7:\"context\";i:1;s:10:\"context_ui\";}s:7:\"package\";s:7:\"Context\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-1.0-alpha3\";s:7:\"project\";s:7:\"context\";s:9:\"datestamp\";s:10:\"1231047607\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/contrib/satellite/satellite.module','satellite','module','',1,0,0,0,0,'a:7:{s:4:\"name\";s:9:\"Satellite\";s:11:\"description\";s:83:\"Provides added Satellite functionality from Youth Agora (http://www.youthagora.org)\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/date/date/date.module','date','module','',1,0,0,6004,0,'a:8:{s:4:\"name\";s:4:\"Date\";s:11:\"description\";s:41:\"Defines CCK date/time fields and widgets.\";s:12:\"dependencies\";a:3:{i:0;s:7:\"content\";i:1;s:8:\"date_api\";i:2;s:13:\"date_timezone\";}s:7:\"package\";s:9:\"Date/Time\";s:4:\"core\";s:3:\"6.x\";s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/date/date_api.module','date_api','module','',1,0,0,6001,0,'a:8:{s:4:\"name\";s:8:\"Date API\";s:11:\"description\";s:45:\"A Date API that can be used by other modules.\";s:7:\"package\";s:9:\"Date/Time\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
@@ -3274,7 +3213,7 @@ INSERT INTO `system` VALUES ('profiles/satellite/modules/views/views.module','vi
 INSERT INTO `system` VALUES ('profiles/satellite/modules/views/views_export/views_export.module','views_export','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:14:\"Views exporter\";s:11:\"description\";s:40:\"Allows exporting multiple views at once.\";s:7:\"package\";s:5:\"Views\";s:12:\"dependencies\";a:1:{i:0;s:5:\"views\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-2.3\";s:7:\"project\";s:5:\"views\";s:9:\"datestamp\";s:10:\"1233981351\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/views/views_ui.module','views_ui','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:8:\"Views UI\";s:11:\"description\";s:93:\"Administrative interface to views. Without this module, you cannot create or edit your views.\";s:7:\"package\";s:5:\"Views\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:5:\"views\";}s:7:\"version\";s:7:\"6.x-2.3\";s:7:\"project\";s:5:\"views\";s:9:\"datestamp\";s:10:\"1233981351\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/views_bulk_operations/views_bulk_operations.module','views_bulk_operations','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:21:\"Views Bulk Operations\";s:11:\"description\";s:103:\"Exposes new Views style \'Bulk Operations\' for selecting multiple nodes and applying operations on them.\";s:12:\"dependencies\";a:1:{i:0;s:5:\"views\";}s:7:\"package\";s:5:\"Views\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.4\";s:7:\"project\";s:21:\"views_bulk_operations\";s:9:\"datestamp\";s:10:\"1233774350\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
-INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/slideshare/slideshare.module','slideshare','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:10:\"Slideshare\";s:11:\"description\";s:58:\"Exposes Slideshare provider to Embedded Media Field module\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:7:\"emfield\";}s:7:\"package\";s:11:\"Youth Agora\";s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/slideshare/slideshare.module','slideshare','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:10:\"Slideshare\";s:11:\"description\";s:58:\"Exposes Slideshare provider to Embedded Media Field module\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:3:{i:0;s:7:\"emfield\";i:1;s:7:\"emvideo\";i:2;s:7:\"content\";}s:7:\"package\";s:3:\"CCK\";s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_credits/ya_credits.module','ya_credits','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:19:\"Youth Agora Credits\";s:11:\"description\";s:44:\"Provides a block with credits to Youth Agora\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_password_check/ya_password_check.module','ya_password_check','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:14:\"Password Check\";s:11:\"description\";s:109:\"Provides a non-configurable action to check for default password combinations (admin/admin and editor/editor)\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/youthagora.module','youthagora','module','',0,0,0,0,0,'a:7:{s:4:\"name\";s:11:\"Youth Agora\";s:11:\"description\";s:73:\"Provides added functionality from Youth Agora (http://www.youthagora.org)\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
@@ -3441,7 +3380,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1235588012,1235588012,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1235590864,1235590574,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4076,7 +4015,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=5174 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5185 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
