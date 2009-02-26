@@ -16,6 +16,10 @@ define('YOUTHAGORA_DUMP_FILE', 'profiles/satellite/database/template.sql');
 
 /**
  * Return an array of the modules to be enabled when this profile is installed.
+ * 
+ * We enable the demo module for mysql dump import, and the
+ * ya_requirements to check for requirements for installation of the Youth Agora
+ * template.
  *
  * @return
  *   An array of modules to enable.
@@ -99,17 +103,7 @@ function satellite_profile_tasks(&$task, $url) {
  * called through custom invocation, so $form_state is not populated.
  */
 function satellite_form_alter(&$form, $form_state, $form_id) {
-  if ($form_id == 'install_configure') {  
-    module_load_include('inc', 'demo', 'demo.admin');
-    
-    // Display the available database dumps.
-    // module_load_include('inc', 'demo'); 
-    $form['demo'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Database information'),
-      '#description' => t('Which database dump would you like to restore from?'),
-      demo_get_dumps(),
-    );
+  if ($form_id == 'install_configure') {
     $form['#submit'][] = 'satellite_form_submit';
   }
 
@@ -119,9 +113,9 @@ function satellite_form_alter(&$form, $form_state, $form_id) {
  * Submit handler for the "install_configure" form.
  */
 function satellite_form_submit($form, &$form_state) {
-  // Restore the database dump
+  // Restore the database dump using the demo module and our constant YOUTHAGORA_DUMP_FILE
   module_load_include('inc', 'demo', 'demo.admin');
-  demo_reset($form_state['clicked_button']['#post']['filename'], FALSE);
+  demo_reset();
 
   // Hmmm... have to call the proper submit handler ourselves? 
   install_configure_form_submit($form, $form_state);
