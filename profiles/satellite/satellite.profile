@@ -1,5 +1,7 @@
 <?php
 
+define('YOUTHAGORA_DUMP_FILE', 'profiles/satellite/database/template.sql');
+
 /**
  * Adaption of Demo Profile for Master Template
  */
@@ -94,10 +96,11 @@ function satellite_profile_tasks(&$task, $url) {
 function satellite_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'install_configure') {
   
+    module_load_include('inc', 'demo', 'demo.admin');
     demo_get_dumps();
     
     // Display the available database dumps.
-    module_load_include('inc', 'demo', 'demo.admin'); 
+    // module_load_include('inc', 'demo'); 
     $form['demo'] = array(
       '#type' => 'fieldset',
       '#title' => t('Database information'),

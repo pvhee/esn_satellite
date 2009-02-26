@@ -286,6 +286,23 @@ function demo_reset($filename = 'demo_site', $verbose = TRUE) {
 }
 
 function demo_get_fileconfig($filename = 'demo_site') {
+  $fileconfig = demo_get_fileconfig_original();
+  
+  /**
+   * Youth Agora: alter the sql file to point to a specific file we defined with a constant in the installation profile
+   * This is very dirty but unfortunately the way it's gotta be until the guys make a descent module :)
+   */
+   if(defined('YOUTHAGORA_DUMP_FILE')) {
+     $path_parts = pathinfo(YOUTHAGORA_DUMP_FILE);
+     $fileconfig['dumppath'] = $path_parts['dirname'];
+     $fileconfig['sqlfile'] = YOUTHAGORA_DUMP_FILE;
+     $fileconfig['infofile'] = $path_parts['dirname'] .'/'. $path_parts['filename'] .'.info';
+   }
+   
+   return $fileconfig;
+}
+
+function demo_get_fileconfig_original($filename = 'demo_site') {
   $fileconfig = array();
   
   // Build dump path.
@@ -527,4 +544,5 @@ function demo_set_default($filename) {
   variable_set('demo_dump_cron', $filename);
   drupal_set_message(t('Snapshot %title will be used for upcoming cron runs.', array('%title' => $filename)));
 }
+
 
