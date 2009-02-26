@@ -1,13 +1,18 @@
 <?php
 
+/**
+ * SQL Dump File for the installation profile.
+ * 
+ * This uses a modified version of the demo module allowing custom sql files for import.
+ * You need to specify the location of the SQL file here. The demo module will also
+ * look for a .info file with the same name in the same location.
+ */
 define('YOUTHAGORA_DUMP_FILE', 'profiles/satellite/database/template.sql');
 
 /**
- * Adaption of Demo Profile for Master Template
+ * Satellite Installation Profile
+ * @author Youth Agora
  */
-
-// for debugging
-// require_once('sites/all/modules/devel/krumo/class.krumo.php');
 
 /**
  * Return an array of the modules to be enabled when this profile is installed.
@@ -16,7 +21,7 @@ define('YOUTHAGORA_DUMP_FILE', 'profiles/satellite/database/template.sql');
  *   An array of modules to enable.
  */
 function satellite_profile_modules() {
-  return array('demo');
+  return array('demo', 'ya_requirements');
 }
 
 /**
@@ -94,10 +99,8 @@ function satellite_profile_tasks(&$task, $url) {
  * called through custom invocation, so $form_state is not populated.
  */
 function satellite_form_alter(&$form, $form_state, $form_id) {
-  if ($form_id == 'install_configure') {
-  
+  if ($form_id == 'install_configure') {  
     module_load_include('inc', 'demo', 'demo.admin');
-    demo_get_dumps();
     
     // Display the available database dumps.
     // module_load_include('inc', 'demo'); 
@@ -112,7 +115,6 @@ function satellite_form_alter(&$form, $form_state, $form_id) {
 
 }
 
-
 /**
  * Submit handler for the "install_configure" form.
  */
@@ -120,9 +122,6 @@ function satellite_form_submit($form, &$form_state) {
   // Restore the database dump
   module_load_include('inc', 'demo', 'demo.admin');
   demo_reset($form_state['clicked_button']['#post']['filename'], FALSE);
-
-	// configure all the other actions
-	// krumo($form_state);
 
   // Hmmm... have to call the proper submit handler ourselves? 
   install_configure_form_submit($form, $form_state);
