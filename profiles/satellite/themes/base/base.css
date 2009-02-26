@@ -6,10 +6,12 @@
 #wrapper #container #center .right-corner { background: none;}
 #wrapper #container .sidebar .block {margin:0;padding-top:1.2em;}
 #wrapper #container .sidebar { margin-top: 0; }
-#wrapper #container #header {clear: both; height: 204px; }
+#wrapper #container #header { height: auto; }
 #wrapper #container #center { float: left; }
 #wrapper #container .sidebar { width: 270px;  float: left;  z-index: 2;  position: relative;}
 #wrapper #container .breadcrumb { position: static; margin-top:1em;}
+
+
 
 /*#wrapper #container #header #logo-floater {position: fixed;}*/
 #wrapper #container #footer { margin:2.7em 0 0;}
@@ -409,3 +411,4 @@ table.views-view-grid td .views-field-field-images-fid img { border: 0;}
 #inner-footer .block {border: 0; }
 
 #inner-footer ul.feeds li {border: 0; list-style-type: none; background: transparent url(images/feed.png)  0% 30% no-repeat; padding-left: 16px; }
+
