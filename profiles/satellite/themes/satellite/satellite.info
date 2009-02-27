@@ -1,0 +1,33 @@
+; $Id: satellite.info
+name = ESN Satellite
+description = ESN Satellite theme.
+version = VERSION
+core = 6.x
+base theme = base
+
+stylesheets[all][] = project.css
+
+regions[header_top] = Header top
+regions[header] = Header
+regions[content_top] = Content top
+regions[content] = Content
+regions[left_top] = Left Top sidebar
+regions[left] = Left sidebar
+regions[left_bottom] = Left Bottom sidebar
+regions[right_top] = Right Top sidebar
+regions[right] = Right sidebar
+regions[right_bottom] = Right Top sidebar
+regions[footer_top] = Footer Top
+regions[footer_left] = Footer Left
+regions[footer_center] = Footer Center
+regions[footer_right] = Footer Right
+regions[footer_bottom] = Footer Bottom
+
+
+features[] = logo
+features[] = name
+features[] = slogan
+features[] = node_user_picture
+features[] = comment_user_picture
+features[] = favicon
+
