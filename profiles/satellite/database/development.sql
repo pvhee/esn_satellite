@@ -724,7 +724,6 @@ CREATE TABLE `content_field_date` (
 
 LOCK TABLES `content_field_date` WRITE;
 /*!40000 ALTER TABLE `content_field_date` DISABLE KEYS */;
-INSERT INTO `content_field_date` VALUES (177,177,'2009-03-01T00:00:00','2009-03-04T00:00:00');
 /*!40000 ALTER TABLE `content_field_date` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_field_file`;
@@ -741,7 +740,6 @@ CREATE TABLE `content_field_file` (
 
 LOCK TABLES `content_field_file` WRITE;
 /*!40000 ALTER TABLE `content_field_file` DISABLE KEYS */;
-INSERT INTO `content_field_file` VALUES (177,177,0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `content_field_file` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_field_image`;
@@ -758,7 +756,6 @@ CREATE TABLE `content_field_image` (
 LOCK TABLES `content_field_image` WRITE;
 /*!40000 ALTER TABLE `content_field_image` DISABLE KEYS */;
 INSERT INTO `content_field_image` VALUES (65,65,100,1,'a:0:{}');
-INSERT INTO `content_field_image` VALUES (177,177,129,1,'a:0:{}');
 /*!40000 ALTER TABLE `content_field_image` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_field_image_credit`;
@@ -968,7 +965,6 @@ CREATE TABLE `content_type_event` (
 
 LOCK TABLES `content_type_event` WRITE;
 /*!40000 ALTER TABLE `content_type_event` DISABLE KEYS */;
-INSERT INTO `content_type_event` VALUES (177,177);
 /*!40000 ALTER TABLE `content_type_event` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_type_news`;
@@ -1216,7 +1212,6 @@ INSERT INTO `files` VALUES (121,1,'DSC_3934.jpg','sites/default/files/DSC_3934.j
 INSERT INTO `files` VALUES (125,1,'eryica.jpg','sites/default/files/eryica.jpg','image/jpeg',295606,1,1235313798);
 INSERT INTO `files` VALUES (127,1,'DSC_2931.jpg','sites/default/files/DSC_2931.jpg','image/jpeg',551910,1,1235317392);
 INSERT INTO `files` VALUES (128,1,'DEF-flag-logoeac-LLP_EN.png','sites/default/files/DEF-flag-logoeac-LLP_EN.png','image/png',11131,1,1235344982);
-INSERT INTO `files` VALUES (129,1,'megaphone.jpg','sites/default/files/megaphone.jpg','image/jpeg',3670,1,1235698329);
 /*!40000 ALTER TABLE `files` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `filter_formats`;
@@ -2745,7 +2740,6 @@ CREATE TABLE `node` (
 
 LOCK TABLES `node` WRITE;
 /*!40000 ALTER TABLE `node` DISABLE KEYS */;
-INSERT INTO `node` VALUES (177,177,'event','','Event',1,1,1235698333,1235698333,2,1,0,0,0,0);
 /*!40000 ALTER TABLE `node` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `node_access`;
@@ -2808,7 +2802,6 @@ CREATE TABLE `node_revisions` (
 
 LOCK TABLES `node_revisions` WRITE;
 /*!40000 ALTER TABLE `node_revisions` DISABLE KEYS */;
-INSERT INTO `node_revisions` VALUES (177,177,1,'Event','Event Event Event Event Event Event Event Event Event Event Event Event Event Event Event Event ','Event Event Event Event Event Event Event Event Event Event Event Event Event Event Event Event ','',1235698333,1);
 /*!40000 ALTER TABLE `node_revisions` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `node_type`;
@@ -3422,8 +3415,6 @@ CREATE TABLE `url_alias` (
 LOCK TABLES `url_alias` WRITE;
 /*!40000 ALTER TABLE `url_alias` DISABLE KEYS */;
 INSERT INTO `url_alias` VALUES (392,'user/1','users/admin','');
-INSERT INTO `url_alias` VALUES (395,'node/177','event/event','');
-INSERT INTO `url_alias` VALUES (396,'node/177/feed','event/event/feed','');
 /*!40000 ALTER TABLE `url_alias` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
@@ -3457,7 +3448,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1235698562,1235698182,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1235698874,1235698182,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4106,7 +4097,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=5240 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5241 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
