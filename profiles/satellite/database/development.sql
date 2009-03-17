@@ -3561,7 +3561,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1236987751,1236985522,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237249310,1237249282,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -3588,7 +3588,7 @@ CREATE TABLE `variable` (
 LOCK TABLES `variable` WRITE;
 /*!40000 ALTER TABLE `variable` DISABLE KEYS */;
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1236985398;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237249282;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
 INSERT INTO `variable` VALUES ('book_allowed_types','a:1:{i:0;s:4:\"book\";}');
@@ -3672,7 +3672,7 @@ INSERT INTO `variable` VALUES ('content_extra_weights_partner','a:3:{s:5:\"title
 INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-2\";s:4:\"menu\";s:1:\"0\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1236985399;');
+INSERT INTO `variable` VALUES ('cron_last','i:1237249309;');
 INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"AJHx3I921XP4daWifyTl\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
@@ -3943,7 +3943,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_bulkupdate','i:0;');
 INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\";');
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1236985399;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237249309;');
 INSERT INTO `variable` VALUES ('profile_csv_param_mail','i:1;');
 INSERT INTO `variable` VALUES ('profile_csv_param_name','i:1;');
 INSERT INTO `variable` VALUES ('profile_csv_param_profile_1','i:1;');
@@ -4000,7 +4000,7 @@ INSERT INTO `variable` VALUES ('theme_default','s:4:\"base\";');
 INSERT INTO `variable` VALUES ('theme_garland_settings','a:20:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:0;s:22:\"toggle_secondary_links\";i:0;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";s:6:\"scheme\";s:39:\"#0072b9,#027ac6,#2385c2,#5ab5ee,#494949\";s:7:\"palette\";a:5:{s:4:\"base\";s:7:\"#0072b9\";s:4:\"link\";s:7:\"#027ac6\";s:3:\"top\";s:7:\"#2385c2\";s:6:\"bottom\";s:7:\"#5ab5ee\";s:4:\"text\";s:7:\"#494949\";}s:5:\"theme\";s:7:\"garland\";s:4:\"info\";a:10:{s:7:\"schemes\";a:16:{s:39:\"#0072b9,#027ac6,#2385c2,#5ab5ee,#494949\";s:21:\"Blue Lagoon (Default)\";s:39:\"#464849,#2f416f,#2a2b2d,#5d6779,#494949\";s:3:\"Ash\";s:39:\"#55c0e2,#000000,#085360,#007e94,#696969\";s:10:\"Aquamarine\";s:39:\"#d5b048,#6c420e,#331900,#971702,#494949\";s:17:\"Belgian Chocolate\";s:39:\"#3f3f3f,#336699,#6598cb,#6598cb,#000000\";s:10:\"Bluemarine\";s:39:\"#d0cb9a,#917803,#efde01,#e6fb2d,#494949\";s:12:\"Citrus Blast\";s:39:\"#0f005c,#434f8c,#4d91ff,#1a1575,#000000\";s:8:\"Cold Day\";s:39:\"#c9c497,#0c7a00,#03961e,#7be000,#494949\";s:9:\"Greenbeam\";s:39:\"#ffe23d,#a9290a,#fc6d1d,#a30f42,#494949\";s:11:\"Mediterrano\";s:39:\"#788597,#3f728d,#a9adbc,#d4d4d4,#707070\";s:7:\"Mercury\";s:39:\"#5b5fa9,#5b5faa,#0a2352,#9fa8d5,#494949\";s:9:\"Nocturnal\";s:39:\"#7db323,#6a9915,#b5d52a,#7db323,#191a19\";s:6:\"Olivia\";s:39:\"#12020b,#1b1a13,#f391c6,#f41063,#898080\";s:12:\"Pink Plastic\";s:39:\"#b7a0ba,#c70000,#a1443a,#f21107,#515d52\";s:12:\"Shiny Tomato\";s:39:\"#18583d,#1b5f42,#34775a,#52bf90,#2d2d2d\";s:8:\"Teal Top\";s:0:\"\";s:6:\"Custom\";}s:4:\"copy\";a:4:{i:0;s:25:\"images/menu-collapsed.gif\";i:1;s:29:\"images/menu-collapsed-rtl.gif\";i:2;s:24:\"images/menu-expanded.gif\";i:3;s:20:\"images/menu-leaf.gif\";}s:3:\"css\";a:1:{i:0;s:9:\"style.css\";}s:8:\"gradient\";a:4:{i:0;i:0;i:1;i:37;i:2;i:760;i:3;i:121;}s:4:\"fill\";a:2:{s:4:\"base\";a:4:{i:0;i:0;i:1;i:0;i:2;i:760;i:3;i:568;}s:4:\"link\";a:4:{i:0;i:107;i:1;i:533;i:2;i:41;i:3;i:23;}}s:6:\"slices\";a:13:{s:15:\"images/body.png\";a:4:{i:0;i:0;i:1;i:37;i:2;i:1;i:3;i:280;}s:17:\"images/bg-bar.png\";a:4:{i:0;i:202;i:1;i:530;i:2;i:76;i:3;i:14;}s:23:\"images/bg-bar-white.png\";a:4:{i:0;i:202;i:1;i:506;i:2;i:76;i:3;i:14;}s:17:\"images/bg-tab.png\";a:4:{i:0;i:107;i:1;i:533;i:2;i:41;i:3;i:23;}s:24:\"images/bg-navigation.png\";a:4:{i:0;i:0;i:1;i:0;i:2;i:7;i:3;i:37;}s:26:\"images/bg-content-left.png\";a:4:{i:0;i:40;i:1;i:117;i:2;i:50;i:3;i:352;}s:27:\"images/bg-content-right.png\";a:4:{i:0;i:510;i:1;i:117;i:2;i:50;i:3;i:352;}s:21:\"images/bg-content.png\";a:4:{i:0;i:299;i:1;i:117;i:2;i:7;i:3;i:200;}s:29:\"images/bg-navigation-item.png\";a:4:{i:0;i:32;i:1;i:37;i:2;i:17;i:3;i:12;}s:35:\"images/bg-navigation-item-hover.png\";a:4:{i:0;i:54;i:1;i:37;i:2;i:17;i:3;i:12;}s:25:\"images/gradient-inner.png\";a:4:{i:0;i:646;i:1;i:307;i:2;i:112;i:3;i:42;}s:8:\"logo.png\";a:4:{i:0;i:622;i:1;i:51;i:2;i:64;i:3;i:73;}s:14:\"screenshot.png\";a:4:{i:0;i:0;i:1;i:37;i:2;i:400;i:3;i:240;}}s:12:\"blend_target\";s:7:\"#ffffff\";s:13:\"preview_image\";s:17:\"color/preview.png\";s:11:\"preview_css\";s:17:\"color/preview.css\";s:10:\"base_image\";s:14:\"color/base.png\";}}');
 INSERT INTO `variable` VALUES ('theme_project_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_settings','a:22:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:1;s:22:\"toggle_secondary_links\";i:1;s:24:\"toggle_node_info_article\";i:1;s:22:\"toggle_node_info_event\";i:1;s:24:\"toggle_node_info_outcome\";i:1;s:21:\"toggle_node_info_page\";i:0;s:24:\"toggle_node_info_partner\";i:0;s:26:\"toggle_node_info_spotlight\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
-INSERT INTO `variable` VALUES ('update_last_check','i:1236987611;');
+INSERT INTO `variable` VALUES ('update_last_check','i:1237249309;');
 INSERT INTO `variable` VALUES ('upload_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_credit','s:1:\"0\";');
@@ -4210,7 +4210,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=5253 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5258 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
