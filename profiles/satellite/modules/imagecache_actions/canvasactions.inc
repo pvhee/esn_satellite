@@ -192,18 +192,18 @@ function canvasactions_definecanvas_image(& $image, $action = array()) {
     $background = imagecolorallocatealpha($newcanvas, 255, 255, 255, 127);
     imagesavealpha($newcanvas, TRUE);
     imagealphablending($newcanvas, false);
-    imagesavealpha($image->res, TRUE);
+    imagesavealpha($image->resource, TRUE);
   }
   imagefilledrectangle($newcanvas, 0, 0, $targetsize['width'], $targetsize['height'], $background);
   
   if ($action['under']) {
     require_once('watermark.inc');
     $watermark = new watermark();
-    $image->res = $watermark->create_watermark($newcanvas, $image->res, $targetsize['left'], $targetsize['top'], 100);
-    imagesavealpha($image->res, TRUE);
+    $image->resource = $watermark->create_watermark($newcanvas, $image->resource, $targetsize['left'], $targetsize['top'], 100);
+    imagesavealpha($image->resource, TRUE);
   } 
   else {
-    $image->res = $newcanvas ;
+    $image->resource = $newcanvas ;
   }
   
   $image->info['width'] = $targetsize['width'];
@@ -244,6 +244,7 @@ function canvasactions_canvas2file_form($action) {
     '#title' => t('file name'),
     '#default_value' => $action['path'],
     '#description' => t('File may be in the "files/" folder, or relative to the Drupal siteroot.'),
+    '#element_validate' => array('canvasactions_file2canvas_validate_file'),
   );
   $form['dimensions'] = array(
     '#type' => 'radios',
@@ -268,19 +269,25 @@ function theme_canvasactions_canvas2file($element) {
  *
  * Implementation of hook_image()
  *
+ * Note - this is currently incompatable with imagemagick, due to the way it
+ * addresses $image->resource directly - a gd only thing.
  *
  * @param $image
  * @param $action
  */
 function canvasactions_canvas2file_image(&$image, $action = array()) {
   // search for full (siteroot) paths, then file dir paths, then relative to the current theme
-  if (file_exists($action['path'])) {
-    $underlay = imageapi_image_open($action['path']);
+  $filepath = $action['path'];
+  if (!file_exists($filepath) ) {
+    $filepath = file_create_path($action['path']);
   }
-  else if (file_exists(file_create_path($action['path']))) {
-    $underlay = imageapi_image_open(file_create_path($action['path']));
+  if (! file_exists($filepath) ) {
+    trigger_error("Failed to load underlay image $filepath.", E_USER_ERROR);
+    return FALSE;
   }
   
+  $underlay = imageapi_image_open($filepath);
+
   // To handle odd sizes, we will resize/crop the background image to the desired dimensions before 
   // starting the merge. The built-in imagecopymerge, and the watermark library both do not
   // allow overlays to be bigger than the target.
@@ -292,25 +299,28 @@ function canvasactions_canvas2file_image(&$image, $action = array()) {
       $crop_rules['height']  = $image->info['height'];
       break;
     case 'background' :
-      $crop_rules['width'] = imagesx($underlay->res);
-      $crop_rules['height'] = imagesy($underlay->res);;
+      $crop_rules['width'] = $underlay->info['width'];
+      $crop_rules['height'] = $underlay->info['height'];
       break;
     case 'minimum' :
-      $crop_rules['width'] = min(imagesx($underlay->res), $image->info['width']);
-      $crop_rules['height'] = min(imagesy($underlay->res), $image->info['height']);
+      $crop_rules['width'] = min($underlay->info['width'], $image->info['width']);
+      $crop_rules['height'] = min($underlay->info['height'], $image->info['height']);
       break;
     case 'maximum' :
-      $crop_rules['width'] = max(imagesx($underlay->res), $image->info['width']);
-      $crop_rules['height'] = max(imagesy($underlay->res), $image->info['height']);
+      $crop_rules['width'] = max($underlay->info['width'], $image->info['width']);
+      $crop_rules['height'] = max($underlay->info['height'], $image->info['height']);
       break;
   }
   // imageapi crop assumes upsize is legal.
+  imagecache_include_standard_actions(); // ensure the library is loaded.
+
+  // crop both before processing to avoid unwanted processing.
   imagecache_crop_image($underlay, $crop_rules);
+  imagecache_crop_image($image, $crop_rules);
   
   // This func modifies the underlay image by ref, placing the current canvas on it
-  if (imageapi_image_overlay($underlay, $image, $action['xpos'], $action['ypos'], $action['alpha'])) {
-    $image->res = $underlay->res;
-    
+  if (imageapi_image_overlay($underlay, $image, $action['xpos'], $action['ypos'], $action['alpha'], TRUE)) {
+    $image->resource = $underlay->resource;
     return TRUE;
   }
 }
@@ -478,7 +488,7 @@ function canvasactions_roundedcorners_image(&$image, $action = array()) {
   // Is using the toolkit really worth the bother?
   // Just doing it in an attempt to be consistent
   $mask_image = (object)array(
-    'res' => &$mask, 
+    'resource' => &$mask, 
     'info' => array('width' => $width, 'height' => $height, 'extension' => 'png'), 
     'toolkit' => $image->toolkit,
   );
@@ -505,7 +515,7 @@ function canvasactions_roundedcorners_image(&$image, $action = array()) {
   if ($action['antialias']) {
     // Use toolkit so scale down again. 
     imageapi_image_scale($mask_image, $width/3, $height/3);
-    $mask = $mask_image->res;
+    $mask = $mask_image->resource;
   }
   // No we have a mask. Merge to get a result
   #$image->res = $mask;  
@@ -528,12 +538,14 @@ function canvasactions_mask(&$image, $mask) {
   // Slow, I know.
   $info = $image->info;
   if (!$info) { return FALSE; }
-  $img = &$image->res;
-  $msk = &$mask->res;
-  
-  imagesavealpha($image->res, TRUE);
-  imagealphablending($image->res, FALSE);
+  $img = &$image->resource;
+  $msk = &$mask->resource;
+  imagesavealpha($image->resource, TRUE);
+  imagealphablending($image->resource, FALSE);
 
+  // Support indexed color (gif) if I have to
+  $transparent_ix = imagecolortransparent($image->resource);
+    
   $width = imagesx($img);  // Use the actual, not claimed image size.
   $height = imagesy($img);
   for ($i = 0; $i < $height; $i++) { //this loop traverses each row in the image
@@ -543,6 +555,9 @@ function canvasactions_mask(&$image, $mask) {
       $color_ix = imagecolorat($img, $j, $i); // an index
       $rgba_array = imagecolorsforindex($img, $color_ix);
       
+      // support indexed trans
+      if ($color_ix == $transparent_ix) { $rgba_array['alpha'] = 127; }
+      
       // Get the alpha of the corresponding mask pixel
       $mask_color_ix = imagecolorat($msk, $j, $i); // an index
       $msk_rgba_array = imagecolorsforindex($msk, $mask_color_ix);
@@ -551,8 +566,14 @@ function canvasactions_mask(&$image, $mask) {
       $rgba_array['alpha'] = max($msk_rgba_array['alpha'], $rgba_array['alpha']);
 
       //paint the pixel
-      $color_to_paint = imagecolorallocatealpha($image->res, $rgba_array['red'], $rgba_array['green'], $rgba_array['blue'], $rgba_array['alpha']);
-      imagesetpixel($image->res, $j, $i, $color_to_paint);  
+      if($image->info['mime_type'] == 'image/gif') {
+        // indexed color - re-use existing pallette
+        $color_to_paint = imagecolorclosestalpha($image->resource, $rgba_array['red'], $rgba_array['green'], $rgba_array['blue'], $rgba_array['alpha']);
+      }
+      else {
+        $color_to_paint = imagecolorallocatealpha($image->resource, $rgba_array['red'], $rgba_array['green'], $rgba_array['blue'], $rgba_array['alpha']);
+      }
+      imagesetpixel($image->resource, $j, $i, $color_to_paint);  
     }
   }
   return TRUE;
@@ -568,3 +589,78 @@ function theme_canvasactions_roundedcorners($element) {
   return "Radius: {$data['radius']}px " . ($data['antialias'] ? "antialiased" : "") ;
 }
 
+///////////////////////////////////////////////////////////////////
+
+/**
+ * Switch between presets depending on logic
+ * 
+ * Implementation of imagecache_hook_form()
+ *
+ * @param $action array of settings for this action
+ * @return a form definition
+ */
+function canvasactions_aspect_form($action) {
+  $defaults = array(
+  );
+  $action = array_merge($defaults, (array)$action);
+  
+  $form = array(
+    'help' => array(
+      '#type' => 'markup',
+      '#value' => t('You must create the two presets to use <em>before</em> enabling this process.'),
+    )
+  );
+
+  $presets = array();
+  foreach (imagecache_presets(TRUE) as $preset) {
+    $presets[$preset['presetid']] = $preset['presetname'];
+  }
+
+  $form['portrait'] = array(
+    '#type' => 'select',
+    '#title' => t('Preset to use if the image is portrait (vertical)'),
+    '#default_value' => $action['portrait'],
+    '#options' => $presets,
+  );
+  $form['landscape'] = array(
+    '#type' => 'select',
+    '#title' => t('Preset to use if the image is landscape (horizontal)'),
+    '#default_value' => $action['landscape'],
+    '#options' => $presets,
+  );
+  return $form;
+}
+
+
+/**
+ * Implementation of theme_hook() for imagecache_ui.module
+ */
+function theme_canvasactions_aspect($element) {
+  $action = $element['#value'];
+  $presets = imagecache_presets(TRUE); 
+  return 'Portrait size: <strong>'. $presets[$action['portrait']]['presetname'] . '</strong>. Landscape size: <strong>'. $presets[$action['landscape']]['presetname'] .'</strong>' ;
+}
+
+/**
+ * Choose the action and trigger that.
+ * 
+ * Implementation of hook_image()
+ *
+ *
+ * @param $image
+ * @param $action
+ */
+function canvasactions_aspect_image(&$image, $action = array()) {
+  $preset_id = ($image->info['width'] > $image->info['height'] ) ? $action['landscape'] : $action['portrait'];
+  $preset = imagecache_preset($preset_id);
+
+  // Run the preset actions ourself. Cannot invoke a preset from the top as it handles filenames, not image objects.
+  // ripped from imagecache_build_derivative()
+  foreach ($preset['actions'] as $sub_action) {
+    _imagecache_apply_action($sub_action, $image);
+  }
+  return TRUE;
+}
+
+
+///////////////////////////////////////////////////////////////////

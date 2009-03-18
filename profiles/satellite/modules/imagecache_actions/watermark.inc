@@ -12,16 +12,18 @@
  * and calculates a new valus for each of them. this is only a fallback because reliable image toolkit 
  * transparencies was buggy on certain platforms :(
  * 
- * DOES NOT WORK WELL on indexed color yet
+ * DOES NOT WORK WELL on indexed color yet (GIFs)
  */
 
 //Niko (http://www.codeguru.com.ua)
 class watermark {
   function create_watermark($main_img_obj, $watermark_img_obj, $x_ins, $y_ins, $alpha_level = 100) {
     $alpha_level /= 100;
+    $base_img_obj_w = imagesx($main_img_obj);
+    $base_img_obj_h = imagesy($main_img_obj);
     # Should this change to match both images?
-    $main_img_obj_w = max(imagesx($main_img_obj), imagesx($watermark_img_obj));
-    $main_img_obj_h = max(imagesy($main_img_obj), imagesy($watermark_img_obj));
+    $main_img_obj_w = max($base_img_obj_w, imagesx($watermark_img_obj));
+    $main_img_obj_h = max($base_img_obj_h, imagesy($watermark_img_obj));
     # dman: start with the MAX, then let the caller crop it later according to its own logic.
     #$main_img_obj_w = imagesx($main_img_obj);
     #$main_img_obj_h = imagesy($main_img_obj);
@@ -43,6 +45,10 @@ class watermark {
       $transparent = imagecolorallocatealpha($return_img, $transparent['red'], $transparent['green'], $transparent['blue'], $transparent['alpha']);
       imagecolortransparent($return_img, $transparent);
     }
+    $watermark_transparent_ix = imagecolortransparent($watermark_img_obj);
+    if ($watermark_transparent_ix >= 0) {
+      $watermark_transparent = imagecolorsforindex($watermark_img_obj, $watermark_transparent_ix);
+    }
     
 
     for ($y = 0; $y < $main_img_obj_h; $y++) {
@@ -53,11 +59,23 @@ class watermark {
         $watermark_x = $x - $main_img_obj_min_x;
         $watermark_y = $y - $main_img_obj_min_y;
 
-        $main_rgb = imagecolorsforindex($main_img_obj, imagecolorat($main_img_obj, $x, $y));
-
+        if(($x < $base_img_obj_w) && ($y < $base_img_obj_h)) {
+          // try not to go out of bounds when looking for color.
+          $main_rgb = imagecolorsforindex($main_img_obj, imagecolorat($main_img_obj, $x, $y));
+        }
+        else {
+          $main_rgb = array('red' => 255, 'green' => 255, 'blue' => 255, 'alpha' => 127);
+        }
+        
         if ($watermark_x >= 0 && $watermark_x < $watermark_img_obj_w && $watermark_y >= 0 && $watermark_y < $watermark_img_obj_h) {
-          $watermark_rbg = imagecolorsforindex($watermark_img_obj, imagecolorat($watermark_img_obj, $watermark_x, $watermark_y));
+          $color_ix = imagecolorat($watermark_img_obj, $watermark_x, $watermark_y);
+          $watermark_rbg = imagecolorsforindex($watermark_img_obj, $color_ix);
 
+          // Gif indexed color ?
+          if ($color_ix == $watermark_transparent_ix) {
+            $watermark_rbg['alpha'] = 127;
+          }
+          
           $watermark_alpha = round(((127 - $watermark_rbg['alpha']) / 127), 2);
           $watermark_alpha = $watermark_alpha * $alpha_level;
 

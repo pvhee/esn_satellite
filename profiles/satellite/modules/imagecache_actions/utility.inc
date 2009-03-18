@@ -149,3 +149,11 @@ function hex_to_rgb($hex) {
   return $rgb ;
 }
 
+/**
+ * imagecache is conservative with its inclusion of inc files, but sometimes I
+ * need to use them - eg crop. This function finds and includes it if needed.
+ */
+function imagecache_include_standard_actions() {
+  $cropaction = imagecache_action_definition('imagecache_crop');
+  include_once($cropaction['file']);
+}

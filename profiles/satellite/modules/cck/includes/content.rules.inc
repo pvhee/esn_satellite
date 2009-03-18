@@ -255,6 +255,8 @@ function content_rules_field_has_value_label($settings, $argument_labels) {
 function content_rules_field_changed($node1, $node2, $settings) {
   // Get information about the field.
   $field = content_fields($settings['field_name'], $node1->type);
+  
+  if(isset($node1->{$settings['field_name']}[0]['_error_element'])) unset($node1->{$settings['field_name']}[0]['_error_element']);
 
   return !empty($field) && $node1->$settings['field_name'] != $node2->$settings['field_name'];
 }

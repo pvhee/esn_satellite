@@ -106,7 +106,6 @@ function satellite_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'install_configure') {
     $form['#submit'][] = 'satellite_form_submit';
   }
-
 }
 
 /**

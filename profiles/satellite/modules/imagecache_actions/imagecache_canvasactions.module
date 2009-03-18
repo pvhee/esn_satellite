@@ -1,5 +1,5 @@
 <?php
-// $Id: imagecache_canvasactions.module,v 1.3.2.7 2009/02/07 16:31:19 dman Exp $
+// $Id: imagecache_canvasactions.module,v 1.3.2.9 2009/03/10 14:47:29 dman Exp $
 
 /**
  * @file A collection of canvas (layer) type manipulations for imagecache -
@@ -75,6 +75,12 @@ function imagecache_canvasactions_imagecache_actions() {
       'description' => t(' This is true cropping, not overlays, so the result <em>can</em> be transparent.'),
       'file' => 'canvasactions.inc',
     ),
+    'canvasactions_aspect' => array(
+      'name' => t('Aspect switcher: '),
+      'description' => t(' Use different effects depending on whether the image is landscape of portrait shaped. This re-uses other preset definitions, and just chooses between them based on the rule.'),
+      'file' => 'canvasactions.inc',
+    ),
+
   );
 
   return $actions;
@@ -88,12 +94,12 @@ function imagecache_canvasactions_imagecache_actions() {
 /**
  * Place one image over another
  *
- * @param $overlay may be a filename or an imageAPI object
+ * @param $layer may be a filename or an imageAPI object
  * @return bool success
  * @ingroup imageapi
  */
-function imageapi_image_overlay(&$image, $overlay, $x, $y, $alpha) {
-  return call_user_func_array($image->toolkit .'_image_overlay', array(&$image, $overlay, $x, $y, $alpha));
+function imageapi_image_overlay(&$image, $overlay, $x, $y, $alpha, $reverse = FALSE) {
+  return call_user_func_array($image->toolkit .'_image_overlay', array(&$image, $overlay, $x, $y, $alpha, $reverse));
 }
 
 /**
@@ -107,32 +113,41 @@ function imageapi_image_overlay(&$image, $overlay, $x, $y, $alpha) {
  * library that does it pixel-by-pixel which is INCREDIBLY inefficient. If this
  * can be improved, in a way that supports all transparency, please let us know!
  *
+ * A watermark is layer onto image, return the image. An underlay is image onto
+ * layer, return the layer. Almost identical, but seeing as we work with
+ * resource handles, the handle needs to be swapped before returning.
  *
  * @ingroup imageapi
- * @param $overlay may be a filename or an imageAPI object
- * @param alpha from 0-100.
- * @return bool success
+ * @param &$image
+ * @param $layer may be a filename or an imageAPI object
+ * @param $alpha from 0-100.
+ * @param $reverse Whether to do an underlay with the static image layer instead
+ * @return  bool success
  */
-function imageapi_gd_image_overlay(&$image, $overlay, $x, $y, $alpha) {
-  if (is_string($overlay) ) {
-    if (! file_exists($overlay)) {
-      watchdog('imagecache', "Image file does not exist. Attempted to overlay $overlay");
+function imageapi_gd_image_overlay(&$image, &$layer, $x, $y, $alpha, $reverse = FALSE) {
+  if (is_string($layer) ) {
+    if (! file_exists($layer)) {
+      trigger_error("Image file does not exist. Attempted to overlay $layer", E_USER_ERROR);
+      return FALSE;
     }
-    $overlay = imageapi_image_open($overlay);
+    $layer = imageapi_image_open($layer);
   }
+  // else $layer better be an image handle
 
-  $x_ins = _imagecache_keyword_filter($x, $image->info['width'], $overlay->info['width']);
-  $y_ins = _imagecache_keyword_filter($y, $image->info['height'], $overlay->info['height']);
+  $x_ins = _imagecache_keyword_filter($x, $image->info['width'], $layer->info['width']);
+  $y_ins = _imagecache_keyword_filter($y, $image->info['height'], $layer->info['height']);
 
   // If the given alpha is 100%, we can use imagecopy - which actually works, 
   // Is more efficient, and seems to retain the overlays partial transparancy
-  if($alpha == 100) {
-    imagealphablending($image->res, TRUE);
-    imagesavealpha($image->res, TRUE);
-    imagealphablending($overlay->res, TRUE);
-    imagesavealpha($overlay->res, TRUE);
-    imagecopy($image->res, $overlay->res, $x_ins, $y_ins, 0, 0, $overlay->info['width'], $overlay->info['height']);
-    imagedestroy($overlay->res);
+  // Still does not work great for indexed gifs though?
+
+  if($alpha == 100 && ($layer->info['mime_type'] != 'image/gif')) {
+    imagealphablending($image->resource, TRUE);
+    imagesavealpha($image->resource, TRUE);
+    imagealphablending($layer->resource, TRUE);
+    imagesavealpha($layer->resource, TRUE);
+    imagecopy($image->resource, $layer->resource, $x_ins, $y_ins, 0, 0, $layer->info['width'], $layer->info['height']);
+    imagedestroy($layer->resource);
     return TRUE;
   }
   // else imagecopymerge fails and we have to use the slow library 
@@ -140,16 +155,24 @@ function imageapi_gd_image_overlay(&$image, $overlay, $x, $y, $alpha) {
   // imagecopymerge doesn't do alpha transparency right?
   //imagealphablending($image->res, false);
   //imagesavealpha($image->res, TRUE);
-  //imagealphablending($overlay->res, false);
-  //imagesavealpha($overlay->res, TRUE);
-  // imagecopymerge($image->res, $overlay->res, $x_ins, $y_ins, 0, 0, $overlay->info['width'], $overlay->info['height'], $alpha);
+  //imagealphablending($layer->res, false);
+  //imagesavealpha($layer->res, TRUE);
+  // imagecopymerge($image->res, $layer->res, $x_ins, $y_ins, 0, 0, $layer->info['width'], $layer->info['height'], $alpha);
   // Silly thing, it's easy. Use the attached library below instead
 
   require_once('watermark.inc');
   $watermark = new watermark();
-  $image->res = $watermark->create_watermark($image->res, $overlay->res, $x_ins, $y_ins, $alpha);
+  $image->resource = $watermark->create_watermark($image->resource, $layer->resource, $x_ins, $y_ins, $alpha);
 
-  imagedestroy($overlay->res);
+  if ($reverse) {
+    // When doing underlay, It's the second image object that we really care about. 
+    // Update that with the result
+    $layer->resource = $image->resource;
+  }
+  else {
+    imagedestroy($layer->resource);
+  }
+  
   return TRUE;
 }
 
@@ -211,9 +234,9 @@ function imagecache_canvasactions_theme() {
       'file'      => 'canvasactions.inc',
       'arguments' => array('element' => NULL),
     ),
-    
-    
-
-
+    'canvasactions_aspect' => array(
+      'file'      => 'canvasactions.inc',
+      'arguments' => array('element' => NULL),
+    ),
   );
 }
