@@ -163,6 +163,54 @@ INSERT INTO `advanced_help_index` VALUES (90,'calendar','ical-export','en');
 INSERT INTO `advanced_help_index` VALUES (91,'calendar','ical-import','en');
 /*!40000 ALTER TABLE `advanced_help_index` ENABLE KEYS */;
 UNLOCK TABLES;
+DROP TABLE IF EXISTS `advpoll`;
+CREATE TABLE `advpoll` (
+  `nid` int(10) unsigned NOT NULL default '0',
+  `quorum` int(10) unsigned default '0',
+  `mode` varchar(32) NOT NULL,
+  `use_list` int(11) NOT NULL default '0',
+  `active` int(11) NOT NULL default '1',
+  `max_choices` int(10) unsigned NOT NULL default '0',
+  `algorithm` varchar(100) default NULL,
+  `show_votes` int(11) NOT NULL default '1',
+  `start_date` int(11) NOT NULL default '0',
+  `end_date` int(11) NOT NULL default '0',
+  `writeins` int(11) NOT NULL default '0',
+  `show_writeins` int(11) NOT NULL default '0',
+  `question` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`nid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+LOCK TABLES `advpoll` WRITE;
+/*!40000 ALTER TABLE `advpoll` DISABLE KEYS */;
+/*!40000 ALTER TABLE `advpoll` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `advpoll_choices`;
+CREATE TABLE `advpoll_choices` (
+  `cid` int(10) unsigned NOT NULL auto_increment,
+  `nid` int(10) unsigned NOT NULL default '0',
+  `label` text NOT NULL,
+  `weight` int(10) unsigned NOT NULL,
+  `writein` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`cid`),
+  KEY `nid` (`nid`,`weight`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+LOCK TABLES `advpoll_choices` WRITE;
+/*!40000 ALTER TABLE `advpoll_choices` DISABLE KEYS */;
+/*!40000 ALTER TABLE `advpoll_choices` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `advpoll_electoral_list`;
+CREATE TABLE `advpoll_electoral_list` (
+  `nid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  PRIMARY KEY  (`nid`,`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+LOCK TABLES `advpoll_electoral_list` WRITE;
+/*!40000 ALTER TABLE `advpoll_electoral_list` DISABLE KEYS */;
+/*!40000 ALTER TABLE `advpoll_electoral_list` ENABLE KEYS */;
+UNLOCK TABLES;
 DROP TABLE IF EXISTS `aggregator_category`;
 CREATE TABLE `aggregator_category` (
   `cid` int(11) NOT NULL auto_increment,
@@ -247,11 +295,12 @@ CREATE TABLE `authmap` (
   `module` varchar(128) NOT NULL default '',
   PRIMARY KEY  (`aid`),
   UNIQUE KEY `authname` (`authname`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `authmap` WRITE;
 /*!40000 ALTER TABLE `authmap` DISABLE KEYS */;
 INSERT INTO `authmap` VALUES (3,1,'http://youthagora.myopenid.com/','openid');
+INSERT INTO `authmap` VALUES (10,11,'pvhee','fbconnect');
 /*!40000 ALTER TABLE `authmap` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `batch`;
@@ -1169,6 +1218,52 @@ LOCK TABLES `devel_times` WRITE;
 /*!40000 ALTER TABLE `devel_times` DISABLE KEYS */;
 /*!40000 ALTER TABLE `devel_times` ENABLE KEYS */;
 UNLOCK TABLES;
+DROP TABLE IF EXISTS `fbconnect_profile`;
+CREATE TABLE `fbconnect_profile` (
+  `uid` int(10) unsigned NOT NULL default '0',
+  `name` varchar(60) NOT NULL default '',
+  `religion` varchar(255) NOT NULL default '',
+  `birthday` varchar(30) NOT NULL default '',
+  `sex` varchar(10) NOT NULL default '',
+  `relationship_status` varchar(30) NOT NULL default '',
+  `political` varchar(50) NOT NULL default '',
+  `activities` text,
+  `interests` text,
+  `music` text,
+  `tv` text,
+  `movies` text,
+  `books` text,
+  `quotes` text,
+  `about_me` text,
+  `affiliations` mediumtext,
+  `current_location` text,
+  `hometown_location` text,
+  `meeting_sex` text,
+  `meeting_for` text,
+  PRIMARY KEY  (`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+LOCK TABLES `fbconnect_profile` WRITE;
+/*!40000 ALTER TABLE `fbconnect_profile` DISABLE KEYS */;
+INSERT INTO `fbconnect_profile` VALUES (11,'Peter Vanhee','','November 23, 1984','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'a:1:{s:3:\"zip\";s:0:\"\";}','a:4:{s:4:\"city\";s:8:\"Brussels\";s:5:\"state\";s:27:\"Rgion de Bruxelles-Capitale\";s:7:\"country\";s:7:\"Belgium\";s:3:\"zip\";s:0:\"\";}',NULL,NULL);
+/*!40000 ALTER TABLE `fbconnect_profile` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `fbconnect_users`;
+CREATE TABLE `fbconnect_users` (
+  `uid` int(10) unsigned NOT NULL default '0',
+  `fbuid` int(10) unsigned NOT NULL default '0',
+  `timestamp` int(10) unsigned NOT NULL default '0',
+  `import_setting` text,
+  `avatar` tinyint(3) unsigned NOT NULL default '1',
+  `visibility` tinyint(3) unsigned NOT NULL default '1',
+  PRIMARY KEY  (`fbuid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+LOCK TABLES `fbconnect_users` WRITE;
+/*!40000 ALTER TABLE `fbconnect_users` DISABLE KEYS */;
+INSERT INTO `fbconnect_users` VALUES (11,657148454,1237407389,'a:4:{s:4:\"name\";s:4:\"name\";s:8:\"birthday\";s:8:\"birthday\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";}',1,1);
+/*!40000 ALTER TABLE `fbconnect_users` ENABLE KEYS */;
+UNLOCK TABLES;
 DROP TABLE IF EXISTS `fckeditor_role`;
 CREATE TABLE `fckeditor_role` (
   `name` varchar(128) NOT NULL default '',
@@ -1192,7 +1287,7 @@ CREATE TABLE `fckeditor_settings` (
 LOCK TABLES `fckeditor_settings` WRITE;
 /*!40000 ALTER TABLE `fckeditor_settings` DISABLE KEYS */;
 INSERT INTO `fckeditor_settings` VALUES ('Advanced','a:26:{s:15:\"allow_user_conf\";s:1:\"f\";s:8:\"min_rows\";i:1;s:9:\"excl_mode\";i:0;s:11:\"filebrowser\";s:4:\"none\";s:11:\"quickupload\";s:1:\"f\";s:7:\"default\";s:1:\"t\";s:11:\"show_toggle\";s:1:\"t\";s:5:\"popup\";s:1:\"f\";s:4:\"skin\";s:7:\"default\";s:7:\"toolbar\";s:14:\"DrupalFiltered\";s:6:\"expand\";s:1:\"t\";s:5:\"width\";s:4:\"100%\";s:4:\"lang\";s:2:\"en\";s:9:\"auto_lang\";s:1:\"t\";s:10:\"enter_mode\";s:1:\"p\";s:16:\"shift_enter_mode\";s:2:\"br\";s:11:\"font_format\";s:35:\"p;div;pre;address;h1;h2;h3;h4;h5;h6\";s:13:\"format_source\";s:1:\"t\";s:13:\"format_output\";s:1:\"t\";s:2:\"ss\";s:1:\"2\";s:7:\"filters\";a:1:{s:8:\"filter/0\";i:1;}s:8:\"css_mode\";s:5:\"theme\";s:8:\"css_path\";s:0:\"\";s:12:\"upload_basic\";s:1:\"f\";s:15:\"upload_advanced\";s:1:\"f\";s:11:\"user_choose\";s:1:\"f\";}');
-INSERT INTO `fckeditor_settings` VALUES ('Default','a:39:{s:8:\"old_name\";s:7:\"Default\";s:4:\"name\";s:7:\"Default\";s:4:\"rids\";a:1:{i:3;s:1:\"3\";}s:15:\"allow_user_conf\";s:1:\"f\";s:7:\"filters\";a:1:{s:8:\"filter/0\";s:1:\"1\";}s:2:\"ss\";s:1:\"2\";s:8:\"min_rows\";s:1:\"1\";s:9:\"excl_mode\";s:1:\"0\";s:11:\"excl_fields\";s:0:\"\";s:10:\"excl_paths\";s:0:\"\";s:18:\"simple_incl_fields\";s:0:\"\";s:17:\"simple_incl_paths\";s:0:\"\";s:7:\"default\";s:1:\"t\";s:11:\"show_toggle\";s:1:\"t\";s:5:\"popup\";s:1:\"f\";s:4:\"skin\";s:7:\"default\";s:7:\"toolbar\";s:11:\"DrupalBasic\";s:6:\"expand\";s:1:\"t\";s:5:\"width\";s:4:\"100%\";s:4:\"lang\";s:2:\"en\";s:9:\"auto_lang\";s:1:\"t\";s:10:\"enter_mode\";s:1:\"p\";s:16:\"shift_enter_mode\";s:2:\"br\";s:11:\"font_format\";s:35:\"p;div;pre;address;h1;h2;h3;h4;h5;h6\";s:13:\"format_source\";s:1:\"t\";s:13:\"format_output\";s:1:\"t\";s:8:\"css_mode\";s:5:\"theme\";s:8:\"css_path\";s:0:\"\";s:9:\"css_style\";s:5:\"theme\";s:11:\"styles_path\";s:0:\"\";s:11:\"filebrowser\";s:2:\"ib\";s:11:\"quickupload\";s:1:\"t\";s:13:\"UserFilesPath\";s:5:\"%b%f/\";s:21:\"UserFilesAbsolutePath\";s:7:\"%d%b%f/\";s:7:\"js_conf\";s:0:\"\";s:2:\"op\";s:14:\"Update profile\";s:13:\"form_build_id\";s:37:\"form-5f24185d1d85405404ad9a583c347ee9\";s:10:\"form_token\";s:32:\"b292fc6a5a689b271aaf7dbd62427644\";s:7:\"form_id\";s:28:\"fckeditor_profile_form_build\";}');
+INSERT INTO `fckeditor_settings` VALUES ('Default','a:39:{s:8:\"old_name\";s:7:\"Default\";s:4:\"name\";s:7:\"Default\";s:4:\"rids\";a:1:{i:3;s:1:\"3\";}s:15:\"allow_user_conf\";s:1:\"f\";s:7:\"filters\";a:1:{s:8:\"filter/0\";s:1:\"1\";}s:2:\"ss\";s:1:\"2\";s:8:\"min_rows\";s:1:\"1\";s:9:\"excl_mode\";s:1:\"0\";s:11:\"excl_fields\";s:0:\"\";s:10:\"excl_paths\";s:0:\"\";s:18:\"simple_incl_fields\";s:0:\"\";s:17:\"simple_incl_paths\";s:0:\"\";s:7:\"default\";s:1:\"t\";s:11:\"show_toggle\";s:1:\"t\";s:5:\"popup\";s:1:\"f\";s:4:\"skin\";s:7:\"default\";s:7:\"toolbar\";s:14:\"DrupalFiltered\";s:6:\"expand\";s:1:\"t\";s:5:\"width\";s:4:\"100%\";s:4:\"lang\";s:2:\"en\";s:9:\"auto_lang\";s:1:\"t\";s:10:\"enter_mode\";s:1:\"p\";s:16:\"shift_enter_mode\";s:2:\"br\";s:11:\"font_format\";s:35:\"p;div;pre;address;h1;h2;h3;h4;h5;h6\";s:13:\"format_source\";s:1:\"t\";s:13:\"format_output\";s:1:\"t\";s:8:\"css_mode\";s:5:\"theme\";s:8:\"css_path\";s:0:\"\";s:9:\"css_style\";s:5:\"theme\";s:11:\"styles_path\";s:0:\"\";s:11:\"filebrowser\";s:2:\"ib\";s:11:\"quickupload\";s:1:\"t\";s:13:\"UserFilesPath\";s:5:\"%b%f/\";s:21:\"UserFilesAbsolutePath\";s:7:\"%d%b%f/\";s:7:\"js_conf\";s:0:\"\";s:2:\"op\";s:14:\"Update profile\";s:13:\"form_build_id\";s:37:\"form-ffedae8c71599d8b1149e2b1dd4f75d5\";s:10:\"form_token\";s:32:\"3db0ee185dcfc8940cc359ccc909965b\";s:7:\"form_id\";s:28:\"fckeditor_profile_form_build\";}');
 INSERT INTO `fckeditor_settings` VALUES ('FCKeditor Global Profile','a:5:{s:9:\"excl_mode\";i:0;s:11:\"excl_fields\";s:870:\"edit-user-mail-welcome-body\nedit-user-mail-admin-body\nedit-user-mail-approval-body\nedit-user-mail-pass-body\nedit-user-mail-register-admin-created-body\nedit-user-mail-register-no-approval-required-body\nedit-user-mail-register-pending-approval-body\nedit-user-mail-password-reset-body\nedit-user-mail-status-activated-body\nedit-user-mail-status-blocked-body\nedit-user-mail-status-deleted-body\nedit-pages\nedit-pathauto-ignore-words\nedit-recipients\nedit-reply\nedit-description\nedit-synonyms\nedit-img-assist-textareas\nedit-img-assist-paths\nedit-nodewords-description\nedit-relatedlinks-fieldset-relatedlinks\nedit-allowed-values-php\nedit-allowed-values\nedit-update-notify-emails\nedit-googleanalytics-pages\nedit-googleanalytics-codesnippet-before\nedit-googleanalytics-codesnippet-after\nedit-piwik-pages\nedit-piwik-codesnippet\nedit-feedburner-useragents\nedit-webform-*\nedit-target\n\";s:10:\"excl_paths\";s:57:\"admin/*/logintoboggan\nadmin/settings/actions/configure/*\n\";s:16:\"simple_incl_mode\";i:1;s:18:\"simple_incl_fields\";s:148:\"edit-signature\nedit-site-mission\nedit-site-footer\nedit-site-offline-message\nedit-page-help\nedit-user-registration-help\nedit-user-picture-guidelines\n\";}');
 /*!40000 ALTER TABLE `fckeditor_settings` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1570,7 +1665,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=2456 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2510 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -1805,9 +1900,6 @@ INSERT INTO `menu_links` VALUES ('navigation',854,0,'admin_menu/flush-cache','ad
 INSERT INTO `menu_links` VALUES ('devel',855,0,'devel/php','devel/php','Execute PHP Code','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:21:\"Execute some PHP code\";}}','system',0,0,0,0,0,1,0,855,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('primary-links',884,0,'outcomes','outcomes','Outcomes','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:8:\"Outcomes\";}}','system',0,0,0,0,-47,1,1,884,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',885,0,'outcomes/feed','outcomes/feed','','a:0:{}','system',-1,0,0,0,0,1,0,885,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',911,18,'admin/settings/export','admin/settings/export','Export module','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:57:\"Allows users to export (copy then edit) an existing node.\";}}','system',0,0,0,0,0,3,0,2,18,911,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',912,10,'admin/content/import','admin/content/import','Import','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:48:\"Allows users to import a node from another site.\";}}','system',0,0,0,0,0,3,0,2,10,912,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',913,15,'admin/help/export','admin/help/export','export','a:0:{}','system',-1,0,0,0,0,3,0,2,15,913,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',919,0,'aggregator','aggregator','Feed aggregator','a:0:{}','system',0,0,1,0,5,1,0,919,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',920,919,'aggregator/categories','aggregator/categories','Categories','a:0:{}','system',0,0,1,0,0,2,0,919,920,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',921,919,'aggregator/opml','aggregator/opml','OPML feed','a:0:{}','system',-1,0,0,0,0,2,0,919,921,0,0,0,0,0,0,0,0);
@@ -1966,7 +2058,6 @@ INSERT INTO `menu_links` VALUES ('admin_menu',2184,2167,'admin/build/demo','admi
 INSERT INTO `menu_links` VALUES ('admin_menu',2185,2163,'admin/content/emfield','admin/content/emfield','Embedded Media Field configuration','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,2163,2185,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2186,2168,'admin/settings/error-reporting','admin/settings/error-reporting','Error reporting','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2186,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2187,2163,'admin/content/aggregator','admin/content/aggregator','Feed aggregator','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,2163,2187,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2188,2168,'admin/settings/export','admin/settings/export','Export module','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2188,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2189,2168,'admin/settings/signup','admin/settings/signup','Signup','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2189,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2190,2168,'admin/settings/fckeditor','admin/settings/fckeditor','FCKeditor','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2190,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2191,2168,'admin/settings/file-system','admin/settings/file-system','File system','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2191,0,0,0,0,0,0,0,0);
@@ -2010,7 +2101,6 @@ INSERT INTO `menu_links` VALUES ('admin_menu',2228,2167,'admin/build/path','admi
 INSERT INTO `menu_links` VALUES ('admin_menu',2229,2169,'admin/user/settings','admin/user/settings','User settings','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2169,2229,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2230,2169,'admin/user/user','admin/user/user','Users','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,2169,2230,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2231,2167,'admin/build/views','admin/build/views','Views','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,2167,2231,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2232,2163,'admin/content/import','admin/content/import','Import','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2163,2232,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2233,2168,'admin/settings/devel','admin/settings/devel','Devel settings','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2233,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2234,2228,'admin/build/path/add','admin/build/path/add','Add alias','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,3,0,2167,2228,2234,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2235,2175,'admin/build/block/add','admin/build/block/add','Add block','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,3,0,2167,2175,2235,0,0,0,0,0,0,0);
@@ -2232,7 +2322,57 @@ INSERT INTO `menu_links` VALUES ('admin_menu',2451,2159,'devel/variable','devel/
 INSERT INTO `menu_links` VALUES ('admin_menu',2452,2160,'devel/switch/admin','devel/switch','<em>admin</em>','a:3:{s:4:\"html\";b:1;s:5:\"alter\";b:1;s:5:\"query\";s:11:\"destination\";}','admin_menu',0,0,0,0,20,2,0,2160,2452,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2453,2160,'devel/switch/editor','devel/switch','editor','a:3:{s:4:\"html\";b:1;s:5:\"alter\";b:1;s:5:\"query\";s:11:\"destination\";}','admin_menu',0,0,0,0,20,2,0,2160,2453,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2454,2159,'admin_menu/toggle-modules','admin_menu/toggle-modules','Disable developer modules','a:2:{s:5:\"query\";s:11:\"destination\";s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,88,2,0,2159,2454,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2455,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2455,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2457,0,'polls','polls','Advanced Polls','a:0:{}','system',1,0,0,0,0,1,0,2457,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2458,0,'advpoll/js_more_choices','advpoll/js_more_choices','More Choices via JavaScript','a:0:{}','system',-1,0,0,0,0,1,0,2458,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2459,0,'advpoll/js_vote','advpoll/js_vote','Vote via JavaScript','a:0:{}','system',-1,0,0,0,0,1,0,2459,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2460,0,'node/%/remove','node/%/remove','','a:0:{}','system',-1,0,0,0,3,1,0,2460,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2461,0,'fbconnect/register/import','fbconnect/register/import','','a:0:{}','system',-1,0,0,0,0,1,0,2461,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2462,0,'fbconnect/register/prompt','fbconnect/register/prompt','','a:0:{}','system',-1,0,0,0,0,1,0,2462,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2463,0,'fbconnect/register/create','fbconnect/register/create','','a:0:{}','system',-1,0,0,0,0,1,0,2463,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2464,0,'node/%/reset','node/%/reset','','a:0:{}','system',-1,0,0,0,3,1,0,2464,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2465,10,'admin/content/advpoll-convert','admin/content/advpoll-convert','Advanced Poll Converter','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:67:\"Convert your site\'s standard Drupal polls into Advanced Poll polls.\";}}','system',0,0,0,0,0,3,0,2,10,2465,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2466,11,'node/add/advpoll-binary','node/add/advpoll-binary','Binary poll','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:40:\"Vote for or against a number of choices.\";}}','system',0,0,0,0,0,2,0,11,2466,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2467,0,'advpoll/cancel/%','advpoll/cancel/%','Cancel','a:0:{}','system',-1,0,0,0,0,1,0,2467,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2468,18,'admin/settings/fbconnect','admin/settings/fbconnect','Fbconnect','a:0:{}','system',0,0,0,0,0,3,0,2,18,2468,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2469,763,'admin/generate/votingapi','admin/generate/votingapi','Generate votes','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:83:\"Generate a given number of votes on site content. Optionally delete existing votes.\";}}','system',0,0,0,0,0,3,0,2,763,2469,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2470,11,'node/add/advpoll-ranking','node/add/advpoll-ranking','Ranking poll','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:25:\"Rank a number of choices.\";}}','system',0,0,0,0,0,2,0,11,2470,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2471,0,'fbconnect/invite/friends','fbconnect/invite/friends','Share with my friends','a:0:{}','system',-1,0,0,0,0,1,0,2471,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2472,18,'admin/settings/votingapi','admin/settings/votingapi','Voting API','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:35:\"Global settings for the Voting API.\";}}','system',0,0,0,0,0,3,0,2,18,2472,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2473,15,'admin/help/advpoll','admin/help/advpoll','advpoll','a:0:{}','system',-1,0,0,0,0,3,0,2,15,2473,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2474,15,'admin/help/advpoll_convert','admin/help/advpoll_convert','advpoll_convert','a:0:{}','system',-1,0,0,0,0,3,0,2,15,2474,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2475,10,'admin/content/node-type/advpoll-binary','admin/content/node-type/advpoll-binary','Binary poll','a:0:{}','system',-1,0,0,0,0,3,0,2,10,2475,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2476,10,'admin/content/node-type/advpoll-ranking','admin/content/node-type/advpoll-ranking','Ranking poll','a:0:{}','system',-1,0,0,0,0,3,0,2,10,2476,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2477,0,'admin/content/node-type/advpoll-binary/delete','admin/content/node-type/advpoll-binary/delete','Delete','a:0:{}','system',-1,0,0,0,0,1,0,2477,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2478,0,'admin/content/node-type/advpoll-ranking/delete','admin/content/node-type/advpoll-ranking/delete','Delete','a:0:{}','system',-1,0,0,0,0,1,0,2478,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2479,0,'admin/content/node-type/advpoll-binary/groups/%','admin/content/node-type/advpoll-binary/groups/%','Edit group','a:0:{}','system',-1,0,0,0,0,1,0,2479,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2480,0,'admin/content/node-type/advpoll-ranking/groups/%','admin/content/node-type/advpoll-ranking/groups/%','Edit group','a:0:{}','system',-1,0,0,0,0,1,0,2480,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2481,0,'admin/content/node-type/advpoll-binary/groups/%/remove','admin/content/node-type/advpoll-binary/groups/%/remove','Edit group','a:0:{}','system',-1,0,0,0,0,1,0,2481,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2482,0,'admin/content/node-type/advpoll-ranking/groups/%/remove','admin/content/node-type/advpoll-ranking/groups/%/remove','Edit group','a:0:{}','system',-1,0,0,0,0,1,0,2482,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2483,2163,'admin/content/advpoll-convert','admin/content/advpoll-convert','Advanced Poll Converter','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2163,2483,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2484,2168,'admin/settings/fbconnect','admin/settings/fbconnect','Fbconnect','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2484,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2485,2164,'admin/generate/votingapi','admin/generate/votingapi','Generate votes','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2164,2485,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2486,2168,'admin/settings/votingapi','admin/settings/votingapi','Voting API','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2486,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2488,2333,'http://drupal.org/project/issues/advpoll','','Advanced Poll issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,2488,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2489,2333,'http://drupal.org/project/issues/fbconnect','','Fbconnect issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,2489,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2490,2333,'http://drupal.org/project/issues/votingapi','','Voting API issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,2490,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2491,2364,'node/add/advpoll-binary','node/add/advpoll-binary','Binary poll','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,3,0,2163,2364,2491,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2492,2364,'node/add/advpoll-ranking','node/add/advpoll-ranking','Ranking poll','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,3,0,2163,2364,2492,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2493,2181,'admin/content/node-type/advpoll-binary','admin/content/node-type/advpoll-binary','Edit @content-type','a:2:{s:1:\"t\";a:1:{s:13:\"@content-type\";s:11:\"Binary poll\";}s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,3,0,2163,2181,2493,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2494,2493,'admin/content/node-type/advpoll-binary/display','admin/content/node-type/advpoll-binary/display','Display fields','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,2,4,0,2163,2181,2493,2494,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2495,2494,'admin/content/node-type/advpoll-binary/display/basic','admin/content/node-type/advpoll-binary/display/basic','Basic','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2493,2494,2495,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2496,2494,'admin/content/node-type/advpoll-binary/display/rss','admin/content/node-type/advpoll-binary/display/rss','RSS','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,5,0,2163,2181,2493,2494,2496,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2497,2494,'admin/content/node-type/advpoll-binary/display/search','admin/content/node-type/advpoll-binary/display/search','Search','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,5,0,2163,2181,2493,2494,2497,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2498,2494,'admin/content/node-type/advpoll-binary/display/token','admin/content/node-type/advpoll-binary/display/token','Token','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,5,0,2163,2181,2493,2494,2498,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2499,2493,'admin/content/node-type/advpoll-binary/fields','admin/content/node-type/advpoll-binary/fields','Manage fields','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,4,0,2163,2181,2493,2499,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2500,2181,'admin/content/node-type/advpoll-ranking','admin/content/node-type/advpoll-ranking','Edit @content-type','a:2:{s:1:\"t\";a:1:{s:13:\"@content-type\";s:12:\"Ranking poll\";}s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,3,0,2163,2181,2500,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2501,2500,'admin/content/node-type/advpoll-ranking/display','admin/content/node-type/advpoll-ranking/display','Display fields','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,2,4,0,2163,2181,2500,2501,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2502,2501,'admin/content/node-type/advpoll-ranking/display/basic','admin/content/node-type/advpoll-ranking/display/basic','Basic','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2500,2501,2502,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2503,2501,'admin/content/node-type/advpoll-ranking/display/rss','admin/content/node-type/advpoll-ranking/display/rss','RSS','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,5,0,2163,2181,2500,2501,2503,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2504,2501,'admin/content/node-type/advpoll-ranking/display/search','admin/content/node-type/advpoll-ranking/display/search','Search','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,5,0,2163,2181,2500,2501,2504,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2505,2501,'admin/content/node-type/advpoll-ranking/display/token','admin/content/node-type/advpoll-ranking/display/token','Token','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,5,0,2163,2181,2500,2501,2505,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2506,2500,'admin/content/node-type/advpoll-ranking/fields','admin/content/node-type/advpoll-ranking/fields','Manage fields','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,4,0,2163,2181,2500,2506,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2508,2160,'devel/switch/pvhee','devel/switch','pvhee','a:3:{s:4:\"html\";b:1;s:5:\"alter\";b:1;s:5:\"query\";s:11:\"destination\";}','admin_menu',0,0,0,0,20,2,0,2160,2508,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2509,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2509,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -2376,6 +2516,7 @@ INSERT INTO `menu_router` VALUES ('admin/by-module','','','user_access','a:1:{i:
 INSERT INTO `menu_router` VALUES ('admin/by-task','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','system_main_admin_page','a:0:{}',3,2,'admin','admin','By task','t','',136,'','','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/compact','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','system_admin_compact_page','a:0:{}',3,2,'','admin/compact','Compact mode','t','',4,'','','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','system_admin_menu_block_page','a:0:{}',3,2,'','admin/content','Content management','t','',6,'','Manage your site\'s content.','left',-10,'modules/system/system.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/advpoll-convert','','','user_access','a:1:{i:0;s:16:\"administer nodes\";}','drupal_get_form','a:1:{i:0;s:20:\"advpoll_convert_form\";}',7,3,'','admin/content/advpoll-convert','Advanced Poll Converter','t','',6,'','Convert your site\'s standard Drupal polls into Advanced Poll polls.','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/content/aggregator','','','user_access','a:1:{i:0;s:21:\"administer news feeds\";}','aggregator_admin_overview','a:0:{}',7,3,'','admin/content/aggregator','Feed aggregator','t','',6,'','Configure which content your site aggregates from other sites, how often it polls them, and how they\'re categorized.','',0,'modules/aggregator/aggregator.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/aggregator/add/category','','','user_access','a:1:{i:0;s:21:\"administer news feeds\";}','drupal_get_form','a:1:{i:0;s:24:\"aggregator_form_category\";}',31,5,'admin/content/aggregator','admin/content/aggregator','Add category','t','',128,'','','',0,'modules/aggregator/aggregator.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/aggregator/add/feed','','','user_access','a:1:{i:0;s:21:\"administer news feeds\";}','drupal_get_form','a:1:{i:0;s:20:\"aggregator_form_feed\";}',31,5,'admin/content/aggregator','admin/content/aggregator','Add feed','t','',128,'','','',0,'modules/aggregator/aggregator.admin.inc');
@@ -2396,10 +2537,31 @@ INSERT INTO `menu_router` VALUES ('admin/content/date/import/event','','','user_
 INSERT INTO `menu_router` VALUES ('admin/content/date/import/ical','','','user_access','a:1:{i:0;s:16:\"administer nodes\";}','drupal_get_form','a:1:{i:0;s:26:\"date_copy_import_ical_form\";}',31,5,'admin/content/date/import','admin/content/date','iCal','t','',136,'','','',1,'');
 INSERT INTO `menu_router` VALUES ('admin/content/emfield','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:16:\"emfield_settings\";}',7,3,'','admin/content/emfield','Embedded Media Field configuration','t','',6,'','Configure Embedded Media Field: Allow content types to use various 3rd party providers, enter API keys, etc.','',0,'profiles/satellite/modules/emfield/emfield.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/emfield/media','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:16:\"emfield_settings\";}',15,4,'admin/content/emfield','admin/content/emfield','Media settings','t','',136,'','Configure Embedded Media Field: Allow content types to use various 3rd party providers, enter API keys, etc.','',0,'profiles/satellite/modules/emfield/emfield.admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/content/import','','','user_access','a:1:{i:0;s:12:\"import nodes\";}','export_node_import','a:0:{}',7,3,'','admin/content/import','Import','t','',6,'','Allows users to import a node from another site.','',0,'profiles/satellite/modules/node_export/export.pages.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node','','','user_access','a:1:{i:0;s:16:\"administer nodes\";}','drupal_get_form','a:1:{i:0;s:18:\"node_admin_content\";}',7,3,'','admin/content/node','Content','t','',6,'','View, edit, and delete your site\'s content.','',0,'modules/node/node.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-settings','','','user_access','a:1:{i:0;s:16:\"administer nodes\";}','drupal_get_form','a:1:{i:0;s:14:\"node_configure\";}',7,3,'','admin/content/node-settings','Post settings','t','',6,'','Control posting behavior, such as teaser length, requiring previews before posting, and the number of posts on the front page.','',0,'modules/node/node.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-settings/rebuild','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','drupal_get_form','a:1:{i:0;s:30:\"node_configure_rebuild_confirm\";}',15,4,'','admin/content/node-settings/rebuild','Rebuild permissions','t','',4,'','','',0,'modules/node/node.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":15:{s:4:\"name\";s:11:\"Binary poll\";s:6:\"module\";s:7:\"advpoll\";s:11:\"description\";s:40:\"Vote for or against a number of choices.\";s:11:\"title_label\";s:15:\"Binary question\";s:10:\"body_label\";s:11:\"Description\";s:4:\"type\";s:14:\"advpoll_binary\";s:9:\"has_title\";b:1;s:8:\"has_body\";b:1;s:4:\"help\";s:0:\"\";s:14:\"min_word_count\";i:0;s:6:\"custom\";b:0;s:8:\"modified\";b:0;s:6:\"locked\";b:1;s:9:\"orig_type\";s:14:\"advpoll_binary\";s:6:\"is_new\";b:1;}}',15,4,'','admin/content/node-type/advpoll-binary','Binary poll','t','',4,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary/delete','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:24:\"node_type_delete_confirm\";i:1;O:8:\"stdClass\":15:{s:4:\"name\";s:11:\"Binary poll\";s:6:\"module\";s:7:\"advpoll\";s:11:\"description\";s:40:\"Vote for or against a number of choices.\";s:11:\"title_label\";s:15:\"Binary question\";s:10:\"body_label\";s:11:\"Description\";s:4:\"type\";s:14:\"advpoll_binary\";s:9:\"has_title\";b:1;s:8:\"has_body\";b:1;s:4:\"help\";s:0:\"\";s:14:\"min_word_count\";i:0;s:6:\"custom\";b:0;s:8:\"modified\";b:0;s:6:\"locked\";b:1;s:9:\"orig_type\";s:14:\"advpoll_binary\";s:6:\"is_new\";b:1;}}',31,5,'','admin/content/node-type/advpoll-binary/delete','Delete','t','',4,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary/display','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:29:\"content_display_overview_form\";i:1;s:14:\"advpoll_binary\";}',31,5,'admin/content/node-type/advpoll-binary','admin/content/node-type/advpoll-binary','Display fields','t','',128,'','','',2,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary/display/basic','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:14:\"advpoll_binary\";i:2;s:5:\"basic\";}',63,6,'admin/content/node-type/advpoll-binary/display','admin/content/node-type/advpoll-binary','Basic','t','',136,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary/display/rss','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:14:\"advpoll_binary\";i:2;s:3:\"rss\";}',63,6,'admin/content/node-type/advpoll-binary/display','admin/content/node-type/advpoll-binary','RSS','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary/display/search','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:14:\"advpoll_binary\";i:2;s:6:\"search\";}',63,6,'admin/content/node-type/advpoll-binary/display','admin/content/node-type/advpoll-binary','Search','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary/display/token','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:14:\"advpoll_binary\";i:2;s:5:\"token\";}',63,6,'admin/content/node-type/advpoll-binary/display','admin/content/node-type/advpoll-binary','Token','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary/edit','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":15:{s:4:\"name\";s:11:\"Binary poll\";s:6:\"module\";s:7:\"advpoll\";s:11:\"description\";s:40:\"Vote for or against a number of choices.\";s:11:\"title_label\";s:15:\"Binary question\";s:10:\"body_label\";s:11:\"Description\";s:4:\"type\";s:14:\"advpoll_binary\";s:9:\"has_title\";b:1;s:8:\"has_body\";b:1;s:4:\"help\";s:0:\"\";s:14:\"min_word_count\";i:0;s:6:\"custom\";b:0;s:8:\"modified\";b:0;s:6:\"locked\";b:1;s:9:\"orig_type\";s:14:\"advpoll_binary\";s:6:\"is_new\";b:1;}}',31,5,'admin/content/node-type/advpoll-binary','admin/content/node-type/advpoll-binary','Edit','t','',136,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary/fields','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:27:\"content_field_overview_form\";i:1;s:14:\"advpoll_binary\";}',31,5,'admin/content/node-type/advpoll-binary','admin/content/node-type/advpoll-binary','Manage fields','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary/groups/%','a:1:{i:5;N;}','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:26:\"fieldgroup_group_edit_form\";i:1;s:14:\"advpoll_binary\";i:2;i:5;}',62,6,'','admin/content/node-type/advpoll-binary/groups/%','Edit group','t','',4,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-binary/groups/%/remove','a:1:{i:5;N;}','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:23:\"fieldgroup_remove_group\";i:1;s:14:\"advpoll_binary\";i:2;i:5;}',125,7,'','admin/content/node-type/advpoll-binary/groups/%/remove','Edit group','t','',4,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":15:{s:4:\"name\";s:12:\"Ranking poll\";s:6:\"module\";s:7:\"advpoll\";s:11:\"description\";s:25:\"Rank a number of choices.\";s:11:\"title_label\";s:16:\"Ranking question\";s:10:\"body_label\";s:11:\"Description\";s:4:\"type\";s:15:\"advpoll_ranking\";s:9:\"has_title\";b:1;s:8:\"has_body\";b:1;s:4:\"help\";s:0:\"\";s:14:\"min_word_count\";i:0;s:6:\"custom\";b:0;s:8:\"modified\";b:0;s:6:\"locked\";b:1;s:9:\"orig_type\";s:15:\"advpoll_ranking\";s:6:\"is_new\";b:1;}}',15,4,'','admin/content/node-type/advpoll-ranking','Ranking poll','t','',4,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking/delete','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:24:\"node_type_delete_confirm\";i:1;O:8:\"stdClass\":15:{s:4:\"name\";s:12:\"Ranking poll\";s:6:\"module\";s:7:\"advpoll\";s:11:\"description\";s:25:\"Rank a number of choices.\";s:11:\"title_label\";s:16:\"Ranking question\";s:10:\"body_label\";s:11:\"Description\";s:4:\"type\";s:15:\"advpoll_ranking\";s:9:\"has_title\";b:1;s:8:\"has_body\";b:1;s:4:\"help\";s:0:\"\";s:14:\"min_word_count\";i:0;s:6:\"custom\";b:0;s:8:\"modified\";b:0;s:6:\"locked\";b:1;s:9:\"orig_type\";s:15:\"advpoll_ranking\";s:6:\"is_new\";b:1;}}',31,5,'','admin/content/node-type/advpoll-ranking/delete','Delete','t','',4,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking/display','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:29:\"content_display_overview_form\";i:1;s:15:\"advpoll_ranking\";}',31,5,'admin/content/node-type/advpoll-ranking','admin/content/node-type/advpoll-ranking','Display fields','t','',128,'','','',2,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking/display/basic','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:15:\"advpoll_ranking\";i:2;s:5:\"basic\";}',63,6,'admin/content/node-type/advpoll-ranking/display','admin/content/node-type/advpoll-ranking','Basic','t','',136,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking/display/rss','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:15:\"advpoll_ranking\";i:2;s:3:\"rss\";}',63,6,'admin/content/node-type/advpoll-ranking/display','admin/content/node-type/advpoll-ranking','RSS','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking/display/search','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:15:\"advpoll_ranking\";i:2;s:6:\"search\";}',63,6,'admin/content/node-type/advpoll-ranking/display','admin/content/node-type/advpoll-ranking','Search','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking/display/token','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:15:\"advpoll_ranking\";i:2;s:5:\"token\";}',63,6,'admin/content/node-type/advpoll-ranking/display','admin/content/node-type/advpoll-ranking','Token','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking/edit','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":15:{s:4:\"name\";s:12:\"Ranking poll\";s:6:\"module\";s:7:\"advpoll\";s:11:\"description\";s:25:\"Rank a number of choices.\";s:11:\"title_label\";s:16:\"Ranking question\";s:10:\"body_label\";s:11:\"Description\";s:4:\"type\";s:15:\"advpoll_ranking\";s:9:\"has_title\";b:1;s:8:\"has_body\";b:1;s:4:\"help\";s:0:\"\";s:14:\"min_word_count\";i:0;s:6:\"custom\";b:0;s:8:\"modified\";b:0;s:6:\"locked\";b:1;s:9:\"orig_type\";s:15:\"advpoll_ranking\";s:6:\"is_new\";b:1;}}',31,5,'admin/content/node-type/advpoll-ranking','admin/content/node-type/advpoll-ranking','Edit','t','',136,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking/fields','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:27:\"content_field_overview_form\";i:1;s:15:\"advpoll_ranking\";}',31,5,'admin/content/node-type/advpoll-ranking','admin/content/node-type/advpoll-ranking','Manage fields','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking/groups/%','a:1:{i:5;N;}','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:26:\"fieldgroup_group_edit_form\";i:1;s:15:\"advpoll_ranking\";i:2;i:5;}',62,6,'','admin/content/node-type/advpoll-ranking/groups/%','Edit group','t','',4,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/advpoll-ranking/groups/%/remove','a:1:{i:5;N;}','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:23:\"fieldgroup_remove_group\";i:1;s:15:\"advpoll_ranking\";i:2;i:5;}',125,7,'','admin/content/node-type/advpoll-ranking/groups/%/remove','Edit group','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/article','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:7:\"article\";s:4:\"name\";s:7:\"Article\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:197:\"An <em>article</em> is suitable for news items and press releases. By default, an <em>article</em> entry is automatically featured on the site front page, and provides the ability to post comments.\";s:4:\"help\";s:132:\"Write your article below. A teaser will automatically be built from the first few lines.<br/> You can attach images and other files.\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:5:\"story\";}}',15,4,'','admin/content/node-type/article','Article','t','',4,'','','',0,'modules/node/content_types.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/article/delete','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:24:\"node_type_delete_confirm\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:7:\"article\";s:4:\"name\";s:7:\"Article\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:197:\"An <em>article</em> is suitable for news items and press releases. By default, an <em>article</em> entry is automatically featured on the site front page, and provides the ability to post comments.\";s:4:\"help\";s:132:\"Write your article below. A teaser will automatically be built from the first few lines.<br/> You can attach images and other files.\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:5:\"story\";}}',31,5,'','admin/content/node-type/article/delete','Delete','t','',4,'','','',0,'modules/node/content_types.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/article/display','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:29:\"content_display_overview_form\";i:1;s:7:\"article\";}',31,5,'admin/content/node-type/article','admin/content/node-type/article','Display fields','t','',128,'','','',2,'profiles/satellite/modules/cck/includes/content.admin.inc');
@@ -2541,8 +2703,11 @@ INSERT INTO `menu_router` VALUES ('admin/generate','','','user_access','a:1:{i:0
 INSERT INTO `menu_router` VALUES ('admin/generate/content','','','user_access','a:1:{i:0;s:16:\"administer nodes\";}','drupal_get_form','a:1:{i:0;s:27:\"devel_generate_content_form\";}',7,3,'','admin/generate/content','Generate content','t','',6,'','Generate a given number of nodes and comments. Optionally delete current items.','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/generate/taxonomy','','','user_access','a:1:{i:0;s:16:\"administer nodes\";}','drupal_get_form','a:1:{i:0;s:28:\"devel_generate_taxonomy_form\";}',7,3,'','admin/generate/taxonomy','Generate categories','t','',6,'','Generate a given number of vocabularies and terms. Optionally delete current categories.','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/generate/user','','','user_access','a:1:{i:0;s:16:\"administer users\";}','drupal_get_form','a:1:{i:0;s:25:\"devel_generate_users_form\";}',7,3,'','admin/generate/user','Generate users','t','',6,'','Generate a given number of users. Optionally delete current users.','',0,'');
+INSERT INTO `menu_router` VALUES ('admin/generate/votingapi','','','user_access','a:1:{i:0;s:21:\"administer voting api\";}','drupal_get_form','a:1:{i:0;s:29:\"votingapi_generate_votes_form\";}',7,3,'','admin/generate/votingapi','Generate votes','t','',6,'','Generate a given number of votes on site content. Optionally delete existing votes.','',0,'profiles/satellite/modules/votingapi/votingapi.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_main','a:0:{}',3,2,'','admin/help','Help','t','',6,'','','',9,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/admin_menu','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/admin_menu','admin_menu','t','',4,'','','',0,'modules/help/help.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/help/advpoll','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/advpoll','advpoll','t','',4,'','','',0,'modules/help/help.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/help/advpoll_convert','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/advpoll_convert','advpoll_convert','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/aggregator','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/aggregator','aggregator','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/block','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/block','block','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/calendar','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/calendar','calendar','t','',4,'','','',0,'modules/help/help.admin.inc');
@@ -2560,7 +2725,6 @@ INSERT INTO `menu_router` VALUES ('admin/help/drush_pm_svn','','','user_access',
 INSERT INTO `menu_router` VALUES ('admin/help/drush_pm_wget','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/drush_pm_wget','drush_pm_wget','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/drush_sql','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/drush_sql','drush_sql','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/drush_tools','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/drush_tools','drush_tools','t','',4,'','','',0,'modules/help/help.admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/help/export','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/export','export','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/fckeditor','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/fckeditor','fckeditor','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/filter','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/filter','filter','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/help','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/help','help','t','',4,'','','',0,'modules/help/help.admin.inc');
@@ -2618,7 +2782,7 @@ INSERT INTO `menu_router` VALUES ('admin/settings/date-time','','','user_access'
 INSERT INTO `menu_router` VALUES ('admin/settings/date-time/lookup','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','system_date_time_lookup','a:0:{}',15,4,'','admin/settings/date-time/lookup','Date and time lookup','t','',4,'','','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/devel','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:20:\"devel_admin_settings\";}',7,3,'','admin/settings/devel','Devel settings','t','',6,'','Helper functions, pages, and blocks to assist Drupal developers. The devel blocks can be managed via the !block page.','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/settings/error-reporting','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:31:\"system_error_reporting_settings\";}',7,3,'','admin/settings/error-reporting','Error reporting','t','',6,'','Control how Drupal deals with errors including 403/404 errors as well as PHP error reporting.','',0,'modules/system/system.admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/settings/export','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:15:\"export_settings\";}',7,3,'','admin/settings/export','Export module','t','',6,'','Allows users to export (copy then edit) an existing node.','',0,'profiles/satellite/modules/node_export/export.pages.inc');
+INSERT INTO `menu_router` VALUES ('admin/settings/fbconnect','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:24:\"fbconnect_admin_settings\";}',7,3,'','admin/settings/fbconnect','Fbconnect','t','',6,'','','',0,'profiles/satellite/modules/fbconnect/fbconnect.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/fckeditor','','','user_access','a:1:{i:0;s:20:\"administer fckeditor\";}','fckeditor_admin','a:0:{}',7,3,'','admin/settings/fckeditor','FCKeditor','t','',6,'','Configure the rich editor.','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/settings/file-system','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:27:\"system_file_system_settings\";}',7,3,'','admin/settings/file-system','File system','t','',6,'','Tell Drupal where to store uploaded files and how they are accessed.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/filters','','','user_access','a:1:{i:0;s:18:\"administer filters\";}','drupal_get_form','a:1:{i:0;s:21:\"filter_admin_overview\";}',7,3,'','admin/settings/filters','Input formats','t','',6,'','Configure how content input by users is filtered, including allowed HTML tags. Also allows enabling of module-provided filters.','',0,'modules/filter/filter.admin.inc');
@@ -2655,6 +2819,7 @@ INSERT INTO `menu_router` VALUES ('admin/settings/site-information','','','user_
 INSERT INTO `menu_router` VALUES ('admin/settings/site-maintenance','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:32:\"system_site_maintenance_settings\";}',7,3,'','admin/settings/site-maintenance','Site maintenance','t','',6,'','Take the site off-line for maintenance or bring it back online.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/teleport','','','user_access','a:1:{i:0;s:19:\"administer teleport\";}','drupal_get_form','a:1:{i:0;s:22:\"teleport_settings_form\";}',7,3,'','admin/settings/teleport','Teleport','t','',6,'','Manage settings for the Teleport utility.','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/settings/uploads','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:21:\"upload_admin_settings\";}',7,3,'','admin/settings/uploads','File uploads','t','',6,'','Control how files may be attached to content.','',0,'modules/upload/upload.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/settings/votingapi','','','user_access','a:1:{i:0;s:21:\"administer voting api\";}','drupal_get_form','a:1:{i:0;s:23:\"votingapi_settings_form\";}',7,3,'','admin/settings/votingapi','Voting API','t','',6,'','Global settings for the Voting API.','',0,'profiles/satellite/modules/votingapi/votingapi.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/user','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','system_admin_menu_block_page','a:0:{}',3,2,'','admin/user','User management','t','',6,'','Manage your site\'s users, groups and access to site features.','left',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/user/captcha','','','user_access','a:1:{i:0;s:27:\"administer CAPTCHA settings\";}','drupal_get_form','a:1:{i:0;s:22:\"captcha_admin_settings\";}',7,3,'','admin/user/captcha','CAPTCHA','t','',6,'','Administer how and where CAPTCHAs are used.','',0,'profiles/satellite/modules/captcha/captcha.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/user/captcha/captcha','','','user_access','a:1:{i:0;s:27:\"administer CAPTCHA settings\";}','drupal_get_form','a:1:{i:0;s:22:\"captcha_admin_settings\";}',15,4,'admin/user/captcha','admin/user/captcha','CAPTCHA','t','',136,'','','',-20,'profiles/satellite/modules/captcha/captcha.admin.inc');
@@ -2686,6 +2851,9 @@ INSERT INTO `menu_router` VALUES ('admin/views/ajax/autocomplete/user','','','us
 INSERT INTO `menu_router` VALUES ('admin_menu/flush-cache','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','admin_menu_flush_cache','a:0:{}',3,2,'','admin_menu/flush-cache','','t','',4,'','','',0,'profiles/satellite/modules/admin_menu/admin_menu.inc');
 INSERT INTO `menu_router` VALUES ('admin_menu/toggle-modules','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','admin_menu_toggle_modules','a:0:{}',3,2,'','admin_menu/toggle-modules','','t','',4,'','','',0,'profiles/satellite/modules/admin_menu/admin_menu.inc');
 INSERT INTO `menu_router` VALUES ('advanced_help/search/%','a:1:{i:2;N;}','a:1:{i:2;s:16:\"menu_tail_to_arg\";}','user_access','a:1:{i:0;s:24:\"view advanced help index\";}','advanced_help_search_view','a:1:{i:0;s:13:\"advanced_help\";}',6,3,'','advanced_help/search/%','Search help','t','',6,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('advpoll/cancel/%','a:1:{i:2;s:9:\"node_load\";}','','user_access','a:1:{i:0;s:15:\"cancel own vote\";}','advpoll_cancel','a:1:{i:0;i:2;}',6,3,'','advpoll/cancel/%','Cancel','t','',4,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('advpoll/js_more_choices','','','user_access','a:1:{i:0;s:14:\"access content\";}','advpoll_js_more_choices','a:0:{}',3,2,'','advpoll/js_more_choices','More Choices via JavaScript','t','',4,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('advpoll/js_vote','','','user_access','a:1:{i:0;s:13:\"vote on polls\";}','advpoll_js_vote','a:0:{}',3,2,'','advpoll/js_vote','Vote via JavaScript','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('aggregator','','','user_access','a:1:{i:0;s:17:\"access news feeds\";}','aggregator_page_last','a:0:{}',1,1,'','aggregator','Feed aggregator','t','',6,'','','',5,'modules/aggregator/aggregator.pages.inc');
 INSERT INTO `menu_router` VALUES ('aggregator/categories','','','_aggregator_has_categories','a:0:{}','aggregator_page_categories','a:0:{}',3,2,'','aggregator/categories','Categories','t','',6,'','','',0,'modules/aggregator/aggregator.pages.inc');
 INSERT INTO `menu_router` VALUES ('aggregator/categories/%','a:1:{i:2;s:24:\"aggregator_category_load\";}','','user_access','a:1:{i:0;s:17:\"access news feeds\";}','aggregator_page_category','a:1:{i:0;i:2;}',6,3,'','aggregator/categories/%','','_aggregator_category_title','a:1:{i:0;i:2;}',6,'','','',0,'modules/aggregator/aggregator.pages.inc');
@@ -2731,6 +2899,10 @@ INSERT INTO `menu_router` VALUES ('devel/variable/edit/%','a:1:{i:3;N;}','','use
 INSERT INTO `menu_router` VALUES ('events','','','views_access','a:1:{i:0;b:1;}','views_page','a:2:{i:0;s:6:\"events\";i:1;s:6:\"page_1\";}',1,1,'','events','Events','t','',6,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('events-past','','','views_access','a:1:{i:0;b:1;}','views_page','a:2:{i:0;s:6:\"events\";i:1;s:6:\"page_2\";}',1,1,'','events-past','','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('events/feed','','','views_access','a:1:{i:0;b:1;}','views_page','a:2:{i:0;s:6:\"events\";i:1;s:6:\"feed_1\";}',3,2,'','events/feed','','t','',4,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('fbconnect/invite/friends','','','user_is_logged_in','a:0:{}','fbconnect_render_friends_invite_form','a:0:{}',7,3,'','fbconnect/invite/friends','Share with my friends','t','',4,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('fbconnect/register/create','','','user_is_anonymous','a:0:{}','fbconnect_register_page','a:0:{}',7,3,'','fbconnect/register/create','','t','',4,'','','',0,'profiles/satellite/modules/fbconnect/fbconnect.pages.inc');
+INSERT INTO `menu_router` VALUES ('fbconnect/register/import','','','user_is_anonymous','a:0:{}','fbconnect_profile_import_page','a:0:{}',7,3,'','fbconnect/register/import','','t','',4,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('fbconnect/register/prompt','','','user_is_anonymous','a:0:{}','fbconnect_prompt_page','a:0:{}',7,3,'','fbconnect/register/prompt','','t','',4,'','','',0,'profiles/satellite/modules/fbconnect/fbconnect.pages.inc');
 INSERT INTO `menu_router` VALUES ('fckeditor/xss','','','user_access','a:1:{i:0;s:16:\"access fckeditor\";}','fckeditor_filter_xss','a:0:{}',3,2,'','fckeditor/xss','XSS Filter','t','',4,'','XSS Filter.','',0,'');
 INSERT INTO `menu_router` VALUES ('feed','','','views_access','a:1:{i:0;b:1;}','views_page','a:2:{i:0;s:9:\"frontpage\";i:1;s:4:\"feed\";}',1,1,'','feed','','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('filefield/ahah/%/%/%','a:3:{i:2;N;i:3;N;i:4;N;}','','filefield_edit_access','a:1:{i:0;i:3;}','filefield_js','a:3:{i:0;i:2;i:1;i:3;i:2;i:4;}',24,5,'','filefield/ahah/%/%/%','','t','',4,'','','',0,'');
@@ -2756,8 +2928,11 @@ INSERT INTO `menu_router` VALUES ('node/%/delete','a:1:{i:1;s:9:\"node_load\";}'
 INSERT INTO `menu_router` VALUES ('node/%/devel/load','a:1:{i:1;s:9:\"node_load\";}','','user_access','a:1:{i:0;s:24:\"access devel information\";}','devel_load_object','a:2:{i:0;i:1;i:1;s:4:\"node\";}',11,4,'node/%','node/%','Dev load','t','',128,'','','',100,'');
 INSERT INTO `menu_router` VALUES ('node/%/devel/render','a:1:{i:1;s:9:\"node_load\";}','','user_access','a:1:{i:0;s:24:\"access devel information\";}','devel_render_object','a:2:{i:0;s:4:\"node\";i:1;i:1;}',11,4,'node/%','node/%','Dev render','t','',128,'','','',100,'');
 INSERT INTO `menu_router` VALUES ('node/%/edit','a:1:{i:1;s:9:\"node_load\";}','','node_access','a:2:{i:0;s:6:\"update\";i:1;i:1;}','node_page_edit','a:1:{i:0;i:1;}',5,3,'node/%','node/%','Edit','t','',128,'','','',1,'modules/node/node.pages.inc');
-INSERT INTO `menu_router` VALUES ('node/%/export','a:1:{i:1;s:9:\"node_load\";}','','export_access','a:1:{i:0;i:1;}','export_node_export','a:1:{i:0;i:1;}',5,3,'node/%','node/%','Export','t','',128,'','','',5,'profiles/satellite/modules/node_export/export.pages.inc');
+INSERT INTO `menu_router` VALUES ('node/%/electoral_list','a:1:{i:1;s:9:\"node_load\";}','','_advpoll_electoral_list_access','a:1:{i:0;i:1;}','advpoll_electoral_list_page','a:1:{i:0;i:1;}',5,3,'node/%','node/%','Electoral list','t','',128,'','','',3,'');
+INSERT INTO `menu_router` VALUES ('node/%/remove','a:1:{i:1;s:9:\"node_load\";}','','user_access','a:1:{i:0;s:16:\"administer polls\";}','advpoll_remove_voter','a:1:{i:0;i:1;}',5,3,'','node/%/remove','','t','',4,'','','',3,'');
 INSERT INTO `menu_router` VALUES ('node/%/repeats','a:1:{i:1;s:9:\"node_load\";}','','date_repeat_node','a:1:{i:0;i:1;}','date_repeat_page','a:1:{i:0;i:1;}',5,3,'node/%','node/%','Repeats','t','',128,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('node/%/reset','a:1:{i:1;s:9:\"node_load\";}','','user_access','a:1:{i:0;s:16:\"administer polls\";}','drupal_get_form','a:2:{i:0;s:21:\"advpoll_reset_confirm\";i:1;i:1;}',5,3,'','node/%/reset','','t','',4,'','','',3,'');
+INSERT INTO `menu_router` VALUES ('node/%/results','a:1:{i:1;s:9:\"node_load\";}','','_advpoll_results_access','a:1:{i:0;i:1;}','advpoll_results','a:1:{i:0;i:1;}',5,3,'node/%','node/%','Results','t','',128,'','','',3,'');
 INSERT INTO `menu_router` VALUES ('node/%/revisions','a:1:{i:1;s:9:\"node_load\";}','','_node_revision_access','a:1:{i:0;i:1;}','node_revision_overview','a:1:{i:0;i:1;}',5,3,'node/%','node/%','Revisions','t','',128,'','','',2,'modules/node/node.pages.inc');
 INSERT INTO `menu_router` VALUES ('node/%/revisions/%/delete','a:2:{i:1;a:1:{s:9:\"node_load\";a:1:{i:0;i:3;}}i:3;N;}','','_node_revision_access','a:2:{i:0;i:1;i:1;s:6:\"delete\";}','drupal_get_form','a:2:{i:0;s:28:\"node_revision_delete_confirm\";i:1;i:1;}',21,5,'','node/%/revisions/%/delete','Delete earlier revision','t','',4,'','','',0,'modules/node/node.pages.inc');
 INSERT INTO `menu_router` VALUES ('node/%/revisions/%/revert','a:2:{i:1;a:1:{s:9:\"node_load\";a:1:{i:0;i:3;}}i:3;N;}','','_node_revision_access','a:2:{i:0;i:1;i:1;s:6:\"update\";}','drupal_get_form','a:2:{i:0;s:28:\"node_revision_revert_confirm\";i:1;i:1;}',21,5,'','node/%/revisions/%/revert','Revert to earlier revision','t','',4,'','','',0,'modules/node/node.pages.inc');
@@ -2770,7 +2945,11 @@ INSERT INTO `menu_router` VALUES ('node/%/signups/confirm','a:1:{i:1;s:9:\"node_
 INSERT INTO `menu_router` VALUES ('node/%/signups/list','a:1:{i:1;a:1:{s:14:\"views_arg_load\";a:3:{i:0;s:16:\"signup_user_list\";i:1;s:6:\"page_1\";i:2;s:6:\"%index\";}}}','','views_access','a:1:{i:0;a:2:{i:0;s:11:\"user_access\";i:1;a:1:{i:0;s:16:\"view all signups\";}}}','views_page','a:3:{i:0;s:16:\"signup_user_list\";i:1;s:6:\"page_1\";i:2;i:1;}',11,4,'node/%/signups','node/%','Signup list','t','',128,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('node/%/signups/signup','a:1:{i:1;s:9:\"node_load\";}','','_signup_menu_access','a:2:{i:0;i:1;i:1;s:6:\"signup\";}','signup_node_tab_page','a:1:{i:0;i:1;}',11,4,'node/%/signups','node/%','Sign up','t','',136,'','','',-10,'');
 INSERT INTO `menu_router` VALUES ('node/%/view','a:1:{i:1;s:9:\"node_load\";}','','node_access','a:2:{i:0;s:4:\"view\";i:1;i:1;}','node_page_view','a:1:{i:0;i:1;}',5,3,'node/%','node/%','View','t','',136,'','','',-10,'');
+INSERT INTO `menu_router` VALUES ('node/%/votes','a:1:{i:1;s:9:\"node_load\";}','','_advpoll_votes_access','a:1:{i:0;i:1;}','advpoll_votes_page','a:1:{i:0;i:1;}',5,3,'node/%','node/%','Votes','t','',128,'','','',3,'');
+INSERT INTO `menu_router` VALUES ('node/%/writeins','a:1:{i:1;s:9:\"node_load\";}','','_advpoll_writeins_access','a:1:{i:0;i:1;}','advpoll_writeins_page','a:1:{i:0;i:1;}',5,3,'node/%','node/%','Write-ins','t','',128,'','','',3,'');
 INSERT INTO `menu_router` VALUES ('node/add','','','_node_add_access','a:0:{}','node_add_page','a:0:{}',3,2,'','node/add','Create content','t','',6,'','','',1,'modules/node/node.pages.inc');
+INSERT INTO `menu_router` VALUES ('node/add/advpoll-binary','','','node_access','a:2:{i:0;s:6:\"create\";i:1;s:14:\"advpoll_binary\";}','node_add','a:1:{i:0;i:2;}',7,3,'','node/add/advpoll-binary','Binary poll','check_plain','',6,'','Vote for or against a number of choices.','',0,'modules/node/node.pages.inc');
+INSERT INTO `menu_router` VALUES ('node/add/advpoll-ranking','','','node_access','a:2:{i:0;s:6:\"create\";i:1;s:15:\"advpoll_ranking\";}','node_add','a:1:{i:0;i:2;}',7,3,'','node/add/advpoll-ranking','Ranking poll','check_plain','',6,'','Rank a number of choices.','',0,'modules/node/node.pages.inc');
 INSERT INTO `menu_router` VALUES ('node/add/article','','','node_access','a:2:{i:0;s:6:\"create\";i:1;s:7:\"article\";}','node_add','a:1:{i:0;i:2;}',7,3,'','node/add/article','Article','check_plain','',6,'','An <em>article</em> is suitable for news items and press releases. By default, an <em>article</em> entry is automatically featured on the site front page, and provides the ability to post comments.','',0,'modules/node/node.pages.inc');
 INSERT INTO `menu_router` VALUES ('node/add/credit','','','node_access','a:2:{i:0;s:6:\"create\";i:1;s:6:\"credit\";}','node_add','a:1:{i:0;i:2;}',7,3,'','node/add/credit','Credit','check_plain','',6,'','A <em>credit</em> content type is suitable for displaying for the project credits, a legal notice or a disclaimer. They will be shown in the footer on every page of the site.','',0,'modules/node/node.pages.inc');
 INSERT INTO `menu_router` VALUES ('node/add/event','','','node_access','a:2:{i:0;s:6:\"create\";i:1;s:5:\"event\";}','node_add','a:1:{i:0;i:2;}',7,3,'','node/add/event','Event','check_plain','',6,'','An <em>event</em> is suitable for any content that is strongly associated with a date, such as a meeting or a conference. Events are displayed in a calendar accessible from the main menu.','',0,'modules/node/node.pages.inc');
@@ -2785,6 +2964,7 @@ INSERT INTO `menu_router` VALUES ('outcomes','','','views_access','a:1:{i:0;b:1;
 INSERT INTO `menu_router` VALUES ('outcomes/feed','','','views_access','a:1:{i:0;b:1;}','views_page','a:2:{i:0;s:8:\"outcomes\";i:1;s:6:\"feed_1\";}',3,2,'','outcomes/feed','','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('partners','','','views_access','a:1:{i:0;b:1;}','views_page','a:2:{i:0;s:8:\"partners\";i:1;s:6:\"page_1\";}',1,1,'','partners','Partners','t','',6,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('partners/feed','','','views_access','a:1:{i:0;b:1;}','views_page','a:2:{i:0;s:8:\"partners\";i:1;s:6:\"feed_1\";}',3,2,'','partners/feed','','t','',4,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('polls','','','user_access','a:1:{i:0;s:14:\"access content\";}','advpoll_page','a:0:{}',1,1,'','polls','Advanced Polls','t','',20,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('profile','','','user_access','a:1:{i:0;s:20:\"access user profiles\";}','profile_browse','a:0:{}',1,1,'','profile','User list','t','',20,'','','',0,'modules/profile/profile.pages.inc');
 INSERT INTO `menu_router` VALUES ('profile/autocomplete','','','user_access','a:1:{i:0;s:20:\"access user profiles\";}','profile_autocomplete','a:0:{}',3,2,'','profile/autocomplete','Profile autocomplete','t','',4,'','','',0,'modules/profile/profile.pages.inc');
 INSERT INTO `menu_router` VALUES ('rss.xml','','','user_access','a:1:{i:0;s:14:\"access content\";}','node_feed','a:0:{}',1,1,'','rss.xml','RSS feed','t','',4,'','','',0,'');
@@ -2812,6 +2992,7 @@ INSERT INTO `menu_router` VALUES ('user/%/devel/load','a:1:{i:1;s:9:\"user_load\
 INSERT INTO `menu_router` VALUES ('user/%/devel/render','a:1:{i:1;s:9:\"user_load\";}','','user_access','a:1:{i:0;s:24:\"access devel information\";}','devel_render_object','a:2:{i:0;s:4:\"user\";i:1;i:1;}',11,4,'user/%','user/%','Dev render','t','',128,'','','',100,'');
 INSERT INTO `menu_router` VALUES ('user/%/edit','a:1:{i:1;a:1:{s:18:\"user_category_load\";a:2:{i:0;s:4:\"%map\";i:1;s:6:\"%index\";}}}','','user_edit_access','a:1:{i:0;i:1;}','user_edit','a:1:{i:0;i:1;}',5,3,'user/%','user/%','Edit','t','',128,'','','',0,'modules/user/user.pages.inc');
 INSERT INTO `menu_router` VALUES ('user/%/edit/account','a:1:{i:1;a:1:{s:18:\"user_category_load\";a:2:{i:0;s:4:\"%map\";i:1;s:6:\"%index\";}}}','','user_edit_access','a:1:{i:0;i:1;}','user_edit','a:1:{i:0;i:1;}',11,4,'user/%/edit','user/%','Account','t','',136,'','','',0,'modules/user/user.pages.inc');
+INSERT INTO `menu_router` VALUES ('user/%/fbconnect','a:1:{i:1;s:9:\"user_load\";}','','user_edit_access','a:1:{i:0;i:1;}','fbconnect_user_identities','a:1:{i:0;i:1;}',5,3,'user/%','user/%','Facebook connect','t','',128,'','','',0,'profiles/satellite/modules/fbconnect/fbconnect.pages.inc');
 INSERT INTO `menu_router` VALUES ('user/%/openid','a:1:{i:1;s:9:\"user_load\";}','','user_edit_access','a:1:{i:0;i:1;}','openid_user_identities','a:1:{i:0;i:1;}',5,3,'user/%','user/%','OpenID identities','t','',128,'','','',0,'modules/openid/openid.pages.inc');
 INSERT INTO `menu_router` VALUES ('user/%/openid/delete','a:1:{i:1;s:9:\"user_load\";}','','user_edit_access','a:1:{i:0;i:1;}','drupal_get_form','a:2:{i:0;s:23:\"openid_user_delete_form\";i:1;i:1;}',11,4,'','user/%/openid/delete','Delete OpenID','t','',4,'','','',0,'modules/openid/openid.pages.inc');
 INSERT INTO `menu_router` VALUES ('user/%/signups','a:1:{i:1;a:1:{s:14:\"views_arg_load\";a:3:{i:0;s:22:\"signup_current_signups\";i:1;s:4:\"page\";i:2;s:6:\"%index\";}}}','','views_access','a:1:{i:0;b:1;}','views_page','a:3:{i:0;s:22:\"signup_current_signups\";i:1;s:4:\"page\";i:2;i:1;}',5,3,'user/%','user/%','Signups','t','',128,'','','',10,'');
@@ -2971,6 +3152,8 @@ CREATE TABLE `node_type` (
 
 LOCK TABLES `node_type` WRITE;
 /*!40000 ALTER TABLE `node_type` DISABLE KEYS */;
+INSERT INTO `node_type` VALUES ('advpoll_binary','Binary poll','advpoll','Vote for or against a number of choices.','',1,'Binary question',1,'Description',0,0,0,1,'advpoll_binary');
+INSERT INTO `node_type` VALUES ('advpoll_ranking','Ranking poll','advpoll','Rank a number of choices.','',1,'Ranking question',1,'Description',0,0,0,1,'advpoll_ranking');
 INSERT INTO `node_type` VALUES ('article','Article','node','An <em>article</em> is suitable for news items and press releases. By default, an <em>article</em> entry is automatically featured on the site front page, and provides the ability to post comments.','Write your article below. A teaser will automatically be built from the first few lines.<br/> You can attach images and other files.',1,'Title',1,'Body',10,1,1,0,'story');
 INSERT INTO `node_type` VALUES ('credit','Credit','node','A <em>credit</em> content type is suitable for displaying for the project credits, a legal notice or a disclaimer. They will be shown in the footer on every page of the site.','Write your credit here. Note that the title is used for internal reference only and will not be displayed.',1,'Title',0,'',0,1,1,0,'');
 INSERT INTO `node_type` VALUES ('event','Event','node','An <em>event</em> is suitable for any content that is strongly associated with a date, such as a meeting or a conference. Events are displayed in a calendar accessible from the main menu.','Provide the event details below. Include a start date and an optional end date.<br/>\r\nYou can also attach images and other files.',1,'Title',1,'Body',10,1,1,0,'');
@@ -3318,6 +3501,8 @@ INSERT INTO `system` VALUES ('modules/user/user.module','user','module','',1,0,0
 INSERT INTO `system` VALUES ('profiles/satellite/modules/admin_menu/admin_menu.module','admin_menu','module','',1,0,0,6001,0,'a:10:{s:4:\"name\";s:19:\"Administration menu\";s:11:\"description\";s:123:\"Provides a dropdown menu to most administrative tasks and other common destinations (to users with the proper permissions).\";s:7:\"package\";s:14:\"Administration\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.3\";s:7:\"project\";s:10:\"admin_menu\";s:9:\"datestamp\";s:10:\"1232775903\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/advanced_help/advanced_help.module','advanced_help','module','',1,0,0,0,0,'a:9:{s:4:\"name\";s:13:\"Advanced help\";s:11:\"description\";s:38:\"Allow advanced help and documentation.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.1\";s:7:\"project\";s:13:\"advanced_help\";s:9:\"datestamp\";s:10:\"1224280802\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/advanced_help/help_example/help_example.module','help_example','module','',0,0,0,-1,0,'a:9:{s:4:\"name\";s:21:\"Advanced help example\";s:11:\"description\";s:62:\"A example help module to demonstrate the advanced help module.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:13:\"advanced_help\";}s:7:\"version\";s:7:\"6.x-1.1\";s:7:\"project\";s:13:\"advanced_help\";s:9:\"datestamp\";s:10:\"1224280802\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/advpoll/advpoll.module','advpoll','module','',1,0,0,8,0,'a:10:{s:4:\"name\";s:13:\"Advanced Poll\";s:11:\"description\";s:76:\"An advanced polling module for voting, elections, and group decision-making.\";s:12:\"dependencies\";a:1:{i:0;s:9:\"votingapi\";}s:4:\"core\";s:3:\"6.x\";s:7:\"package\";s:6:\"Voting\";s:7:\"version\";s:11:\"6.x-1.x-dev\";s:7:\"project\";s:7:\"advpoll\";s:9:\"datestamp\";s:10:\"1237118480\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/advpoll/advpoll_convert.module','advpoll_convert','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:23:\"Advanced Poll Converter\";s:11:\"description\";s:65:\"Converts a site\'s standard Drupal polls into Advanced Poll polls.\";s:12:\"dependencies\";a:2:{i:0;s:9:\"votingapi\";i:1;s:7:\"advpoll\";}s:7:\"package\";s:6:\"Voting\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:11:\"6.x-1.x-dev\";s:7:\"project\";s:7:\"advpoll\";s:9:\"datestamp\";s:10:\"1237118480\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/calendar/calendar.module','calendar','module','',1,0,0,6002,1,'a:10:{s:4:\"name\";s:8:\"Calendar\";s:11:\"description\";s:60:\"Views plugin to display views containing dates as Calendars.\";s:12:\"dependencies\";a:3:{i:0;s:5:\"views\";i:1;s:8:\"date_api\";i:2;s:13:\"date_timezone\";}s:7:\"package\";s:9:\"Date/Time\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-2.0\";s:7:\"project\";s:8:\"calendar\";s:9:\"datestamp\";s:10:\"1235756419\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/calendar/calendar_ical/calendar_ical.module','calendar_ical','module','',1,0,0,6000,1,'a:10:{s:4:\"name\";s:13:\"Calendar iCal\";s:11:\"description\";s:42:\"Adds ical functionality to Calendar views.\";s:12:\"dependencies\";a:3:{i:0;s:5:\"views\";i:1;s:8:\"date_api\";i:2;s:8:\"calendar\";}s:7:\"package\";s:9:\"Date/Time\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-2.0\";s:7:\"project\";s:8:\"calendar\";s:9:\"datestamp\";s:10:\"1235756419\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/calendar/jcalendar/jcalendar.module','jcalendar','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:14:\"Calendar Popup\";s:11:\"description\";s:115:\"Replaces the links to calendar items with a javascript popup that gracefully regresses if javascript is not enabled\";s:12:\"dependencies\";a:2:{i:0;s:8:\"calendar\";i:1;s:5:\"views\";}s:4:\"core\";s:3:\"6.x\";s:7:\"package\";s:9:\"Date/Time\";s:7:\"version\";s:7:\"6.x-2.0\";s:7:\"project\";s:8:\"calendar\";s:9:\"datestamp\";s:10:\"1235756419\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
@@ -3367,6 +3552,8 @@ INSERT INTO `system` VALUES ('profiles/satellite/modules/emfield/contrib/emimpor
 INSERT INTO `system` VALUES ('profiles/satellite/modules/emfield/contrib/emthumb/emthumb.module','emthumb','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:24:\"Embedded Media Thumbnail\";s:11:\"description\";s:80:\"Allows custom thumbnails for Embedded Media Fields (Not ready for Drupal 6 yet).\";s:12:\"dependencies\";a:1:{i:0;s:7:\"emfield\";}s:7:\"package\";s:3:\"CCK\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:13:\"6.x-1.0-beta1\";s:7:\"project\";s:7:\"emfield\";s:9:\"datestamp\";s:10:\"1231648218\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/emfield/contrib/emvideo/emvideo.module','emvideo','module','',1,0,0,6,0,'a:10:{s:4:\"name\";s:20:\"Embedded Video Field\";s:11:\"description\";s:89:\"Defines a field type for displaying third party videos, such as YouTube and Google Video.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:7:\"emfield\";}s:7:\"package\";s:3:\"CCK\";s:7:\"version\";s:13:\"6.x-1.0-beta1\";s:7:\"project\";s:7:\"emfield\";s:9:\"datestamp\";s:10:\"1231648218\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/emfield/emfield.module','emfield','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:20:\"Embedded Media Field\";s:11:\"description\";s:152:\"Provides an engine for modules to integrate various 3rd party content providers, such as Video Neighborhood, Image Neighborhood, and Audio Neighborhood.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:7:\"content\";}s:7:\"package\";s:3:\"CCK\";s:7:\"version\";s:13:\"6.x-1.0-beta1\";s:7:\"project\";s:7:\"emfield\";s:9:\"datestamp\";s:10:\"1231648218\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/fbconnect/fbconnect.module','fbconnect','module','',1,0,0,6001,0,'a:10:{s:4:\"name\";s:9:\"Fbconnect\";s:11:\"description\";s:45:\"Allows users to connect with Facebook account\";s:4:\"core\";s:3:\"6.x\";s:7:\"package\";s:16:\"Facebook connect\";s:3:\"php\";s:3:\"5.2\";s:7:\"version\";s:13:\"6.x-1.0-beta7\";s:7:\"project\";s:9:\"fbconnect\";s:9:\"datestamp\";s:10:\"1235757657\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/fbconnect/modules/fbconnect_profile/fbconnect_profile.module','fbconnect_profile','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:17:\"Fbconnect Profile\";s:11:\"description\";s:64:\"Allows users to import their personal information from Facebook.\";s:12:\"dependencies\";a:1:{i:0;s:9:\"fbconnect\";}s:7:\"package\";s:16:\"Facebook connect\";s:3:\"php\";s:3:\"5.2\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:13:\"6.x-1.0-beta7\";s:7:\"project\";s:9:\"fbconnect\";s:9:\"datestamp\";s:10:\"1235757657\";s:10:\"dependents\";a:0:{}}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/fckeditor/fckeditor.module','fckeditor','module','',1,0,0,6130,0,'a:9:{s:4:\"name\";s:9:\"FCKeditor\";s:11:\"description\";s:70:\"Enables the usage of FCKeditor (WYSIWYG) instead of plain text fields.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:11:\"6.x-1.3-rc7\";s:7:\"project\";s:9:\"fckeditor\";s:9:\"datestamp\";s:10:\"1232725833\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/feedapi/feedapi.module','feedapi','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:7:\"FeedAPI\";s:11:\"description\";s:209:\"Provides feed aggregation functionality, a feed management interface and an API. If you enable this module, enable at least one item processor (e. g. FeedAPI Node Item) and one parser (e. g. SimplePie parser).\";s:7:\"package\";s:15:\"FeedAPI Default\";s:4:\"core\";s:3:\"6.x\";s:3:\"php\";s:3:\"4.0\";s:7:\"version\";s:7:\"6.x-1.6\";s:7:\"project\";s:7:\"feedapi\";s:9:\"datestamp\";s:10:\"1233692726\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/feedapi/feedapi_inherit/feedapi_inherit.module','feedapi_inherit','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:15:\"FeedAPI Inherit\";s:11:\"description\";s:98:\"Passes on group and taxonomy information from feed to feed items. Requires FeedAPI Node processor.\";s:12:\"dependencies\";a:2:{i:0;s:7:\"feedapi\";i:1;s:12:\"feedapi_node\";}s:7:\"package\";s:14:\"FeedAPI Add On\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.6\";s:7:\"project\";s:7:\"feedapi\";s:9:\"datestamp\";s:10:\"1233692726\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
@@ -3414,7 +3601,7 @@ INSERT INTO `system` VALUES ('profiles/satellite/modules/location/location_user.
 INSERT INTO `system` VALUES ('profiles/satellite/modules/logintoboggan/logintoboggan.module','logintoboggan','module','',1,0,0,6000,0,'a:9:{s:4:\"name\";s:13:\"LoginToboggan\";s:11:\"description\";s:31:\"Improves Drupal\'s login system.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.3\";s:7:\"project\";s:13:\"logintoboggan\";s:9:\"datestamp\";s:10:\"1228867825\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/menu_block/menu_block.module','menu_block','module','',1,0,0,6201,0,'a:9:{s:4:\"name\";s:10:\"Menu Block\";s:11:\"description\";s:43:\"Provides configurable blocks of menu items.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:4:\"menu\";}s:7:\"version\";s:7:\"6.x-2.2\";s:7:\"project\";s:10:\"menu_block\";s:9:\"datestamp\";s:10:\"1229377222\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/myblog/myblog.module','myblog','module','',0,0,0,0,0,'a:7:{s:4:\"name\";s:7:\"My Blog\";s:11:\"description\";s:42:\"Provides basic features for a simple blog.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:6:\"spaces\";}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
-INSERT INTO `system` VALUES ('profiles/satellite/modules/node_export/export.module','export','module','',1,0,0,0,0,'a:9:{s:4:\"name\";s:13:\"Export module\";s:11:\"description\";s:78:\"Allows users to export a node and the import into another Drupal installation.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.4\";s:7:\"project\";s:11:\"node_export\";s:9:\"datestamp\";s:10:\"1233986725\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/node_export/export.module','export','module','',0,0,0,0,0,'a:9:{s:4:\"name\";s:13:\"Export module\";s:11:\"description\";s:78:\"Allows users to export a node and the import into another Drupal installation.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.4\";s:7:\"project\";s:11:\"node_export\";s:9:\"datestamp\";s:10:\"1233986725\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/panels/panels.module','panels','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:6:\"Panels\";s:11:\"description\";s:122:\"Core Panels display functions; provides no external UI, at least one other module (such as Panel pages) should be enabled.\";s:4:\"core\";s:3:\"6.x\";s:7:\"package\";s:6:\"Panels\";s:12:\"dependencies\";a:1:{i:0;s:5:\"views\";}s:7:\"version\";s:14:\"6.x-2.0-alpha3\";s:7:\"project\";s:6:\"panels\";s:9:\"datestamp\";s:10:\"1230669627\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/panels/panels_export/panels_export.module','panels_export','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:15:\"Panels exporter\";s:11:\"description\";s:75:\"Allows exporting multiple panel pages, mini panels and other types at once.\";s:7:\"package\";s:6:\"Panels\";s:12:\"dependencies\";a:1:{i:0;s:6:\"panels\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-2.0-alpha3\";s:7:\"project\";s:6:\"panels\";s:9:\"datestamp\";s:10:\"1230669627\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/panels/panels_mini/panels_mini.module','panels_mini','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:11:\"Mini panels\";s:11:\"description\";s:89:\"Create mini panels that can be used as blocks by Drupal and panes by other panel modules.\";s:7:\"package\";s:6:\"Panels\";s:12:\"dependencies\";a:1:{i:0;s:6:\"panels\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-2.0-alpha3\";s:7:\"project\";s:6:\"panels\";s:9:\"datestamp\";s:10:\"1230669627\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
@@ -3448,8 +3635,9 @@ INSERT INTO `system` VALUES ('profiles/satellite/modules/views/views.module','vi
 INSERT INTO `system` VALUES ('profiles/satellite/modules/views/views_export/views_export.module','views_export','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:14:\"Views exporter\";s:11:\"description\";s:40:\"Allows exporting multiple views at once.\";s:7:\"package\";s:5:\"Views\";s:12:\"dependencies\";a:1:{i:0;s:5:\"views\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-2.3\";s:7:\"project\";s:5:\"views\";s:9:\"datestamp\";s:10:\"1233981351\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/views/views_ui.module','views_ui','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:8:\"Views UI\";s:11:\"description\";s:93:\"Administrative interface to views. Without this module, you cannot create or edit your views.\";s:7:\"package\";s:5:\"Views\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:5:\"views\";}s:7:\"version\";s:7:\"6.x-2.3\";s:7:\"project\";s:5:\"views\";s:9:\"datestamp\";s:10:\"1233981351\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/views_bulk_operations/views_bulk_operations.module','views_bulk_operations','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:21:\"Views Bulk Operations\";s:11:\"description\";s:103:\"Exposes new Views style \'Bulk Operations\' for selecting multiple nodes and applying operations on them.\";s:12:\"dependencies\";a:1:{i:0;s:5:\"views\";}s:7:\"package\";s:5:\"Views\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.4\";s:7:\"project\";s:21:\"views_bulk_operations\";s:9:\"datestamp\";s:10:\"1233774350\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/votingapi/votingapi.module','votingapi','module','',1,0,0,6100,0,'a:10:{s:4:\"name\";s:10:\"Voting API\";s:11:\"description\";s:47:\"Provides a shared voting API for other modules.\";s:7:\"package\";s:6:\"Voting\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:11:\"6.x-2.0-rc2\";s:7:\"project\";s:9:\"votingapi\";s:9:\"datestamp\";s:10:\"1228536928\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/demo/demo.module','demo','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:9:\"Demo Site\";s:11:\"description\";s:74:\"Create snapshots and reset the site for demonstration or testing purposes.\";s:7:\"package\";s:11:\"Development\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.2\";s:7:\"project\";s:4:\"demo\";s:9:\"datestamp\";s:10:\"1233956111\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
-INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/slideshare/slideshare.module','slideshare','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:10:\"Slideshare\";s:11:\"description\";s:58:\"Exposes Slideshare provider to Embedded Media Field module\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:3:{i:0;s:7:\"emfield\";i:1;s:7:\"emvideo\";i:2;s:7:\"content\";}s:7:\"package\";s:3:\"CCK\";s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/slideshare/slideshare.module','slideshare','module','',0,0,0,0,0,'a:8:{s:4:\"name\";s:10:\"Slideshare\";s:11:\"description\";s:58:\"Exposes Slideshare provider to Embedded Media Field module\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:3:{i:0;s:7:\"emfield\";i:1;s:7:\"emvideo\";i:2;s:7:\"content\";}s:7:\"package\";s:3:\"CCK\";s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_credits/ya_credits.module','ya_credits','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:19:\"Youth Agora Credits\";s:11:\"description\";s:44:\"Provides a block with credits to Youth Agora\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_password_check/ya_password_check.module','ya_password_check','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:14:\"Password Check\";s:11:\"description\";s:109:\"Provides a non-configurable action to check for default password combinations (admin/admin and editor/editor)\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_requirements/ya_requirements.module','ya_requirements','module','',0,0,0,-1,0,'a:7:{s:4:\"name\";s:24:\"Youth Agora Requirements\";s:11:\"description\";s:66:\"Checks minimum requirements when installing a Youth Agora template\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
@@ -3578,7 +3766,7 @@ CREATE TABLE `url_alias` (
   PRIMARY KEY  (`pid`),
   UNIQUE KEY `dst_language` (`dst`,`language`),
   KEY `src_language` (`src`,`language`)
-) ENGINE=MyISAM AUTO_INCREMENT=419 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=420 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `url_alias` WRITE;
 /*!40000 ALTER TABLE `url_alias` DISABLE KEYS */;
@@ -3605,6 +3793,7 @@ INSERT INTO `url_alias` VALUES (415,'node/187','event/aliquip-valde-consectetuer
 INSERT INTO `url_alias` VALUES (416,'node/187/feed','event/aliquip-valde-consectetuer/feed','');
 INSERT INTO `url_alias` VALUES (417,'node/188','content/8th-national-congress-theoretical-and-applied-mechanics1237306580784png','');
 INSERT INTO `url_alias` VALUES (418,'node/188/feed','content/8th-national-congress-theoretical-and-applied-mechanics1237306580784png/feed','');
+INSERT INTO `url_alias` VALUES (419,'user/11','users/pvhee','');
 /*!40000 ALTER TABLE `url_alias` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
@@ -3633,13 +3822,14 @@ CREATE TABLE `users` (
   KEY `access` (`access`),
   KEY `created` (`created`),
   KEY `mail` (`mail`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237399965,1237292591,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237408753,1237292591,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
+INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237407389,1237407389,1,NULL,'','','peter.vanhee@gmail.com','a:1:{s:7:\"contact\";i:1;}','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users_roles`;
@@ -3669,7 +3859,7 @@ INSERT INTO `variable` VALUES ('admin_menu_position_fixed','i:1;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_modules','i:0;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_tabs','i:0;');
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237398486;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237407362;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
 INSERT INTO `variable` VALUES ('book_allowed_types','a:1:{i:0;s:4:\"book\";}');
@@ -3753,7 +3943,7 @@ INSERT INTO `variable` VALUES ('content_extra_weights_partner','a:3:{s:5:\"title
 INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-2\";s:4:\"menu\";s:1:\"0\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1237398486;');
+INSERT INTO `variable` VALUES ('cron_last','i:1237407362;');
 INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"NOvtrCwAJHx3I921XP4d\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
@@ -3837,6 +4027,18 @@ INSERT INTO `variable` VALUES ('emvideo_youtube_show_border','i:0;');
 INSERT INTO `variable` VALUES ('emvideo_youtube_show_colors','i:0;');
 INSERT INTO `variable` VALUES ('emvideo_youtube_show_related_videos','i:0;');
 INSERT INTO `variable` VALUES ('emvideo_zzz_custom_url_supported_types','a:7:{s:3:\"wmv\";s:3:\"wmv\";s:3:\"wma\";s:3:\"wma\";s:3:\"swf\";s:3:\"swf\";s:3:\"flv\";s:3:\"flv\";s:3:\"mov\";s:3:\"mov\";s:3:\"mp4\";s:3:\"mp4\";s:2:\"rm\";s:2:\"rm\";}');
+INSERT INTO `variable` VALUES ('facebook_user_fields','a:19:{s:4:\"name\";s:13:\"Facebook name\";s:12:\"affiliations\";s:12:\"Affiliations\";s:8:\"religion\";s:15:\"Religious Views\";s:8:\"birthday\";s:8:\"Birthday\";s:3:\"sex\";s:3:\"Sex\";s:8:\"about_me\";s:8:\"About me\";s:17:\"hometown_location\";s:17:\"Hometown location\";s:16:\"current_location\";s:16:\"Current location\";s:11:\"meeting_sex\";s:11:\"Meeting sex\";s:11:\"meeting_for\";s:11:\"Meeting for\";s:19:\"relationship_status\";s:19:\"Relationship status\";s:9:\"political\";s:9:\"Political\";s:10:\"activities\";s:10:\"Activities\";s:9:\"interests\";s:9:\"Interests\";s:5:\"music\";s:15:\"Favourite Music\";s:2:\"tv\";s:12:\"Favourite TV\";s:6:\"movies\";s:15:\"Favourite Films\";s:5:\"books\";s:15:\"Favourite Books\";s:6:\"quotes\";s:20:\"Favourite Quotations\";}');
+INSERT INTO `variable` VALUES ('fbconnect_api_key','s:32:\"e8fdc8118ff7b3d4364c76241a3e0f0d\";');
+INSERT INTO `variable` VALUES ('fbconnect_button_type','s:12:\"medium_short\";');
+INSERT INTO `variable` VALUES ('fbconnect_com_feed','i:1;');
+INSERT INTO `variable` VALUES ('fbconnect_com_feed_id','s:11:\"47874003217\";');
+INSERT INTO `variable` VALUES ('fbconnect_invitef_content','s:29:\"Enjoy facebook connect module\";');
+INSERT INTO `variable` VALUES ('fbconnect_invitef_redirect','s:48:\"http://localhost:8888/webdev/satellite/satellite\";');
+INSERT INTO `variable` VALUES ('fbconnect_invitef_type','s:13:\"ESN Satellite\";');
+INSERT INTO `variable` VALUES ('fbconnect_profile_fields','a:19:{s:4:\"name\";s:4:\"name\";s:12:\"affiliations\";s:12:\"affiliations\";s:8:\"religion\";s:8:\"religion\";s:8:\"birthday\";s:8:\"birthday\";s:3:\"sex\";s:3:\"sex\";s:8:\"about_me\";s:8:\"about_me\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";s:11:\"meeting_sex\";s:11:\"meeting_sex\";s:11:\"meeting_for\";s:11:\"meeting_for\";s:19:\"relationship_status\";s:19:\"relationship_status\";s:9:\"political\";s:9:\"political\";s:10:\"activities\";s:10:\"activities\";s:9:\"interests\";s:9:\"interests\";s:5:\"music\";s:5:\"music\";s:2:\"tv\";s:2:\"tv\";s:6:\"movies\";s:6:\"movies\";s:5:\"books\";s:5:\"books\";s:6:\"quotes\";s:6:\"quotes\";}');
+INSERT INTO `variable` VALUES ('fbconnect_reg_feed','i:1;');
+INSERT INTO `variable` VALUES ('fbconnect_reg_feed_id','s:11:\"47875658217\";');
+INSERT INTO `variable` VALUES ('fbconnect_secret_api_key','s:32:\"56037adba2676edb03b0cbd7bc5d75b7\";');
 INSERT INTO `variable` VALUES ('fieldgroup_schema_version','i:6000;');
 INSERT INTO `variable` VALUES ('file_directory_path','s:19:\"sites/default/files\";');
 INSERT INTO `variable` VALUES ('file_directory_temp','s:4:\"/tmp\";');
@@ -3944,8 +4146,8 @@ INSERT INTO `variable` VALUES ('menu_masks','a:27:{i:0;i:127;i:1;i:125;i:2;i:63;
 INSERT INTO `variable` VALUES ('menu_primary_links_source','s:6:\"spaces\";');
 INSERT INTO `variable` VALUES ('menu_secondary_links_source','s:0:\"\";');
 INSERT INTO `variable` VALUES ('node_admin_theme','i:0;');
-INSERT INTO `variable` VALUES ('node_cron_comments_scale','d:1;');
-INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1235345000\";');
+INSERT INTO `variable` VALUES ('node_cron_comments_scale','d:0.200000000000000011102230246251565404236316680908203125;');
+INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1237399312\";');
 INSERT INTO `variable` VALUES ('node_cron_views_scale','d:1;');
 INSERT INTO `variable` VALUES ('node_options_activity','a:2:{i:0;s:6:\"status\";i:1;s:7:\"promote\";}');
 INSERT INTO `variable` VALUES ('node_options_article','a:1:{i:0;s:6:\"status\";}');
@@ -4024,7 +4226,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_bulkupdate','i:0;');
 INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\";');
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237398486;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237407362;');
 INSERT INTO `variable` VALUES ('profile_csv_param_mail','i:1;');
 INSERT INTO `variable` VALUES ('profile_csv_param_name','i:1;');
 INSERT INTO `variable` VALUES ('profile_csv_param_profile_1','i:1;');
@@ -4068,10 +4270,10 @@ INSERT INTO `variable` VALUES ('signup_user_list_view','s:23:\"signup_user_list:
 INSERT INTO `variable` VALUES ('site_403','s:15:\"toboggan/denied\";');
 INSERT INTO `variable` VALUES ('site_footer','s:0:\"\";');
 INSERT INTO `variable` VALUES ('site_frontpage','s:9:\"frontpage\";');
-INSERT INTO `variable` VALUES ('site_mail','s:15:\"admin@admin.com\";');
+INSERT INTO `variable` VALUES ('site_mail','s:39:\"change-this-email-address@satellite.org\";');
 INSERT INTO `variable` VALUES ('site_mission','s:0:\"\";');
-INSERT INTO `variable` VALUES ('site_name','s:13:\"ESN Satellite\";');
-INSERT INTO `variable` VALUES ('site_slogan','s:22:\"A Youth Agora project.\";');
+INSERT INTO `variable` VALUES ('site_name','s:15:\"ESN Satellite 3\";');
+INSERT INTO `variable` VALUES ('site_slogan','s:23:\"Erasmus Student Network\";');
 INSERT INTO `variable` VALUES ('spaces_default_presets','a:1:{s:4:\"site\";s:4:\"site\";}');
 INSERT INTO `variable` VALUES ('spaces_disabled_presets','a:1:{s:0:\"\";a:1:{s:0:\"\";i:1;}}');
 INSERT INTO `variable` VALUES ('theme_base_settings','a:16:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:1;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";s:6:\"scheme\";s:39:\"#a5b3bc,#027ac6,#2385c2,#5ab5ee,#494949\";s:7:\"palette\";a:5:{s:4:\"base\";s:7:\"#a5b3bc\";s:4:\"link\";s:7:\"#027ac6\";s:3:\"top\";s:7:\"#2385c2\";s:6:\"bottom\";s:7:\"#5ab5ee\";s:4:\"text\";s:7:\"#494949\";}s:5:\"theme\";s:4:\"base\";s:4:\"info\";a:9:{s:7:\"schemes\";a:16:{s:39:\"#a5b3bc,#027ac6,#2385c2,#5ab5ee,#494949\";s:21:\"Blue Lagoon (Default)\";s:39:\"#2a2b2d,#464849,#2f416f,#5d6779,#494949\";s:3:\"Ash\";s:39:\"#085360,#55c0e2,#000000,#007e94,#696969\";s:10:\"Aquamarine\";s:39:\"#331900,#d5b048,#6c420e,#971702,#494949\";s:17:\"Belgian Chocolate\";s:39:\"#6598cb,#3f3f3f,#336699,#6598cb,#000000\";s:10:\"Bluemarine\";s:39:\"#efde01,#d0cb9a,#917803,#e6fb2d,#494949\";s:12:\"Citrus Blast\";s:39:\"#4d91ff,#0f005c,#434f8c,#1a1575,#000000\";s:8:\"Cold Day\";s:39:\"#03961e,#c9c497,#0c7a00,#7be000,#494949\";s:9:\"Greenbeam\";s:39:\"#fc6d1d,#ffe23d,#a9290a,#a30f42,#494949\";s:11:\"Mediterrano\";s:39:\"#a9adbc,#788597,#3f728d,#d4d4d4,#707070\";s:7:\"Mercury\";s:39:\"#0a2352,#5b5fa9,#5b5faa,#9fa8d5,#494949\";s:9:\"Nocturnal\";s:39:\"#b5d52a,#7db323,#6a9915,#7db323,#191a19\";s:6:\"Olivia\";s:39:\"#f391c6,#12020b,#1b1a13,#f41063,#898080\";s:12:\"Pink Plastic\";s:39:\"#a1443a,#b7a0ba,#c70000,#f21107,#515d52\";s:12:\"Shiny Tomato\";s:39:\"#34775a,#18583d,#1b5f42,#52bf90,#2d2d2d\";s:8:\"Teal Top\";s:0:\"\";s:6:\"Custom\";}s:4:\"copy\";a:3:{i:0;s:31:\"images/icons/menu-collapsed.gif\";i:1;s:30:\"images/icons/menu-expanded.gif\";i:2;s:26:\"images/icons/menu-leaf.gif\";}s:3:\"css\";a:1:{i:0;s:9:\"style.css\";}s:4:\"fill\";a:2:{s:4:\"base\";a:4:{i:0;i:0;i:1;i:0;i:2;i:1018;i:3;i:1464;}s:4:\"link\";a:4:{i:0;i:107;i:1;i:533;i:2;i:41;i:3;i:23;}}s:6:\"slices\";a:10:{s:26:\"images/layout/bg_color.png\";a:4:{i:0;i:0;i:1;i:37;i:2;i:4;i:3;i:4;}s:28:\"images/layout/shadow_top.png\";a:4:{i:0;i:31;i:1;i:37;i:2;i:958;i:3;i:396;}s:23:\"images/layout/tab_l.png\";a:4:{i:0;i:78;i:1;i:512;i:2;i:5;i:3;i:24;}s:23:\"images/layout/tab_r.png\";a:4:{i:0;i:98;i:1;i:512;i:2;i:5;i:3;i:24;}s:24:\"images/layout/bg-bar.png\";a:4:{i:0;i:205;i:1;i:512;i:2;i:76;i:3;i:14;}s:24:\"images/layout/bg-tab.png\";a:4:{i:0;i:281;i:1;i:512;i:2;i:42;i:3;i:23;}s:32:\"images/layout/gradient-inner.png\";a:4:{i:0;i:323;i:1;i:512;i:2;i:112;i:3;i:32;}s:30:\"images/layout/container_bg.png\";a:4:{i:0;i:31;i:1;i:433;i:2;i:958;i:3;i:4;}s:29:\"images/layout/footer_fade.png\";a:4:{i:0;i:942;i:1;i:1063;i:2;i:4;i:3;i:354;}s:31:\"images/layout/shadow_footer.png\";a:4:{i:0;i:31;i:1;i:1417;i:2;i:958;i:3;i:13;}}s:12:\"blend_target\";s:7:\"#ffffff\";s:13:\"preview_image\";s:17:\"color/preview.png\";s:11:\"preview_css\";s:17:\"color/preview.css\";s:10:\"base_image\";s:14:\"color/base.png\";}}');
@@ -4081,7 +4283,7 @@ INSERT INTO `variable` VALUES ('theme_default','s:4:\"base\";');
 INSERT INTO `variable` VALUES ('theme_garland_settings','a:20:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:0;s:22:\"toggle_secondary_links\";i:0;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";s:6:\"scheme\";s:39:\"#0072b9,#027ac6,#2385c2,#5ab5ee,#494949\";s:7:\"palette\";a:5:{s:4:\"base\";s:7:\"#0072b9\";s:4:\"link\";s:7:\"#027ac6\";s:3:\"top\";s:7:\"#2385c2\";s:6:\"bottom\";s:7:\"#5ab5ee\";s:4:\"text\";s:7:\"#494949\";}s:5:\"theme\";s:7:\"garland\";s:4:\"info\";a:10:{s:7:\"schemes\";a:16:{s:39:\"#0072b9,#027ac6,#2385c2,#5ab5ee,#494949\";s:21:\"Blue Lagoon (Default)\";s:39:\"#464849,#2f416f,#2a2b2d,#5d6779,#494949\";s:3:\"Ash\";s:39:\"#55c0e2,#000000,#085360,#007e94,#696969\";s:10:\"Aquamarine\";s:39:\"#d5b048,#6c420e,#331900,#971702,#494949\";s:17:\"Belgian Chocolate\";s:39:\"#3f3f3f,#336699,#6598cb,#6598cb,#000000\";s:10:\"Bluemarine\";s:39:\"#d0cb9a,#917803,#efde01,#e6fb2d,#494949\";s:12:\"Citrus Blast\";s:39:\"#0f005c,#434f8c,#4d91ff,#1a1575,#000000\";s:8:\"Cold Day\";s:39:\"#c9c497,#0c7a00,#03961e,#7be000,#494949\";s:9:\"Greenbeam\";s:39:\"#ffe23d,#a9290a,#fc6d1d,#a30f42,#494949\";s:11:\"Mediterrano\";s:39:\"#788597,#3f728d,#a9adbc,#d4d4d4,#707070\";s:7:\"Mercury\";s:39:\"#5b5fa9,#5b5faa,#0a2352,#9fa8d5,#494949\";s:9:\"Nocturnal\";s:39:\"#7db323,#6a9915,#b5d52a,#7db323,#191a19\";s:6:\"Olivia\";s:39:\"#12020b,#1b1a13,#f391c6,#f41063,#898080\";s:12:\"Pink Plastic\";s:39:\"#b7a0ba,#c70000,#a1443a,#f21107,#515d52\";s:12:\"Shiny Tomato\";s:39:\"#18583d,#1b5f42,#34775a,#52bf90,#2d2d2d\";s:8:\"Teal Top\";s:0:\"\";s:6:\"Custom\";}s:4:\"copy\";a:4:{i:0;s:25:\"images/menu-collapsed.gif\";i:1;s:29:\"images/menu-collapsed-rtl.gif\";i:2;s:24:\"images/menu-expanded.gif\";i:3;s:20:\"images/menu-leaf.gif\";}s:3:\"css\";a:1:{i:0;s:9:\"style.css\";}s:8:\"gradient\";a:4:{i:0;i:0;i:1;i:37;i:2;i:760;i:3;i:121;}s:4:\"fill\";a:2:{s:4:\"base\";a:4:{i:0;i:0;i:1;i:0;i:2;i:760;i:3;i:568;}s:4:\"link\";a:4:{i:0;i:107;i:1;i:533;i:2;i:41;i:3;i:23;}}s:6:\"slices\";a:13:{s:15:\"images/body.png\";a:4:{i:0;i:0;i:1;i:37;i:2;i:1;i:3;i:280;}s:17:\"images/bg-bar.png\";a:4:{i:0;i:202;i:1;i:530;i:2;i:76;i:3;i:14;}s:23:\"images/bg-bar-white.png\";a:4:{i:0;i:202;i:1;i:506;i:2;i:76;i:3;i:14;}s:17:\"images/bg-tab.png\";a:4:{i:0;i:107;i:1;i:533;i:2;i:41;i:3;i:23;}s:24:\"images/bg-navigation.png\";a:4:{i:0;i:0;i:1;i:0;i:2;i:7;i:3;i:37;}s:26:\"images/bg-content-left.png\";a:4:{i:0;i:40;i:1;i:117;i:2;i:50;i:3;i:352;}s:27:\"images/bg-content-right.png\";a:4:{i:0;i:510;i:1;i:117;i:2;i:50;i:3;i:352;}s:21:\"images/bg-content.png\";a:4:{i:0;i:299;i:1;i:117;i:2;i:7;i:3;i:200;}s:29:\"images/bg-navigation-item.png\";a:4:{i:0;i:32;i:1;i:37;i:2;i:17;i:3;i:12;}s:35:\"images/bg-navigation-item-hover.png\";a:4:{i:0;i:54;i:1;i:37;i:2;i:17;i:3;i:12;}s:25:\"images/gradient-inner.png\";a:4:{i:0;i:646;i:1;i:307;i:2;i:112;i:3;i:42;}s:8:\"logo.png\";a:4:{i:0;i:622;i:1;i:51;i:2;i:64;i:3;i:73;}s:14:\"screenshot.png\";a:4:{i:0;i:0;i:1;i:37;i:2;i:400;i:3;i:240;}}s:12:\"blend_target\";s:7:\"#ffffff\";s:13:\"preview_image\";s:17:\"color/preview.png\";s:11:\"preview_css\";s:17:\"color/preview.css\";s:10:\"base_image\";s:14:\"color/base.png\";}}');
 INSERT INTO `variable` VALUES ('theme_project_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_settings','a:22:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:1;s:22:\"toggle_secondary_links\";i:1;s:24:\"toggle_node_info_article\";i:1;s:22:\"toggle_node_info_event\";i:1;s:24:\"toggle_node_info_outcome\";i:1;s:21:\"toggle_node_info_page\";i:0;s:24:\"toggle_node_info_partner\";i:0;s:26:\"toggle_node_info_spotlight\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
-INSERT INTO `variable` VALUES ('update_last_check','i:1237398806;');
+INSERT INTO `variable` VALUES ('update_last_check','i:1237401241;');
 INSERT INTO `variable` VALUES ('upload_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_credit','s:1:\"0\";');
@@ -4113,7 +4315,7 @@ INSERT INTO `variable` VALUES ('user_mail_status_blocked_subject','s:48:\"Accoun
 INSERT INTO `variable` VALUES ('user_mail_status_deleted_body','s:53:\"!username,\r\n\r\nYour account on !site has been deleted.\";');
 INSERT INTO `variable` VALUES ('user_mail_status_deleted_notify','i:0;');
 INSERT INTO `variable` VALUES ('user_mail_status_deleted_subject','s:48:\"Account details for !username at !site (deleted)\";');
-INSERT INTO `variable` VALUES ('user_pictures','s:1:\"0\";');
+INSERT INTO `variable` VALUES ('user_pictures','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('user_picture_default','s:0:\"\";');
 INSERT INTO `variable` VALUES ('user_picture_dimensions','s:5:\"85x85\";');
 INSERT INTO `variable` VALUES ('user_picture_file_size','s:2:\"30\";');
@@ -4278,6 +4480,50 @@ LOCK TABLES `vocabulary_node_types` WRITE;
 /*!40000 ALTER TABLE `vocabulary_node_types` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vocabulary_node_types` ENABLE KEYS */;
 UNLOCK TABLES;
+DROP TABLE IF EXISTS `votingapi_cache`;
+CREATE TABLE `votingapi_cache` (
+  `vote_cache_id` int(10) unsigned NOT NULL auto_increment,
+  `content_type` varchar(64) NOT NULL default 'node',
+  `content_id` int(10) unsigned NOT NULL default '0',
+  `value` float NOT NULL default '0',
+  `value_type` varchar(64) NOT NULL default 'percent',
+  `tag` varchar(64) NOT NULL default 'vote',
+  `function` varchar(64) NOT NULL default '',
+  `timestamp` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`vote_cache_id`),
+  KEY `content` (`content_type`,`content_id`),
+  KEY `content_function` (`content_type`,`content_id`,`function`),
+  KEY `content_tag_func` (`content_type`,`content_id`,`tag`,`function`),
+  KEY `content_vtype_tag` (`content_type`,`content_id`,`value_type`,`tag`),
+  KEY `content_vtype_tag_func` (`content_type`,`content_id`,`value_type`,`tag`,`function`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+LOCK TABLES `votingapi_cache` WRITE;
+/*!40000 ALTER TABLE `votingapi_cache` DISABLE KEYS */;
+/*!40000 ALTER TABLE `votingapi_cache` ENABLE KEYS */;
+UNLOCK TABLES;
+CREATE TABLE IF NOT EXISTS `votingapi_vote` (
+  `vote_id` int(10) unsigned NOT NULL auto_increment,
+  `content_type` varchar(64) NOT NULL default 'node',
+  `content_id` int(10) unsigned NOT NULL default '0',
+  `value` float NOT NULL default '0',
+  `value_type` varchar(64) NOT NULL default 'percent',
+  `tag` varchar(64) NOT NULL default 'vote',
+  `uid` int(10) unsigned NOT NULL default '0',
+  `timestamp` int(10) unsigned NOT NULL default '0',
+  `vote_source` varchar(255) default NULL,
+  PRIMARY KEY  (`vote_id`),
+  KEY `content` (`content_type`,`content_id`),
+  KEY `content_uid` (`content_type`,`content_id`,`uid`),
+  KEY `content_source` (`content_type`,`content_id`,`vote_source`),
+  KEY `content_vtype` (`content_type`,`content_id`,`value_type`),
+  KEY `content_value_tag` (`content_type`,`content_id`,`value_type`,`tag`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+LOCK TABLES `votingapi_vote` WRITE;
+/*!40000 ALTER TABLE `votingapi_vote` DISABLE KEYS */;
+/*!40000 ALTER TABLE `votingapi_vote` ENABLE KEYS */;
+UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `watchdog` (
   `wid` int(11) NOT NULL auto_increment,
   `uid` int(11) NOT NULL default '0',
@@ -4292,7 +4538,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=5357 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5364 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
