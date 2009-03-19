@@ -5,7 +5,7 @@ version = VERSION
 core = 6.x
 base theme = base
 
-stylesheets[all][] = project.css
+stylesheets[all][] = satellite.css
 
 regions[header_top] = Header top
 regions[header] = Header

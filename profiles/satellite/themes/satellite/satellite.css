@@ -1,8 +1,11 @@
-/*#wrapper #container #sidebar-right.sidebar { margin-top: -244px; }*/
-#wrapper #container #sidebar-right.sidebar {position: relative; top: -204px; }
-#wrapper #container #header { margin-right:275px;}
-/*#wrapper #container #header .site_title { width: 400px;}*/
 
+body {background: #76B0CD url(images/layout/wrapper_bg.png) top left repeat-x; }
+fieldset {border:1px solid #d9eaf5; background: transparent url(images/layout/gradient-inner.png) repeat-x scroll 0 0; margin:1em 0;padding:1em;}
+ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active a:visited, ul.secondary li a:hover {  background: url(images/layout/bg-tab.png) repeat-x 0 50%;  color: #fff;}
+#shadow { background: url(images/layout/container_bg.png) top center repeat-y;}
+#shadow-top { background: url(images/layout/shadow_top.png) top center no-repeat;}
+#shadow-footer { background: url(images/layout/footer.png) bottom center no-repeat; }
+#footer div.container { height:200px; margin-top:180px; }
 
 /**
  * Views Blocks
