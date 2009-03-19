@@ -1,4 +1,4 @@
-// $Id: fckplugin.js,v 1.2.2.2 2008/11/19 12:00:07 wwalc Exp $
+// $Id: fckplugin.js,v 1.2.2.3 2009/01/28 14:52:26 wwalc Exp $
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
  * Copyright (C) 2003-2007 Frederico Caldeira Knabben
@@ -92,10 +92,17 @@ FCKDrupalBreak.prototype.MoveBreakOutsideElement = function()
 				{
 					var oParent = element.parentNode ;
 					var oDiv = FCK.EditorDocument.createElement( next.toUpperCase() ) ;
+					var bDivEmpty = true ;
 					var sibling ;
 
 					while( sibling = element.nextSibling )
+					{
+						if (!((sibling.nodeType == 3 && !sibling.nodeValue.length) || (sibling.nodeType == 1 && sibling.nodeName.toLowerCase() == 'br' && sibling.getAttribute( 'type' ) == '_moz'))) {
+						bDivEmpty = false ;
+						}
+
 						oDiv.appendChild( sibling ) ;
+					}
 
 					if ( oDiv.childNodes.length )
 					{
@@ -117,6 +124,9 @@ FCKDrupalBreak.prototype.MoveBreakOutsideElement = function()
 					if ( FCKBrowserInfo.IsGeckoLike )
 						FCKTools.AppendBogusBr( oParent ) ;
 						
+					if ( bDivEmpty )
+						oDiv.parentNode.removeChild( oDiv );
+						
 					break ;
 				}
 				else
@@ -125,8 +135,8 @@ FCKDrupalBreak.prototype.MoveBreakOutsideElement = function()
 						element.parentNode.parentNode.insertBefore( element, element.parentNode.nextSibling ) ;
 					else
 						element.parentNode.parentNode.appendChild( element ) ;
-				}		
-			}	
+				}
+			}
 		}
 	}
 }
@@ -170,7 +180,7 @@ FCKDrupalBreaksProcessor.ProcessDocument = function( document )
 					oFakeImage.setAttribute( "_drupalbreak", "true" ) ;
 					oFakeImage.style.borderTop = oFakeImage.style.borderBottom = pBreakBorderStyle ;
 					node.parentNode.insertBefore( oFakeImage, node ) ;
-					node.parentNode.removeChild( node ) ;						
+					node.parentNode.removeChild( node ) ;
 				}
 			}
 		}

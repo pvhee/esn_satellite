@@ -1,4 +1,4 @@
-// $Id: fckeditor.config.js,v 1.5.2.13 2008/12/12 19:45:25 wwalc Exp $
+// $Id: fckeditor.config.js,v 1.5.2.14 2009/02/16 10:38:28 wwalc Exp $
 
 /*
  WARNING: clear browser's cache after you modify this file.
@@ -8,7 +8,7 @@
 /*
  Define as many toolbars as you need, you can change toolbar names
  DrupalBasic will be forced on some smaller textareas (if enabled)
- if you change the name of DrupalBasic, you have to update 
+ if you change the name of DrupalBasic, you have to update
  FCKEDITOR_FORCE_SIMPLE_TOOLBAR_NAME in fckeditor.module
  */
 
@@ -24,7 +24,7 @@ FCKConfig.Plugins.Add( 'imgassist' ) ;
 //FCKConfig.Plugins.Add( 'linktomenu', 'en,pl' ) ;
 
 /*
- This toolbar is dedicated to users with "Full HTML" access 
+ This toolbar is dedicated to users with "Full HTML" access
  some of commands used here (like 'FontName') use inline styles,
  which unfortunately are stripped by "Filtered HTML" filter
  */
@@ -37,7 +37,7 @@ FCKConfig.ToolbarSets["DrupalFull"] = [
 //as of FCKeditor 2.5 you can use also 'Blockquote' button
 //['OrderedList','UnorderedList','-','Outdent','Indent','Blockquote'],
 ['JustifyLeft','JustifyCenter','JustifyRight'],
-/* 
+/*
  * EXPERIMENTAL
  * Uncomment the line below to enable linktonode and linktomenu buttons
  * ATTENTION: Link to Content module must be installed first!
@@ -63,7 +63,7 @@ FCKConfig.ToolbarSets["DrupalFiltered"] = [
 ['Source'],
 ['Cut','Copy','Paste','PasteText','PasteWord'],
 ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-/* 
+/*
  * EXPERIMENTAL
  * Uncomment the line below to enable linktonode and linktomenu buttons
  * ATTENTION: Link to Content module must be installed first!
@@ -121,3 +121,5 @@ FCKConfig.IndentClasses = ['rteindent1','rteindent2','rteindent3','rteindent4'] 
 FCKConfig.JustifyClasses = ['rteleft','rtecenter','rteright','rtejustify'] ;
 //Set to 'encode' if you want to obfuscate emails with javascript
 FCKConfig.EMailProtection = 'none' ;
+// #330286 remove "Red Title" from Styles list.
+FCKConfig.CustomStyles = {};

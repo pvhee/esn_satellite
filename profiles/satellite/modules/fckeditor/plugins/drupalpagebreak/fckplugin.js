@@ -1,4 +1,4 @@
-// $Id: fckplugin.js,v 1.2.2.2 2008/11/19 12:00:08 wwalc Exp $
+// $Id: fckplugin.js,v 1.2.2.3 2009/01/28 14:52:27 wwalc Exp $
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
  * Copyright (C) 2003-2007 Frederico Caldeira Knabben
@@ -71,10 +71,17 @@ FCKDrupalPageBreak.prototype.MoveBreakOutsideElement = function()
 				{
 					var oParent = element.parentNode ;
 					var oDiv = FCK.EditorDocument.createElement( next.toUpperCase() ) ;
+					var bDivEmpty = true ;
 					var sibling ;
 
 					while( sibling = element.nextSibling )
+					{
+						if (!((sibling.nodeType == 3 && !sibling.nodeValue.length) || (sibling.nodeType == 1 && sibling.nodeName.toLowerCase() == 'br' && sibling.getAttribute( 'type' ) == '_moz'))) {
+						bDivEmpty = false ;
+						}
+
 						oDiv.appendChild( sibling ) ;
+					}
 
 					if ( oDiv.childNodes.length )
 					{
@@ -99,7 +106,10 @@ FCKDrupalPageBreak.prototype.MoveBreakOutsideElement = function()
 					//we must be sure the bogus node is available to make cursor blinking
 					if ( FCKBrowserInfo.IsGeckoLike )
 						FCKTools.AppendBogusBr( oParent ) ;
-						
+
+					if ( bDivEmpty )
+						oDiv.parentNode.removeChild( oDiv );
+
 					break ;
 				}
 				else
@@ -149,11 +159,11 @@ FCKDrupalPageBreaksProcessor.ProcessDocument = function( document )
 				if (re.test(node.nodeValue))
 					PContent = FCKConfig.ProtectedSource.Revert('<!--' + node.nodeValue + '-->', false);
 										
-				if (node.nodeValue == 'pagebreak' || PContent == '<!--pagebreak-->') {					
+				if (node.nodeValue == 'pagebreak' || PContent == '<!--pagebreak-->') {
 					var oFakeImage = FCKDocumentProcessor_CreateFakeImage( 'FCK__PageBreak', node.cloneNode(true) ) ;
 					oFakeImage.setAttribute( "_drupalpagebreak", "true" ) ;
 					node.parentNode.insertBefore( oFakeImage, node ) ;
-					node.parentNode.removeChild( node ) ;						
+					node.parentNode.removeChild( node ) ;
 				}
 			}
 		}

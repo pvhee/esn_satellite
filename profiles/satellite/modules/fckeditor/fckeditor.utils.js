@@ -1,4 +1,4 @@
-// $Id: fckeditor.utils.js,v 1.2.2.27 2008/12/18 13:22:55 wwalc Exp $
+// $Id: fckeditor.utils.js,v 1.2.2.32 2009/03/11 11:53:52 wwalc Exp $
 var fckIsRunning = new Array;
 var fckIsLaunching = new Array;
 var fckLaunchedTextareaId = new Array;
@@ -8,10 +8,10 @@ var fckIsIE = ( /*@cc_on!@*/false ) ? true : false ;
 
 function Toggle(js_id, textareaID, textTextarea, TextRTE, xss_check)
 {
-  var eFCKeditorDiv	= document.getElementById( 'fck_' + js_id ) ;
+  var eFCKeditorDiv  = document.getElementById( 'fck_' + js_id ) ;
   var teaser = false;
   var teaserCheckbox = false;
-  
+
   for (var i in Drupal.settings.teaser) {
     if (Drupal.settings.teaser[i] == textareaID)
       teaser = i;
@@ -31,7 +31,7 @@ function Toggle(js_id, textareaID, textTextarea, TextRTE, xss_check)
         $.post(Drupal.settings.basePath + 'index.php?q=fckeditor/xss', {
             text: $('#' + textareaID).val(),
             'filters[]': Drupal.settings.fckeditor_filters[js_id]
-          }, 
+          },
           function(text) {
             $('#' + textareaID).val(text);
             $('#' + js_id).val(text);
@@ -53,8 +53,8 @@ function Toggle(js_id, textareaID, textTextarea, TextRTE, xss_check)
     oEditor = FCKeditorAPI.GetInstance( js_id );
 
   // Get the _Textarea and _FCKeditor DIVs.
-  var eTextarea	= document.getElementById( textareaID );
-  var eFCKeditor	= document.getElementById( js_id );
+  var eTextarea  = document.getElementById( textareaID );
+  var eFCKeditor  = document.getElementById( js_id );
   var text;
 
   // If the _Textarea DIV is visible, switch to FCKeditor.
@@ -100,12 +100,16 @@ function Toggle(js_id, textareaID, textTextarea, TextRTE, xss_check)
     if (fckFirstrun[js_id]) {
       fckFirstrun[js_id] = false;
     }
-    if (textareaID == 'edit-body') {
+    if (document.getElementById('switch_' + js_id)) {
       document.getElementById('switch_' + js_id).innerHTML = TextRTE;
     }
 
     var text = oEditor.GetHTML(true);
-    
+    // #372150 and #374386
+    if (text == '<br />' || text == '<p>&#160;</p>' || text == '<div>&#160;</div>') {
+      text = '';
+    }
+
     if (teaser) {
       var t = text.indexOf('<!--break-->');
       if (t != -1) {
@@ -163,7 +167,7 @@ function CreateToggle(elId, jsId, fckeditorOn)
 function doFCKeditorSave(){
   DoFCKeditorTeaserStuff();
   return true; //continue submitting
-}  
+}
 
 function DoFCKeditorTeaserStuff()
 {
@@ -176,12 +180,17 @@ function DoFCKeditorTeaserStuff()
       {
         var text = FCKeditorAPI.GetInstance( fckLaunchedJsId[i] ).GetXHTML(true);
         var teaser = false;
-  
+
+        // #372150 and #374386
+        if (text == '<br />' || text == '<p>&#160;</p>' || text == '<div>&#160;</div>') {
+          text = '';
+        }
+
         for (var k in Drupal.settings.teaser) {
           if (Drupal.settings.teaser[k] == fckLaunchedTextareaId[i])
             teaser = k;
         }
-        
+
         if (teaser) {
           var t = text.indexOf('<!--break-->');
           if (t != -1) {
@@ -217,22 +226,22 @@ function FCKeditor_OnComplete( editorInstance )
   if (oElem != null) {
     oElem.style.display = '';
   }
-  
+
   // If the textarea isn't visible update the content from the editor.
   $(editorInstance.LinkedField.form).submit(DoFCKeditorTeaserStuff);
 
   editorInstance.Events.AttachEvent( 'OnAfterLinkedFieldUpdate', DoFCKeditorTeaserStuff ) ;
-  
+
   var teaser = false;
   var teaserCheckbox = false;
-  
+
   for (var k in Drupal.settings.teaser) {
     if (Drupal.settings.teaser[k] == editorInstance.Config['TextareaID']) {
       teaser = k;
       teaserCheckbox = Drupal.settings.teaserCheckbox[k];
     }
   }
-  
+
   if (teaser) {
     $('#' + teaser).attr('disabled', '');
     $('div[@class=teaser-button-wrapper]').hide();
@@ -254,7 +263,7 @@ function FCKeditorReplaceTextarea(textarea_id, oFCKeditor, xss_check)
     $.post(Drupal.settings.basePath + 'index.php?q=fckeditor/xss', {
       text: $('#' + textarea_id).val(),
       'filters[]': Drupal.settings.fckeditor_filters[textarea_id]
-      }, 
+      },
       function(text) {
         $('#' + textarea_id).val(text);
         oFCKeditor.ReplaceTextarea();
@@ -274,5 +283,20 @@ function IntegrateWithImgAssist()
     if ( cl == "img_assist-link") {
       link[i].href = link[i].href.replace("/load/textarea", "/load/fckeditor");
     }
+  }
+}
+
+// Probably JsMin was used to compress the code.
+// In such case, in IE FCKeditor_IsCompatibleBrowser() will always return false.
+if (typeof(FCKeditor_IsCompatibleBrowser) == 'function' && !FCKeditor_IsCompatibleBrowser()) {
+  var FCKeditor_IsCompatibleBrowser = function() {
+    var sAgent = navigator.userAgent.toLowerCase() ;
+    // Internet Explorer 5.5+
+    if ( sAgent.indexOf("mac") == -1 && sAgent.indexOf("opera") == -1 && navigator.appVersion.match( /MSIE (.\..)/ ) )
+    {
+      var sBrowserVersion = navigator.appVersion.match(/MSIE (.\..)/)[1] ;
+      return ( sBrowserVersion >= 5.5 ) ;
+    }
+    return false;
   }
 }

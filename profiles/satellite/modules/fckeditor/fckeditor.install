@@ -1,5 +1,5 @@
 <?php
-// $Id: fckeditor.install,v 1.2.2.24 2009/01/20 13:29:30 wwalc Exp $
+// $Id: fckeditor.install,v 1.2.2.25 2009/02/16 11:58:52 wwalc Exp $
 
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
@@ -72,7 +72,7 @@ function fckeditor_install() {
   //security
   $arr['ss'] = "2";
   $arr['filters']['filter/0'] = 1;
-  
+
   //css
   $arr['css_mode'] = "theme";
   $arr['css_path'] = variable_get("fckeditor_stylesheet", "");
@@ -88,9 +88,9 @@ function fckeditor_install() {
   //insert settings for advanced role
   $arr['toolbar'] = variable_get('fckeditor_advanced_toolbar', 'DrupalFiltered');
   db_query("INSERT INTO {fckeditor_settings} (name, settings) VALUES ('%s', '%s')", "Advanced", serialize($arr));
-  
+
   $arr = array();
-  
+
   //exclude by default some known textareas where HTML is not expected
   //edit-recipients //contact module
   //edit-reply //contact module
@@ -132,7 +132,7 @@ function fckeditor_install() {
   "edit-webform-*\n".
   "edit-target\n"
   );
-  
+
   $arr['excl_paths'] = "admin/*/logintoboggan\n".
   "admin/settings/actions/configure/*\n";
 
@@ -155,37 +155,37 @@ function fckeditor_install() {
 */
 function fckeditor_schema() {
   $schema['fckeditor_settings'] = array(
-    'description' => t('Stores FCKeditor profile settings'),
+    'description' => 'Stores FCKeditor profile settings',
     'fields' => array(
       'name'    => array(
-        'type' => 'varchar', 
-        'not null' => TRUE, 
-        'default' => '', 
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
         'length' => 128,
-        'description' => t('Name of the FCKeditor profile'),
+        'description' => 'Name of the FCKeditor profile',
       ),
       'settings'    => array(
-        'type' => 'text', 
-        'description' => t('Profile settings'),
+        'type' => 'text',
+        'description' => 'Profile settings',
       ),
     ),
     'primary key' => array('name'),
   );
   $schema['fckeditor_role'] = array(
-    'description' => t('Stores FCKeditor profile assignments'),
+    'description' => 'Stores FCKeditor profile assignments',
     'fields' => array(
       'name'    => array(
-        'type' => 'varchar', 
-        'not null' => TRUE, 
-        'default' => '', 
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
         'length' => 128,
-        'description' => t('Name of the FCKeditor role'),
+        'description' => 'Name of the FCKeditor role',
       ),
       'rid' => array(
-        'type' => 'int', 
-        'not null' => TRUE, 
+        'type' => 'int',
+        'not null' => TRUE,
         'default' => 0,
-        'description' => t('Drupal role id'),
+        'description' => 'Drupal role id',
       ),
     ),
     'primary key' => array('name', 'rid'),
@@ -252,7 +252,7 @@ function fckeditor_update_6110() {
 
     db_query("UPDATE {fckeditor_settings} SET settings='%s' WHERE name='%s'", serialize($settings), $data->name);
   }
-  
+
   if (!$global_profile_found) {
     db_query("INSERT INTO {fckeditor_settings} (name, settings) VALUES ('%s', '%s')", "FCKeditor Global Profile", serialize(array()));
   }
@@ -265,18 +265,18 @@ function fckeditor_update_6110() {
  */
 function fckeditor_update_6130() {
   $ret = array();
-  
+
   $result = db_query("SELECT * FROM {fckeditor_settings} WHERE name <> 'FCKeditor Global Profile'");
   $hasimce = module_exists('imce');
   while (($data = db_fetch_object($result))) {
     if ($data->settings) {
       $settings = unserialize($data->settings);
-      
+
       // Rewrite imce, upload_basic and upload_advanced settings to filebrowser and quickupload
       $imce = ($hasimce && isset($settings['imce']) && $settings['imce'] == 't');
       $upload_basic = (isset($settings['upload_basic']) && $settings['upload_basic'] == 't');
       $upload_advanced = (isset($settings['upload_advanced']) && $settings['upload_advanced'] == 't');
-      
+
       if ($imce) {
         $settings['filebrowser'] = 'imce';
       }
@@ -286,18 +286,18 @@ function fckeditor_update_6130() {
       else {
         $settings['filebrowser'] = 'none';
       }
-      
+
       $settings['quickupload'] = $upload_basic ? 't' : 'f';
-      
+
       unset($settings['imce'], $settings['upload_basic'], $settings['upload_advanced']);
-      
+
       // unfortunately, update_sql is not an option, as serialize($settings) will contain curly braces which will
       // be replaced. update_sql does not support arguments like db_query() does.
-      
+
       db_query("UPDATE {fckeditor_settings} SET settings='%s' WHERE name='%s'", serialize($settings), $data->name);
     }
   }
-  
+
   return $ret;
 }
 

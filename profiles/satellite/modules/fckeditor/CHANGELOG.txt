@@ -1,7 +1,33 @@
-$Id: CHANGELOG.txt,v 1.2.2.89 2009/01/23 13:38:03 wwalc Exp $
+$Id: CHANGELOG.txt,v 1.2.2.105 2009/03/11 15:31:27 wwalc Exp $
+
+-- 2009-03-11 version 6.x-1.x-dev
+* #380134 Fixed the incompatibility with JsMin in IE
+* #379088 Added support for Web File Manager (WebFM)
+* #370019 Added possibility to load fckeditor.config.js from theme path
+* #365121 Fixed: Img Assist button pops up blank window with JS errors
+
+-- 2009-03-10 version 6.x-1.x-dev
+* #389186 Fixed the issue with calling IMCE filebrowser when index.html resides in Drupal folder
+
+-- 2009-02-19 version 6.x-1.x-dev
+* #363514 Fixed the issue with including nonexisting subtheme stylesheet.
+
+-- 2009-02-16 version 6.x-1.x-dev
+* #372150 Fixed: break tag shows up in empty Body field after saving
+* #330286 Removed the "Red Title" style from the default list of styles
+* #374386 Fixed: &#160 shows up in empty Body field when ProcessHTMLEntities is set to false
+* #371653 Removed t() from schema description
+* #369093 Fixed: AJAX callback - XSS filter should not be called if no security filter is selected
+* #374101 Fixed: FCKeditor settings - error highlights wrong field
+* #345166 Corrected validation of fields to exclude/include with double dash
+
+-- 2009-01-28 version 6.x-1.x-dev
+* #363594 Fixed: invalid text on toggle link
+* #295937 Fixed: break plugin forces new paragraph
+* #363514 Fixed: CSS files in parent theme are incorrectly included in the editor area
 
 -- 2009-01-23 version 6.x-1.x-dev
-* #352704 Fixed: moving an image corrupts its path 
+* #352704 Fixed: moving an image corrupts its path
 * #323844 Fixed: loading (sub)theme stylesheets
 
 -- 2009-01-20 version 6.x-1.x-dev
@@ -120,7 +146,7 @@ FCKeditor module now doesn to require "." in the include_path to work
 * #269478 including fckeditor.php twice is causing errors
 
 -- 2008-07-10 version 6.x-2.x-dev and 6.x-1.x-dev
-* #275158 (IMG Assist broken after update) readded code to maintain 
+* #275158 (IMG Assist broken after update) readded code to maintain
   backwards compatibility with the old img_assist_fckeditor.js
 
 -- 2008-07-10 version 6.x-1.x-dev
@@ -153,7 +179,7 @@ FCKeditor module now doesn to require "." in the include_path to work
 
 -- 2008-05-23 version 6.x-1.x-dev
 * added German translation
-* #261483 changed the way how FCKeditor is loaded (should solve some strange problems 
+* #261483 changed the way how FCKeditor is loaded (should solve some strange problems
   with dissapearing content/FCKeditor)
 * #261477 file browser should work in symlinked installations
 * #261487 %t variable now points to the right place
@@ -184,12 +210,12 @@ FCKeditor module now doesn to require "." in the include_path to work
 * fixed issues with default inclusion or exclusion mode set to "include" when creating new profile
 
 -- 2008-03-18 version drupal-6-x-1-1
-* fixed issues with switching from text to fckeditor in the toogle, 
+* fixed issues with switching from text to fckeditor in the toogle,
   all previous content within the body was lost
 * FCKeditor now appears for super user even if "access fckeditor" permissions are not yet assigned.
   (the Advanced profile for authenticated users is assigned)
 * corrected readme file
-* fixed issues with Internet Explorer 
+* fixed issues with Internet Explorer
   (Object required error when "rich text editor toggle" was set to false)
 * fixed issues with invalid validation of excluded fields
   (numbers are also allowed in IDs)
