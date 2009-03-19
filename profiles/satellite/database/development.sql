@@ -275,7 +275,7 @@ CREATE TABLE `aggregator_feed` (
 
 LOCK TABLES `aggregator_feed` WRITE;
 /*!40000 ALTER TABLE `aggregator_feed` DISABLE KEYS */;
-INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237491408,'http://www.esn.org/news/feed','News view','','',1237491410,5);
+INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237501698,'http://www.esn.org/news/feed','News view','','',1237501701,5);
 /*!40000 ALTER TABLE `aggregator_feed` ENABLE KEYS */;
 UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `aggregator_item` (
@@ -519,7 +519,7 @@ INSERT INTO `blocks` VALUES (202,'image','0','satellite',0,-5,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (203,'image','1','satellite',0,-3,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (204,'logintoboggan','0','satellite',1,-24,'header_top',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (205,'menu','devel','satellite',0,-13,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (206,'menu','menu-quick-links','satellite',0,-4,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (206,'menu','menu-quick-links','satellite',1,-23,'header_top',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (207,'menu','primary-links','satellite',0,-19,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (208,'menu','secondary-links','satellite',0,-16,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (209,'menu','spaces','satellite',0,-8,'',0,0,0,'','',-1);
@@ -527,7 +527,7 @@ INSERT INTO `blocks` VALUES (210,'menu_block','1','satellite',1,-14,'header',0,0
 INSERT INTO `blocks` VALUES (211,'menu_block','2','satellite',1,-24,'left',0,0,1,'content/*','',-1);
 INSERT INTO `blocks` VALUES (212,'node','0','satellite',0,-15,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (213,'profile','0','satellite',0,-17,'',0,0,0,'','',5);
-INSERT INTO `blocks` VALUES (214,'search','0','satellite',1,-23,'right_top',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (214,'search','0','satellite',1,-22,'header_top',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (215,'service_links','0','satellite',0,-2,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (216,'system','0','satellite',0,-18,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (217,'user','0','satellite',1,-19,'right',0,0,0,'','',-1);
@@ -1930,7 +1930,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=2594 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2595 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2650,7 +2650,7 @@ INSERT INTO `menu_links` VALUES ('navigation',2583,0,'admin/content/node-type/ar
 INSERT INTO `menu_links` VALUES ('admin_menu',2585,2386,'admin/content/node-type/article/fields/field_spotlight','admin/content/node-type/article/fields/field_spotlight','Spotlight','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2380,2386,2585,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',2590,0,'admin/content/node-type/event/fields/field_spotlight/remove','admin/content/node-type/event/fields/field_spotlight/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,2590,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2592,2403,'admin/content/node-type/event/fields/field_spotlight','admin/content/node-type/event/fields/field_spotlight','Spotlight','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2397,2403,2592,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2593,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2593,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2594,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2594,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -3996,6 +3996,7 @@ INSERT INTO `system` VALUES ('profiles/satellite/modules/location/location_user.
 INSERT INTO `system` VALUES ('profiles/satellite/modules/logintoboggan/logintoboggan.module','logintoboggan','module','',1,0,0,6000,0,'a:9:{s:4:\"name\";s:13:\"LoginToboggan\";s:11:\"description\";s:31:\"Improves Drupal\'s login system.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.3\";s:7:\"project\";s:13:\"logintoboggan\";s:9:\"datestamp\";s:10:\"1228867825\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/menu_block/menu_block.module','menu_block','module','',1,0,0,6201,0,'a:9:{s:4:\"name\";s:10:\"Menu Block\";s:11:\"description\";s:43:\"Provides configurable blocks of menu items.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:4:\"menu\";}s:7:\"version\";s:7:\"6.x-2.2\";s:7:\"project\";s:10:\"menu_block\";s:9:\"datestamp\";s:10:\"1229377222\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/myblog/myblog.module','myblog','module','',0,0,0,0,0,'a:7:{s:4:\"name\";s:7:\"My Blog\";s:11:\"description\";s:42:\"Provides basic features for a simple blog.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:6:\"spaces\";}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/nice_menus/nice_menus.module','nice_menus','module','',0,0,0,-1,0,'a:9:{s:4:\"name\";s:10:\"Nice Menus\";s:11:\"description\";s:75:\"CSS/jQuery drop-down, drop-right and drop-left menus to be placed in blocks\";s:12:\"dependencies\";a:1:{i:0;s:4:\"menu\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.3\";s:7:\"project\";s:10:\"nice_menus\";s:9:\"datestamp\";s:10:\"1228075824\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/node_export/export.module','export','module','',0,0,0,0,0,'a:9:{s:4:\"name\";s:13:\"Export module\";s:11:\"description\";s:78:\"Allows users to export a node and the import into another Drupal installation.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.4\";s:7:\"project\";s:11:\"node_export\";s:9:\"datestamp\";s:10:\"1233986725\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/panels/panels.module','panels','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:6:\"Panels\";s:11:\"description\";s:122:\"Core Panels display functions; provides no external UI, at least one other module (such as Panel pages) should be enabled.\";s:4:\"core\";s:3:\"6.x\";s:7:\"package\";s:6:\"Panels\";s:12:\"dependencies\";a:1:{i:0;s:5:\"views\";}s:7:\"version\";s:14:\"6.x-2.0-alpha3\";s:7:\"project\";s:6:\"panels\";s:9:\"datestamp\";s:10:\"1230669627\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/panels/panels_export/panels_export.module','panels_export','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:15:\"Panels exporter\";s:11:\"description\";s:75:\"Allows exporting multiple panel pages, mini panels and other types at once.\";s:7:\"package\";s:6:\"Panels\";s:12:\"dependencies\";a:1:{i:0;s:6:\"panels\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-2.0-alpha3\";s:7:\"project\";s:6:\"panels\";s:9:\"datestamp\";s:10:\"1230669627\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
@@ -4345,9 +4346,9 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237492638,1237292591,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237502551,1237292591,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
-INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237490889,1237490889,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
+INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237501698,1237490889,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4379,7 +4380,7 @@ INSERT INTO `variable` VALUES ('admin_menu_position_fixed','i:1;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_modules','i:0;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_tabs','i:0;');
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237491408;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237501698;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
 INSERT INTO `variable` VALUES ('blocktheme','a:0:{}');
@@ -4464,8 +4465,8 @@ INSERT INTO `variable` VALUES ('content_extra_weights_partner','a:3:{s:5:\"title
 INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-2\";s:4:\"menu\";s:1:\"0\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1237491408;');
-INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"7WNOvtrCwAJHx3I921XP\";');
+INSERT INTO `variable` VALUES ('cron_last','i:1237501698;');
+INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"i7WNOvtrCwAJHx3I921X\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
 INSERT INTO `variable` VALUES ('date_default_timezone','i:3600;');
@@ -4479,7 +4480,7 @@ INSERT INTO `variable` VALUES ('date_format_short','s:11:\"d/m/Y - H:i\";');
 INSERT INTO `variable` VALUES ('date_format_short_custom','s:11:\"m/d/Y - H:i\";');
 INSERT INTO `variable` VALUES ('demo_dump_path','s:27:\"profiles/satellite/database\";');
 INSERT INTO `variable` VALUES ('demo_reset_interval','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('drupal_http_request_fails','b:0;');
+INSERT INTO `variable` VALUES ('drupal_http_request_fails','b:1;');
 INSERT INTO `variable` VALUES ('drupal_private_key','s:64:\"d062470153e8536a8251102a48d45eff774e34a346872fcc3578b5ce47d9085b\";');
 INSERT INTO `variable` VALUES ('emfield_emvideo_allow_bliptv','i:0;');
 INSERT INTO `variable` VALUES ('emfield_emvideo_allow_brightcove','i:0;');
@@ -4668,7 +4669,7 @@ INSERT INTO `variable` VALUES ('menu_primary_links_source','s:6:\"spaces\";');
 INSERT INTO `variable` VALUES ('menu_secondary_links_source','s:0:\"\";');
 INSERT INTO `variable` VALUES ('node_admin_theme','i:0;');
 INSERT INTO `variable` VALUES ('node_cron_comments_scale','d:0.1666666666666666574148081281236954964697360992431640625;');
-INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1237489136\";');
+INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1237492668\";');
 INSERT INTO `variable` VALUES ('node_cron_views_scale','d:1;');
 INSERT INTO `variable` VALUES ('node_options_activity','a:2:{i:0;s:6:\"status\";i:1;s:7:\"promote\";}');
 INSERT INTO `variable` VALUES ('node_options_article','a:1:{i:0;s:6:\"status\";}');
@@ -4747,7 +4748,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_bulkupdate','i:0;');
 INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\";');
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237491408;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237501698;');
 INSERT INTO `variable` VALUES ('profile_csv_param_mail','i:1;');
 INSERT INTO `variable` VALUES ('profile_csv_param_name','i:1;');
 INSERT INTO `variable` VALUES ('profile_csv_param_profile_1','i:1;');
@@ -5062,7 +5063,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=5514 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5518 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
