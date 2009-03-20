@@ -59,3 +59,9 @@ ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active 
 .view-id-partners.view-display-id-page_1 .views-field-field-image-fid {float: none;}
 .view-id-partners.view-display-id-page_1 td {text-align: center;}
 .view-id-partners.view-display-id-page_1 .views-field-title a { font-size: 1.2em; color: #555; }
+
+.block { padding-top: 1.2em; margin-bottom: 0;}
+#block-views-spotlights-block_1 { margin-bottom: 0; }
+#header .block { padding-top: 0;}
+
+

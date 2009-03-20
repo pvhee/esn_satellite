@@ -1,0 +1,45 @@
+/**
+ * Green
+ */
+.block.green { border-top: 5px solid #7BC043;}
+.block.green a, 
+.block.green h2,
+.block.green h2,
+.block.green .views-field-title  { color: #7BC043; }
+
+/**
+ * Orange
+ */
+.block.orange { border-top: 5px solid #F15A24;}
+.block.orange a, 
+.block.orange h2,
+.block.orange h2,
+.block.orange .views-field-title  { color: #F15A24; }
+
+/**
+ * Pink
+ */
+.block.pink { border-top: 5px solid #EB008B;}
+.block.pink a, 
+.block.pink h2,
+.block.pink h2,
+.block.pink .views-field-title  { color: #EB008B; }
+
+/**
+ * Blue
+ */
+.block,
+.block.blue { border-top: 5px solid #00ADEE;}
+.block.blue a, 
+.block.blue h2,
+.block.blue h2,
+.block.blue .views-field-title  { color: #00ADEE; }
+
+
+/**
+ * Custom admin links
+ */
+.block .views-field-edit-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .views-field-edit-node a:hover { color: green;}
+.block .views-field-delete-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #AF999A;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .views-field-delete-node a:hover { color: red;}
