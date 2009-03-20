@@ -1,0 +1,36 @@
+<?php
+// $Id: content_complete.install,v 1.1.2.1 2009/03/09 05:03:33 pvhee Exp $
+
+/**
+ * @file
+ * Install file for the content_complete.module
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function content_complete_install() {
+  drupal_install_schema('content_complete');
+}
+
+/**
+ * Implementation of hook_schema()
+ */
+function content_complete_schema() {
+  $schema['content_complete'] = array(
+    'description' => t('Stores content types and their fields that will be checked for completeness.'), 'fields' => array(
+      'type' => array(
+        'type' => 'varchar', 'length' => '127', 'not null' => TRUE, 'default' => '', 'description' => t('{content_node_field}.type') 
+      ), 
+      'field_name' => array(
+        'type' => 'varchar', 'length' => '32', 'not null' => TRUE, 'default' => '', 'description' => t('{content_node_field}.field_name') 
+      ) 
+    ) 
+  );
+  
+  return $schema;
+}
+
+function content_complete_uninstall() {
+  drupal_uninstall_schema('content_complete');
+}
