@@ -7,7 +7,7 @@
  * You need to specify the location of the SQL file here. The demo module will also
  * look for a .info file with the same name in the same location.
  */
-define('YOUTHAGORA_DUMP_FILE', 'profiles/satellite/database/template.sql');
+define('YOUTHAGORA_DUMP_FILE', 'profiles/satellite/database/demo_site.sql');
 
 /**
  * Satellite Installation Profile
