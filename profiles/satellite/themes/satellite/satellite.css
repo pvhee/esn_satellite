@@ -1,5 +1,6 @@
 
-body {background: #76B0CD url(images/layout/wrapper_bg.png) top left repeat-x; }
+body {background: white;}
+#wrapper {background: #76B0CD url(images/layout/wrapper_bg.png) top left repeat-x; }
 fieldset {border:1px solid #d9eaf5; background: transparent url(images/layout/gradient-inner.png) repeat-x scroll 0 0; margin:1em 0;padding:1em;}
 ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active a:visited, ul.secondary li a:hover {  background: url(images/layout/bg-tab.png) repeat-x 0 50%;  color: #fff;}
 #shadow { background: url(images/layout/container_bg.png) top center repeat-y;}
