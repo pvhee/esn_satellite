@@ -5,9 +5,17 @@ ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active 
 #shadow { background: url(images/layout/container_bg.png) top center repeat-y;}
 #shadow-top { background: url(images/layout/shadow_top.png) top center no-repeat;}
 #shadow-footer { background: url(images/layout/footer.png) bottom center no-repeat; }
-#footer div.container { height:200px; margin-top:180px; }
+#footer div.container { height:200px; margin-top:180px; padding-left: 248px; color: white;}
+#footer div.container a { color: #a7a7a7;}
 #header-title { height:177px;}
 #block-menu_block-1 li { padding:0 15px; }
+#header-top { border-top: 7px solid #333; background: #EEEEEE; border-bottom: 1px solid #ddd; float: left; width: 923px;}
+#header-top .block { display: block; float: right;}
+#header-top .inner { padding-top: .8em; }
+
+#wrapper #container #header-top #block-search-0 { padding-bottom:0; margin-bottom: 0; }
+#wrapper #container #header-top #block-search-0 input.form-text { font-size:0.9em; height:1.2em; }
+#wrapper #container #header-top #block-search-0 .form-button, #wrapper #container #header-top #block-search-0 .form-submit { margin: 0em; }
 
 /**
  * Views Blocks

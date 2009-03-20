@@ -6,6 +6,7 @@ core = 6.x
 base theme = base
 
 stylesheets[all][] = satellite.css
+stylesheets[all][] = blocks.css
 
 regions[header_top] = Header top
 regions[header] = Header
