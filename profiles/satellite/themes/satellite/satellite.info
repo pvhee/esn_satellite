@@ -20,7 +20,7 @@ regions[right] = Right sidebar
 regions[right_bottom] = Right Top sidebar
 regions[footer_top] = Footer Top
 regions[footer_left] = Footer Left
-regions[footer_center] = Footer Center
+; regions[footer_center] = Footer Center
 regions[footer_right] = Footer Right
 regions[footer_bottom] = Footer Bottom
 

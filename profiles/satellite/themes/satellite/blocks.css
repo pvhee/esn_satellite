@@ -6,6 +6,7 @@
 .block.green h2,
 .block.green h2,
 .block.green .views-field-title  { color: #7BC043; }
+.block.green {background: #fff url("images/blocks/green.png") top left no-repeat; }
 
 /**
  * Orange
@@ -15,6 +16,7 @@
 .block.orange h2,
 .block.orange h2,
 .block.orange .views-field-title  { color: #F15A24; }
+.block.orange {background: #fff url("images/blocks/orange.png") top left no-repeat; }
 
 /**
  * Pink
@@ -24,6 +26,7 @@
 .block.pink h2,
 .block.pink h2,
 .block.pink .views-field-title  { color: #EB008B; }
+.block.pink {background: #fff url("images/blocks/pink.png") top left no-repeat; }
 
 /**
  * Blue
@@ -34,7 +37,9 @@
 .block.blue h2,
 .block.blue h2,
 .block.blue .views-field-title  { color: #00ADEE; }
+.block, .block.blue {background: #fff url("images/blocks/blue.png") top left no-repeat; }
 
+#header .block, #footer .block { background: none; }
 
 /**
  * Custom admin links
