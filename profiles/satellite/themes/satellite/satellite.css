@@ -12,14 +12,14 @@ ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active 
 #header-top { border-top: 7px solid #333; background: #EEEEEE; border-bottom: 1px solid #ddd; float: left; width: 923px;}
 #header-top .block { display: block; float: right;}
 #header-top .inner { padding: .8em;  float: left; width: 900px; }
-/*#shadow-footer { padding:0 14px 13px; }*/
+#shadow-footer { padding:0 14px 13px; }
 #wrapper #container #header { margin-bottom:1.2em; }
 
 /* Same size everywhere */
 body.sidebar-right #wrapper #container #center, 
 body.sidebar-left #wrapper #container #center, 
-body #wrapper #container #center { width:608px; }
-body #wrapper #container .sidebar { width:314px;}
+body #wrapper #container #center { width:610px; }
+body #wrapper #container .sidebar { width:310px;}
 /*
 body.frontpage #wrapper #container #center { width:608px; }
 body.frontpage #wrapper #container .sidebar { width:314px;}
