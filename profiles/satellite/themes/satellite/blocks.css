@@ -6,7 +6,8 @@
 .block.green h2,
 .block.green h2,
 .block.green .views-field-title  { color: #7BC043; }
-.block.green {background: #fff url("images/blocks/green.png") top left no-repeat; }
+.block.green {background: transparent url("images/blocks/green.png") top left no-repeat; }
+.block.green.fill .inner {background: #8DC96D url("images/blocks/green_fill.png") top left no-repeat; }
 
 /**
  * Orange
@@ -16,7 +17,8 @@
 .block.orange h2,
 .block.orange h2,
 .block.orange .views-field-title  { color: #F15A24; }
-.block.orange {background: #fff url("images/blocks/orange.png") top left no-repeat; }
+.block.orange .inner {background: transparent url("images/blocks/orange.png") top left no-repeat; }
+.block.orange.fill .inner {background: #F6BE7B url("images/blocks/orange_fill.png") top left no-repeat; }
 
 /**
  * Pink
@@ -26,7 +28,8 @@
 .block.pink h2,
 .block.pink h2,
 .block.pink .views-field-title  { color: #EB008B; }
-.block.pink {background: #fff url("images/blocks/pink.png") top left no-repeat; }
+.block.pink .inner {background: transparent url("images/blocks/pink.png") top left no-repeat; }
+.block.pink.fill .inner {background: #EC76BC url("images/blocks/pink_fill.png") top left no-repeat; }
 
 /**
  * Blue
@@ -37,9 +40,34 @@
 .block.blue h2,
 .block.blue h2,
 .block.blue .views-field-title  { color: #00ADEE; }
-.block, .block.blue {background: #fff url("images/blocks/blue.png") top left no-repeat; }
+.block .inner, .block.blue .inner {background: transparent url("images/blocks/blue.png") top left no-repeat; }
+.block.blue.fill .inner {background: #6DC4D7 url("images/blocks/blue_fill.png") top left no-repeat; }
 
+/**
+ * Common
+ */
+#header .block .inner, #footer .block .inner { background: none; }
 #header .block, #footer .block { background: none; }
+
+.block {background: transparent url("images/blocks/fade.png") top left repeat-x; }
+.block { border-bottom: 0; }
+#sidebar-right .block, #sidebar-left .block, #center .block {padding: 2em 0;}
+#block-views-spotlights-block_1 .inner { background-image: none; }
+#header-top .block .inner { float:none;padding:0;width: auto; }
+
+#wrapper #container .block,
+#wrapper #container .sidebar .block { padding-top: 0; margin-bottom: 0;}
+.block .inner { padding-top: 1.2em; margin-bottom: 0;}
+#block-views-spotlights-block_1.block { margin-bottom: 0; padding-bottom: 0;}
+#header .block { padding-top: 0;}
+
+.block.fill { background: none; color: white;}
+#wrapper #container div.sidebar .block-views.block.fill .views-field-teaser,
+.block.fill .views-field-field-date-value,
+.block.fill a, 
+.block.fill h2 { color: white;}
+
+
 
 /**
  * Custom admin links

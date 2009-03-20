@@ -497,7 +497,7 @@ INSERT INTO `blocks` VALUES (180,'logintoboggan','0','base',0,0,'',0,0,0,'','',-
 INSERT INTO `blocks` VALUES (181,'service_links','0','base',0,3,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (182,'demo','0','base',0,-22,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (183,'ya_credits','0','base',0,4,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (184,'views','events-block_1','base',0,7,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (184,'views','events-block_1','base',0,7,'',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (185,'views','events-block_2','base',0,8,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (186,'views','events-block_3','base',0,9,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (187,'views','articles-block_2','base',0,5,'',0,0,0,'','',-1);
@@ -539,7 +539,7 @@ INSERT INTO `blocks` VALUES (222,'views','articles-block_2','satellite',0,-4,'',
 INSERT INTO `blocks` VALUES (223,'views','calendar-block_1','satellite',0,-10,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (224,'views','calendar-calendar_block_1','satellite',1,-21,'right',0,0,1,'events\r\nevent/*','',-1);
 INSERT INTO `blocks` VALUES (225,'views','credits-block_1','satellite',0,-2,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (226,'views','events-block_1','satellite',1,-18,'right',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (226,'views','events-block_1','satellite',1,-18,'right',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (227,'views','events-block_2','satellite',0,-3,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (228,'views','events-block_3','satellite',0,-1,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (229,'views','outcomes-block_1','satellite',0,-25,'',0,0,1,'<front>','',-1);
@@ -1552,8 +1552,8 @@ CREATE TABLE `fbconnect_users` (
 
 LOCK TABLES `fbconnect_users` WRITE;
 /*!40000 ALTER TABLE `fbconnect_users` DISABLE KEYS */;
-INSERT INTO `fbconnect_users` VALUES (11,657148454,1237491035,'a:4:{s:4:\"name\";s:4:\"name\";s:8:\"birthday\";s:8:\"birthday\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";}',1,1);
-INSERT INTO `fbconnect_users` VALUES (12,756274999,1237487793,'a:6:{s:4:\"name\";s:4:\"name\";s:12:\"affiliations\";s:12:\"affiliations\";s:8:\"birthday\";s:8:\"birthday\";s:3:\"sex\";s:3:\"sex\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";}',1,1);
+INSERT INTO `fbconnect_users` VALUES (11,657148454,1237575699,'a:4:{s:4:\"name\";s:4:\"name\";s:8:\"birthday\";s:8:\"birthday\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";}',1,1);
+INSERT INTO `fbconnect_users` VALUES (12,756274999,1237575699,'a:6:{s:4:\"name\";s:4:\"name\";s:12:\"affiliations\";s:12:\"affiliations\";s:8:\"birthday\";s:8:\"birthday\";s:3:\"sex\";s:3:\"sex\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";}',1,1);
 /*!40000 ALTER TABLE `fbconnect_users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `fckeditor_role`;
@@ -1966,7 +1966,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=2770 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2772 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2707,7 +2707,7 @@ INSERT INTO `menu_links` VALUES ('admin_menu',2744,2741,'admin/content/node-type
 INSERT INTO `menu_links` VALUES ('admin_menu',2748,2333,'http://drupal.org/project/issues/pathfilter','','Path Filter issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,2748,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',2751,0,'admin/content/node-type/setting/fields/field_country_setting/remove','admin/content/node-type/setting/fields/field_country_setting/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,2751,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2753,2734,'admin/content/node-type/setting/fields/field_country_setting','admin/content/node-type/setting/fields/field_country_setting','Section','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2602,2734,2753,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2769,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2769,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2771,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2771,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -4427,10 +4427,10 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237575637,1237570906,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237580840,1237570906,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237505170,1237490889,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
-INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
+INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','0','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users_roles`;
@@ -4461,11 +4461,11 @@ INSERT INTO `variable` VALUES ('admin_menu_position_fixed','i:1;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_modules','i:0;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_tabs','i:0;');
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237571976;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237579430;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
-INSERT INTO `variable` VALUES ('blocktheme','a:1:{s:22:\"views-articles-block_1\";s:6:\"orange\";}');
-INSERT INTO `variable` VALUES ('blocktheme_themes','s:50:\"blue|Blue\r\ngreen|Green\r\norange|Orange\r\npink|Pink\r\n\";');
+INSERT INTO `variable` VALUES ('blocktheme','a:2:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:10:\"green_fill\";}');
+INSERT INTO `variable` VALUES ('blocktheme_themes','s:143:\"blue|Blue\r\ngreen|Green\r\norange|Orange\r\npink|Pink\r\nblue_fill|Full Blue\r\ngreen_fill|Full Green \r\norange_fill|Full Orange\r\npink_fill|Full Pink\r\n\r\n\";');
 INSERT INTO `variable` VALUES ('block_cache','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('book_allowed_types','a:1:{i:0;s:4:\"book\";}');
 INSERT INTO `variable` VALUES ('book_child_type','s:4:\"book\";');
@@ -4561,8 +4561,8 @@ INSERT INTO `variable` VALUES ('content_extra_weights_setting','a:2:{s:5:\"title
 INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-2\";s:4:\"menu\";s:1:\"0\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1237571999;');
-INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"GA4EHBxIL2mlcXhKyi7W\";');
+INSERT INTO `variable` VALUES ('cron_last','i:1237579430;');
+INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"6GA4EHBxIL2mlcXhKyi7\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
 INSERT INTO `variable` VALUES ('date_default_timezone','i:3600;');
@@ -4847,7 +4847,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_bulkupdate','i:0;');
 INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\";');
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237572599;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237579430;');
 INSERT INTO `variable` VALUES ('preprocess_css','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('preprocess_js','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('profile_csv_param_mail','i:1;');
@@ -4908,7 +4908,7 @@ INSERT INTO `variable` VALUES ('theme_garland_settings','a:20:{s:11:\"toggle_log
 INSERT INTO `variable` VALUES ('theme_project_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_satellite_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:0;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_settings','a:26:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:1;s:22:\"toggle_secondary_links\";i:1;s:24:\"toggle_node_info_article\";i:1;s:31:\"toggle_node_info_advpoll_binary\";i:1;s:23:\"toggle_node_info_credit\";i:0;s:22:\"toggle_node_info_event\";i:1;s:22:\"toggle_node_info_image\";i:1;s:24:\"toggle_node_info_outcome\";i:1;s:21:\"toggle_node_info_page\";i:0;s:24:\"toggle_node_info_partner\";i:0;s:32:\"toggle_node_info_advpoll_ranking\";i:1;s:26:\"toggle_node_info_spotlight\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
-INSERT INTO `variable` VALUES ('update_last_check','i:1237571999;');
+INSERT INTO `variable` VALUES ('update_last_check','i:1237579396;');
 INSERT INTO `variable` VALUES ('upload_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_credit','s:1:\"0\";');
@@ -5168,7 +5168,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6037 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6051 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;

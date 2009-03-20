@@ -25,8 +25,7 @@ body.frontpage #wrapper #container #center { width:608px; }
 body.frontpage #wrapper #container .sidebar { width:314px;}
 */
 
-.block { border-bottom: 0; }
-#sidebar-right .block, #sidebar-left .block, #center .block {padding: 2em 0;}
+
 .sidebar { border-bottom:1px solid #DDDDDD; }
 
 #wrapper #container #header-top #block-search-0 { padding-bottom:0; margin-bottom: 0; }
@@ -76,9 +75,6 @@ body.frontpage #wrapper #container .sidebar { width:314px;}
 .view-id-partners.view-display-id-page_1 td {text-align: center;}
 .view-id-partners.view-display-id-page_1 .views-field-title a { font-size: 1.2em; color: #555; }
 
-.block { padding-top: 1.2em; margin-bottom: 0;}
-#block-views-spotlights-block_1.block { margin-bottom: 0; padding-bottom: 0;}
-#header .block { padding-top: 0;}
 td.block {border: 0;}
 
 
