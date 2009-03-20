@@ -8,7 +8,7 @@ ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active 
 #shadow-footer { background: url(images/layout/footer.png) bottom center no-repeat; }
 #footer div.container { height:200px; margin-top:180px; padding-left: 248px; color: white;}
 #footer div.container a { color: #a7a7a7;}
-#header-title { height:177px;}
+#header-title { height: 206px;}
 #block-menu_block-1 li { padding:0 15px; }
 #header-top { border-top: 7px solid #333; background: #EEEEEE; border-bottom: 1px solid #ddd; float: left; width: 923px;}
 #header-top .block { display: block; float: right;}
@@ -64,5 +64,10 @@ ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active 
 .block { padding-top: 1.2em; margin-bottom: 0;}
 #block-views-spotlights-block_1 { margin-bottom: 0; }
 #header .block { padding-top: 0;}
+td.block {border: 0;}
 
+/**
+ * Custom fixes
+ */
+#cck-complete-percent-bar-wrapper-setting { background:#FFFFFF none repeat scroll 0 0;border:1px solid #AAAAAA;padding:1px;width:100%;}
 
