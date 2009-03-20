@@ -4427,7 +4427,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237572815,1237570906,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237575637,1237570906,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237505170,1237490889,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -4847,7 +4847,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_bulkupdate','i:0;');
 INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\";');
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237571999;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237572599;');
 INSERT INTO `variable` VALUES ('preprocess_css','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('preprocess_js','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('profile_csv_param_mail','i:1;');
@@ -5168,7 +5168,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6033 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6037 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;

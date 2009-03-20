@@ -12,7 +12,22 @@ ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active 
 #header-top { border-top: 7px solid #333; background: #EEEEEE; border-bottom: 1px solid #ddd; float: left; width: 923px;}
 #header-top .block { display: block; float: right;}
 #header-top .inner { padding: .8em;  float: left; width: 900px; }
-#shadow-footer { padding:0 14px 13px; }
+/*#shadow-footer { padding:0 14px 13px; }*/
+#wrapper #container #header { margin-bottom:1.2em; }
+
+/* Same size everywhere */
+body.sidebar-right #wrapper #container #center, 
+body.sidebar-left #wrapper #container #center, 
+body #wrapper #container #center { width:608px; }
+body #wrapper #container .sidebar { width:314px;}
+/*
+body.frontpage #wrapper #container #center { width:608px; }
+body.frontpage #wrapper #container .sidebar { width:314px;}
+*/
+
+.block { border-bottom: 0; }
+#sidebar-right .block, #sidebar-left .block, #center .block {padding: 2em 0;}
+.sidebar { border-bottom:1px solid #DDDDDD; }
 
 #wrapper #container #header-top #block-search-0 { padding-bottom:0; margin-bottom: 0; }
 #wrapper #container #header-top #block-search-0 input.form-text { font-size:0.9em; height:1.2em; }
@@ -46,8 +61,8 @@ ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active 
 
 .outcome-counter {font-size: 1.5em; color: #aaa; margin:0 0.5em; padding-right:20px;}
 
-#block-views-articles-block_1.block-views .views-field-created { margin-left: 1em; }
-#block-views-articles-block_1.block-views .views-field-title span.field-content:before { content: "•"; margin-right: .3em;}
+.sidebar #block-views-articles-block_1.block-views .views-field-created { margin-left: 1em; }
+.sidebar #block-views-articles-block_1.block-views .views-field-title span.field-content:before { content: "•"; margin-right: .3em;}
 
 #block-views-articles-block_2, #block-views-events-block_2 { overflow: hidden; padding: 0; margin: 0; border: 0; padding-top: 0.001em; height: 300px;}
 #block-views-articles-block_2 img, #block-views-events-block_2 img { overflow: hidden; padding: 0; margin: 0; border: 0;}
@@ -62,7 +77,7 @@ ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active 
 .view-id-partners.view-display-id-page_1 .views-field-title a { font-size: 1.2em; color: #555; }
 
 .block { padding-top: 1.2em; margin-bottom: 0;}
-#block-views-spotlights-block_1 { margin-bottom: 0; }
+#block-views-spotlights-block_1.block { margin-bottom: 0; padding-bottom: 0;}
 #header .block { padding-top: 0;}
 td.block {border: 0;}
 
