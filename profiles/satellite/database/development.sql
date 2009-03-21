@@ -4358,7 +4358,7 @@ CREATE TABLE `url_alias` (
   PRIMARY KEY  (`pid`),
   UNIQUE KEY `dst_language` (`dst`,`language`),
   KEY `src_language` (`src`,`language`)
-) ENGINE=MyISAM AUTO_INCREMENT=557 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=558 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `url_alias` WRITE;
 /*!40000 ALTER TABLE `url_alias` DISABLE KEYS */;
@@ -4521,6 +4521,7 @@ INSERT INTO `url_alias` VALUES (553,'node/253/feed','content/another-menu-item/f
 INSERT INTO `url_alias` VALUES (554,'taxonomy/term/3','category/tags/whatever','');
 INSERT INTO `url_alias` VALUES (555,'node/254','article/test-article-alt-settings-image','');
 INSERT INTO `url_alias` VALUES (556,'node/254/feed','article/test-article-alt-settings-image/feed','');
+INSERT INTO `url_alias` VALUES (557,'node/244','settings','');
 /*!40000 ALTER TABLE `url_alias` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
@@ -4554,7 +4555,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237670903,1237588426,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237671457,1237588426,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237505170,1237490889,1,NULL,'','','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
