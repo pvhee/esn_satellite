@@ -1,6 +1,6 @@
 
 body {background: white;}
-#wrapper {background: #76B0CD url(images/layout/wrapper_bg.png) top left repeat-x; }
+#wrapper {background: #76B0CD url(images/layout/wrapper_bg.png) top left repeat-x; padding:20px 15px;}
 fieldset {border:1px solid #d9eaf5; background: transparent url(images/layout/gradient-inner.png) repeat-x scroll 0 0; margin:1em 0;padding:1em;}
 #shadow { background: url(images/layout/container_bg.png) top center repeat-y;}
 #shadow-top { background: url(images/layout/shadow_top.png) top center no-repeat;}

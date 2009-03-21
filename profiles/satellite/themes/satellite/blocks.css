@@ -6,8 +6,8 @@
 .block.green h2,
 .block.green h2,
 .block.green .views-field-title  { color: #7BC043; }
-.block.green {background: transparent url("images/blocks/green.png") top left no-repeat; }
-.block.green.fill .inner {background: #8DC96D url("images/blocks/green_fill.png") top left no-repeat; }
+.block.green {background: transparent url("images/blocks/green.png") repeat-x; }
+.block.green.fill .inner {background: #8DC96D url("images/blocks/green_fill.png"); }
 
 /**
  * Orange
@@ -17,8 +17,8 @@
 .block.orange h2,
 .block.orange h2,
 .block.orange .views-field-title  { color: #F15A24; }
-.block.orange .inner {background: transparent url("images/blocks/orange.png") top left no-repeat; }
-.block.orange.fill .inner {background: #F6BE7B url("images/blocks/orange_fill.png") top left no-repeat; }
+.block.orange .inner {background: transparent url("images/blocks/orange.png") repeat-x; }
+.block.orange.fill .inner {background: #F6BE7B url("images/blocks/orange_fill.png"); }
 
 /**
  * Pink
@@ -28,8 +28,8 @@
 .block.pink h2,
 .block.pink h2,
 .block.pink .views-field-title  { color: #EB008B; }
-.block.pink .inner {background: transparent url("images/blocks/pink.png") top left no-repeat; }
-.block.pink.fill .inner {background: #EC76BC url("images/blocks/pink_fill.png") top left no-repeat; }
+.block.pink .inner {background: transparent url("images/blocks/pink.png") repeat-x; }
+.block.pink.fill .inner {background: #EC76BC url("images/blocks/pink_fill.png"); }
 
 /**
  * Blue
@@ -40,8 +40,8 @@
 .block.blue h2,
 .block.blue h2,
 .block.blue .views-field-title  { color: #00ADEE; }
-.block .inner, .block.blue .inner {background: transparent url("images/blocks/blue.png") top left no-repeat; }
-.block.blue.fill .inner {background: #6DC4D7 url("images/blocks/blue_fill.png") top left no-repeat; }
+.block .inner, .block.blue .inner {background: transparent url("images/blocks/blue.png") repeat-x; }
+.block.blue.fill .inner {background: #6DC4D7 url("images/blocks/blue_fill.png"); }
 
 /**
  * Common
