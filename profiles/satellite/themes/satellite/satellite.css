@@ -106,8 +106,8 @@ td.block {border: 0;}
  */
 ul.nice-menu-down li { border-top: 0px solid #CCCCCC; }
 ul.nice-menu li { text-transform:uppercase; background-color: #8FB2BF; background-image:none; border:none; border-width:0; float:left; margin-right: 1em; }
-ul.nice-menu li a { padding: 1em; color: white; background: transparent url("images/comic_nav.png") bottom left no-repeat; padding-bottom: 2em;}
-ul.nice-menu ul, #header-region ul.nice-menu ul { top: 3.4em; border: 0; }
+ul.nice-menu li a { padding:0.5em 1em 1.5em; color: white; background: transparent url("images/comic_nav.png") bottom left no-repeat; }
+ul.nice-menu ul, #header-region ul.nice-menu ul { top: 2.3em; border: 0; }
 
 ul.nice-menu li, ul.nice-menu li.leaf { padding: 0; }
 ul.nice-menu li:hover {background-color: #8DC96D; color: white;}
