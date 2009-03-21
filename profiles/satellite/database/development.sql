@@ -275,7 +275,7 @@ CREATE TABLE `aggregator_feed` (
 
 LOCK TABLES `aggregator_feed` WRITE;
 /*!40000 ALTER TABLE `aggregator_feed` DISABLE KEYS */;
-INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237629748,'http://www.esn.org/news/feed','News view','','',1237629751,5);
+INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237633497,'http://www.esn.org/news/feed','News view','','',1237633707,5);
 /*!40000 ALTER TABLE `aggregator_feed` ENABLE KEYS */;
 UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `aggregator_item` (
@@ -344,7 +344,7 @@ CREATE TABLE `blocks` (
   PRIMARY KEY  (`bid`),
   UNIQUE KEY `tmd` (`theme`,`module`,`delta`),
   KEY `list` (`theme`,`status`,`region`,`weight`,`module`)
-) ENGINE=MyISAM AUTO_INCREMENT=241 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=242 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `blocks` WRITE;
 /*!40000 ALTER TABLE `blocks` DISABLE KEYS */;
@@ -508,51 +508,52 @@ INSERT INTO `blocks` VALUES (191,'views','signup_available_signups-block','base'
 INSERT INTO `blocks` VALUES (192,'advpoll','latest_poll','satellite',1,-19,'right',0,0,1,'<front>','',1);
 INSERT INTO `blocks` VALUES (193,'aggregator','feed-1','satellite',1,-22,'content_bottom',0,0,1,'<front>','',1);
 INSERT INTO `blocks` VALUES (194,'block','4','satellite',1,-8,'footer_right',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (195,'block','5','satellite',0,-8,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (196,'calendar','0','satellite',0,-12,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (197,'comment','0','satellite',0,-23,'',0,0,1,'<front>','',1);
-INSERT INTO `blocks` VALUES (199,'devel','0','satellite',0,-11,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (200,'devel','2','satellite',0,-13,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (195,'block','5','satellite',0,-6,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (196,'calendar','0','satellite',0,-10,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (197,'comment','0','satellite',0,-21,'',0,0,1,'<front>','',1);
+INSERT INTO `blocks` VALUES (199,'devel','0','satellite',0,-9,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (200,'devel','2','satellite',0,-11,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (201,'fbconnect','0','satellite',1,-24,'right',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (202,'image','0','satellite',0,-7,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (203,'image','1','satellite',0,-6,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (202,'image','0','satellite',0,-5,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (203,'image','1','satellite',0,-4,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (204,'logintoboggan','0','satellite',1,-24,'header_top',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (205,'menu','devel','satellite',0,-14,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (205,'menu','devel','satellite',0,-12,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (206,'menu','menu-quick-links','satellite',1,-23,'header_top',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (207,'menu','primary-links','satellite',0,-20,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (208,'menu','secondary-links','satellite',0,-17,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (209,'menu','spaces','satellite',0,-9,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (210,'menu_block','1','satellite',1,-14,'header',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (207,'menu','primary-links','satellite',0,-18,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (208,'menu','secondary-links','satellite',0,-15,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (209,'menu','spaces','satellite',0,-7,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (210,'menu_block','1','satellite',0,-25,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (211,'menu_block','2','satellite',0,-24,'',0,0,1,'content/*','',-1);
-INSERT INTO `blocks` VALUES (212,'node','0','satellite',0,-16,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (213,'profile','0','satellite',0,-18,'',0,0,0,'','',5);
+INSERT INTO `blocks` VALUES (212,'node','0','satellite',0,-14,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (213,'profile','0','satellite',0,-16,'',0,0,0,'','',5);
 INSERT INTO `blocks` VALUES (214,'search','0','satellite',1,-24,'header_top',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (215,'service_links','0','satellite',0,-5,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (216,'system','0','satellite',0,-19,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (215,'service_links','0','satellite',0,-3,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (216,'system','0','satellite',0,-17,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (217,'user','0','satellite',1,-20,'right',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (218,'user','1','satellite',1,-21,'right',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (219,'user','2','satellite',0,-15,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (220,'user','3','satellite',0,3,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (219,'user','2','satellite',0,-13,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (220,'user','3','satellite',0,5,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (221,'views','articles-block_1','satellite',1,-23,'content_left',0,0,1,'<front>','',-1);
-INSERT INTO `blocks` VALUES (222,'views','articles-block_2','satellite',0,-4,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (223,'views','calendar-block_1','satellite',0,-10,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (222,'views','articles-block_2','satellite',0,-2,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (223,'views','calendar-block_1','satellite',0,-8,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (224,'views','calendar-calendar_block_1','satellite',1,-22,'right',0,0,1,'events\r\nevent/*','',-1);
-INSERT INTO `blocks` VALUES (225,'views','credits-block_1','satellite',0,-2,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (225,'views','credits-block_1','satellite',0,0,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (226,'views','events-block_1','satellite',1,-24,'content_right',0,0,1,'<front>','',-1);
-INSERT INTO `blocks` VALUES (227,'views','events-block_2','satellite',0,-3,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (228,'views','events-block_3','satellite',0,-1,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (229,'views','outcomes-block_1','satellite',0,-24,'',0,0,1,'<front>','',-1);
-INSERT INTO `blocks` VALUES (230,'views','outcomes-block_2','satellite',0,-24,'',0,0,1,'outcome/*','',-1);
-INSERT INTO `blocks` VALUES (231,'views','outcomes-block_3','satellite',0,-22,'',0,0,1,'outcome/*','',-1);
-INSERT INTO `blocks` VALUES (232,'views','outcomes-block_4','satellite',0,-21,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (227,'views','events-block_2','satellite',0,-1,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (228,'views','events-block_3','satellite',0,1,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (229,'views','outcomes-block_1','satellite',0,-23,'',0,0,1,'<front>','',-1);
+INSERT INTO `blocks` VALUES (230,'views','outcomes-block_2','satellite',0,-22,'',0,0,1,'outcome/*','',-1);
+INSERT INTO `blocks` VALUES (231,'views','outcomes-block_3','satellite',0,-20,'',0,0,1,'outcome/*','',-1);
+INSERT INTO `blocks` VALUES (232,'views','outcomes-block_4','satellite',0,-19,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (233,'views','partners-block_1','satellite',1,-23,'right',0,0,1,'<front>','',-1);
-INSERT INTO `blocks` VALUES (234,'views','signup_available_signups-block','satellite',0,0,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (235,'views','signup_current_signups-block','satellite',0,1,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (236,'views','signup_user_list-block_1','satellite',0,2,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (234,'views','signup_available_signups-block','satellite',0,2,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (235,'views','signup_current_signups-block','satellite',0,3,'',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (236,'views','signup_user_list-block_1','satellite',0,4,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (237,'views','spotlights-block_1','satellite',1,-24,'content',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (238,'ya_credits','0','satellite',1,2,'footer_left',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (239,'content_complete','setting','satellite',1,0,'right_top',0,0,0,'','Satellite Configuration',-1);
 INSERT INTO `blocks` VALUES (240,'block','6','satellite',1,-23,'content',0,0,1,'node/244\r\nnode/244/*','',-1);
+INSERT INTO `blocks` VALUES (241,'nice_menus','1','satellite',1,1,'header',0,0,0,'','<none>',-1);
 /*!40000 ALTER TABLE `blocks` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `blocks_roles`;
@@ -813,7 +814,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `pid` (`pid`),
   KEY `nid` (`nid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=311 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=208 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
@@ -1967,7 +1968,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=2949 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2967 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2296,7 +2297,7 @@ INSERT INTO `menu_links` VALUES ('navigation',1941,15,'admin/help/image','admin/
 INSERT INTO `menu_links` VALUES ('navigation',1942,15,'admin/help/imagebrowser','admin/help/imagebrowser','imagebrowser','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1942,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1943,10,'admin/content/node-type/image','admin/content/node-type/image','Image','a:0:{}','system',-1,0,0,0,0,3,0,2,10,1943,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1944,0,'admin/content/node-type/image/delete','admin/content/node-type/image/delete','Delete','a:0:{}','system',-1,0,0,0,0,1,0,1944,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2159,0,'<front>','','<img class=\"admin-menu-icon\" src=\"/webdev/satellite/satellite/profiles/satellite/themes/satellite/favicon.ico\" width=\"16\" height=\"16\" alt=\"Home\" />','a:3:{s:11:\"extra class\";s:15:\"admin-menu-icon\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,1,1,0,-100,1,0,2159,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2159,0,'<front>','','<img class=\"admin-menu-icon\" src=\"/satellite/profiles/satellite/themes/satellite/favicon.ico\" width=\"16\" height=\"16\" alt=\"Home\" />','a:3:{s:11:\"extra class\";s:15:\"admin-menu-icon\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,1,1,0,-100,1,0,2159,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2160,0,'logout','logout','Log out @username','a:3:{s:11:\"extra class\";s:35:\"admin-menu-action admin-menu-logout\";s:1:\"t\";a:0:{}s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,-100,1,0,2160,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2161,0,'user','user','icon_users','a:3:{s:11:\"extra class\";s:50:\"admin-menu-action admin-menu-icon admin-menu-users\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,-90,1,0,2161,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2162,0,'admin/advanced_help','admin/advanced_help','Advanced help','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,9,1,0,2162,0,0,0,0,0,0,0,0,0);
@@ -2731,7 +2732,18 @@ INSERT INTO `menu_links` VALUES ('admin_menu',2934,2931,'admin/content/node-type
 INSERT INTO `menu_links` VALUES ('navigation',2936,15,'admin/help/headinganchors','admin/help/headinganchors','headinganchors','a:0:{}','system',-1,0,0,0,0,3,0,2,15,2936,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',2937,15,'admin/help/tableofcontents','admin/help/tableofcontents','tableofcontents','a:0:{}','system',-1,0,0,0,0,3,0,2,15,2937,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2939,2333,'http://drupal.org/project/issues/tableofcontents','','Headings anchors issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,2939,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2948,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2948,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2954,18,'admin/settings/nice_menus','admin/settings/nice_menus','Nice Menus','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:21:\"Configure Nice Menus.\";}}','system',0,0,0,0,0,3,0,2,18,2954,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',2955,15,'admin/help/nice_menus','admin/help/nice_menus','nice_menus','a:0:{}','system',-1,0,0,0,0,3,0,2,15,2955,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2956,2168,'admin/settings/nice_menus','admin/settings/nice_menus','Nice Menus','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2956,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2958,2333,'http://drupal.org/project/issues/nice_menus','','Nice Menus issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,2958,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('primary-links',2959,0,'node/251','node/%','About Us','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:8:\"About Us\";}}','menu',0,0,1,0,1,1,0,2959,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('primary-links',2960,2959,'node/248','node/%','Dignissim Gravis','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:16:\"Dignissim Gravis\";}}','menu',0,0,0,0,0,2,0,2959,2960,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('primary-links',2961,2959,'node/246','node/%','Dignissim Gravis','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:26:\"Te Distineo Modo Eros Huic\";}}','menu',0,0,1,0,0,2,0,2959,2961,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('primary-links',2962,2959,'node/249','node/%','Iriure','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:6:\"Iriure\";}}','menu',0,0,0,0,0,2,0,2959,2962,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('primary-links',2963,2959,'node/247','node/%','Iriure','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:14:\"Ludus Luptatum\";}}','menu',0,0,0,0,0,2,0,2959,2963,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('primary-links',2964,2961,'node/252','node/%','Comis','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:5:\"Comis\";}}','menu',0,0,0,0,0,3,0,2959,2961,2964,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('primary-links',2965,2961,'node/250','node/%','Nunc Valde Commoveo','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:19:\"Nunc Valde Commoveo\";}}','menu',0,0,0,0,0,3,0,2959,2961,2965,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2966,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2966,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -3110,6 +3122,7 @@ INSERT INTO `menu_router` VALUES ('admin/help/lightbox2','','','user_access','a:
 INSERT INTO `menu_router` VALUES ('admin/help/logintoboggan','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/logintoboggan','logintoboggan','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/menu','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/menu','menu','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/menu_block','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/menu_block','menu_block','t','',4,'','','',0,'modules/help/help.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/help/nice_menus','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/nice_menus','nice_menus','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/node','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/node','node','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/openid','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/openid','openid','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/path','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/path','path','t','',4,'','','',0,'modules/help/help.admin.inc');
@@ -3210,6 +3223,7 @@ INSERT INTO `menu_router` VALUES ('admin/settings/lightbox2/html_content','','',
 INSERT INTO `menu_router` VALUES ('admin/settings/lightbox2/slideshow','','','user_access','a:1:{i:0;s:20:\"administer lightbox2\";}','drupal_get_form','a:1:{i:0;s:33:\"lightbox2_slideshow_settings_form\";}',15,4,'admin/settings/lightbox2','admin/settings/lightbox2','Slideshow','t','',128,'','Allows the user to configure the lightbox2 slideshow functionality','',1,'profiles/satellite/modules/lightbox2/lightbox2.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/logging','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','system_logging_overview','a:0:{}',7,3,'','admin/settings/logging','Logging and alerts','t','',6,'','Settings for logging and alerts modules. Various modules can route Drupal\'s system events to different destination, such as syslog, database, email, ...etc.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/logging/dblog','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:20:\"dblog_admin_settings\";}',15,4,'','admin/settings/logging/dblog','Database logging','t','',6,'','Settings for logging to the Drupal database logs. This is the most common method for small to medium sites on shared hosting. The logs are viewable from the admin pages.','',0,'modules/dblog/dblog.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/settings/nice_menus','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:25:\"nice_menus_admin_settings\";}',7,3,'','admin/settings/nice_menus','Nice Menus','t','',6,'','Configure Nice Menus.','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/settings/performance','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:27:\"system_performance_settings\";}',7,3,'','admin/settings/performance','Performance','t','',6,'','Enable or disable page caching for anonymous users and set CSS and JS bandwidth optimization options.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/poormanscron','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:27:\"poormanscron_admin_settings\";}',7,3,'','admin/settings/poormanscron','Poormanscron','t','',6,'','A module which runs Drupal cron jobs without the cron application.','',0,'profiles/satellite/modules/poormanscron/poormanscron.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/search','','','user_access','a:1:{i:0;s:17:\"administer search\";}','drupal_get_form','a:1:{i:0;s:21:\"search_admin_settings\";}',7,3,'','admin/settings/search','Search settings','t','',6,'','Configure relevance settings for search and other indexing options','',0,'modules/search/search.admin.inc');
@@ -3442,7 +3456,7 @@ CREATE TABLE `node` (
   KEY `uid` (`uid`),
   KEY `tnid` (`tnid`),
   KEY `translate` (`translate`)
-) ENGINE=MyISAM AUTO_INCREMENT=246 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=253 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `node` WRITE;
 /*!40000 ALTER TABLE `node` DISABLE KEYS */;
@@ -3513,6 +3527,13 @@ INSERT INTO `node` VALUES (242,242,'advpoll_binary','','This is a Binary Poll Te
 INSERT INTO `node` VALUES (243,243,'advpoll_ranking','','An example of a ranking poll',1,1,1237490348,1237490598,2,1,0,0,0,0);
 INSERT INTO `node` VALUES (244,244,'setting','','Settings',1,0,1237504732,1237511337,0,0,0,0,0,0);
 INSERT INTO `node` VALUES (245,245,'page','','Nostrud Dolus Iaceo Pala Magna Paratus Vulpes Veniam',1,1,1237439122,1237630355,0,0,0,0,0,0);
+INSERT INTO `node` VALUES (246,246,'page','','Te Distineo Modo Eros Huic',4,1,1237337755,1237633251,0,0,0,0,0,0);
+INSERT INTO `node` VALUES (247,247,'page','','Ludus Luptatum',4,1,1237346165,1237633343,0,1,0,0,0,0);
+INSERT INTO `node` VALUES (248,248,'page','','Dignissim Gravis',0,1,1237527206,1237633232,0,0,0,0,0,0);
+INSERT INTO `node` VALUES (249,249,'page','','Iriure',0,1,1237170516,1237633293,0,0,0,0,0,0);
+INSERT INTO `node` VALUES (250,250,'page','','Nunc Valde Commoveo',0,1,1237189788,1237633379,0,1,0,0,0,0);
+INSERT INTO `node` VALUES (251,251,'page','','About Us',11,1,1237416329,1237633207,0,0,0,0,0,0);
+INSERT INTO `node` VALUES (252,252,'page','','Comis',0,1,1237410969,1237633360,0,1,0,0,0,0);
 /*!40000 ALTER TABLE `node` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `node_access`;
@@ -3571,7 +3592,7 @@ CREATE TABLE `node_revisions` (
   PRIMARY KEY  (`vid`),
   KEY `nid` (`nid`),
   KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=246 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=253 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `node_revisions` WRITE;
 /*!40000 ALTER TABLE `node_revisions` DISABLE KEYS */;
@@ -3642,6 +3663,13 @@ INSERT INTO `node_revisions` VALUES (242,242,1,'This is a Binary Poll Test','<p>
 INSERT INTO `node_revisions` VALUES (243,243,1,'An example of a ranking poll','<p>Some description</p>','<p>Some description</p>','',1237490598,1);
 INSERT INTO `node_revisions` VALUES (244,244,1,'Settings','','','',1237511337,0);
 INSERT INTO `node_revisions` VALUES (245,245,1,'Nostrud Dolus Iaceo Pala Magna Paratus Vulpes Veniam','<!--tableofcontents-->\r\n<h2>Header 1</h2>\r\n<p>node (page) - Meus plaga hendrerit ideo odio roto wisi premo. Loquor exerci tum pala eligo refero utrum illum si caecus. Acsi oppeto voco os usitas gemino. Blandit ad persto molior vindico. Abico jumentum vulputate quidem blandit loquor nunc refoveo ullamcorper quae. Fere bene abdo adipiscing rusticus ideo.</p>\r\n<h2>Again a header</h2>\r\n<p>Tincidunt ea sit patria immitto pneum neo vindico. Genitus abluo secundum premo uxor ideo molior. Molior enim huic sino.  Incassum sagaciter singularis consectetuer abdo sed. Natu diam quibus mos. Populus esse et</p>\r\n<h3>Subheader</h3>\r\n<p>magna pneum laoreet. Exerci letalis distineo obruo. Laoreet lobortis quae hendrerit abbas. Olim molior qui exerci</p>\r\n<h4>Sub sub header</h4>\r\n<p>lucidus vindico neo euismod wisi blandit. Melior dolore valde similis gemino utrum aliquip roto valde. Gemino commodo imputo venio ideo genitus ea mos.  Appellatio enim blandit illum virtus exerci. Validus accumsan quae vindico uxor vero velit metuo. Duis abdo plaga. Sino natu populus vereor commoveo. Plaga sino euismod blandit torqueo caecus damnum dolor aliquip suscipere.  Similis duis aliquam. Dolus elit quia esca. Facilisi iusto valde rusticus. Venio ille cui conventio utrum ro</p>\r\n<h2>Header</h2>\r\n<p>to. Sit blandit appellatio saepius paulatim molior. Abbas jugis cui brevitas et utinam. Iriure ille distineo. Quibus macto neo et pecus secundum causa vindico. Refero typicus lenis aptent valde ludus natu. Huic mos populus gravis. Vero occuro mos patria si.  Aptent consequat camur adipiscing jumentum enim nobis. Populus caecus neo. Praesent os rusticus nutus metuo ex blandit. Abdo eum aliquam abdo os. Luptatum appellatio dolore accumsan populus. Nostrud minim tum persto quidne. Quae laoreet diam. Augue acsi commodo defui conventio ea accumsan lenis feugiat sino.  Rusticus modo oppeto facilisi molior. Uxor vindico tamen utrum wisi scisco minim esca nulla. Fere sit loquor. Praesent patria ut premo tego ut sagaciter. Feugiat verto appellatio accumsan. Accumsan esse enim aptent vel. Vulpes te pecus natu.  Paratus abbas iaceo lenis verto utrum defui exerci dignissim diam. Importunus diam valde blandit vindico ex at. Quae in enim melior sagaciter consequat hendrerit ideo macto. Ut iusto iriure eum fere ibidem erat augue pneum. Quibus facilisis vel dolor jus adipiscing olim. In nostrud dolore voco.  Appellatio vero voco metuo neque natu defui usitas ea aptent. Neo meus quae magna sit sudo. Luptatum comis premo elit capto nobis camur iaceo nunc.  Roto aliquam pecus in euismod antehabeo quibus lenis aliquip probo. Molior nutus pala refero volutpat aliquam letalis imputo vulpes.</p>\r\n<h2>Header again</h2>\r\n<p>Vulpes voco huic tego luptatum saepius amet voco.  Pagus bene blandit commoveo conventio wisi inhibeo quia genitus. Vero lucidus saepius eros tego melior singularis vindico. Huic eligo te huic magna ea loquor importunus iusto. Tincidunt facilisis eum singularis si luctus humo venio. Eum quadrum eligo ea autem ideo inhibeo iriure vicis. Suscipit sagaciter ratis enim erat veniam persto. Esse jumentum aliquam os damnum si quidne illum iusto metuo.  Virtus ulciscor hos saepius loquor lobortis abbas luctus validus. Lobortis exputo antehabeo iaceo. Occuro pneum humo adipiscing nulla suscipit eligo. Minim distineo feugiat laoreet. Nutus feugiat pecus elit. Elit vereor valde. Singularis nostrud ea tamen verto molior pertineo. Eum ulciscor facilisis pagus melior. Molior melior quibus sudo. Abluo antehabeo incassum antehabeo lucidus typicus. Typicus aliquam enim imputo.</p>','<!--tableofcontents-->\r\n<h2>Header 1</h2>\r\n<p>node (page) - Meus plaga hendrerit ideo odio roto wisi premo. Loquor exerci tum pala eligo refero utrum illum si caecus. Acsi oppeto voco os usitas gemino. Blandit ad persto molior vindico. Abico jumentum vulputate quidem blandit loquor nunc refoveo ullamcorper quae. Fere bene abdo adipiscing rusticus ideo.</p>','',1237630355,1);
+INSERT INTO `node_revisions` VALUES (246,246,1,'Te Distineo Modo Eros Huic','<p>node (page) - Defui gemino ille roto gravis vindico mos populus singularis. Valetudo illum jumentum nisl lobortis tum nulla. Nimis virtus lucidus molior. Caecus valde nutus appellatio eu utinam neo importunus dolor. Ad magna duis utinam. Quadrum refoveo autem blandit gilvus. Ea premo et ulciscor iaceo mos.  Molior saepius praemitto ideo facilisi hos ut et. Facilisi jumentum wisi aliquip ille comis defui acsi.  Nutus dignissim quibus iusto appellatio jus roto capto causa. Utrum aliquam ibidem macto qui. Nobis pala zelus molior damnum abluo. Imputo vulputate zelus ullamcorper vindico appellatio iusto. Refero eu abico ibidem nimis nostrud.  Gilvus sed feugiat diam plaga torqueo nibh nulla occuro. Valde sino quibus populus abdo. Nulla nutus pecus humo hendrerit bene nimis vindico quidem.  Macto pecus saluto lenis. Wisi neo valetudo camur dolus eligo vero. Utinam loquor ratis refero lenis validus praesent. Jus turpis eros quidne feugiat. Ulciscor diam appellatio tego. Usitas natu nutus.  Tation nunc nutus pagus ratis lobortis adipiscing gilvus distineo. Nunc plaga eros adipiscing erat probo. Roto quadrum suscipit sit defui aliquip veniam pneum imputo.  Saluto diam erat meus lenis proprius. Refoveo esse venio voco loquor dignissim cogo. Eu vulputate exerci typicus commoveo. Si qui decet haero iriure plaga iusto fere ratis et.  Meus at torqueo metuo modo iusto minim dolore sino minim. Interdico acsi mauris typicus modo nobis at eros ex. Pecus aptent oppeto usitas praemitto incassum mauris premo.  Metuo abdo melior importunus facilisi. Modo tation utrum luptatum vereor sagaciter illum te eligo quia. Hos decet ideo caecus turpis dignissim in patria. Capto roto quidne luptatum conventio saluto abdo utrum exputo in. Imputo pala venio praemitto cogo quidne haero commoveo. Luptatum sed si utinam persto ratis gravis lobortis quis. Modo proprius damnum jugis. Vero aliquam ulciscor refero at turpis ibidem ille ad gemino.  Velit ut singularis refero saepius pala genitus huic. Damnum vindico luptatum brevitas paulatim. Secundum causa ad paratus hendrerit facilisi. Meus luptatum ibidem amet tum. Quae laoreet quidem aliquam caecus te accumsan nutus secundum. Accumsan iriure similis ex tincidunt metuo ratis. Ymo vereor ille mauris abigo.  Abluo comis rusticus et lenis consectetuer iriure nisl melior. Iriure iusto zelus aptent nostrud blandit tego paulatim vindico similis. Populus jus volutpat ludus nunc huic vicis laoreet utrum capto. Utrum ideo quidem aliquip iustum damnum. Os scisco commodo abico melior oppeto caecus jugis mos premo. In luptatum luctus autem. Iriure ludus commoveo elit saepius valetudo nunc vero gemino.  Praesent verto abdo abigo sagaciter. Augue usitas persto quadrum lucidus et acsi iriure. Feugiat ex mauris luctus lenis torqueo quae interdico. Quidne abbas diam et ratis quibus. Natu esse natu genitus distineo probo molior quidem verto.</p>','<p>node (page) - Defui gemino ille roto gravis vindico mos populus singularis. Valetudo illum jumentum nisl lobortis tum nulla. Nimis virtus lucidus molior. Caecus valde nutus appellatio eu utinam neo importunus dolor. Ad magna duis utinam. Quadrum refoveo autem blandit gilvus. Ea premo et ulciscor iaceo mos.  Molior saepius praemitto ideo facilisi hos ut et. Facilisi jumentum wisi aliquip ille comis defui acsi.  Nutus dignissim quibus iusto appellatio jus roto capto causa. Utrum aliquam ibidem macto qui. Nobis pala zelus molior damnum abluo.','',1237633251,1);
+INSERT INTO `node_revisions` VALUES (247,247,1,'Ludus Luptatum','<p>node (page) -</p>\r\n<p>Eu nisl euismod tincidunt luptatum euismod appellatio mauris dolore. Aliquip suscipere distineo neo loquor valetudo esse enim aptent. Olim fere esca commodo abico dignissim duis at.</p>','<p>node (page) -</p>\r\n<p>Eu nisl euismod tincidunt luptatum euismod appellatio mauris dolore. Aliquip suscipere distineo neo loquor valetudo esse enim aptent. Olim fere esca commodo abico dignissim duis at.</p>','',1237633343,1);
+INSERT INTO `node_revisions` VALUES (248,248,1,'Dignissim Gravis','<p>node (page) - Causa eu causa laoreet decet illum. Vulputate metuo feugiat ullamcorper. Typicus genitus qui. Similis si veniam nisl cui. Sino ymo dignissim venio refero caecus saepius comis importunus. Ludus os abluo neque enim abbas tum. Jumentum iustum persto secundum lucidus. Valde aliquip fere venio wisi. Secundum et hendrerit consequat tamen.  Lucidus hendrerit abigo voco magna abico tincidunt illum damnum appellatio. Causa et consectetuer eligo. Facilisis plaga exputo veniam magna. Tation damnum erat duis pecus commodo esse sed. Tego brevitas te nobis. Neo vel refoveo conventio commoveo abico. Appellatio haero nunc proprius scisco eros odio luptatum meus probo. Imputo eligo praesent esca laoreet comis nobis praesent elit macto.  Voco iustum pala damnum. Exerci incassum sed iaceo premo. Torqueo quae duis jugis saluto. Commodo si damnum tamen ludus conventio te. Proprius vulputate importunus causa nimis validus autem. Neo bene abluo iriure commodo vero os sit iusto valde.  Feugiat euismod vulpes quia proprius ibidem euismod. Voco bene quibus. Mauris valetudo commodo in.  Caecus probo duis nunc quis feugiat vindico antehabeo minim ex. Autem antehabeo gravis sino cogo wisi eros. Odio commodo iriure ibidem elit volutpat lucidus usitas modo magna. Camur occuro quidne letalis dignissim bene. Abbas abigo immitto molior qui interdico virtus. Meus sino tum acsi usitas utinam iriure augue. Mauris pertineo eum ideo minim obruo iusto vulputate sino.  Oppeto sino odio accumsan et. Refoveo euismod commoveo fere ideo vero macto hendrerit tego. Tego ulciscor veniam praesent enim quidne esca zelus esca.  Eros vero antehabeo olim gravis quis. Quibus nibh ymo. Commodo duis pertineo huic eum os. Praesent usitas blandit refoveo adipiscing.  At letalis ibidem probo nisl. Valetudo iaceo genitus nunc vulputate proprius similis euismod sit. Adipiscing molior typicus nobis acsi vulpes patria caecus. Turpis gilvus ibidem similis oppeto ad zelus aliquip. Elit utrum vindico sit saepius enim genitus gilvus occuro.  Qui praesent adipiscing facilisi commoveo sed eum paratus laoreet. Melior sed tincidunt humo iustum ymo lobortis exerci. Genitus cui saepius torqueo similis pagus vulputate quia antehabeo validus. Iusto uxor pecus importunus gravis velit minim. Oppeto cui pagus velit verto aptent. Tincidunt ullamcorper appellatio molior quae quidne pecus. Refero comis persto blandit esca vulpes elit quibus modo dolore.</p>','<p>node (page) - Causa eu causa laoreet decet illum. Vulputate metuo feugiat ullamcorper. Typicus genitus qui. Similis si veniam nisl cui. Sino ymo dignissim venio refero caecus saepius comis importunus. Ludus os abluo neque enim abbas tum. Jumentum iustum persto secundum lucidus. Valde aliquip fere venio wisi. Secundum et hendrerit consequat tamen.  Lucidus hendrerit abigo voco magna abico tincidunt illum damnum appellatio. Causa et consectetuer eligo. Facilisis plaga exputo veniam magna. Tation damnum erat duis pecus commodo esse sed. Tego brevitas te nobis.','',1237633232,1);
+INSERT INTO `node_revisions` VALUES (249,249,1,'Iriure','<p>node (page) -</p>\r\n<p>Euismod nunc illum voco adipiscing valde tum. Vereor populus scisco facilisis. Nunc iaceo nobis tincidunt venio ille luptatum huic. Ad capto gravis jugis nisl proprius caecus. Metuo abluo dolore erat esca patria sudo. Augue eros exerci natu. Iustum acsi bene utrum et virtus venio quidem. Immitto nostrud accumsan brevitas nobis. Dolore comis macto sit camur illum refero minim neque vicis.</p>\r\n<p>Quadrum iustum paulatim odio in illum gravis. Olim mauris ad capto. Defui lobortis nutus wisi defui. Ideo valde refoveo sed commodo pala genitus. Ratis suscipere valde macto enim camur hos utinam. Secundum veniam elit enim. Capto exerci luctus incassum ratis gravis. Roto ratis gemino.</p>\r\n<p>Feugiat qui nunc suscipere. Iriure eligo occuro commoveo lenis. Virtus vereor vulputate. Neque sudo modo sudo nulla exerci facilisis lobortis velit commodo. Typicus usitas pecus minim. Nimis defui abbas suscipere cui autem pertineo mauris sudo qui.</p>\r\n<p>Quae accumsan sagaciter neque uxor quia. Commodo vindico nulla decet haero nostrud ad. Camur suscipit venio tego aliquip exerci scisco diam magna.</p>\r\n<p>Quae hos conventio. Augue modo obruo ideo autem incassum torqueo enim. Cui nibh huic. Eum tum occuro valetudo gilvus ad ludus quibus quia ea. Iriure cogo secundum macto. Aliquam valetudo euismod paulatim populus. Minim vicis esca humo secundum eligo sagaciter dignissim. Oppeto diam ibidem gemino neque. Humo populus humo natu iusto saluto quidne. Conventio esse patria natu vereor usitas laoreet brevitas ulciscor utrum.</p>\r\n<p>Eu si vulputate meus saepius abigo si tincidunt melior. Paulatim praemitto obruo sino refero. Distineo dolor melior quia uxor vicis facilisis quae. Feugiat sed suscipit valde refoveo. Luptatum ad jumentum. Utrum metuo singularis comis.</p>','<p>node (page) -</p>\r\n<p>Euismod nunc illum voco adipiscing valde tum. Vereor populus scisco facilisis. Nunc iaceo nobis tincidunt venio ille luptatum huic. Ad capto gravis jugis nisl proprius caecus. Metuo abluo dolore erat esca patria sudo. Augue eros exerci natu. Iustum acsi bene utrum et virtus venio quidem. Immitto nostrud accumsan brevitas nobis. Dolore comis macto sit camur illum refero minim neque vicis.</p>','',1237633293,1);
+INSERT INTO `node_revisions` VALUES (250,250,1,'Nunc Valde Commoveo','<p>node (page) - Singularis premo haero. Qui saluto exerci capto os incassum defui saluto.<br />\r\nSi tego dignissim facilisi amet meus proprius vulpes causa. Utrum in brevitas damnum scisco elit distineo aliquip. Quis vero loquor adipiscing commodo voco verto esse.<br />\r\nEx eligo quia te suscipit. Utrum ex letalis cogo sagaciter. Odio nostrud dolore gravis pecus illum consequat. Refero abdo melior abigo lenis capto ibidem abdo zelus luctus. Iaceo mauris in paratus. Refoveo bene ulciscor secundum causa tincidunt quis loquor. Huic venio olim quia turpis commoveo lobortis.<br />\r\nInhibeo blandit gravis letalis pagus erat. Ad vero valetudo esse singularis tation ille. Dolus exerci causa molior nobis dolor ideo qui occuro. Paulatim at incassum aptent ibidem fere. Abico aptent ullamcorper nostrud oppeto eros decet autem minim vereor. Nobis blandit conventio hendrerit. Gemino ex usitas sed nobis validus similis loquor.<br />\r\nRefero quadrum ad ut jugis antehabeo et ille nulla. Vel praesent illum quidne modo. Consequat saepius roto mauris at. Minim incassum abigo feugiat veniam.<br />\r\nIusto cogo abbas ratis elit. Accumsan velit esse distineo lenis defui. Ludus premo autem rusticus inhibeo. Saluto cogo lobortis meus antehabeo feugiat jus gemino. Pagus sudo tincidunt meus ex.</p>','<p>node (page) - Singularis premo haero. Qui saluto exerci capto os incassum defui saluto.<br />\r\nSi tego dignissim facilisi amet meus proprius vulpes causa. Utrum in brevitas damnum scisco elit distineo aliquip. Quis vero loquor adipiscing commodo voco verto esse.<br />\r\nEx eligo quia te suscipit. Utrum ex letalis cogo sagaciter. Odio nostrud dolore gravis pecus illum consequat. Refero abdo melior abigo lenis capto ibidem abdo zelus luctus. Iaceo mauris in paratus. Refoveo bene ulciscor secundum causa tincidunt quis loquor. Huic venio olim quia turpis commoveo lobortis.<br />\r','',1237633379,1);
+INSERT INTO `node_revisions` VALUES (251,251,1,'About Us','<p>node (page) -</p>\r\n<p>Camur magna occuro premo nostrud luctus haero premo caecus. Pertineo exerci macto pala defui usitas. Tation torqueo gemino acsi amet. Saluto tego immitto letalis wisi ille turpis loquor blandit abico.</p>\r\n<p>Decet os ea lenis vindico refero humo distineo nibh nulla. Humo praemitto quia interdico esca oppeto aliquip. Rusticus saepius voco defui iaceo proprius ideo.</p>\r\n<p>Si quadrum validus. Plaga letalis quis utrum. Melior ymo natu scisco premo lenis patria sed eligo. Conventio nisl olim torqueo dolor voco enim abbas roto. Loquor exerci importunus saepius jus paratus genitus lucidus acsi.</p>\r\n<p>Persto commodo populus ratis aliquam tation interdico. Odio natu cui dolor nibh vulputate valetudo eum appellatio magna. Ad proprius mauris jugis aliquip pecus iriure.</p>','<p>node (page) -</p>\r\n<p>Camur magna occuro premo nostrud luctus haero premo caecus. Pertineo exerci macto pala defui usitas. Tation torqueo gemino acsi amet. Saluto tego immitto letalis wisi ille turpis loquor blandit abico.</p>\r\n<p>Decet os ea lenis vindico refero humo distineo nibh nulla. Humo praemitto quia interdico esca oppeto aliquip. Rusticus saepius voco defui iaceo proprius ideo.</p>','',1237633207,1);
+INSERT INTO `node_revisions` VALUES (252,252,1,'Comis','<p>node (page) - Iaceo pecus si quibus. Gravis abluo usitas ibidem proprius facilisi. Occuro eligo nisl incassum typicus vulputate.  Odio rusticus cui refero melior. Sed defui sudo usitas euismod. Ludus roto premo tation in. Singularis jumentum probo te. Os distineo wisi.</p>','<p>node (page) - Iaceo pecus si quibus. Gravis abluo usitas ibidem proprius facilisi. Occuro eligo nisl incassum typicus vulputate.  Odio rusticus cui refero melior. Sed defui sudo usitas euismod. Ludus roto premo tation in. Singularis jumentum probo te. Os distineo wisi.</p>','',1237633360,1);
 /*!40000 ALTER TABLE `node_revisions` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `node_type`;
@@ -4118,7 +4146,7 @@ INSERT INTO `system` VALUES ('profiles/satellite/modules/location/location_user.
 INSERT INTO `system` VALUES ('profiles/satellite/modules/logintoboggan/logintoboggan.module','logintoboggan','module','',1,0,0,6000,0,'a:9:{s:4:\"name\";s:13:\"LoginToboggan\";s:11:\"description\";s:31:\"Improves Drupal\'s login system.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.3\";s:7:\"project\";s:13:\"logintoboggan\";s:9:\"datestamp\";s:10:\"1228867825\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/menu_block/menu_block.module','menu_block','module','',1,0,0,6201,0,'a:9:{s:4:\"name\";s:10:\"Menu Block\";s:11:\"description\";s:43:\"Provides configurable blocks of menu items.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:4:\"menu\";}s:7:\"version\";s:7:\"6.x-2.2\";s:7:\"project\";s:10:\"menu_block\";s:9:\"datestamp\";s:10:\"1229377222\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/myblog/myblog.module','myblog','module','',0,0,0,0,0,'a:7:{s:4:\"name\";s:7:\"My Blog\";s:11:\"description\";s:42:\"Provides basic features for a simple blog.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:6:\"spaces\";}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
-INSERT INTO `system` VALUES ('profiles/satellite/modules/nice_menus/nice_menus.module','nice_menus','module','',0,0,0,-1,0,'a:9:{s:4:\"name\";s:10:\"Nice Menus\";s:11:\"description\";s:75:\"CSS/jQuery drop-down, drop-right and drop-left menus to be placed in blocks\";s:12:\"dependencies\";a:1:{i:0;s:4:\"menu\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.3\";s:7:\"project\";s:10:\"nice_menus\";s:9:\"datestamp\";s:10:\"1228075824\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/nice_menus/nice_menus.module','nice_menus','module','',1,0,0,6000,0,'a:9:{s:4:\"name\";s:10:\"Nice Menus\";s:11:\"description\";s:75:\"CSS/jQuery drop-down, drop-right and drop-left menus to be placed in blocks\";s:12:\"dependencies\";a:1:{i:0;s:4:\"menu\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.3\";s:7:\"project\";s:10:\"nice_menus\";s:9:\"datestamp\";s:10:\"1228075824\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/node_export/export.module','export','module','',0,0,0,0,0,'a:9:{s:4:\"name\";s:13:\"Export module\";s:11:\"description\";s:78:\"Allows users to export a node and the import into another Drupal installation.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.4\";s:7:\"project\";s:11:\"node_export\";s:9:\"datestamp\";s:10:\"1233986725\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/panels/panels.module','panels','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:6:\"Panels\";s:11:\"description\";s:122:\"Core Panels display functions; provides no external UI, at least one other module (such as Panel pages) should be enabled.\";s:4:\"core\";s:3:\"6.x\";s:7:\"package\";s:6:\"Panels\";s:12:\"dependencies\";a:1:{i:0;s:5:\"views\";}s:7:\"version\";s:14:\"6.x-2.0-alpha3\";s:7:\"project\";s:6:\"panels\";s:9:\"datestamp\";s:10:\"1230669627\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/panels/panels_export/panels_export.module','panels_export','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:15:\"Panels exporter\";s:11:\"description\";s:75:\"Allows exporting multiple panel pages, mini panels and other types at once.\";s:7:\"package\";s:6:\"Panels\";s:12:\"dependencies\";a:1:{i:0;s:6:\"panels\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:14:\"6.x-2.0-alpha3\";s:7:\"project\";s:6:\"panels\";s:9:\"datestamp\";s:10:\"1230669627\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
@@ -4295,7 +4323,7 @@ CREATE TABLE `url_alias` (
   PRIMARY KEY  (`pid`),
   UNIQUE KEY `dst_language` (`dst`,`language`),
   KEY `src_language` (`src`,`language`)
-) ENGINE=MyISAM AUTO_INCREMENT=538 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=552 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `url_alias` WRITE;
 /*!40000 ALTER TABLE `url_alias` DISABLE KEYS */;
@@ -4439,6 +4467,20 @@ INSERT INTO `url_alias` VALUES (534,'node/244','content/settings','');
 INSERT INTO `url_alias` VALUES (535,'node/244/feed','content/settings/feed','');
 INSERT INTO `url_alias` VALUES (536,'node/245','content/nostrud-dolus-iaceo-pala-magna-paratus-vulpes-veniam','');
 INSERT INTO `url_alias` VALUES (537,'node/245/feed','content/nostrud-dolus-iaceo-pala-magna-paratus-vulpes-veniam/feed','');
+INSERT INTO `url_alias` VALUES (538,'node/246','content/te-distineo-modo-eros-huic','');
+INSERT INTO `url_alias` VALUES (539,'node/246/feed','content/te-distineo-modo-eros-huic/feed','');
+INSERT INTO `url_alias` VALUES (540,'node/247','content/ludus-luptatum','');
+INSERT INTO `url_alias` VALUES (541,'node/247/feed','content/ludus-luptatum/feed','');
+INSERT INTO `url_alias` VALUES (542,'node/248','content/dignissim-gravis','');
+INSERT INTO `url_alias` VALUES (543,'node/248/feed','content/dignissim-gravis/feed','');
+INSERT INTO `url_alias` VALUES (544,'node/249','content/iriure','');
+INSERT INTO `url_alias` VALUES (545,'node/249/feed','content/iriure/feed','');
+INSERT INTO `url_alias` VALUES (546,'node/250','content/nunc-valde-commoveo','');
+INSERT INTO `url_alias` VALUES (547,'node/250/feed','content/nunc-valde-commoveo/feed','');
+INSERT INTO `url_alias` VALUES (548,'node/251','content/about-us','');
+INSERT INTO `url_alias` VALUES (549,'node/251/feed','content/about-us/feed','');
+INSERT INTO `url_alias` VALUES (550,'node/252','content/comis','');
+INSERT INTO `url_alias` VALUES (551,'node/252/feed','content/comis/feed','');
 /*!40000 ALTER TABLE `url_alias` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
@@ -4472,7 +4514,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237630355,1237588426,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237635306,1237588426,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237505170,1237490889,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','0','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -4506,7 +4548,7 @@ INSERT INTO `variable` VALUES ('admin_menu_position_fixed','i:1;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_modules','i:0;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_tabs','i:0;');
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237629789;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237633498;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
 INSERT INTO `variable` VALUES ('blocktheme','a:2:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:10:\"green_fill\";}');
@@ -4606,8 +4648,8 @@ INSERT INTO `variable` VALUES ('content_extra_weights_setting','a:2:{s:5:\"title
 INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-2\";s:4:\"menu\";s:1:\"0\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1237629789;');
-INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"h1V7MatC6GA4EHBxIL2m\";');
+INSERT INTO `variable` VALUES ('cron_last','i:1237633524;');
+INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"Qh1V7MatC6GA4EHBxIL2\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
 INSERT INTO `variable` VALUES ('date_default_timezone','i:3600;');
@@ -4809,9 +4851,14 @@ INSERT INTO `variable` VALUES ('menu_expanded','a:0:{}');
 INSERT INTO `variable` VALUES ('menu_masks','a:27:{i:0;i:127;i:1;i:125;i:2;i:63;i:3;i:62;i:4;i:61;i:5;i:59;i:6;i:58;i:7;i:57;i:8;i:56;i:9;i:31;i:10;i:30;i:11;i:29;i:12;i:28;i:13;i:24;i:14;i:21;i:15;i:15;i:16;i:14;i:17;i:13;i:18;i:12;i:19;i:11;i:20;i:7;i:21;i:6;i:22;i:5;i:23;i:4;i:24;i:3;i:25;i:2;i:26;i:1;}');
 INSERT INTO `variable` VALUES ('menu_primary_links_source','s:6:\"spaces\";');
 INSERT INTO `variable` VALUES ('menu_secondary_links_source','s:0:\"\";');
+INSERT INTO `variable` VALUES ('nice_menus_ie','i:1;');
+INSERT INTO `variable` VALUES ('nice_menus_menu_1','s:15:\"primary-links:0\";');
+INSERT INTO `variable` VALUES ('nice_menus_name_1','s:11:\"Nice Menu 1\";');
+INSERT INTO `variable` VALUES ('nice_menus_number','s:1:\"1\";');
+INSERT INTO `variable` VALUES ('nice_menus_type_1','s:4:\"down\";');
 INSERT INTO `variable` VALUES ('node_admin_theme','i:0;');
-INSERT INTO `variable` VALUES ('node_cron_comments_scale','d:0.1666666666666666574148081281236954964697360992431640625;');
-INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1237587331\";');
+INSERT INTO `variable` VALUES ('node_cron_comments_scale','d:1;');
+INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1237633360\";');
 INSERT INTO `variable` VALUES ('node_cron_views_scale','d:1;');
 INSERT INTO `variable` VALUES ('node_options_activity','a:2:{i:0;s:6:\"status\";i:1;s:7:\"promote\";}');
 INSERT INTO `variable` VALUES ('node_options_article','a:1:{i:0;s:6:\"status\";}');
@@ -4892,7 +4939,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_bulkupdate','i:0;');
 INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\";');
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237629789;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237633524;');
 INSERT INTO `variable` VALUES ('preprocess_css','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('preprocess_js','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('profile_csv_param_mail','i:1;');
@@ -4958,7 +5005,7 @@ INSERT INTO `variable` VALUES ('theme_garland_settings','a:20:{s:11:\"toggle_log
 INSERT INTO `variable` VALUES ('theme_project_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_satellite_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:0;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_settings','a:26:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:1;s:22:\"toggle_secondary_links\";i:1;s:24:\"toggle_node_info_article\";i:1;s:31:\"toggle_node_info_advpoll_binary\";i:1;s:23:\"toggle_node_info_credit\";i:0;s:22:\"toggle_node_info_event\";i:1;s:22:\"toggle_node_info_image\";i:1;s:24:\"toggle_node_info_outcome\";i:1;s:21:\"toggle_node_info_page\";i:0;s:24:\"toggle_node_info_partner\";i:0;s:32:\"toggle_node_info_advpoll_ranking\";i:1;s:26:\"toggle_node_info_spotlight\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
-INSERT INTO `variable` VALUES ('update_last_check','i:1237629788;');
+INSERT INTO `variable` VALUES ('update_last_check','i:1237633524;');
 INSERT INTO `variable` VALUES ('upload_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_credit','s:1:\"0\";');
@@ -5198,7 +5245,7 @@ CREATE TABLE IF NOT EXISTS `votingapi_vote` (
   KEY `content_source` (`content_type`,`content_id`,`vote_source`),
   KEY `content_vtype` (`content_type`,`content_id`,`value_type`),
   KEY `content_value_tag` (`content_type`,`content_id`,`value_type`,`tag`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOCK TABLES `votingapi_vote` WRITE;
 /*!40000 ALTER TABLE `votingapi_vote` DISABLE KEYS */;
@@ -5218,7 +5265,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=5736 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7011 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
