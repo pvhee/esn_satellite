@@ -106,21 +106,25 @@ td.block {border: 0;}
  * Nice Menu
  */
 ul.nice-menu-down li { border-top: 0px solid #CCCCCC; }
-ul.nice-menu li { text-transform:uppercase; background-color:#EEEEEE; background-image:none; border:none; border-width:0; float:left; margin:0; }
-ul.nice-menu li a { padding: 1em; color: #333;}
-ul.nice-menu ul, #header-region ul.nice-menu ul { top:3em; }
+ul.nice-menu li { text-transform:uppercase; background-color: #50c0e2; background-image:none; border:none; border-width:0; float:left; margin-right: 1em; }
+ul.nice-menu li a { padding: 1em; color: white; background: transparent url("images/comic_nav.png") bottom left no-repeat; padding-bottom: 2em;}
+ul.nice-menu ul, #header-region ul.nice-menu ul { top: 3.4em; border: 0; }
 
 ul.nice-menu li, ul.nice-menu li.leaf { padding: 0; }
 ul.nice-menu li:hover {background-color: #8DC96D; color: white;}
 ul.nice-menu li a:hover {color: white;}
 
-ul.nice-menu-down li.menuparent:hover,
-ul.nice-menu-down li.over,
-/* Repeat for Garland header. */
-#header-region ul.nice-menu-down li.menuparent:hover,
-#header-region ul.nice-menu-down li.over {
-  background: #EB008B url(arrow-down.png) right center no-repeat;
-}
+ul.nice-menu li ul li a { background-image: none; padding-bottom: 1em; }
+ul.nice-menu li ul li a { margin: 0;}
 
+#block-nice_menus-1 ul.nice-menu-down li.menuparent { background: #50c0e2 url("images/bullet_blue.png") no-repeat 94% 37%; }
+#block-nice_menus-1 ul.nice-menu-down ul li.menuparent { background: #50c0e2 url("images/bullet_blue.png") no-repeat 94% 50%; }
+
+ul.nice-menu-down li.menuparent:hover, ul.nice-menu-down li.over,
+/* Repeat for Garland header. */
+#block-nice_menus-1 ul.nice-menu-down li.over { background: #8DC96D url("images/bullet_green.png") no-repeat 94% 37%; }
+#block-nice_menus-1 ul.nice-menu-down ul li.over { background: #8DC96D url("images/bullet_green.png") no-repeat 94% 50%; }
+
+ul.nice-menu li.menu-path-front {background-color: #F37B20;}
 
 /*#block-nice_menus-1 .inner {padding: 0.2em;}*/
