@@ -275,7 +275,7 @@ CREATE TABLE `aggregator_feed` (
 
 LOCK TABLES `aggregator_feed` WRITE;
 /*!40000 ALTER TABLE `aggregator_feed` DISABLE KEYS */;
-INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237641465,'http://www.esn.org/news/feed','News view','','',1237641468,5);
+INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237648868,'http://www.esn.org/news/feed','News view','','',1237648871,5);
 /*!40000 ALTER TABLE `aggregator_feed` ENABLE KEYS */;
 UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `aggregator_item` (
@@ -964,6 +964,7 @@ INSERT INTO `content_field_image` VALUES (233,233,NULL,NULL,NULL);
 INSERT INTO `content_field_image` VALUES (235,235,NULL,NULL,NULL);
 INSERT INTO `content_field_image` VALUES (238,238,NULL,NULL,NULL);
 INSERT INTO `content_field_image` VALUES (239,239,142,1,'a:3:{s:11:\"description\";s:0:\"\";s:3:\"alt\";s:0:\"\";s:5:\"title\";s:0:\"\";}');
+INSERT INTO `content_field_image` VALUES (254,254,146,1,'a:2:{s:3:\"alt\";s:17:\"This is a pyramid\";s:5:\"title\";s:0:\"\";}');
 /*!40000 ALTER TABLE `content_field_image` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_field_image_credit`;
@@ -1142,6 +1143,7 @@ INSERT INTO `content_field_spotlight` VALUES (228,228,NULL);
 INSERT INTO `content_field_spotlight` VALUES (230,230,1);
 INSERT INTO `content_field_spotlight` VALUES (235,235,NULL);
 INSERT INTO `content_field_spotlight` VALUES (238,238,NULL);
+INSERT INTO `content_field_spotlight` VALUES (254,254,0);
 /*!40000 ALTER TABLE `content_field_spotlight` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_group`;
@@ -1191,7 +1193,7 @@ LOCK TABLES `content_node_field` WRITE;
 INSERT INTO `content_node_field` VALUES ('field_country_setting','text','a:4:{s:15:\"text_processing\";s:1:\"1\";s:10:\"max_length\";s:0:\"\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:295:\"$type = array(\'countries\', \'country\');\r\n\r\n$url = \"http://galaxy.esn.org/\". $type[0] .\"/xml\";\r\n$xml = simplexml_load_file($url, \'SimpleXMLElement\', LIBXML_NOCDATA);\r\nforeach($xml->{$type[1]} as $item) {\r\n	$c = (string) $item->c;\r\n  $cn = (string) $item->cn;\r\n  $list[$c] = $cn;\r\n}\r\nreturn($list);\";}',0,0,1,'text','a:2:{s:5:\"value\";a:5:{s:4:\"type\";s:4:\"text\";s:4:\"size\";s:3:\"big\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;s:5:\"views\";b:1;}s:6:\"format\";a:4:{s:4:\"type\";s:3:\"int\";s:8:\"unsigned\";b:1;s:8:\"not null\";b:0;s:5:\"views\";b:0;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_date','date','a:14:{s:11:\"granularity\";a:3:{s:4:\"year\";s:4:\"year\";s:5:\"month\";s:5:\"month\";s:3:\"day\";s:3:\"day\";}s:11:\"timezone_db\";s:0:\"\";s:11:\"tz_handling\";s:4:\"none\";s:6:\"todate\";s:8:\"optional\";s:6:\"repeat\";i:0;s:16:\"repeat_collapsed\";s:0:\"\";s:18:\"output_format_date\";s:5:\"j M Y\";s:20:\"output_format_custom\";s:0:\"\";s:23:\"output_format_date_long\";s:5:\"m/d/Y\";s:25:\"output_format_custom_long\";s:0:\"\";s:25:\"output_format_date_medium\";s:5:\"m/d/Y\";s:27:\"output_format_custom_medium\";s:0:\"\";s:24:\"output_format_date_short\";s:5:\"m/d/Y\";s:26:\"output_format_custom_short\";s:0:\"\";}',0,0,0,'date','a:2:{s:5:\"value\";a:4:{s:4:\"type\";s:7:\"varchar\";s:6:\"length\";i:20;s:8:\"not null\";b:0;s:8:\"sortable\";b:1;}s:6:\"value2\";a:4:{s:4:\"type\";s:7:\"varchar\";s:6:\"length\";i:20;s:8:\"not null\";b:0;s:8:\"sortable\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_file','filefield','a:3:{s:10:\"list_field\";b:0;s:12:\"list_default\";s:1:\"1\";s:17:\"description_field\";s:1:\"1\";}',0,1,0,'filefield','a:3:{s:3:\"fid\";a:2:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;}s:4:\"list\";a:3:{s:4:\"type\";s:3:\"int\";s:4:\"size\";s:4:\"tiny\";s:8:\"not null\";b:0;}s:4:\"data\";a:2:{s:4:\"type\";s:4:\"text\";s:9:\"serialize\";b:1;}}',1,0);
-INSERT INTO `content_node_field` VALUES ('field_image','filefield','a:3:{s:10:\"list_field\";s:1:\"0\";s:12:\"list_default\";s:1:\"1\";s:17:\"description_field\";s:1:\"0\";}',1,0,0,'filefield','a:3:{s:3:\"fid\";a:2:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;}s:4:\"list\";a:3:{s:4:\"type\";s:3:\"int\";s:4:\"size\";s:4:\"tiny\";s:8:\"not null\";b:0;}s:4:\"data\";a:2:{s:4:\"type\";s:4:\"text\";s:9:\"serialize\";b:1;}}',1,0);
+INSERT INTO `content_node_field` VALUES ('field_image','filefield','a:3:{s:10:\"list_field\";s:1:\"0\";s:12:\"list_default\";i:1;s:17:\"description_field\";s:1:\"0\";}',1,0,0,'filefield','a:3:{s:3:\"fid\";a:2:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;}s:4:\"list\";a:3:{s:4:\"type\";s:3:\"int\";s:4:\"size\";s:4:\"tiny\";s:8:\"not null\";b:0;}s:4:\"data\";a:2:{s:4:\"type\";s:4:\"text\";s:9:\"serialize\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_images','filefield','a:3:{s:10:\"list_field\";s:1:\"0\";s:12:\"list_default\";s:1:\"1\";s:17:\"description_field\";s:1:\"0\";}',1,1,0,'filefield','a:3:{s:3:\"fid\";a:2:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;}s:4:\"list\";a:3:{s:4:\"type\";s:3:\"int\";s:4:\"size\";s:4:\"tiny\";s:8:\"not null\";b:0;}s:4:\"data\";a:2:{s:4:\"type\";s:4:\"text\";s:9:\"serialize\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_image_credit','filefield','a:3:{s:10:\"list_field\";s:1:\"0\";s:12:\"list_default\";s:1:\"1\";s:17:\"description_field\";s:1:\"0\";}',0,1,0,'filefield','a:3:{s:3:\"fid\";a:2:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;}s:4:\"list\";a:3:{s:4:\"type\";s:3:\"int\";s:4:\"size\";s:4:\"tiny\";s:8:\"not null\";b:0;}s:4:\"data\";a:2:{s:4:\"type\";s:4:\"text\";s:9:\"serialize\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_image_setting','filefield','a:3:{s:10:\"list_field\";s:1:\"0\";s:12:\"list_default\";i:1;s:17:\"description_field\";s:1:\"0\";}',0,0,1,'filefield','a:3:{s:3:\"fid\";a:2:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;}s:4:\"list\";a:3:{s:4:\"type\";s:3:\"int\";s:4:\"size\";s:4:\"tiny\";s:8:\"not null\";b:0;}s:4:\"data\";a:2:{s:4:\"type\";s:4:\"text\";s:9:\"serialize\";b:1;}}',1,0);
@@ -1226,9 +1228,9 @@ INSERT INTO `content_node_field_instance` VALUES ('field_date','event',-2,'Date'
 INSERT INTO `content_node_field_instance` VALUES ('field_date','outcome',-3,'Date','date_popup','a:10:{s:13:\"default_value\";s:3:\"now\";s:18:\"default_value_code\";s:0:\"\";s:14:\"default_value2\";s:4:\"same\";s:19:\"default_value_code2\";s:0:\"\";s:12:\"input_format\";s:5:\"d/m/Y\";s:19:\"input_format_custom\";s:0:\"\";s:9:\"increment\";s:1:\"1\";s:10:\"text_parts\";a:0:{}s:10:\"year_range\";s:5:\"-3:+3\";s:14:\"label_position\";s:5:\"above\";}','a:10:{s:6:\"weight\";s:2:\"-3\";s:6:\"parent\";s:0:\"\";i:4;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"label\";a:1:{s:6:\"format\";s:6:\"inline\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:0;a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}i:1;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','The date when the event to which this outcome refers was held. For instance, in case of a meeting report you should put the date of the meeting here.','date',1);
 INSERT INTO `content_node_field_instance` VALUES ('field_file','event',1,'File','filefield_widget','a:5:{s:15:\"file_extensions\";s:73:\"txt doc rtf docx odt xls xlsx ods ppt pps pptx odp pdf zip rar tar gz bz2\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;}','a:9:{s:6:\"weight\";s:2:\"-1\";s:6:\"parent\";s:0:\"\";i:4;a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}s:5:\"label\";a:1:{s:6:\"format\";s:6:\"hidden\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:3;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','','filefield',1);
 INSERT INTO `content_node_field_instance` VALUES ('field_file','outcome',0,'File','filefield_widget','a:5:{s:15:\"file_extensions\";s:73:\"txt doc rtf docx odt xls xlsx ods ppt pps pptx odp pdf zip rar tar gz bz2\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;}','a:9:{s:6:\"weight\";i:0;s:6:\"parent\";s:0:\"\";i:4;a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}s:5:\"label\";a:1:{s:6:\"format\";s:6:\"hidden\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:3;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','Upload documents related to your outcome here. They will be available for download for the user. The file format and the file size will be shown. Optionally specify a title for your document.','filefield',1);
-INSERT INTO `content_node_field_instance` VALUES ('field_image','article',-3,'Image','imagefield_widget','a:11:{s:15:\"file_extensions\";s:33:\"jpg jpeg png gif JPG JPEG PNG GIF\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;s:14:\"max_resolution\";i:0;s:14:\"min_resolution\";i:0;s:3:\"alt\";s:0:\"\";s:10:\"custom_alt\";i:0;s:5:\"title\";s:0:\"\";s:12:\"custom_title\";i:0;}','a:11:{s:6:\"weight\";s:2:\"-3\";s:6:\"parent\";s:0:\"\";s:5:\"label\";a:1:{s:6:\"format\";s:6:\"hidden\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:14:\"100x100_linked\";s:7:\"exclude\";i:0;}i:3;a:2:{s:6:\"format\";s:14:\"100x100_linked\";s:7:\"exclude\";i:0;}i:4;a:2:{s:6:\"format\";s:13:\"250x__default\";s:7:\"exclude\";i:0;}i:0;a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}i:1;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','','imagefield',1);
-INSERT INTO `content_node_field_instance` VALUES ('field_image','event',-3,'Image','imagefield_widget','a:11:{s:15:\"file_extensions\";s:33:\"jpg jpeg png gif JPG JPEG PNG GIF\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;s:14:\"max_resolution\";i:0;s:14:\"min_resolution\";i:0;s:3:\"alt\";s:0:\"\";s:10:\"custom_alt\";i:0;s:5:\"title\";s:0:\"\";s:12:\"custom_title\";i:0;}','a:10:{s:6:\"weight\";s:2:\"-4\";s:6:\"parent\";s:0:\"\";i:4;a:2:{s:6:\"format\";s:13:\"250x__default\";s:7:\"exclude\";i:0;}s:5:\"label\";a:1:{s:6:\"format\";s:6:\"hidden\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}i:0;a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}i:1;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','','imagefield',1);
-INSERT INTO `content_node_field_instance` VALUES ('field_image','partner',-4,'Image','imagefield_widget','a:11:{s:15:\"file_extensions\";s:33:\"jpg jpeg png gif JPG JPEG PNG GIF\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;s:14:\"max_resolution\";s:1:\"0\";s:14:\"min_resolution\";s:1:\"0\";s:3:\"alt\";s:0:\"\";s:10:\"custom_alt\";i:0;s:5:\"title\";s:0:\"\";s:12:\"custom_title\";i:0;}','a:10:{s:6:\"weight\";s:2:\"-4\";s:6:\"parent\";s:0:\"\";i:4;a:2:{s:6:\"format\";s:13:\"250x__default\";s:7:\"exclude\";i:0;}s:5:\"label\";a:1:{s:6:\"format\";s:6:\"hidden\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:13:\"250x__default\";s:7:\"exclude\";i:0;}i:0;a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}i:1;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','Upload the logo of your partner. It will be resized and featured on the homepage of your website.','imagefield',1);
+INSERT INTO `content_node_field_instance` VALUES ('field_image','article',-3,'Image','imagefield_widget','a:11:{s:15:\"file_extensions\";s:16:\"jpg jpeg png gif\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;s:14:\"max_resolution\";s:1:\"0\";s:14:\"min_resolution\";s:1:\"0\";s:3:\"alt\";s:0:\"\";s:10:\"custom_alt\";i:1;s:5:\"title\";s:0:\"\";s:12:\"custom_title\";i:0;}','a:11:{s:6:\"weight\";s:2:\"-3\";s:6:\"parent\";s:0:\"\";s:5:\"label\";a:1:{s:6:\"format\";s:6:\"hidden\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:14:\"100x100_linked\";s:7:\"exclude\";i:0;}i:3;a:2:{s:6:\"format\";s:14:\"100x100_linked\";s:7:\"exclude\";i:0;}i:4;a:2:{s:6:\"format\";s:13:\"250x__default\";s:7:\"exclude\";i:0;}i:0;a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}i:1;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','','imagefield',1);
+INSERT INTO `content_node_field_instance` VALUES ('field_image','event',-3,'Image','imagefield_widget','a:11:{s:15:\"file_extensions\";s:16:\"jpg jpeg png gif\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;s:14:\"max_resolution\";s:1:\"0\";s:14:\"min_resolution\";s:1:\"0\";s:3:\"alt\";s:0:\"\";s:10:\"custom_alt\";i:1;s:5:\"title\";s:0:\"\";s:12:\"custom_title\";i:0;}','a:10:{s:6:\"weight\";s:2:\"-4\";s:6:\"parent\";s:0:\"\";i:4;a:2:{s:6:\"format\";s:13:\"250x__default\";s:7:\"exclude\";i:0;}s:5:\"label\";a:1:{s:6:\"format\";s:6:\"hidden\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}i:0;a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}i:1;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','','imagefield',1);
+INSERT INTO `content_node_field_instance` VALUES ('field_image','partner',-4,'Image','imagefield_widget','a:11:{s:15:\"file_extensions\";s:16:\"jpg jpeg png gif\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;s:14:\"max_resolution\";s:1:\"0\";s:14:\"min_resolution\";s:1:\"0\";s:3:\"alt\";s:0:\"\";s:10:\"custom_alt\";i:1;s:5:\"title\";s:0:\"\";s:12:\"custom_title\";i:0;}','a:10:{s:6:\"weight\";s:2:\"-4\";s:6:\"parent\";s:0:\"\";i:4;a:2:{s:6:\"format\";s:13:\"250x__default\";s:7:\"exclude\";i:0;}s:5:\"label\";a:1:{s:6:\"format\";s:6:\"hidden\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:13:\"250x__default\";s:7:\"exclude\";i:0;}i:0;a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}i:1;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','Upload the logo of your partner. It will be resized and featured on the homepage of your website.','imagefield',1);
 INSERT INTO `content_node_field_instance` VALUES ('field_image','spotlight',-4,'Image','imagefield_widget','a:11:{s:15:\"file_extensions\";s:33:\"jpg jpeg png gif JPG JPEG PNG GIF\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;s:14:\"max_resolution\";s:1:\"0\";s:14:\"min_resolution\";s:1:\"0\";s:3:\"alt\";s:0:\"\";s:10:\"custom_alt\";i:0;s:5:\"title\";s:0:\"\";s:12:\"custom_title\";i:0;}','a:9:{s:6:\"weight\";s:2:\"-4\";s:6:\"parent\";s:0:\"\";s:5:\"label\";a:1:{s:6:\"format\";s:5:\"above\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:11:\"image_plain\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:13:\"250x__default\";s:7:\"exclude\";i:0;}i:0;a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}i:1;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','Upload your spotlight image here. Images will be scaled down to exactly 240 pixels in height. Take a colorful picture that fits well with your site\'s colors to attract the attention of your visitors.','imagefield',1);
 INSERT INTO `content_node_field_instance` VALUES ('field_images','outcome',-1,'Images','imagefield_widget','a:11:{s:15:\"file_extensions\";s:33:\"jpg jpeg png gif JPG JPEG PNG GIF\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;s:14:\"max_resolution\";s:1:\"0\";s:14:\"min_resolution\";s:1:\"0\";s:3:\"alt\";s:0:\"\";s:10:\"custom_alt\";i:0;s:5:\"title\";s:0:\"\";s:12:\"custom_title\";i:0;}','a:9:{s:6:\"weight\";s:2:\"-1\";s:6:\"parent\";s:0:\"\";i:4;a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}s:5:\"label\";a:1:{s:6:\"format\";s:6:\"hidden\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:11:\"image_plain\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:3;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','Upload your outcome images here. They will be shown in the form of an album, grouped by 9 on a page.','imagefield',1);
 INSERT INTO `content_node_field_instance` VALUES ('field_image_credit','credit',-3,'Logo','imagefield_widget','a:11:{s:15:\"file_extensions\";s:33:\"jpg jpeg png gif JPG JPEG PNG GIF\";s:9:\"file_path\";s:0:\"\";s:21:\"max_filesize_per_file\";s:0:\"\";s:21:\"max_filesize_per_node\";s:0:\"\";s:12:\"file_widgets\";N;s:14:\"max_resolution\";s:1:\"0\";s:14:\"min_resolution\";s:1:\"0\";s:3:\"alt\";s:0:\"\";s:10:\"custom_alt\";i:0;s:5:\"title\";s:0:\"\";s:12:\"custom_title\";i:0;}','a:9:{s:6:\"weight\";s:2:\"-3\";s:6:\"parent\";s:0:\"\";s:5:\"label\";a:1:{s:6:\"format\";s:6:\"hidden\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:6:\"hidden\";s:7:\"exclude\";i:0;}i:4;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:3;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','If you have any logo together with your credit you can upload it here.','imagefield',1);
@@ -1268,6 +1270,7 @@ INSERT INTO `content_type_article` VALUES (228,228);
 INSERT INTO `content_type_article` VALUES (230,230);
 INSERT INTO `content_type_article` VALUES (235,235);
 INSERT INTO `content_type_article` VALUES (238,238);
+INSERT INTO `content_type_article` VALUES (254,254);
 /*!40000 ALTER TABLE `content_type_article` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_type_credit`;
@@ -1599,7 +1602,7 @@ CREATE TABLE `files` (
   KEY `uid` (`uid`),
   KEY `status` (`status`),
   KEY `timestamp` (`timestamp`)
-) ENGINE=MyISAM AUTO_INCREMENT=146 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=147 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `files` WRITE;
 /*!40000 ALTER TABLE `files` DISABLE KEYS */;
@@ -1682,6 +1685,7 @@ INSERT INTO `files` VALUES (142,1,'ESN_logo_satellite.gif','sites/default/files/
 INSERT INTO `files` VALUES (143,1,'logo.png','sites/default/files/logo.png','image/png',9521,1,1237638742);
 INSERT INTO `files` VALUES (144,1,'esn-satellite.png','sites/default/files/esn-satellite.png','image/png',70592,1,1237638789);
 INSERT INTO `files` VALUES (145,1,'conference_logo.jpg.jpeg','sites/default/files/conference_logo.jpg.jpeg','image/jpeg',24224,1,1237638823);
+INSERT INTO `files` VALUES (146,1,'DSC_2804.jpg','sites/default/files/DSC_2804.jpg','image/jpeg',180531,1,1237649095);
 /*!40000 ALTER TABLE `files` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `filter_formats`;
@@ -1977,7 +1981,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=2975 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2977 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2754,8 +2758,8 @@ INSERT INTO `menu_links` VALUES ('primary-links',2964,2961,'node/252','node/%','
 INSERT INTO `menu_links` VALUES ('primary-links',2965,2961,'node/250','node/%','Nunc Valde Commoveo','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:19:\"Nunc Valde Commoveo\";}}','menu',0,0,0,0,0,3,0,2959,2961,2965,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('primary-links',2968,0,'node/253','node/%','Another menu item','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:17:\"Another menu item\";}}','menu',0,0,0,0,0,1,0,2968,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',2972,0,'admin/content/node-type/setting/fields/field_section_setting/remove','admin/content/node-type/setting/fields/field_section_setting/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,2972,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2973,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2973,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2974,2923,'admin/content/node-type/setting/fields/field_section_setting','admin/content/node-type/setting/fields/field_section_setting','Section','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2602,2923,2974,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2976,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2976,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -3470,7 +3474,7 @@ CREATE TABLE `node` (
   KEY `uid` (`uid`),
   KEY `tnid` (`tnid`),
   KEY `translate` (`translate`)
-) ENGINE=MyISAM AUTO_INCREMENT=254 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=255 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `node` WRITE;
 /*!40000 ALTER TABLE `node` DISABLE KEYS */;
@@ -3549,6 +3553,7 @@ INSERT INTO `node` VALUES (250,250,'page','','Nunc Valde Commoveo',0,1,123718978
 INSERT INTO `node` VALUES (251,251,'page','','About Us',11,1,1237416329,1237633207,0,0,0,0,0,0);
 INSERT INTO `node` VALUES (252,252,'page','','Comis',0,1,1237410969,1237633360,0,1,0,0,0,0);
 INSERT INTO `node` VALUES (253,253,'page','','Another menu item',1,1,1237639084,1237639084,0,0,0,0,0,0);
+INSERT INTO `node` VALUES (254,254,'article','','Test article with alt settings for image',1,1,1237649129,1237649129,2,0,0,0,0,0);
 /*!40000 ALTER TABLE `node` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `node_access`;
@@ -3607,7 +3612,7 @@ CREATE TABLE `node_revisions` (
   PRIMARY KEY  (`vid`),
   KEY `nid` (`nid`),
   KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=254 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=255 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `node_revisions` WRITE;
 /*!40000 ALTER TABLE `node_revisions` DISABLE KEYS */;
@@ -3686,6 +3691,7 @@ INSERT INTO `node_revisions` VALUES (250,250,1,'Nunc Valde Commoveo','<p>node (p
 INSERT INTO `node_revisions` VALUES (251,251,1,'About Us','<p>node (page) -</p>\r\n<p>Camur magna occuro premo nostrud luctus haero premo caecus. Pertineo exerci macto pala defui usitas. Tation torqueo gemino acsi amet. Saluto tego immitto letalis wisi ille turpis loquor blandit abico.</p>\r\n<p>Decet os ea lenis vindico refero humo distineo nibh nulla. Humo praemitto quia interdico esca oppeto aliquip. Rusticus saepius voco defui iaceo proprius ideo.</p>\r\n<p>Si quadrum validus. Plaga letalis quis utrum. Melior ymo natu scisco premo lenis patria sed eligo. Conventio nisl olim torqueo dolor voco enim abbas roto. Loquor exerci importunus saepius jus paratus genitus lucidus acsi.</p>\r\n<p>Persto commodo populus ratis aliquam tation interdico. Odio natu cui dolor nibh vulputate valetudo eum appellatio magna. Ad proprius mauris jugis aliquip pecus iriure.</p>','<p>node (page) -</p>\r\n<p>Camur magna occuro premo nostrud luctus haero premo caecus. Pertineo exerci macto pala defui usitas. Tation torqueo gemino acsi amet. Saluto tego immitto letalis wisi ille turpis loquor blandit abico.</p>\r\n<p>Decet os ea lenis vindico refero humo distineo nibh nulla. Humo praemitto quia interdico esca oppeto aliquip. Rusticus saepius voco defui iaceo proprius ideo.</p>','',1237633207,1);
 INSERT INTO `node_revisions` VALUES (252,252,1,'Comis','<p>node (page) - Iaceo pecus si quibus. Gravis abluo usitas ibidem proprius facilisi. Occuro eligo nisl incassum typicus vulputate.  Odio rusticus cui refero melior. Sed defui sudo usitas euismod. Ludus roto premo tation in. Singularis jumentum probo te. Os distineo wisi.</p>','<p>node (page) - Iaceo pecus si quibus. Gravis abluo usitas ibidem proprius facilisi. Occuro eligo nisl incassum typicus vulputate.  Odio rusticus cui refero melior. Sed defui sudo usitas euismod. Ludus roto premo tation in. Singularis jumentum probo te. Os distineo wisi.</p>','',1237633360,1);
 INSERT INTO `node_revisions` VALUES (253,253,1,'Another menu item','<p>body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body&nbsp;b ody&nbsp;</p>','<p>body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body&nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body &nbsp;body&nbsp;b ody&nbsp;</p>','',1237639084,1);
+INSERT INTO `node_revisions` VALUES (254,254,1,'Test article with alt settings for image','Nulla non lacus a mauris gravida laoreet. Curabitur aliquam, velit in adipiscing tempor, elit arcu tincidunt dui, in viverra ipsum lectus condimentum tellus. Nunc at libero. Curabitur pellentesque nulla ac diam. Donec augue risus, condimentum eu, auctor at, volutpat et, elit. Donec tellus est, tempor quis, consequat quis, venenatis ac, eros? Mauris ipsum diam, viverra at, iaculis mattis, posuere quis; quam! Suspendisse sem mi, aliquam ut, laoreet nec, porttitor a, ligula. Nullam aliquam leo ut ante pretium hendrerit? Suspendisse pretium tortor in mauris. Nulla porttitor turpis a ipsum. Vestibulum eget elit. Vestibulum vehicula nulla tincidunt erat. Suspendisse eget elit accumsan odio ultricies vestibulum. Suspendisse sodales, neque non fringilla venenatis, risus ipsum pulvinar mi, non vulputate dolor elit a quam. Nullam congue. Aliquam porttitor nulla id sapien. Sed eu velit porta nunc convallis lobortis!\r\n\r\nEtiam gravida lobortis arcu. Vivamus eget est a nibh venenatis tempus. In a turpis et quam rhoncus laoreet. Vivamus eget nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras erat erat; pulvinar sed, volutpat a, molestie sed, lacus amet.\r\n','Nulla non lacus a mauris gravida laoreet. Curabitur aliquam, velit in adipiscing tempor, elit arcu tincidunt dui, in viverra ipsum lectus condimentum tellus. Nunc at libero. Curabitur pellentesque nulla ac diam. Donec augue risus, condimentum eu, auctor at, volutpat et, elit. Donec tellus est, tempor quis, consequat quis, venenatis ac, eros? Mauris ipsum diam, viverra at, iaculis mattis, posuere quis; quam! Suspendisse sem mi, aliquam ut, laoreet nec, porttitor a, ligula. Nullam aliquam leo ut ante pretium hendrerit? Suspendisse pretium tortor in mauris. Nulla porttitor turpis a ipsum.','',1237649129,2);
 /*!40000 ALTER TABLE `node_revisions` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `node_type`;
@@ -4232,12 +4238,13 @@ CREATE TABLE `term_data` (
   PRIMARY KEY  (`tid`),
   KEY `taxonomy_tree` (`vid`,`weight`,`name`),
   KEY `vid_name` (`vid`,`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `term_data` WRITE;
 /*!40000 ALTER TABLE `term_data` DISABLE KEYS */;
 INSERT INTO `term_data` VALUES (1,2,'party','',0);
 INSERT INTO `term_data` VALUES (2,2,'culture','',0);
+INSERT INTO `term_data` VALUES (3,2,'whatever','',0);
 /*!40000 ALTER TABLE `term_data` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `term_hierarchy`;
@@ -4252,6 +4259,7 @@ LOCK TABLES `term_hierarchy` WRITE;
 /*!40000 ALTER TABLE `term_hierarchy` DISABLE KEYS */;
 INSERT INTO `term_hierarchy` VALUES (1,0);
 INSERT INTO `term_hierarchy` VALUES (2,0);
+INSERT INTO `term_hierarchy` VALUES (3,0);
 /*!40000 ALTER TABLE `term_hierarchy` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `term_node`;
@@ -4268,6 +4276,8 @@ LOCK TABLES `term_node` WRITE;
 /*!40000 ALTER TABLE `term_node` DISABLE KEYS */;
 INSERT INTO `term_node` VALUES (230,230,1);
 INSERT INTO `term_node` VALUES (230,230,2);
+INSERT INTO `term_node` VALUES (254,254,2);
+INSERT INTO `term_node` VALUES (254,254,3);
 /*!40000 ALTER TABLE `term_node` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `term_relation`;
@@ -4340,7 +4350,7 @@ CREATE TABLE `url_alias` (
   PRIMARY KEY  (`pid`),
   UNIQUE KEY `dst_language` (`dst`,`language`),
   KEY `src_language` (`src`,`language`)
-) ENGINE=MyISAM AUTO_INCREMENT=554 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=557 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `url_alias` WRITE;
 /*!40000 ALTER TABLE `url_alias` DISABLE KEYS */;
@@ -4468,7 +4478,7 @@ INSERT INTO `url_alias` VALUES (518,'node/238','article/aliquam-vulputate-tego-s
 INSERT INTO `url_alias` VALUES (519,'node/238/feed','article/aliquam-vulputate-tego-saluto/feed','');
 INSERT INTO `url_alias` VALUES (520,'node/239','partner/esn','');
 INSERT INTO `url_alias` VALUES (521,'node/239/feed','partner/esn/feed','');
-INSERT INTO `url_alias` VALUES (522,'taxonomy/term/','taxonomy/term/2','');
+INSERT INTO `url_alias` VALUES (522,'taxonomy/term/','taxonomy/term/3','');
 INSERT INTO `url_alias` VALUES (523,'taxonomy/term/1','category/tags/party','');
 INSERT INTO `url_alias` VALUES (524,'taxonomy/term/2','category/tags/culture','');
 INSERT INTO `url_alias` VALUES (525,'node/240','content/esn-galaxy','');
@@ -4500,6 +4510,9 @@ INSERT INTO `url_alias` VALUES (550,'node/252','content/comis','');
 INSERT INTO `url_alias` VALUES (551,'node/252/feed','content/comis/feed','');
 INSERT INTO `url_alias` VALUES (552,'node/253','content/another-menu-item','');
 INSERT INTO `url_alias` VALUES (553,'node/253/feed','content/another-menu-item/feed','');
+INSERT INTO `url_alias` VALUES (554,'taxonomy/term/3','category/tags/whatever','');
+INSERT INTO `url_alias` VALUES (555,'node/254','article/test-article-alt-settings-image','');
+INSERT INTO `url_alias` VALUES (556,'node/254/feed','article/test-article-alt-settings-image/feed','');
 /*!40000 ALTER TABLE `url_alias` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
@@ -4533,7 +4546,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237644568,1237588426,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237649877,1237588426,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237505170,1237490889,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','0','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -4567,7 +4580,7 @@ INSERT INTO `variable` VALUES ('admin_menu_position_fixed','i:1;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_modules','i:0;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_tabs','i:0;');
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237641465;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237648868;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
 INSERT INTO `variable` VALUES ('blocktheme','a:3:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:9:\"pink_fill\";s:44:\"views-partners-block_1?destination=frontpage\";s:5:\"green\";}');
@@ -4662,13 +4675,13 @@ INSERT INTO `variable` VALUES ('content_extra_weights_article','a:4:{s:5:\"title
 INSERT INTO `variable` VALUES ('content_extra_weights_credit','a:2:{s:5:\"title\";s:2:\"-5\";s:4:\"menu\";s:2:\"-2\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_event','a:5:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-1\";s:4:\"menu\";s:1:\"2\";s:8:\"taxonomy\";s:1:\"0\";s:16:\"signup_node_info\";s:1:\"3\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_outcome','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-4\";s:4:\"menu\";s:1:\"2\";}');
-INSERT INTO `variable` VALUES ('content_extra_weights_partner','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-2\";s:4:\"menu\";s:2:\"-1\";}');
+INSERT INTO `variable` VALUES ('content_extra_weights_partner','a:4:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-1\";s:4:\"menu\";s:1:\"0\";s:8:\"taxonomy\";s:2:\"-2\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_setting','a:2:{s:5:\"title\";s:2:\"-5\";s:4:\"menu\";s:2:\"-4\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-2\";s:4:\"menu\";s:1:\"0\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1237641465;');
-INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"dSfQh1V7MatC6GA4EHBx\";');
+INSERT INTO `variable` VALUES ('cron_last','i:1237648898;');
+INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"RqdSfQh1V7MatC6GA4EH\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
 INSERT INTO `variable` VALUES ('date_default_timezone','i:3600;');
@@ -4958,7 +4971,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_bulkupdate','i:0;');
 INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\";');
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237641465;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237648898;');
 INSERT INTO `variable` VALUES ('preprocess_css','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('preprocess_js','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('profile_csv_param_mail','i:1;');
@@ -5024,7 +5037,7 @@ INSERT INTO `variable` VALUES ('theme_garland_settings','a:20:{s:11:\"toggle_log
 INSERT INTO `variable` VALUES ('theme_project_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_satellite_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:0;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_settings','a:26:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:1;s:22:\"toggle_secondary_links\";i:1;s:24:\"toggle_node_info_article\";i:1;s:31:\"toggle_node_info_advpoll_binary\";i:1;s:23:\"toggle_node_info_credit\";i:0;s:22:\"toggle_node_info_event\";i:1;s:22:\"toggle_node_info_image\";i:1;s:24:\"toggle_node_info_outcome\";i:1;s:21:\"toggle_node_info_page\";i:0;s:24:\"toggle_node_info_partner\";i:0;s:32:\"toggle_node_info_advpoll_ranking\";i:1;s:26:\"toggle_node_info_spotlight\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
-INSERT INTO `variable` VALUES ('update_last_check','i:1237639583;');
+INSERT INTO `variable` VALUES ('update_last_check','i:1237648898;');
 INSERT INTO `variable` VALUES ('upload_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_credit','s:1:\"0\";');
@@ -5284,7 +5297,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=5776 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5785 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
