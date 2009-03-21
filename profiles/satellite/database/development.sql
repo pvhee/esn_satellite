@@ -1981,7 +1981,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=2994 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2995 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2763,7 +2763,7 @@ INSERT INTO `menu_links` VALUES ('navigation',2980,18,'admin/settings/menu_bread
 INSERT INTO `menu_links` VALUES ('navigation',2981,15,'admin/help/menu_breadcrumb','admin/help/menu_breadcrumb','menu_breadcrumb','a:0:{}','system',-1,0,0,0,0,3,0,2,15,2981,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2982,2168,'admin/settings/menu_breadcrumb','admin/settings/menu_breadcrumb','Menu breadcrumb','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2982,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2984,2333,'http://drupal.org/project/issues/menu_breadcrumb','','Menu breadcrumb issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,2984,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2993,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2993,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2994,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,2994,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -4221,7 +4221,7 @@ INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/slideshare/s
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_callhome_client/ya_callhome_client.module','ya_callhome_client','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:28:\"Youth Agora Call Home Client\";s:11:\"description\";s:61:\"Retrieves information from the Youth Agora server via XML/RPC\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_credits/ya_credits.module','ya_credits','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:19:\"Youth Agora Credits\";s:11:\"description\";s:44:\"Provides a block with credits to Youth Agora\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_password_check/ya_password_check.module','ya_password_check','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:14:\"Password Check\";s:11:\"description\";s:109:\"Provides a non-configurable action to check for default password combinations (admin/admin and editor/editor)\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
-INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_remote_xml/ya_remote_xml.module','ya_remote_xml','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:17:\"Remote XML Import\";s:11:\"description\";s:33:\"Imports a set of remote XML files\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_remote_xml/ya_remote_xml.module','ya_remote_xml','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:26:\"Remote XML [ESN Satellite]\";s:11:\"description\";s:45:\"Imports ESN Section and ESN Country XML files\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_requirements/ya_requirements.module','ya_requirements','module','',0,0,0,-1,0,'a:8:{s:4:\"name\";s:24:\"Youth Agora Requirements\";s:11:\"description\";s:66:\"Checks minimum requirements when installing a Youth Agora template\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/youthagora.module','youthagora','module','',0,0,0,0,0,'a:7:{s:4:\"name\";s:11:\"Youth Agora\";s:11:\"description\";s:73:\"Provides added functionality from Youth Agora (http://www.youthagora.org)\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/yui/yui.module','yui','module','',0,0,0,0,0,'a:10:{s:4:\"name\";s:3:\"YUI\";s:11:\"description\";s:28:\"YUI Module Common paramerets\";s:7:\"package\";s:9:\"Yahoo YUI\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:11:\"6.x-1.1-rc1\";s:7:\"project\";s:3:\"yui\";s:9:\"datestamp\";s:10:\"1227032430\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
@@ -4555,7 +4555,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237671457,1237588426,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237678408,1237588426,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237505170,1237490889,1,NULL,'','','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -4690,7 +4690,7 @@ INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"tit
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
 INSERT INTO `variable` VALUES ('cron_last','i:1237671042;');
-INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"90sRqdSfQh1V7MatC6GA\";');
+INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"r90sRqdSfQh1V7MatC6G\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
 INSERT INTO `variable` VALUES ('date_default_timezone','i:3600;');
@@ -5040,7 +5040,7 @@ INSERT INTO `variable` VALUES ('signup_user_list_view','s:23:\"signup_user_list:
 INSERT INTO `variable` VALUES ('site_403','s:15:\"toboggan/denied\";');
 INSERT INTO `variable` VALUES ('site_footer','s:0:\"\";');
 INSERT INTO `variable` VALUES ('site_frontpage','s:9:\"frontpage\";');
-INSERT INTO `variable` VALUES ('site_mail','s:39:\"change-this-email-address@satellite.org\";');
+INSERT INTO `variable` VALUES ('site_mail','s:37:\"change-this-email-address@example.org\";');
 INSERT INTO `variable` VALUES ('site_mission','s:0:\"\";');
 INSERT INTO `variable` VALUES ('site_name','s:15:\"ESN Satellite 3\";');
 INSERT INTO `variable` VALUES ('site_slogan','s:23:\"Erasmus Student Network\";');
