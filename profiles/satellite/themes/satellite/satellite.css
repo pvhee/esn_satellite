@@ -101,3 +101,26 @@ td.block {border: 0;}
 #center .container, #center .span-8, #center .span-inner {margin: 0; padding: 0;}
 #center .colborder { border-right:1px solid #ddd; }
 #center .span-8 { width:305px;}
+
+/**
+ * Nice Menu
+ */
+ul.nice-menu-down li { border-top: 0px solid #CCCCCC; }
+ul.nice-menu li { text-transform:uppercase; background-color:#EEEEEE; background-image:none; border:none; border-width:0; float:left; margin:0; }
+ul.nice-menu li a { padding: 1em; color: #333;}
+ul.nice-menu ul, #header-region ul.nice-menu ul { top:3em; }
+
+ul.nice-menu li, ul.nice-menu li.leaf { padding: 0; }
+ul.nice-menu li:hover {background-color: #8DC96D; color: white;}
+ul.nice-menu li a:hover {color: white;}
+
+ul.nice-menu-down li.menuparent:hover,
+ul.nice-menu-down li.over,
+/* Repeat for Garland header. */
+#header-region ul.nice-menu-down li.menuparent:hover,
+#header-region ul.nice-menu-down li.over {
+  background: #EB008B url(arrow-down.png) right center no-repeat;
+}
+
+
+/*#block-nice_menus-1 .inner {padding: 0.2em;}*/

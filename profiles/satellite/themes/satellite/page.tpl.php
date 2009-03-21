@@ -69,7 +69,7 @@
 										<?php if ($show_messages && $messages): print $messages; endif; ?>
 										<?php if ($content_top): print $content_top; endif; ?>
 										<?php print $help; ?>
-										<div class="clear-block">
+										<div class="clear-block">											
 											<?php print $content ?>
 										</div>
 										<div class="container">  
