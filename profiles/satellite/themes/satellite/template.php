@@ -16,7 +16,7 @@ function satellite_block_edit_link(&$block) {
   $out = '';
   if (user_access('administer blocks')) {
     $out = '<div class="block-edit-link">';
-    $out .= l(t('Edit Block'), 'admin/build/block/configure/' . $block->module . '/' . $block->delta . '?' . drupal_get_destination());
+    $out .= l(t('Edit Block'), 'admin/build/block/configure/' . $block->module . '/' . $block->delta, array('query' => drupal_get_destination()));
     $out .= '</div>';
   }
   return $out;
