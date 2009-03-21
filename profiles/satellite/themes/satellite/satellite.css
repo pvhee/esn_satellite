@@ -6,7 +6,7 @@ ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active 
 #shadow { background: url(images/layout/container_bg.png) top center repeat-y;}
 #shadow-top { background: url(images/layout/shadow_top.png) top center no-repeat;}
 #shadow-footer { background: url(images/layout/footer.png) bottom center no-repeat; }
-#footer div.container { margin-top:180px; padding-left: 248px; color: white;}
+#footer div.container {  color: white;}
 #header-title { height: 206px;}
 #block-menu_block-1 li { padding:0 15px; }
 #header-top { border-top: 7px solid #333; background: #EEEEEE; border-bottom: 1px solid #ddd; float: left; width: 923px;}
@@ -25,6 +25,8 @@ body.frontpage #wrapper #container #center { width:608px; }
 body.frontpage #wrapper #container .sidebar { width:314px;}
 */
 
+#inner-footer { background: url("images/layout/footer_blue.png") no-repeat 0px 10px; margin-top:180px; padding-left:241px; padding-top:177px; }
+#footer .container { background: #333; }
 
 .sidebar { border-bottom:1px solid #DDDDDD; }
 
@@ -95,3 +97,7 @@ td.block {border: 0;}
 #cck-complete-percent-bar-wrapper-setting { background:#FFFFFF none repeat scroll 0 0;border:1px solid #AAAAAA;padding:1px;width:100%;}
 #block-menu-menu-quick-links ul { margin: 0;}
 #block-menu-menu-quick-links li { margin-top: 0;}
+
+#center .container, #center .span-8, #center .span-inner {margin: 0; padding: 0;}
+#center .colborder { border-right:1px solid #ddd; }
+#center .span-8 { width:305px;}
