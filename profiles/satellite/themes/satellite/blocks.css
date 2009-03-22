@@ -1,35 +1,54 @@
 /**
+ * Comics
+ */
+.block  h2 span.title-inner { margin: 0; padding: 9px 0px 23px 13px;}
+.block  h2 span.title-outer { padding: 9px 17px 23px 0px;  }
+.block  h2 { margin-top: 0.7em; margin-bottom:2em; }
+
+
+/**
  * Green
  */
 .block.green { border-top: 5px solid #7BC043;}
 .block.green a, 
-.block.green h2,
-.block.green h2,
+.block.green.fill h2,
 .block.green .views-field-title  { color: #7BC043; }
 .block.green {background: transparent url("images/blocks/green.png") repeat-x; }
 .block.green.fill .inner {background: #8DC96D url("images/blocks/green_fill.png"); }
+.block.green h2 span.title-inner { background: transparent url("images/comics/green_left.png") top left no-repeat; }
+.block.green h2 span.title-outer { background: transparent url("images/comics/green_right.png") top right no-repeat; }
+.block.green.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
+.block.green.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
+
 
 /**
  * Orange
  */
 .block.orange { border-top: 5px solid #F15A24;}
 .block.orange a, 
-.block.orange h2,
-.block.orange h2,
+.block.orange.fill h2,
 .block.orange .views-field-title  { color: #F15A24; }
 .block.orange .inner {background: transparent url("images/blocks/orange.png") repeat-x; }
 .block.orange.fill .inner {background: #F6BE7B url("images/blocks/orange_fill.png"); }
+.block.orange h2 span.title-inner { background: transparent url("images/comics/orange_left.png") top left no-repeat; }
+.block.orange h2 span.title-outer { background: transparent url("images/comics/orange_right.png") top right no-repeat; }
+.block.orange.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
+.block.orange.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
+
 
 /**
  * Pink
  */
 .block.pink { border-top: 5px solid #EB008B;}
 .block.pink a, 
-.block.pink h2,
-.block.pink h2,
+.block.pink.fill h2,
 .block.pink .views-field-title  { color: #EB008B; }
 .block.pink .inner {background: transparent url("images/blocks/pink.png") repeat-x; }
 .block.pink.fill .inner {background: #EC76BC url("images/blocks/pink_fill.png"); }
+.block.pink h2 span.title-inner { background: transparent url("images/comics/pink_left.png") top left no-repeat; }
+.block.pink h2 span.title-outer { background: transparent url("images/comics/pink_right.png") top right no-repeat; }
+.block.pink.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
+.block.pink.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
 
 /**
  * Blue
@@ -37,17 +56,25 @@
 .block,
 .block.blue { border-top: 5px solid #00ADEE;}
 .block.blue a, 
-.block.blue h2,
-.block.blue h2,
+.block.blue.fill h2,
 .block.blue .views-field-title  { color: #00ADEE; }
 .block .inner, .block.blue .inner {background: transparent url("images/blocks/blue.png") repeat-x; }
 .block.blue.fill .inner {background: #6DC4D7 url("images/blocks/blue_fill.png"); }
+.block h2 span.title-inner, .block.blue h2 span.title-inner { background: transparent url("images/comics/blue_left.png") top left no-repeat; }
+.block h2 span.title-outer, .block.blue h2 span.title-outer { background: transparent url("images/comics/blue_right.png") top right no-repeat; }
+.block.blue.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
+.block.blue.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
 
 /**
  * Common
  */
 #header .block .inner, #footer .block .inner { background: none; }
 #header .block, #footer .block { background: none; }
+#footer .block  h2 span.title-inner { margin: 0; padding:0; background-image: none; }
+#footer .block  h2 span.title-outer { padding: 0; background-image: none; }
+#footer .block  h2 {margin-top: 0em; margin-bottom:1.2em; }
+
+.block h2 {color: white;}
 
 .block {background: transparent url("images/blocks/fade.png") top left repeat-x; }
 .block { border-bottom: 0; }
