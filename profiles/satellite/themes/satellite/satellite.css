@@ -108,38 +108,48 @@ td.block {border: 0;}
 ul.nice-menu li, ul.nice-menu li.leaf { padding: 0; }
 ul.nice-menu-down li { border-top: 0px solid #CCCCCC; }
 ul.nice-menu-down li.menuparent, #header-region ul.nice-menu-down li.menuparent,
-ul.nice-menu li { text-transform:uppercase; background: transparent url("images/navigation/blue_right.png") top right no-repeat; border:none; border-width:0; float:left; margin-right: 0.5em; padding-right: 10px; }
+ul.nice-menu li { background: none; text-transform:uppercase; border:none; border-width:0; float:left; margin-right: 0.5em;  }
 ul.nice-menu-down li.menuparent a, #header-region ul.nice-menu-down li.menuparent a,
-ul.nice-menu li a { padding:7px 0 10px 10px; color: white; background: transparent url("images/navigation/blue_left.png") top left no-repeat; }
+ul.nice-menu li a { padding:7px 0 10px 0px; color: white; }
 ul.nice-menu ul, #header-region ul.nice-menu ul { top: 2em; border: 0; }
 
 ul.nice-menu-down li.menuparent:hover, #header-region ul.nice-menu-down li.menuparent:hover,
-ul.nice-menu li:hover {background: transparent url("images/navigation/green_right.png") top right no-repeat; color: white;}
-ul.nice-menu-down li.menuparent a:hover, #header-region ul.nice-menu-down li.menuparent a:hover,
-ul.nice-menu li a:hover {background: transparent url("images/navigation/green_left.png") top left no-repeat; color: white;}
+ul.nice-menu li:hover {background: none; color: white;}
+ul.nice-menu-down li.menuparent a:hover, #header-region ul.nice-menu-down li.menuparent a:hover
+{background: none; color: white;}
 
-ul.nice-menu li.menuparent ul li, 
-ul.nice-menu li ul li.menuparent ul li, 
-ul.nice-menu li ul li.menuparent ul li.menuparent ul li, 
-ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li, 
-ul.nice-menu li ul li { background: #00ADEE; background-image: none; }
+ul.nice-menu li.menuparent ul li a span, 
+ul.nice-menu li ul li.menuparent ul li a span, 
+ul.nice-menu li ul li.menuparent ul li.menuparent ul li a span, 
+ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a span, 
+ul.nice-menu li ul li a span { background: none; background-image: none; }
 ul.nice-menu li.menuparent ul li a, 
 ul.nice-menu li ul li.menuparent ul li a, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li a, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a, 
 ul.nice-menu li ul li a { margin: 0; background: #00ADEE; background-image: none; }
 
-ul.nice-menu li.menuparent ul li:hover, 
-ul.nice-menu li ul li.menuparent ul li:hover, 
-ul.nice-menu li ul li.menuparent ul li.menuparent ul li:hover, 
-ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li:hover, 
-ul.nice-menu li ul li:hover { background: #7BC043; background-image: none; }
+ul.nice-menu li.menuparent ul li a:hover span, 
+ul.nice-menu li ul li.menuparent ul li a:hover span, 
+ul.nice-menu li ul li.menuparent ul li.menuparent ul li a:hover span, 
+ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a:hover span, 
+ul.nice-menu li ul li a:hover span { background: none; background-image: none; }
 ul.nice-menu li.menuparent ul li a:hover, 
 ul.nice-menu li ul li.menuparent ul li a:hover, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li a:hover, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a:hover,
 ul.nice-menu li ul li a:hover { margin: 0; background: #7BC043; background-image: none;  }
 
+
+ul.nice-menu li a { background: transparent url("images/navigation/blue_right.png") top right no-repeat; }
+ul.nice-menu li a span { margin-right:10px; padding:8px 0 10px 10px; background: transparent url("images/navigation/blue_left.png") top left no-repeat; }
+
+ul.nice-menu li.menuparent a:hover,
+ul.nice-menu li a:hover { background: transparent url("images/navigation/green_right.png") top right no-repeat; }
+ul.nice-menu li a:hover span { margin-right:10px; padding:8px 0 10px 10px; background: transparent url("images/navigation/green_left.png") top left no-repeat; }
+
+
+	
 #block-nice_menus-1 .block .content { margin: 0;}
 
 
