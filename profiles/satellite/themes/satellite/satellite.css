@@ -148,6 +148,11 @@ ul.nice-menu li.menuparent a:hover,
 ul.nice-menu li a:hover { background: transparent url("images/navigation/green_right.png") top right no-repeat; }
 ul.nice-menu li a:hover span { margin-right:10px; padding:8px 0 10px 10px; background: transparent url("images/navigation/green_left.png") top left no-repeat; }
 
+ul.nice-menu ul li, ul.nice-menu ul li.menuparent { border-bottom: 1px solid #0099CF; }
+
+ul.nice-menu li a.active { background: transparent url("images/navigation/green_right.png") top right no-repeat; }
+ul.nice-menu li a.active span { background: transparent url("images/navigation/green_left.png") top left no-repeat; }
+
 #center a:hover, .sidebar a:hover { text-decoration: underline; }
 	
 #block-nice_menus-1 .block .content { margin: 0;}
