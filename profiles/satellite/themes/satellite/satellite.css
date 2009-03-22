@@ -153,3 +153,7 @@ ul.nice-menu li ul li a:hover { margin: 0; background: #7BC043; background-image
 /*ul.nice-menu li.menu-path-front {background-color: #F37B20;}*/
 
 /*#block-nice_menus-1 .inner {padding: 0.2em;}*/
+
+ul li, ul.menu li, .item-list ul li, li.leaf { background:transparent url(images/menu-leaf.gif) no-repeat scroll 1px 0.35em; }
+ul li.collapsed { background:transparent url(images/menu-collapsed.gif) no-repeat scroll 0 0.35em; }
+ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat scroll 1px 0.35em; }
