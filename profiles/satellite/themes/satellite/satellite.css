@@ -25,7 +25,7 @@ body.frontpage #wrapper #container #center { width:608px; }
 body.frontpage #wrapper #container .sidebar { width:314px;}
 */
 
-#inner-footer { background: #333 url("images/layout/footer_blue.png") no-repeat top left; margin-top:180px; margin-bottom:0.4em; padding-left:241px; padding-top:177px; }
+#inner-footer { background: #333 url("images/layout/footer_blue.png") no-repeat top left; margin-top:180px; margin-bottom:0.4em; padding-left:241px; padding-top:177px; margin-left:-1px; }
 #footer .container { background: #333; }
 
 .sidebar { border-bottom:1px solid #DDDDDD; }
@@ -111,7 +111,7 @@ ul.nice-menu-down li.menuparent, #header-region ul.nice-menu-down li.menuparent,
 ul.nice-menu li { background: none; text-transform:uppercase; border:none; border-width:0; float:left; margin-right: 0.5em;  }
 ul.nice-menu-down li.menuparent a, #header-region ul.nice-menu-down li.menuparent a,
 ul.nice-menu li a { padding:7px 0 10px 0px; color: white; }
-ul.nice-menu ul, #header-region ul.nice-menu ul { top: 2em; border: 0; }
+ul.nice-menu ul, #header-region ul.nice-menu ul { top: 2.1em; border: 0; }
 
 ul.nice-menu-down li.menuparent:hover, #header-region ul.nice-menu-down li.menuparent:hover,
 ul.nice-menu li:hover {background: none; color: white;}

@@ -1,7 +1,6 @@
 <?php
 
 function satellite_get_ie_styles() {
-  // $index = rand() / 4;
   // $css .= '<style type="text/css" media="all">@import "'. base_path() . path_to_theme() .'/fix-ie-rtl.css";</style>';
   return $css;
 }
@@ -16,7 +15,7 @@ function satellite_footer_change() {
   $colors = array('green', 'blue', 'orange', 'pink');
   $theme = drupal_get_path('theme', 'satellite');
   $key = array_rand($colors);
-  $css = '<style type="text/css">#inner-footer {background-image: url('.$base_path.$theme.'/images/layout/footer_'.$colors[$key].'.png);}</style>';
+  $css = '<style type="text/css" media="all">#inner-footer {background-image: url('.$base_path.$theme.'/images/layout/footer_'.$colors[$key].'.png);}</style>';
   return $css;
 }
 
