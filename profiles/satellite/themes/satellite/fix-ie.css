@@ -1,0 +1,19 @@
+/**
+ * PNG-8 Comics
+ */
+.block.green h2 span.title-inner { background: transparent url("images/comics/png8/green_left.png") top left no-repeat; }
+.block.green h2 span.title-outer { background: transparent url("images/comics/png8/green_right.png") top right no-repeat; }
+.block.green.fill h2 span.title-inner { background: transparent url("images/comics/png8/white_left.png") top left no-repeat;} 
+.block.green.fill h2 span.title-outer { background: transparent url("images/comics/png8/white_right.png") top right no-repeat;}
+.block.orange h2 span.title-inner { background: transparent url("images/comics/png8/orange_left.png") top left no-repeat; }
+.block.orange h2 span.title-outer { background: transparent url("images/comics/png8/orange_right.png") top right no-repeat; }
+.block.orange.fill h2 span.title-inner { background: transparent url("images/comics/png8/white_left.png") top left no-repeat;} 
+.block.orange.fill h2 span.title-outer { background: transparent url("images/comics/png8/white_right.png") top right no-repeat;}
+.block.pink h2 span.title-inner { background: transparent url("images/comics/png8/pink_left.png") top left no-repeat; }
+.block.pink h2 span.title-outer { background: transparent url("images/comics/png8/pink_right.png") top right no-repeat; }
+.block.pink.fill h2 span.title-inner { background: transparent url("images/comics/png8/white_left.png") top left no-repeat;} 
+.block.pink.fill h2 span.title-outer { background: transparent url("images/comics/png8/white_right.png") top right no-repeat;}
+.block h2 span.title-inner, .block.blue h2 span.title-inner { background: transparent url("images/comics/png8/blue_left.png") top left no-repeat; }
+.block h2 span.title-outer, .block.blue h2 span.title-outer { background: transparent url("images/comics/png8/blue_right.png") top right no-repeat; }
+.block.blue.fill h2 span.title-inner { background: transparent url("images/comics/png8/white_left.png") top left no-repeat;} 
+.block.blue.fill h2 span.title-outer { background: transparent url("images/comics/png8/white_right.png") top right no-repeat;}
