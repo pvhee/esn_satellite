@@ -104,12 +104,13 @@
  * Custom admin links
  */
 .block .views-field-edit-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .views-field-edit-node a:hover { color: green;}
+.block .views-field-edit-node a:hover { color: green; text-decoration: none !important;}
 .block .views-field-delete-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #AF999A;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .views-field-delete-node a:hover { color: red;}
+.block .views-field-delete-node a:hover { color: red; text-decoration: none !important;}
 
+.block .block-edit-link {z-index: 1000; position: absolute; right: 0;}
 .block .block-edit-link a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .block-edit-link a:hover { color: green;}
+.block .block-edit-link a:hover { color: green; text-decoration: none !important;}
 .block .block-edit-link {display: none;}
 .block:hover .block-edit-link {display: inline;}
 
