@@ -7,6 +7,20 @@ function satellite_get_ie_styles() {
 }
 
 /**
+ * Select a diferent footer image at every reload. 
+ *
+ * @return CSS
+ */
+function satellite_footer_change() {
+  global $base_path;
+  $colors = array('green', 'blue', 'orange', 'pink');
+  $theme = drupal_get_path('theme', 'satellite');
+  $key = array_rand($colors);
+  $css = '<style type="text/css">#inner-footer {background-image: url('.$base_path.$theme.'/images/layout/footer_'.$colors[$key].'.png);}</style>';
+  return $css;
+}
+
+/**
  * Print edit block link in block templates files
  *
  * @param $block
