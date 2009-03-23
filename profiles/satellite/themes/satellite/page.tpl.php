@@ -20,7 +20,6 @@
 	<div class="clear-block"></div>
 
 	<div id="wrapper">
-		<div class="inner">
 			<div id="container" class="clear-block">
 				<div id="shadow">
 					<div id="shadow-top">
@@ -137,7 +136,6 @@
 					</div> 
 				</div> 
 			</div> 
-		</div>
 	</div>
 
 	<?php print $closure ?>
