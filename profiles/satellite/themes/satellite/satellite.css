@@ -11,7 +11,7 @@ fieldset {border:1px solid #d9eaf5; background: transparent url(images/layout/gr
 #header-top { border-top: 7px solid #333; background: #EEEEEE; border-bottom: 1px solid #ddd; float: left; width: 923px;}
 #header-top .block { display: block; float: right;}
 #header-top .inner { padding: .8em;  float: left; width: 900px; }
-#shadow-footer { padding:0 14px 13px; }
+#shadow-footer { padding:0 13px 13px;}
 #wrapper #container #header { margin-bottom:1.2em; }
 
 ul.tabs li a:hover { text-decoration: none;}
@@ -27,7 +27,7 @@ body.frontpage #wrapper #container #center { width:608px; }
 body.frontpage #wrapper #container .sidebar { width:314px;}
 */
 
-#inner-footer { background: #333 url("images/layout/footer_blue.png") no-repeat top left; margin-top:180px; margin-bottom:0.4em; padding-left:241px; padding-top:177px; margin-left:-1px; }
+#inner-footer { background: #333 url("images/layout/footer_blue.png") no-repeat top left; margin-top:180px; margin-bottom:0.4em; padding-left:241px; padding-top:177px; }
 #footer .container { background: #333; }
 
 .sidebar { border-bottom:1px solid #DDDDDD; }
