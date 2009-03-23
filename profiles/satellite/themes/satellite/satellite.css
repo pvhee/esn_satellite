@@ -81,6 +81,29 @@ body.frontpage #wrapper #container .sidebar { width:314px;}
 
 td.block {border: 0;}
 
+
+/**
+ * Give20
+ */
+.view-id-activity_report.view-display-id-block_1 .views-field-title {background: none;color: #2b84bc;}
+
+.view-id-activity_report.view-display-id-block_1 .views-row-odd, 
+.view-id-activity_report.view-display-id-block_1 .views-row-even {float:left; width: 530px; overflow: hidden; }
+
+.view-id-activity_report.view-display-id-block_1 .views-field-field-images-fid {height: 65px; float: left;}
+.view-activity-report.view-display-id-page_1 .views-field-field-images-fid {height: 83px; float: left;}
+
+.view-activity-report.view-display-id-page_1 .views-field-field-images-fid .field-item, 
+.view-id-activity_report.view-display-id-block_1 .views-field-field-images-fid .field-item { float: left; margin-right: 10px; }
+
+.view-id-activity_report.view-display-id-block_1 .views-row-odd, 
+.view-id-activity_report.view-display-id-block_1 .views-row-even { margin-bottom: 0px;}
+
+.view-id-activity.view-display-id-page_1 .views-field-field-image-fid,
+.view-id-activity.view-display-id-block_1 .views-field-field-image-fid { float: left; margin-right: 10px; border: 2px solid #ccc;}
+
+.node .field-type-filefield.field-field-images img { float:left; margin:1px; }
+
 /**
  * Footer
  */
