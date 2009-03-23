@@ -207,11 +207,9 @@ ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat 
 .more-link { text-transform: uppercase; font-size: .9em; font-weight: bold;}
 .more-link a:before { content: '+ ';}
 
-.calendar-calendar ul.links { text-transform: uppercase; font-size: .9em; font-weight: bold; margin-bottom: 7px;}
-.calendar-calendar td .inner div, .calendar-calendar td .inner div a { background:transparent none repeat scroll 0 0; border:0 none; }
-.calendar-calendar td.empty { background: #f1f1f1; }
-.calendar-calendar div.date-nav { background-color: transparent; border: none; color:#777777; padding:0.2em; width:auto; }
-.calendar-calendar th { background-color:#CCCCCC; color:#333333; margin:0; text-align:center; }
+.mini.has-events { background: #7BC043; }
+.mini.has-events a { color: white; text-decoration: none; }
+.calendar-calendar tr td { padding-right: 3px; }
 /*.view.view-calendar.view-id-calendar { overflow-x: scroll;}*/
 
 
