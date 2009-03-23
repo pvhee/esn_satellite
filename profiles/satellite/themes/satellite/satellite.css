@@ -76,7 +76,7 @@ body.frontpage #wrapper #container .sidebar { width:314px;}
 #block-views-partners-block_1 .views-row-even, #block-views-partners-block_1 .views-row-odd { display: block; float: left; margin: 0 1em 1em 0; width: auto; }
 
 .view-id-partners.view-display-id-page_1 .views-field-field-image-fid {float: none;}
-.view-id-partners.view-display-id-page_1 td {text-align: center;}
+.view-id-partners.view-display-id-page_1 td { height:265px; text-align:center; vertical-align:bottom; }
 .view-id-partners.view-display-id-page_1 .views-field-title a { font-size: 1.2em; color: #555; }
 
 td.block {border: 0;}

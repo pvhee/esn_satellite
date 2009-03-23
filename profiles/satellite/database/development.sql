@@ -2058,7 +2058,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=3222 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3223 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2871,7 +2871,7 @@ INSERT INTO `menu_links` VALUES ('admin_menu',3214,3208,'admin/content/node-type
 INSERT INTO `menu_links` VALUES ('navigation',3215,0,'admin/content/node-type/story/fields/field_images/remove','admin/content/node-type/story/fields/field_images/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,3215,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3217,3208,'admin/content/node-type/story/fields/field_images','admin/content/node-type/story/fields/field_images','Pictures','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,3202,3208,3217,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('primary-links',3219,0,'reports','reports','Give20 Reports','a:0:{}','system',0,0,0,0,0,1,0,3219,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3221,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3221,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3222,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3222,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -4715,7 +4715,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237814904,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237817613,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237743367,1237718883,1,NULL,'','','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','0','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -5422,11 +5422,12 @@ CREATE TABLE `vocabulary` (
   `weight` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`vid`),
   KEY `list` (`weight`,`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `vocabulary` WRITE;
 /*!40000 ALTER TABLE `vocabulary` DISABLE KEYS */;
 INSERT INTO `vocabulary` VALUES (2,'Tags','Give your piece of content a tag, such as \'culture\', \'trip\', \'party\' and so on. You can reuse this tag across articles, events and all the other content types provided by this website.','Enter a comma separated list of words',1,0,0,0,1,'taxonomy',0);
+INSERT INTO `vocabulary` VALUES (3,'Discounts','Discount categories.','',1,0,1,0,0,'taxonomy',0);
 /*!40000 ALTER TABLE `vocabulary` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `vocabulary_node_types`;
@@ -5442,6 +5443,7 @@ LOCK TABLES `vocabulary_node_types` WRITE;
 INSERT INTO `vocabulary_node_types` VALUES (2,'article');
 INSERT INTO `vocabulary_node_types` VALUES (2,'event');
 INSERT INTO `vocabulary_node_types` VALUES (2,'partner');
+INSERT INTO `vocabulary_node_types` VALUES (3,'partner');
 /*!40000 ALTER TABLE `vocabulary_node_types` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `votingapi_cache`;
@@ -5502,7 +5504,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=7795 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7808 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
