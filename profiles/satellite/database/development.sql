@@ -2033,7 +2033,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=3218 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3219 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2826,13 +2826,13 @@ INSERT INTO `menu_links` VALUES ('navigation',3181,0,'admin/content/node-type/ar
 INSERT INTO `menu_links` VALUES ('admin_menu',3183,3116,'admin/content/node-type/article/fields/field_teaser','admin/content/node-type/article/fields/field_teaser','Teaser','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2380,3116,3183,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',3187,0,'admin/content/node-type/event/fields/field_teaser/remove','admin/content/node-type/event/fields/field_teaser/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,3187,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3189,3132,'admin/content/node-type/event/fields/field_teaser','admin/content/node-type/event/fields/field_teaser','Teaser','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2397,3132,3189,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',3195,11,'node/add/story','node/add/story','Give20 Reports','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:160:\"An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.\";}}','system',0,0,0,0,0,2,0,11,3195,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',3196,10,'admin/content/node-type/story','admin/content/node-type/story','Give20 Reports','a:0:{}','system',-1,0,0,0,0,3,0,2,10,3196,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3195,11,'node/add/story','node/add/story','Give20 Report','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:160:\"An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.\";}}','system',0,0,0,0,0,2,0,11,3195,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3196,10,'admin/content/node-type/story','admin/content/node-type/story','Give20 Report','a:0:{}','system',-1,0,0,0,0,3,0,2,10,3196,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',3197,0,'admin/content/node-type/story/delete','admin/content/node-type/story/delete','Delete','a:0:{}','system',-1,0,0,0,0,1,0,3197,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',3198,0,'admin/content/node-type/story/groups/%','admin/content/node-type/story/groups/%','Edit group','a:0:{}','system',-1,0,0,0,0,1,0,3198,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',3199,0,'admin/content/node-type/story/groups/%/remove','admin/content/node-type/story/groups/%/remove','Edit group','a:0:{}','system',-1,0,0,0,0,1,0,3199,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3201,2364,'node/add/story','node/add/story','Give20 Reports','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,3,0,2163,2364,3201,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3202,2181,'admin/content/node-type/story','admin/content/node-type/story','Edit @content-type','a:2:{s:1:\"t\";a:1:{s:13:\"@content-type\";s:14:\"Give20 Reports\";}s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,3,0,2163,2181,3202,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3201,2364,'node/add/story','node/add/story','Give20 Report','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,3,0,2163,2364,3201,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3202,2181,'admin/content/node-type/story','admin/content/node-type/story','Edit @content-type','a:2:{s:1:\"t\";a:1:{s:13:\"@content-type\";s:13:\"Give20 Report\";}s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,3,0,2163,2181,3202,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3203,3202,'admin/content/node-type/story/display','admin/content/node-type/story/display','Display fields','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,2,4,0,2163,2181,3202,3203,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3204,3203,'admin/content/node-type/story/display/basic','admin/content/node-type/story/display/basic','Basic','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,3202,3203,3204,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3205,3203,'admin/content/node-type/story/display/rss','admin/content/node-type/story/display/rss','RSS','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,5,0,2163,2181,3202,3203,3205,0,0,0,0,0);
@@ -2844,8 +2844,8 @@ INSERT INTO `menu_links` VALUES ('admin_menu',3211,3208,'admin/content/node-type
 INSERT INTO `menu_links` VALUES ('navigation',3212,0,'admin/content/node-type/story/fields/field_date/remove','admin/content/node-type/story/fields/field_date/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,3212,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3214,3208,'admin/content/node-type/story/fields/field_date','admin/content/node-type/story/fields/field_date','Date','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,3202,3208,3214,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',3215,0,'admin/content/node-type/story/fields/field_images/remove','admin/content/node-type/story/fields/field_images/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,3215,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3216,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3216,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3217,3208,'admin/content/node-type/story/fields/field_images','admin/content/node-type/story/fields/field_images','Pictures','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,3202,3208,3217,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3218,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3218,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -3174,14 +3174,14 @@ INSERT INTO `menu_router` VALUES ('admin/content/node-type/spotlight/fields/fiel
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/spotlight/fields/field_text_spotlight/remove','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:25:\"content_field_remove_form\";i:1;s:9:\"spotlight\";i:2;s:20:\"field_text_spotlight\";}',127,7,'','admin/content/node-type/spotlight/fields/field_text_spotlight/remove','Remove field','t','',4,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/spotlight/groups/%','a:1:{i:5;N;}','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:26:\"fieldgroup_group_edit_form\";i:1;s:9:\"spotlight\";i:2;i:5;}',62,6,'','admin/content/node-type/spotlight/groups/%','Edit group','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/spotlight/groups/%/remove','a:1:{i:5;N;}','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:23:\"fieldgroup_remove_group\";i:1;s:9:\"spotlight\";i:2;i:5;}',125,7,'','admin/content/node-type/spotlight/groups/%/remove','Edit group','t','',4,'','','',0,'');
-INSERT INTO `menu_router` VALUES ('admin/content/node-type/story','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"story\";s:4:\"name\";s:14:\"Give20 Reports\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:160:\"An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.\";s:4:\"help\";s:0:\"\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:1:\"0\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',15,4,'','admin/content/node-type/story','Give20 Reports','t','',4,'','','',0,'modules/node/content_types.inc');
-INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/delete','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:24:\"node_type_delete_confirm\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"story\";s:4:\"name\";s:14:\"Give20 Reports\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:160:\"An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.\";s:4:\"help\";s:0:\"\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:1:\"0\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'','admin/content/node-type/story/delete','Delete','t','',4,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/story','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"story\";s:4:\"name\";s:13:\"Give20 Report\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:160:\"An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.\";s:4:\"help\";s:0:\"\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:1:\"0\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',15,4,'','admin/content/node-type/story','Give20 Report','t','',4,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/delete','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:24:\"node_type_delete_confirm\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"story\";s:4:\"name\";s:13:\"Give20 Report\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:160:\"An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.\";s:4:\"help\";s:0:\"\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:1:\"0\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'','admin/content/node-type/story/delete','Delete','t','',4,'','','',0,'modules/node/content_types.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/display','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:29:\"content_display_overview_form\";i:1;s:5:\"story\";}',31,5,'admin/content/node-type/story','admin/content/node-type/story','Display fields','t','',128,'','','',2,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/display/basic','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:5:\"story\";i:2;s:5:\"basic\";}',63,6,'admin/content/node-type/story/display','admin/content/node-type/story','Basic','t','',136,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/display/rss','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:5:\"story\";i:2;s:3:\"rss\";}',63,6,'admin/content/node-type/story/display','admin/content/node-type/story','RSS','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/display/search','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:5:\"story\";i:2;s:6:\"search\";}',63,6,'admin/content/node-type/story/display','admin/content/node-type/story','Search','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/display/token','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:5:\"story\";i:2;s:5:\"token\";}',63,6,'admin/content/node-type/story/display','admin/content/node-type/story','Token','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/edit','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"story\";s:4:\"name\";s:14:\"Give20 Reports\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:160:\"An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.\";s:4:\"help\";s:0:\"\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:1:\"0\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'admin/content/node-type/story','admin/content/node-type/story','Edit','t','',136,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/edit','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"story\";s:4:\"name\";s:13:\"Give20 Report\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:160:\"An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.\";s:4:\"help\";s:0:\"\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:1:\"0\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'admin/content/node-type/story','admin/content/node-type/story','Edit','t','',136,'','','',0,'modules/node/content_types.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/fields','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:27:\"content_field_overview_form\";i:1;s:5:\"story\";}',31,5,'admin/content/node-type/story','admin/content/node-type/story','Manage fields','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/fields/field_date','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:23:\"content_field_edit_form\";i:1;s:5:\"story\";i:2;s:10:\"field_date\";}',63,6,'admin/content/node-type/story/fields','admin/content/node-type/story','Date','t','',128,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/story/fields/field_date/remove','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:25:\"content_field_remove_form\";i:1;s:5:\"story\";i:2;s:10:\"field_date\";}',127,7,'','admin/content/node-type/story/fields/field_date/remove','Remove field','t','',4,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
@@ -3503,7 +3503,7 @@ INSERT INTO `menu_router` VALUES ('node/add/page','','','node_access','a:2:{i:0;
 INSERT INTO `menu_router` VALUES ('node/add/partner','','','node_access','a:2:{i:0;s:6:\"create\";i:1;s:7:\"partner\";}','node_add','a:1:{i:0;i:2;}',7,3,'','node/add/partner','Partner','check_plain','',6,'','A <em>partner</em> content type is suitable for creating and displaying partners of your project. <em>Partners</em> will be featured with their logo on the homepage, and you can give some more information and a link to their website.','',0,'modules/node/node.pages.inc');
 INSERT INTO `menu_router` VALUES ('node/add/setting','','','node_access','a:2:{i:0;s:6:\"create\";i:1;s:7:\"setting\";}','node_add','a:1:{i:0;i:2;}',7,3,'','node/add/setting','Setting','check_plain','',6,'','Local settings of the website template.','',0,'modules/node/node.pages.inc');
 INSERT INTO `menu_router` VALUES ('node/add/spotlight','','','node_access','a:2:{i:0;s:6:\"create\";i:1;s:9:\"spotlight\";}','node_add','a:1:{i:0;i:2;}',7,3,'','node/add/spotlight','Spotlight','check_plain','',6,'','The <em>spotlight</em> is the main feature of your website. It is prominently displayed on the front page and it should engage website visitors.','',0,'modules/node/node.pages.inc');
-INSERT INTO `menu_router` VALUES ('node/add/story','','','node_access','a:2:{i:0;s:6:\"create\";i:1;s:5:\"story\";}','node_add','a:1:{i:0;i:2;}',7,3,'','node/add/story','Give20 Reports','check_plain','',6,'','An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.','',0,'modules/node/node.pages.inc');
+INSERT INTO `menu_router` VALUES ('node/add/story','','','node_access','a:2:{i:0;s:6:\"create\";i:1;s:5:\"story\";}','node_add','a:1:{i:0;i:2;}',7,3,'','node/add/story','Give20 Report','check_plain','',6,'','An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.','',0,'modules/node/node.pages.inc');
 INSERT INTO `menu_router` VALUES ('nodereference/autocomplete','','','user_access','a:1:{i:0;s:14:\"access content\";}','nodereference_autocomplete','a:0:{}',3,2,'','nodereference/autocomplete','Nodereference autocomplete','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('openid/authenticate','','','user_is_anonymous','a:0:{}','openid_authentication_page','a:0:{}',3,2,'','openid/authenticate','OpenID Login','t','',4,'','','',0,'modules/openid/openid.pages.inc');
 INSERT INTO `menu_router` VALUES ('outcomes','','','views_access','a:1:{i:0;b:1;}','views_page','a:2:{i:0;s:8:\"outcomes\";i:1;s:6:\"page_1\";}',1,1,'','outcomes','Outcomes','t','',6,'','Outcomes','',0,'');
@@ -3843,7 +3843,7 @@ INSERT INTO `node_type` VALUES ('page','Page','node','A <em>page</em> is suitabl
 INSERT INTO `node_type` VALUES ('partner','Partner','node','A <em>partner</em> content type is suitable for creating and displaying partners of your project. <em>Partners</em> will be featured with their logo on the homepage, and you can give some more information and a link to their website.','Describe your partner, including a description of its activity and its logo.<br/>\r\nYou may also put a link to your partner\'s institutional website.',1,'Title',1,'Body',10,1,1,0,'');
 INSERT INTO `node_type` VALUES ('setting','Setting','node','Local settings of the website template.','',1,'Title',0,'',0,1,1,0,'');
 INSERT INTO `node_type` VALUES ('spotlight','Spotlight','node','The <em>spotlight</em> is the main feature of your website. It is prominently displayed on the front page and it should engage website visitors.','Describe the spotlight of your website. You are required to attach an image.<br/>\r\nThe text body and the image will be prominently displayed on the front page.',1,'Title',1,'Body',10,1,1,0,'');
-INSERT INTO `node_type` VALUES ('story','Give20 Reports','node','An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.','',1,'Title',1,'Body',0,1,1,0,'');
+INSERT INTO `node_type` VALUES ('story','Give20 Report','node','An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.','',1,'Title',1,'Body',0,1,1,0,'');
 /*!40000 ALTER TABLE `node_type` ENABLE KEYS */;
 UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `openid_association` (
@@ -4676,7 +4676,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237812551,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237813923,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237743367,1237718883,1,NULL,'','','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','0','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -4746,7 +4746,7 @@ INSERT INTO `variable` VALUES ('comment_controls_page','s:1:\"3\";');
 INSERT INTO `variable` VALUES ('comment_controls_partner','s:1:\"3\";');
 INSERT INTO `variable` VALUES ('comment_controls_setting','s:1:\"3\";');
 INSERT INTO `variable` VALUES ('comment_controls_spotlight','s:1:\"3\";');
-INSERT INTO `variable` VALUES ('comment_controls_story','i:3;');
+INSERT INTO `variable` VALUES ('comment_controls_story','s:1:\"3\";');
 INSERT INTO `variable` VALUES ('comment_credit','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('comment_default_mode_article','s:1:\"4\";');
 INSERT INTO `variable` VALUES ('comment_default_mode_credit','s:1:\"4\";');
@@ -4756,7 +4756,7 @@ INSERT INTO `variable` VALUES ('comment_default_mode_page','s:1:\"4\";');
 INSERT INTO `variable` VALUES ('comment_default_mode_partner','s:1:\"4\";');
 INSERT INTO `variable` VALUES ('comment_default_mode_setting','s:1:\"4\";');
 INSERT INTO `variable` VALUES ('comment_default_mode_spotlight','s:1:\"4\";');
-INSERT INTO `variable` VALUES ('comment_default_mode_story','i:4;');
+INSERT INTO `variable` VALUES ('comment_default_mode_story','s:1:\"4\";');
 INSERT INTO `variable` VALUES ('comment_default_order_article','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('comment_default_order_credit','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('comment_default_order_event','s:1:\"2\";');
@@ -4796,7 +4796,7 @@ INSERT INTO `variable` VALUES ('comment_preview_page','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('comment_preview_partner','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('comment_preview_setting','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('comment_preview_spotlight','s:1:\"1\";');
-INSERT INTO `variable` VALUES ('comment_preview_story','i:1;');
+INSERT INTO `variable` VALUES ('comment_preview_story','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('comment_setting','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('comment_spotlight','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('comment_story','s:1:\"0\";');
@@ -4808,7 +4808,7 @@ INSERT INTO `variable` VALUES ('comment_subject_field_page','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('comment_subject_field_partner','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('comment_subject_field_setting','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('comment_subject_field_spotlight','s:1:\"1\";');
-INSERT INTO `variable` VALUES ('comment_subject_field_story','i:1;');
+INSERT INTO `variable` VALUES ('comment_subject_field_story','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('configurable_timezones','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('content_extra_weights_activity','a:4:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-3\";s:4:\"menu\";s:2:\"-4\";s:11:\"attachments\";s:1:\"1\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_article','a:4:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-1\";s:4:\"menu\";s:1:\"1\";s:8:\"taxonomy\";s:1:\"0\";}');
@@ -4936,7 +4936,7 @@ INSERT INTO `variable` VALUES ('form_build_id_page','s:37:\"form-6a322bbca609cce
 INSERT INTO `variable` VALUES ('form_build_id_partner','s:37:\"form-657b2aa6c25a3a71bb67f22198f778ee\";');
 INSERT INTO `variable` VALUES ('form_build_id_setting','s:37:\"form-587124af2f1aabfa01631a3436fe4464\";');
 INSERT INTO `variable` VALUES ('form_build_id_spotlight','s:37:\"form-0666de39f16e0ed66c7f9d897473c969\";');
-INSERT INTO `variable` VALUES ('form_build_id_story','s:37:\"form-589d3e1ae84497e91387a80edd7c6369\";');
+INSERT INTO `variable` VALUES ('form_build_id_story','s:37:\"form-6b61934718366b15ecd952df4ff9eaab\";');
 INSERT INTO `variable` VALUES ('gmap_node_markers','a:1:{s:8:\"activity\";s:6:\"drupal\";}');
 INSERT INTO `variable` VALUES ('googleanalytics_codesnippet_before','s:0:\"\";');
 INSERT INTO `variable` VALUES ('googleanalytics_last_cache','i:1237803792;');
@@ -5169,6 +5169,7 @@ INSERT INTO `variable` VALUES ('service_links_show_yahoo','i:1;');
 INSERT INTO `variable` VALUES ('service_links_style','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('signup_close_early','s:1:\"4\";');
 INSERT INTO `variable` VALUES ('signup_date_field_event','s:10:\"field_date\";');
+INSERT INTO `variable` VALUES ('signup_date_field_story','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('signup_date_format','s:5:\"small\";');
 INSERT INTO `variable` VALUES ('signup_display_signup_user_list','s:10:\"embed-view\";');
 INSERT INTO `variable` VALUES ('signup_fieldset_collapsed','s:1:\"1\";');
@@ -5207,7 +5208,7 @@ INSERT INTO `variable` VALUES ('upload_page','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('upload_partner','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_setting','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_spotlight','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('upload_story','i:1;');
+INSERT INTO `variable` VALUES ('upload_story','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('upload_uploadsize_default','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('upload_usersize_default','s:2:\"32\";');
 INSERT INTO `variable` VALUES ('user_email_verification','b:0;');
@@ -5458,7 +5459,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=7788 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7790 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
