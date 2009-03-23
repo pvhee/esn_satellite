@@ -113,4 +113,7 @@
 .block .block-edit-link a:hover { color: green; text-decoration: none !important;}
 .block .block-edit-link {display: none;}
 .block:hover .block-edit-link {display: inline;}
+#header .block:hover .block-edit-link,
+#header-top .block:hover .block-edit-link,
+#footer .block:hover .block-edit-link {display: none;}
 
