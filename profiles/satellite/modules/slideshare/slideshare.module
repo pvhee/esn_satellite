@@ -1,0 +1,42 @@
+<?php
+// $Id: slideshare.module,v 1.1 2009/03/07 14:53:00 antoniodemarco Exp $
+
+/**
+ * @file
+ * Slideshare integration module.
+ *
+ * The module expose a provider to emvideo module in order to retrieve
+ * presentations from SlideShare online platform.
+ */
+
+/**
+ * Implementation of hook_emfield_providers().
+ *
+ * Insert Slideshare in the emvideo list of providers.
+ */
+function slideshare_emfield_providers() {
+  $files = drupal_system_listing("\.inc", drupal_get_path('module', 'slideshare') ."/providers", 'name', 0);
+  return $files;
+}
+
+/**
+ * Implementation of hok_theme()
+ *
+ * @param  $existing
+ * @param  $type
+ * @param  $theme
+ * @param  $path
+ */
+function slideshare_theme($existing = array(), $type = NULL, $theme = NULL, $path = NULL) {
+  $themes = array('slideshare_flash' => array('arguments' => array('embed' => NULL, 'width' => NULL, 'height' => NULL, 'field' => NULL, 'item' => NULL, 'node' => NULL, 'autoplay' => NULL ), 'file' => 'slideshare.theme.inc' ) );
+  return $themes;
+}
+
+/**
+ * Implementation of hoox_views_api()
+ *
+ * @return unknown
+ */
+function hook_views_api() {
+  return array('api' => 2.0 );
+}

@@ -1,5 +1,5 @@
 <?php
-// $Id: logintoboggan.module,v 1.133.2.7 2008/12/09 23:53:47 thehunmonkgroup Exp $
+// $Id: logintoboggan.module,v 1.133.2.9 2009/03/21 12:09:20 thehunmonkgroup Exp $
 
 /**
  * @file
@@ -69,10 +69,10 @@ function logintoboggan_help($path, $arg) {
       <li>Optionally display a user message indicating a successful login.</li>
       </ol>
       These features may be turned on or off in the Login Toboggan <a href=\"!url\">settings</a>.</p>
-      <p>Because this module completely reorients the Drupal login process you will probably want to edit the welcome e-mail on the user settings page. For instance if you have enabled the 'Set password & Immediate Login' option, you probably should not send the user's password out in the welcome e-mail (also note when the 'Set password & Immediate Login' option is enabled, the !login_url becomes a verification url that the user MUST visit in order to enable authenticated status). The following is an example welcome e-mail:</p>
-      ", array('!url' => url('admin/user/logintoboggan')));
+      <p>Because this module completely reorients the Drupal login process you will probably want to edit the welcome e-mail on the <a href=\"!user_settings\">user settings</a> page. For instance if you have enabled the 'Set password' option, you probably should not send the user's password out in the welcome e-mail (also note when the 'Set password' option is enabled, the !login_url becomes a verification url that the user MUST visit in order to enable authenticated status). The following is an example welcome e-mail:</p>
+      ", array('!url' => url('admin/user/logintoboggan'), '!user_settings' => url('admin/user/settings')));
       $output .= drupal_get_form('logintoboggan_example_help');
-      $output .= t("<p>Note that if you have set the 'Visitors can create accounts but administrator approval is required' option for account approval, and are also using the 'Set password & Immediate Login' feature of LoginToboggan, the user will immediately receive the permissions of the pre-authorized user role -- you may wish to create a pre-authorized role with the exact same permissions as the anonymous user if you wish the newly created user to only have anonymous permissions.</p><p>In order for a site administrator to unblock a user who is awaiting administrator approval, they must either click on the validation link they receive in their notification e-mail, or manually remove the user from the site's pre-authorized role -- afterwards the user will then receive 'authenticated user' permissions. In either case, the user will receive an account activated e-mail if it's enabled on the user settings page -- it's recommended that you edit the default text of the activation e-mail to match LoginToboggan's workflow as described. </p><p>If you are using the 'Visitors can create accounts and no administrator approval is required' option, removal of the pre-authorized role will happen automatically when the user validates their account via e-mail.</p><p>Also be aware that LoginToboggan only affects registrations initiated by users--any user account created by an administrator will not use any LoginToboggan functionality.");
+      $output .= t("<p>Note that if you have set the 'Visitors can create accounts but administrator approval is required' option for account approval, and are also using the 'Set password' feature of LoginToboggan, the user will immediately receive the permissions of the pre-authorized user role -- you may wish to create a pre-authorized role with the exact same permissions as the anonymous user if you wish the newly created user to only have anonymous permissions.</p><p>In order for a site administrator to unblock a user who is awaiting administrator approval, they must either click on the validation link they receive in their notification e-mail, or manually remove the user from the site's pre-authorized role -- afterwards the user will then receive 'authenticated user' permissions. In either case, the user will receive an account activated e-mail if it's enabled on the user settings page -- it's recommended that you edit the default text of the activation e-mail to match LoginToboggan's workflow as described. </p><p>If you are using the 'Visitors can create accounts and no administrator approval is required' option, removal of the pre-authorized role will happen automatically when the user validates their account via e-mail.</p><p>Also be aware that LoginToboggan only affects registrations initiated by users--any user account created by an administrator will not use any LoginToboggan functionality.");
       return $output;
       break;
     case 'admin/user/logintoboggan':
@@ -97,9 +97,6 @@ For full site access, you will need to click on this link or copy and paste it i
 !login_url
 
 This will verify your account and log you into the site. In the future you will be able to log in to !login_uri using the username and password that you created during registration:
-
-username: !username
-password: !password
 
 --  !site team');
   $form['foo'] = array(
@@ -605,7 +602,7 @@ function _logintoboggan_toggleboggan ($form) {
 }
 
 function logintoboggan_main_settings(&$form_state) {
-  $version = str_replace(array('$Re'.'vision:', '$Da'.'te:', '$'), array('', '', ''), '<p style="font-size:x-small">Login Toboggan version: <b>$Revision: 1.133.2.7 $</b>, $Date: 2008/12/09 23:53:47 $</p>');
+  $version = str_replace(array('$Re'.'vision:', '$Da'.'te:', '$'), array('', '', ''), '<p style="font-size:x-small">Login Toboggan version: <b>$Revision: 1.133.2.9 $</b>, $Date: 2009/03/21 12:09:20 $</p>');
 
   $_disabled = t('disabled');
   $_enabled = t('enabled');
@@ -704,7 +701,7 @@ function logintoboggan_main_settings(&$form_state) {
     '#type' => 'textfield',
     '#title' => t('Redirect path on Confirmation'),
     '#default_value' => variable_get('logintoboggan_redirect_on_confirm', ''),
-    '#description' => t('Normally, after a user confirms their new account, they will be taken to their user page. Leave this setting blank if you wish to keep the default behavior. If you wish the user to go to a page of your choosing, then enter the path for it here. For instance, you may redirect them to a static page such as <cite>node/35</cite>, or to the <cite>&lt;front&gt;</cite> page. You may also use <em>%uid</em> as a variable, and the user\'s user ID will be substituted in the path.'),
+    '#description' => t('Normally, after a user confirms their new account, they will be taken to their user page. Leave this setting blank if you wish to keep the default behavior. If you wish the user to go to a page of your choosing, then enter the path for it here. For instance, you may redirect them to a static page such as <cite>node/35</cite>, or to the <cite>&lt;front&gt;</cite> page. You may also use <em>%uid</em> as a variable, and the user\'s user ID will be substituted in the path. In the case where users are not creating their own passwords, it is suggested to use <cite>user/%uid/edit</cite> here, so the user may set their password immediately after validating their account.'),
   );
 
   $form['other'] = array('#type' => 'fieldset',
@@ -965,14 +962,10 @@ function logintoboggan_process_login($account, $redirect = ''){
   user_module_invoke('login', $edit, $user);
 
   // In the special case where a user is validating but they did not create their
-  // own password, redirect them to the user edit page, with a final destination
-  // of the confirmation page, if it exists.
+  // own password, show a user message letting them know to change their password.
   if (variable_get('user_email_verification', TRUE)) {
     watchdog('user', 'User %name used one-time login link at time %timestamp.', array('%name' => $user->name, '%timestamp' => time()));
     drupal_set_message(t('You have just used your one-time login link. It is no longer necessary to use this link to login. Please change your password.'));
-
-    $destination = $redirect['path'] ? 'destination='. url($redirect['path'], array('query' => $redirect['query'], 'fragment' => $redirect['fragment'])) : NULL;
-    drupal_goto('user/'. $user->uid .'/edit', $destination);
   }
 
   if ($redirect['path'] != '') {

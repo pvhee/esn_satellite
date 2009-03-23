@@ -1,5 +1,5 @@
 <?php
-// $Id: binary.inc,v 1.7.2.32.2.4 2009/03/08 20:37:39 chriskennedy Exp $
+// $Id: binary.inc,v 1.7.2.32.2.5 2009/03/21 18:32:00 chriskennedy Exp $
 
 /**
  * @file
@@ -167,7 +167,7 @@ function advpoll_view_results_binary($node, $teaser, $page) {
 }
 
 function advpoll_calculate_results_binary(&$cache, $node) {
-  $result = db_query('SELECT uid, vote_source FROM {votingapi_vote} WHERE content_type = "advpoll" AND content_id = %d AND value_type = "option" GROUP BY uid, vote_source', $node->nid);
+  $result = db_query('SELECT uid, vote_source FROM {votingapi_vote} WHERE content_type = "advpoll" AND content_id = %d AND value_type = "option" GROUP BY uid, vote_source, timestamp', $node->nid);
   $total_votes = 0;
   while ($vote = db_fetch_objecT($result)) {
     $total_votes++;

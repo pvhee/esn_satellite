@@ -1,0 +1,14 @@
+; $Id: drush_views.info,v 1.1 2009/03/06 18:11:12 pescetti Exp $
+name = Drush Views
+description = List, import and export views from Drush.
+package = Drush
+dependencies[] = drush
+dependencies[] = views
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-03-07
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "drush_views"
+datestamp = "1236384359"
+

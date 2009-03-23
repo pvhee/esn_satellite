@@ -1,5 +1,5 @@
 <?php
-// $Id: advpoll.install,v 1.5.2.20.2.2 2009/01/27 05:12:20 chriskennedy Exp $
+// $Id: advpoll.install,v 1.5.2.20.2.3 2009/03/21 18:32:00 chriskennedy Exp $
 
 /**
  * @file
@@ -395,4 +395,11 @@ function advpoll_update_8() {
     db_query('UPDATE {votingapi_cache} SET tag = %d WHERE content_id = %d AND tag = %d', $choice->cid, $choice->nid, $choice->weight);
   }
   return $ret;
+}
+
+/**
+ * No-op update to clear Voting API cache after fixing http://drupal.org/node/361593
+ */
+function advpoll_update_6000() {
+  return array();
 }

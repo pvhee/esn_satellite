@@ -1,5 +1,5 @@
 <?php
-// $Id: advpoll.module,v 1.21.2.88.2.17 2009/03/15 00:34:13 chriskennedy Exp $
+// $Id: advpoll.module,v 1.21.2.88.2.19 2009/03/21 18:14:17 chriskennedy Exp $
 
 /**
  * @file
@@ -147,13 +147,14 @@ function advpoll_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  // Allow votes to be reset.
-  $menu['node/%node/reset'] = array(
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('advpoll_reset_confirm', 1),
-    'access arguments' => array('administer polls'),
+  // Allow votes to be cleared.
+  $menu['node/%node/votes/clear'] = array(
+    'page callback' => 'advpoll_clear_votes_page',
+    'page arguments' => array(1),
+    'access callback' => '_advpoll_clear_votes_access',
+    'access arguments' => array(1),
     'weight' => 3,
-    'type' => MENU_CALLBACK,
+    'type' => MENU_LOCAL_TASK,
   );
 
   // Show the write-ins tab if there is at least one.
@@ -191,7 +192,11 @@ function _advpoll_electoral_list_access($node) {
 }
 
 function _advpoll_votes_access($node) {
-  return strstr($node->type, 'advpoll_') && user_access('inspect all votes') && $node->show_votes;
+  return strstr($node->type, 'advpoll_') && $node->votes > 0 && ((user_access('inspect all votes') && $node->show_votes) || user_access('administer polls'));
+}
+
+function _advpoll_clear_votes_access($node) {
+  return strstr($node->type, 'advpoll_') && $node->votes > 0 && user_access('administer polls');
 }
 
 function _advpoll_writeins_access($node) {
@@ -504,14 +509,6 @@ function advpoll_form(&$node, $form_state) {
       '#description' => t('Users with the appropriate permissions will be able to see how each person voted.'),
       '#default_value' => $default_show_votes,
     );
-
-    // Only show when editing a poll, not creating.
-    if ($editing) {
-      $form['settings']['reset'] = array(
-        '#type' => 'button',
-        '#value' => t('Reset votes'),
-      );
-    }
   }
   else {
     // Just pass the values for users without the "administer polls" permission.
@@ -671,52 +668,46 @@ function advpoll_load($node) {
  * Validate the editing of an advpoll node. 
  */
 function advpoll_validate($node, &$form) {
-  // TODO: fix this.
-  if ($form['op'] == t('Reset votes')) {
-    drupal_goto('node/'. $node->nid .'/reset');
+  // Use form_set_error for any errors.
+  $node->choice = array_values($node->choice);
+
+  // TODO: verify if this hack is still needed in Drupal 6.
+  // Start keys at 1 rather than 0.
+  array_unshift($node->choice, '');
+  unset($node->choice[0]);
+
+  // Check for at least two choices.
+  $real_choices = 0;
+
+  // TODO: take out _POST
+  foreach ($_POST['choice'] as $i => $choice) {
+    if ($choice['label'] != '') {
+      $real_choices++;
+    }
   }
-  else {
-    // Use form_set_error for any errors.
-    $node->choice = array_values($node->choice);
 
-    // TODO: verify if this hack is still needed in Drupal 6.
-    // Start keys at 1 rather than 0.
-    array_unshift($node->choice, '');
-    unset($node->choice[0]);
+  if ($real_choices < 2) {
+    form_set_error("choice][$real_choices][label", t('You must fill in at least two choices.'));
+  }
 
-    // Check for at least two choices.
-    $real_choices = 0;
+  // Validate max choices since it has #DANGEROUS_SKIP_CHECK set to true.
+  if ($node->settings['max_choices'] < 0) {
+    form_set_error('settings][max_choices]', t('Maximum choices must be a non-negative integer.'));
+  }
 
-    // TODO: take out _POST
-    foreach ($_POST['choice'] as $i => $choice) {
-      if ($choice['label'] != '') {
-        $real_choices++;
-      }
-    }
-
-    if ($real_choices < 2) {
-      form_set_error("choice][$real_choices][label", t('You must fill in at least two choices.'));
-    }
-
-    // Validate max choices since it has #DANGEROUS_SKIP_CHECK set to true.
-    if ($node->settings['max_choices'] < 0) {
-      form_set_error('settings][max_choices]', t('Maximum choices must be a non-negative integer.'));
-    }
-
-    if ($node->settings['max_choices'] > $real_choices) {
-      form_set_error('settings][max_choices]', t('Maximum choices cannot be larger than the number of choices submitted.'));
-    }
+  if ($node->settings['max_choices'] > $real_choices) {
+    form_set_error('settings][max_choices]', t('Maximum choices cannot be larger than the number of choices submitted.'));
+  }
     
-    // Validate dates.
-    if (!empty($node->settings['start_date']) && strtotime($node->settings['start_date']) <= 0) {
-      form_set_error('settings][start_date', t('You have to specify a valid starting date.'));
-    }
-    if (!empty($node->settings['end_date']) && strtotime($node->settings['end_date']) <= 0) {
-      form_set_error('settings][end_date', t('You have to specify a valid ending date.'));
-    }
-    if (!empty($node->settings['end_date']) && $node->settings['end_date'] < $node->settings['start_date']) {
-      form_set_error('settings][end_date', t('Ending date cannot be before the starting date.'));
-    }
+  // Validate dates.
+  if (!empty($node->settings['start_date']) && strtotime($node->settings['start_date']) <= 0) {
+    form_set_error('settings][start_date', t('You have to specify a valid starting date.'));
+  }
+  if (!empty($node->settings['end_date']) && strtotime($node->settings['end_date']) <= 0) {
+    form_set_error('settings][end_date', t('You have to specify a valid ending date.'));
+  }
+  if (!empty($node->settings['end_date']) && $node->settings['end_date'] < $node->settings['start_date']) {
+    form_set_error('settings][end_date', t('Ending date cannot be before the starting date.'));
   }
 }
 
@@ -1028,82 +1019,88 @@ function advpoll_electoral_list_form_submit($form, &$form_state) {
  * Display the votes page.
  */
 function advpoll_votes_page($node) {
-  if (!$node->show_votes) {
-    // Advanced Poll is set to not allow viewing of votes.
-    drupal_not_found();
-    return;
-  }
 
   drupal_set_title(check_plain($node->title));
-  $output = t('This table lists all the recorded votes for this poll. If anonymous users are allowed to vote, they will be identified by the IP address of the computer they used when they voted.');
 
-  $header[] = array('data' => t('Visitor'), 'field' => 'u.name');
-  $header[] = array('data' => t('Vote'), '');
+  if ($node->show_votes) {
+    $output = t('This table lists all the recorded votes for this poll. If anonymous users are allowed to vote, they will be identified by the IP address of the computer they used when they voted.');
 
-  $result = pager_query("SELECT v.uid, v.vote_source, v.timestamp, u.name FROM {votingapi_vote} v LEFT JOIN {users} u ON v.uid = u.uid WHERE v.content_type = 'advpoll' AND v.content_id = %d GROUP BY v.uid, v.vote_source, v.timestamp, u.name". tablesort_sql($header), 20, 0, NULL, $node->nid);
-  $uids = array();
-  $hostnames = array();
-  $timestamp = array();
-  while ($vote = db_fetch_object($result)) {
-    $uids[$vote->uid] = $vote->uid;
-    $hostnames[$vote->vote_source] = $vote->vote_source;
-    $timestamps[$vote->timestamp] = $vote->timestamp;
-  }
-    
-  $rows = array();
-  if (count($uids) > 0) {
-    // Use db_query()'s placeholder syntax to prevent any potential SQL
-    // injection attacks.
-    $uid_placeholders = array_fill(0, count($uids), '%d');
-    $host_placeholders = array_fill(0, count($hostnames), "'%s'");
-    $time_placeholders = array_fill(0, count($timestamps), '%d');
-
-    // Here we have to select votes based on their uid+hostname+timestamp
-    // combination because there no unique id for the set of rankings that
-    // corresponds to a uesr's full vote on a given poll.
-    $query = "SELECT v.vote_id, v.tag, v.uid, v.vote_source, v.timestamp, v.value, u.name FROM {votingapi_vote} v LEFT JOIN {users} u ON v.uid = u.uid WHERE v.content_id = %d AND v.uid IN(". implode(', ', $uid_placeholders) .") AND v.vote_source IN(". implode(', ', $host_placeholders) .") AND v.timestamp IN(". implode(', ', $time_placeholders) .")". tablesort_sql($header);
-    $parameters = array_merge(array($query, $node->nid), array_values($uids), array_values($hostnames), array_values($timestamps));
-    $result = call_user_func_array('db_query', $parameters);
+    $header[] = array('data' => t('Visitor'), 'field' => 'u.name');
+    $header[] = array('data' => t('Vote'), '');
+  
+    $result = pager_query("SELECT v.uid, v.vote_source, v.timestamp, u.name FROM {votingapi_vote} v LEFT JOIN {users} u ON v.uid = u.uid WHERE v.content_type = 'advpoll' AND v.content_id = %d GROUP BY v.uid, v.vote_source, v.timestamp, u.name". tablesort_sql($header), 20, 0, NULL, $node->nid);
+    $uids = array();
+    $hostnames = array();
+    $timestamp = array();
     while ($vote = db_fetch_object($result)) {
-      $key = $vote->uid ? $vote->uid : $vote->vote_source .'-'. $vote->timestamp;
-      $rows[$key]['name'] = $vote->name ? theme('username', $vote) : check_plain($vote->vote_source);
+      $uids[$vote->uid] = $vote->uid;
+      $hostnames[$vote->vote_source] = $vote->vote_source;
+      $timestamps[$vote->timestamp] = $vote->timestamp;
+    }
+    
+    $rows = array();
+    if (count($uids) > 0) {
+      // Use db_query()'s placeholder syntax to prevent any potential SQL
+      // injection attacks.
+      $uid_placeholders = array_fill(0, count($uids), '%d');
+      $host_placeholders = array_fill(0, count($hostnames), "'%s'");
+      $time_placeholders = array_fill(0, count($timestamps), '%d');
+
+      // Here we have to select votes based on their uid+hostname+timestamp
+      // combination because there no unique id for the set of rankings that
+      // corresponds to a uesr's full vote on a given poll.
+      $query = "SELECT v.vote_id, v.tag, v.uid, v.vote_source, v.timestamp, v.value, u.name FROM {votingapi_vote} v LEFT JOIN {users} u ON v.uid = u.uid WHERE v.content_id = %d AND v.uid IN(". implode(', ', $uid_placeholders) .") AND v.vote_source IN(". implode(', ', $host_placeholders) .") AND v.timestamp IN(". implode(', ', $time_placeholders) .")". tablesort_sql($header);
+      $parameters = array_merge(array($query, $node->nid), array_values($uids), array_values($hostnames), array_values($timestamps));
+      $result = call_user_func_array('db_query', $parameters);
+      while ($vote = db_fetch_object($result)) {
+        $key = $vote->uid ? $vote->uid : $vote->vote_source .'-'. $vote->timestamp;
+        $rows[$key]['name'] = $vote->name ? theme('username', $vote) : check_plain($vote->vote_source);
+        if ($node->type == 'advpoll_ranking') {
+          // Need two dimensional results (if equal rankings are allowed).
+          $rows[$key]['votes'][$vote->value][] = _advpoll_choice_markup($node->choice[$vote->tag]['label'], $node->format, FALSE);
+        }
+        else {
+          // Just need one dimensional results.
+          $rows[$key]['votes'][] = _advpoll_choice_markup($node->choice[$vote->tag]['label'], $node->format, FALSE);
+        }
+      }
+    }
+    
+    $separators = array('advpoll_ranking' => ' > ', 'advpoll_binary' => ', ');
+
+    // Create strings out of each vote.
+    $results = array();
+
+    foreach ($rows as $key => $container) {
+      $ranking = $container['votes'];
+      asort($ranking);
+      $rankings = array();
       if ($node->type == 'advpoll_ranking') {
-        // Need two dimensional results (if equal rankings are allowed).
-        $rows[$key]['votes'][$vote->value][] = _advpoll_choice_markup($node->choice[$vote->tag]['label'], $node->format, FALSE);
+        // Include support for multiple choices having the same ranking.
+        foreach ($ranking as $vote => $choices) {
+          $rankings[$vote] = implode(' = ', $choices);
+        }
       }
       else {
-        // Just need one dimensional results.
-        $rows[$key]['votes'][] = _advpoll_choice_markup($node->choice[$vote->tag]['label'], $node->format, FALSE);
+        // Just copy the previous array.
+        $rankings = $ranking;
       }
+      ksort($rankings);
+      $results[$key]['name'] = $rows[$key]['name'];
+      $results[$key]['vote'] = implode($separators[$node->type], $rankings);
     }
+
+    $output .= theme('table', $header, $results);
+    $output .= theme('pager', NULL, 20, 0);
   }
-    
-  $separators = array('advpoll_ranking' => ' > ', 'advpoll_binary' => ', ');
-
-  // Create strings out of each vote.
-  $results = array();
-
-  foreach ($rows as $key => $container) {
-    $ranking = $container['votes'];
-    asort($ranking);
-    $rankings = array();
-    if ($node->type == 'advpoll_ranking') {
-      // Include support for multiple choices having the same ranking.
-      foreach ($ranking as $vote => $choices) {
-        $rankings[$vote] = implode(' = ', $choices);
-      }
-    }
-    else {
-      // Just copy the previous array.
-      $rankings = $ranking;
-    }
-    ksort($rankings);
-    $results[$key]['name'] = $rows[$key]['name'];
-    $results[$key]['vote'] = implode($separators[$node->type], $rankings);
+  else {
+    $output = '<div class="advpoll-cant-show-votes">'. t('This poll is configured to not display individual votes.') . '</div>';
   }
 
-  $output .= theme('table', $header, $results);
-  $output .= theme('pager', NULL, 20, 0);
+  // Only display the button if the user has access.
+  if (_advpoll_clear_votes_access($node)) {
+    $output .= drupal_get_form('advpoll_clear_votes_form', $node->nid);
+  } 
   print theme('page', $output);
 }
 
@@ -1208,32 +1205,66 @@ function _advpoll_get_mode($node_type) {
 }
 
 /**
- * Callback to display a reset votes confirmation form.
+ * Minimal clear votes form for the votes tab.
  */
-function advpoll_reset_confirm($form_state) {
-  $edit = $form_state['values']['edit'];
-  $edit['nid'] = $edit['nid']? $edit['nid'] : arg(1);
-  $node = node_load($edit['nid']);
+function advpoll_clear_votes_form(&$form_state, $nid) {
+  $form = array();
+  $form['reset'] = array(
+    '#value' => t('Clear all votes'),
+    '#type' => 'submit',
+  );
+  $form['#redirect'] = 'node/'. $nid . '/votes/clear';
+  return $form;
+}
 
-  $form['nid'] = array('#type' => 'value', '#value' => $node->nid);
-  $output = confirm_form($form, t('Are you sure you want to reset the votes for %title?', array('%title' => $node->title)), 'node/'. $node->nid, t('This action cannot be undone.'), t('Reset votes'), t('Cancel'));
+/**
+ * Custom page to handle confirmation of clearing all votes.
+ */
+function advpoll_clear_votes_page($node) {
+
+  // Add the votes tab to the menu.
+  $breadcrumb = drupal_get_breadcrumb();
+  $breadcrumb[] = l(t('Votes'), 'node/' . $node->nid . '/votes');
+  drupal_set_breadcrumb($breadcrumb);
+
+  $output = drupal_get_form('advpoll_clear_votes_confirm_form', $node->nid);
+
+  // Set the title after we get the form so we overwrite confirm_form()'s title.
+  drupal_set_title(check_plain($node->title));
+
   return $output;
 }
 
 /**
- * Reset votes once the confirmation is given.
+ * Display a clear votes confirmation form.
  */
-function advpoll_reset_confirm_submit($form, &$form_state) {
+function advpoll_clear_votes_confirm_form(&$form_state, $nid) {
+  $node = node_load($nid);
+  $form = array();
+  $form['#nid'] = $node->nid;
+  $confirm_question = t('Are you sure you want to clear all votes for %title?', array('%title' => $node->title));
+  $form['question'] = array('#value' => '<h2>' . $confirm_question . '</h2>');
+  $form = confirm_form($form, $confirm_question, 'node/'. $node->nid . '/votes', t('This will delete all votes that have been cast for the poll.'), t('Clear all votes'), t('Cancel'));
+  // Override the default theming of confirmation forms.
+  // TODO: need to theme this form better. 
+  unset($form['#theme']);
+  return $form;
+}
+
+/**
+ * Clear all votes once the confirmation is given.
+ */
+function advpoll_clear_votes_confirm_form_submit($form, &$form_state) {
   if ($form_state['values']['confirm']) {
-    $nid = arg(1);
+    $nid = $form['#nid'];
     if ($node = node_load($nid)) {
       // Delete any votes for the poll.
       db_query("DELETE FROM {votingapi_vote} WHERE content_type = 'advpoll' AND content_id = %d", $node->nid);
       // Delete any write-in choices.
       db_query('DELETE FROM {advpoll_choices} WHERE writein = 1 AND nid = %d', $node->nid);
       votingapi_recalculate_results('advpoll', $node->nid);
-      drupal_set_message(t('Votes have been reset.'));
-      drupal_goto('node/'. $node->nid);
+      drupal_set_message(t('Votes have been cleared.'));
+      watchdog('content', 'Cleared all poll votes (%num_votes).', array('%num_votes' => $node->votes), WATCHDOG_NOTICE, l(t('view'), 'node/' . $node->nid));
     }
     $form_state['redirect'] = 'node/'. $node->nid;
   }

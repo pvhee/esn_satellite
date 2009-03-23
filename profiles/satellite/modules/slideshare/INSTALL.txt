@@ -1,0 +1,22 @@
+// $Id: INSTALL.txt,v 1.1 2009/03/07 14:53:00 antoniodemarco Exp $
+
+Getting Started
+---------------
+
+1. Upload and enable the following modules:
+    - Embedded Media Field (http://drupal.org/project/emfield)
+    - Embedded Media Video (http://drupal.org/project/emfield)
+    - Content Construction Kit (CCK) (http://drupal.org/project/cck) 
+    - Slideshare module 
+
+2. Go to "Administer" > "Content management" > "Embedded Media Field configuration". 
+
+3. Unfold "Embedded Video Field" and, under "Providers", the "Slideshare configuration" form.
+
+4. CLick on "Allow content from Slideshare"
+
+5. Provide "API Key" and "Shared Secret" by Slideshare, to obtain one apply to http://www.slideshare.net/applyforapi.
+
+6. Add a CCK field of "Embedded Video" type and select "Slideshare" in "Providers Supported".
+
+7. At the node submission stage paste the Wordpress code provided by Slideshare.net (next version will work simple with URL)

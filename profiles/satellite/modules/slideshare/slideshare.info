@@ -1,0 +1,17 @@
+; $Id: slideshare.info,v 1.1 2009/03/07 14:53:00 antoniodemarco Exp $
+
+name = Slideshare
+description = Exposes Slideshare provider to Embedded Media Field module
+
+core = 6.x
+dependencies[] = emfield
+dependencies[] = emvideo
+dependencies[] = content
+package = CCK
+core = 6.x
+; Information added by drupal.org packaging script on 2009-03-08
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "slideshare"
+datestamp = "1236471482"
+

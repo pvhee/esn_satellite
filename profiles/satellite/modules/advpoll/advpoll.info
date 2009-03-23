@@ -5,9 +5,9 @@ dependencies[] = votingapi
 core = 6.x
 package = "Voting"
 
-; Information added by drupal.org packaging script on 2009-03-15
+; Information added by drupal.org packaging script on 2009-03-22
 version = "6.x-1.x-dev"
 core = "6.x"
 project = "advpoll"
-datestamp = "1237118480"
+datestamp = "1237680077"
 
