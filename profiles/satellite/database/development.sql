@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `aggregator_item` (
   `guid` varchar(255) default NULL,
   PRIMARY KEY  (`iid`),
   KEY `fid` (`fid`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `aggregator_item` WRITE;
 /*!40000 ALTER TABLE `aggregator_item` DISABLE KEYS */;
@@ -821,7 +821,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `pid` (`pid`),
   KEY `nid` (`nid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=312 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=311 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
@@ -2058,7 +2058,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=3224 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3227 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2361,7 +2361,7 @@ INSERT INTO `menu_links` VALUES ('navigation',1707,11,'node/add/credit','node/ad
 INSERT INTO `menu_links` VALUES ('navigation',1708,10,'admin/content/node-type/credit','admin/content/node-type/credit','Credit','a:0:{}','system',-1,0,0,0,0,3,0,2,10,1708,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1709,0,'admin/content/node-type/credit/delete','admin/content/node-type/credit/delete','Delete','a:0:{}','system',-1,0,0,0,0,1,0,1709,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1744,15,'admin/help/php','admin/help/php','php','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1744,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',1898,18,'admin/settings/signup','admin/settings/signup','Signup settings','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:31:\"Configure settings for signups.\";}}','system',0,0,0,0,0,3,0,2,18,1898,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',1898,18,'admin/settings/signup','admin/settings/signup','Signup','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:31:\"Configure settings for signups.\";}}','system',0,0,0,0,0,3,0,2,18,1898,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1899,10,'admin/content/signup','admin/content/signup','Signup administration','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:65:\"View all signup-enabled posts, and open or close signups on them.\";}}','system',0,0,0,0,0,3,0,2,10,1899,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1900,15,'admin/help/signup','admin/help/signup','signup','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1900,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1901,0,'node/%/signups/confirm','node/%/signups/confirm','','a:0:{}','system',-1,0,0,0,0,1,0,1901,0,0,0,0,0,0,0,0,0);
@@ -2387,7 +2387,7 @@ INSERT INTO `menu_links` VALUES ('navigation',1941,15,'admin/help/image','admin/
 INSERT INTO `menu_links` VALUES ('navigation',1942,15,'admin/help/imagebrowser','admin/help/imagebrowser','imagebrowser','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1942,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1943,10,'admin/content/node-type/image','admin/content/node-type/image','Image','a:0:{}','system',-1,0,0,0,0,3,0,2,10,1943,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1944,0,'admin/content/node-type/image/delete','admin/content/node-type/image/delete','Delete','a:0:{}','system',-1,0,0,0,0,1,0,1944,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2159,0,'<front>','','<img class=\"admin-menu-icon\" src=\"/webdev/satellite/satellite/profiles/satellite/themes/satellite/favicon.ico\" width=\"16\" height=\"16\" alt=\"Home\" />','a:3:{s:11:\"extra class\";s:15:\"admin-menu-icon\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,1,1,0,-100,1,0,2159,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2159,0,'<front>','','<img class=\"admin-menu-icon\" src=\"/satellite/profiles/satellite/themes/satellite/favicon.ico\" width=\"16\" height=\"16\" alt=\"Home\" />','a:3:{s:11:\"extra class\";s:15:\"admin-menu-icon\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,1,1,0,-100,1,0,2159,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2160,0,'logout','logout','Log out @username','a:3:{s:11:\"extra class\";s:35:\"admin-menu-action admin-menu-logout\";s:1:\"t\";a:0:{}s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,-100,1,0,2160,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2161,0,'user','user','icon_users','a:3:{s:11:\"extra class\";s:50:\"admin-menu-action admin-menu-icon admin-menu-users\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,-90,1,0,2161,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2162,0,'admin/advanced_help','admin/advanced_help','Advanced help','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,9,1,0,2162,0,0,0,0,0,0,0,0,0);
@@ -2415,7 +2415,7 @@ INSERT INTO `menu_links` VALUES ('admin_menu',2183,2168,'admin/settings/date-tim
 INSERT INTO `menu_links` VALUES ('admin_menu',2185,2163,'admin/content/emfield','admin/content/emfield','Embedded Media Field configuration','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,2163,2185,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2186,2168,'admin/settings/error-reporting','admin/settings/error-reporting','Error reporting','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2186,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2187,2163,'admin/content/aggregator','admin/content/aggregator','Feed aggregator','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,2163,2187,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2189,2168,'admin/settings/signup','admin/settings/signup','Signup settings','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2189,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2189,2168,'admin/settings/signup','admin/settings/signup','Signup','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2189,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2190,2168,'admin/settings/fckeditor','admin/settings/fckeditor','FCKeditor','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2190,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2191,2168,'admin/settings/file-system','admin/settings/file-system','File system','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2191,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2192,2168,'admin/settings/uploads','admin/settings/uploads','File uploads','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2192,0,0,0,0,0,0,0,0);
@@ -2871,7 +2871,7 @@ INSERT INTO `menu_links` VALUES ('admin_menu',3214,3208,'admin/content/node-type
 INSERT INTO `menu_links` VALUES ('navigation',3215,0,'admin/content/node-type/story/fields/field_images/remove','admin/content/node-type/story/fields/field_images/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,3215,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3217,3208,'admin/content/node-type/story/fields/field_images','admin/content/node-type/story/fields/field_images','Pictures','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,3202,3208,3217,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('primary-links',3219,0,'reports','reports','Give20 Reports','a:0:{}','system',0,0,0,0,0,1,0,3219,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3223,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3223,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3226,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3226,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -3087,14 +3087,14 @@ INSERT INTO `menu_router` VALUES ('admin/content/node-type/credit/fields/field_t
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/credit/fields/field_text_credit/remove','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:25:\"content_field_remove_form\";i:1;s:6:\"credit\";i:2;s:17:\"field_text_credit\";}',127,7,'','admin/content/node-type/credit/fields/field_text_credit/remove','Remove field','t','',4,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/credit/groups/%','a:1:{i:5;N;}','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:26:\"fieldgroup_group_edit_form\";i:1;s:6:\"credit\";i:2;i:5;}',62,6,'','admin/content/node-type/credit/groups/%','Edit group','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/credit/groups/%/remove','a:1:{i:5;N;}','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:23:\"fieldgroup_remove_group\";i:1;s:6:\"credit\";i:2;i:5;}',125,7,'','admin/content/node-type/credit/groups/%/remove','Edit group','t','',4,'','','',0,'');
-INSERT INTO `menu_router` VALUES ('admin/content/node-type/event','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"event\";s:4:\"name\";s:5:\"Event\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:187:\"An <em>event</em> is suitable for any content that is strongly associated with a date, such as a meeting or a conference. Events are displayed in a calendar accessible from the main menu.\";s:4:\"help\";s:129:\"Provide the event details below. Include a start date and an optional end date.<br/>\r\nYou can also attach images and other files.\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',15,4,'','admin/content/node-type/event','Event','t','',4,'','','',0,'modules/node/content_types.inc');
-INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/delete','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:24:\"node_type_delete_confirm\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"event\";s:4:\"name\";s:5:\"Event\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:187:\"An <em>event</em> is suitable for any content that is strongly associated with a date, such as a meeting or a conference. Events are displayed in a calendar accessible from the main menu.\";s:4:\"help\";s:129:\"Provide the event details below. Include a start date and an optional end date.<br/>\r\nYou can also attach images and other files.\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'','admin/content/node-type/event/delete','Delete','t','',4,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/event','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"event\";s:4:\"name\";s:5:\"Event\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:187:\"An <em>event</em> is suitable for any content that is strongly associated with a date, such as a meeting or a conference. Events are displayed in a calendar accessible from the main menu.\";s:4:\"help\";s:137:\"<p>Provide the event details below. Include a start date and an optional end date.<br />\r\nYou can also attach images and other files.</p>\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',15,4,'','admin/content/node-type/event','Event','t','',4,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/delete','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:24:\"node_type_delete_confirm\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"event\";s:4:\"name\";s:5:\"Event\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:187:\"An <em>event</em> is suitable for any content that is strongly associated with a date, such as a meeting or a conference. Events are displayed in a calendar accessible from the main menu.\";s:4:\"help\";s:137:\"<p>Provide the event details below. Include a start date and an optional end date.<br />\r\nYou can also attach images and other files.</p>\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'','admin/content/node-type/event/delete','Delete','t','',4,'','','',0,'modules/node/content_types.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/display','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:29:\"content_display_overview_form\";i:1;s:5:\"event\";}',31,5,'admin/content/node-type/event','admin/content/node-type/event','Display fields','t','',128,'','','',2,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/display/basic','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:5:\"event\";i:2;s:5:\"basic\";}',63,6,'admin/content/node-type/event/display','admin/content/node-type/event','Basic','t','',136,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/display/rss','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:5:\"event\";i:2;s:3:\"rss\";}',63,6,'admin/content/node-type/event/display','admin/content/node-type/event','RSS','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/display/search','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:5:\"event\";i:2;s:6:\"search\";}',63,6,'admin/content/node-type/event/display','admin/content/node-type/event','Search','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/display/token','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:5:\"event\";i:2;s:5:\"token\";}',63,6,'admin/content/node-type/event/display','admin/content/node-type/event','Token','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/edit','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"event\";s:4:\"name\";s:5:\"Event\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:187:\"An <em>event</em> is suitable for any content that is strongly associated with a date, such as a meeting or a conference. Events are displayed in a calendar accessible from the main menu.\";s:4:\"help\";s:129:\"Provide the event details below. Include a start date and an optional end date.<br/>\r\nYou can also attach images and other files.\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'admin/content/node-type/event','admin/content/node-type/event','Edit','t','',136,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/edit','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:5:\"event\";s:4:\"name\";s:5:\"Event\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:187:\"An <em>event</em> is suitable for any content that is strongly associated with a date, such as a meeting or a conference. Events are displayed in a calendar accessible from the main menu.\";s:4:\"help\";s:137:\"<p>Provide the event details below. Include a start date and an optional end date.<br />\r\nYou can also attach images and other files.</p>\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'admin/content/node-type/event','admin/content/node-type/event','Edit','t','',136,'','','',0,'modules/node/content_types.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/fields','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:27:\"content_field_overview_form\";i:1;s:5:\"event\";}',31,5,'admin/content/node-type/event','admin/content/node-type/event','Manage fields','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/fields/field_date','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:23:\"content_field_edit_form\";i:1;s:5:\"event\";i:2;s:10:\"field_date\";}',63,6,'admin/content/node-type/event/fields','admin/content/node-type/event','Date','t','',128,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/event/fields/field_date/remove','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:25:\"content_field_remove_form\";i:1;s:5:\"event\";i:2;s:10:\"field_date\";}',127,7,'','admin/content/node-type/event/fields/field_date/remove','Remove field','t','',4,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
@@ -3385,7 +3385,7 @@ INSERT INTO `menu_router` VALUES ('admin/settings/poormanscron','','','user_acce
 INSERT INTO `menu_router` VALUES ('admin/settings/search','','','user_access','a:1:{i:0;s:17:\"administer search\";}','drupal_get_form','a:1:{i:0;s:21:\"search_admin_settings\";}',7,3,'','admin/settings/search','Search settings','t','',6,'','Configure relevance settings for search and other indexing options','',0,'modules/search/search.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/search/wipe','','','user_access','a:1:{i:0;s:17:\"administer search\";}','drupal_get_form','a:1:{i:0;s:19:\"search_wipe_confirm\";}',15,4,'','admin/settings/search/wipe','Clear index','t','',4,'','','',0,'modules/search/search.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/servicelinks','','','user_access','a:1:{i:0;s:24:\"administer service links\";}','drupal_get_form','a:1:{i:0;s:28:\"service_links_admin_settings\";}',7,3,'','admin/settings/servicelinks','Service links','t','',6,'','Control which and where service links should be active.','',0,'');
-INSERT INTO `menu_router` VALUES ('admin/settings/signup','','','user_access','a:1:{i:0;s:22:\"administer all signups\";}','drupal_get_form','a:1:{i:0;s:20:\"signup_settings_form\";}',7,3,'','admin/settings/signup','Signup settings','t','',6,'','Configure settings for signups.','',0,'profiles/satellite/modules/signup/includes/admin.settings.inc');
+INSERT INTO `menu_router` VALUES ('admin/settings/signup','','','user_access','a:1:{i:0;s:22:\"administer all signups\";}','drupal_get_form','a:1:{i:0;s:20:\"signup_settings_form\";}',7,3,'','admin/settings/signup','Signup','t','',6,'','Configure settings for signups.','',0,'profiles/satellite/modules/signup/includes/admin.settings.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/site-information','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:32:\"system_site_information_settings\";}',7,3,'','admin/settings/site-information','Site information','t','',6,'','Change basic site information, such as the site name, slogan, e-mail address, mission, front page and more.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/site-maintenance','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:32:\"system_site_maintenance_settings\";}',7,3,'','admin/settings/site-maintenance','Site maintenance','t','',6,'','Take the site off-line for maintenance or bring it back online.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/teleport','','','user_access','a:1:{i:0;s:19:\"administer teleport\";}','drupal_get_form','a:1:{i:0;s:22:\"teleport_settings_form\";}',7,3,'','admin/settings/teleport','Teleport','t','',6,'','Manage settings for the Teleport utility.','',0,'');
@@ -3869,7 +3869,7 @@ INSERT INTO `node_type` VALUES ('advpoll_binary','Binary poll','advpoll','Vote f
 INSERT INTO `node_type` VALUES ('advpoll_ranking','Ranking poll','advpoll','Rank a number of choices.','',1,'Ranking question',1,'Description',0,0,0,1,'advpoll_ranking');
 INSERT INTO `node_type` VALUES ('article','Article','node','An <em>article</em> is suitable for news items and press releases. By default, an <em>article</em> entry is automatically featured on the site front page, and provides the ability to post comments.','Write your article below. A teaser will automatically be built from the first few lines.<br/> You can attach images and other files.',1,'Title',1,'Body',10,1,1,0,'story');
 INSERT INTO `node_type` VALUES ('credit','Credit','node','A <em>credit</em> content type is suitable for displaying for the project credits, a legal notice or a disclaimer. They will be shown in the footer on every page of the site.','Write your credit here. Note that the title is used for internal reference only and will not be displayed.',1,'Title',0,'',0,1,1,0,'');
-INSERT INTO `node_type` VALUES ('event','Event','node','An <em>event</em> is suitable for any content that is strongly associated with a date, such as a meeting or a conference. Events are displayed in a calendar accessible from the main menu.','Provide the event details below. Include a start date and an optional end date.<br/>\r\nYou can also attach images and other files.',1,'Title',1,'Body',10,1,1,0,'');
+INSERT INTO `node_type` VALUES ('event','Event','node','An <em>event</em> is suitable for any content that is strongly associated with a date, such as a meeting or a conference. Events are displayed in a calendar accessible from the main menu.','<p>Provide the event details below. Include a start date and an optional end date.<br />\r\nYou can also attach images and other files.</p>',1,'Title',1,'Body',10,1,1,0,'');
 INSERT INTO `node_type` VALUES ('image','Image','image','An image (with thumbnail). This is ideal for publishing photographs or screenshots.','',1,'Title',1,'Body',0,0,0,1,'image');
 INSERT INTO `node_type` VALUES ('outcome','Outcome','node','An <em>outcome</em> is suitable for presenting outcomes of the project, such as meeting reports with presentations, files, external links, videos and images. The latest inserted outcomes are displayed on the front page.','Specify a title, a text body and optionally a reference date for your outcome.<br/>\r\nYou are required to attach at least one image, and you can attach more images or other files and specify external links.',1,'Title',1,'Body',10,1,1,0,'');
 INSERT INTO `node_type` VALUES ('page','Page','node','A <em>page</em> is suitable for information that rarely changes, such as an \"About us\" section of a website or institutional information. By default, a <em>page</em> entry does not allow visitor comments.','Specify a title and a main body for your page.<br/>\r\nYou can attach files too.',1,'Title',1,'Body',10,1,1,0,'page');
@@ -4082,7 +4082,7 @@ CREATE TABLE `signup` (
 
 LOCK TABLES `signup` WRITE;
 /*!40000 ALTER TABLE `signup` DISABLE KEYS */;
-INSERT INTO `signup` VALUES (0,'',1,'Dear user,\r\nyour signup for the event [title] has correctly been registered.\r\nThe event is scheduled for [field_date-view].\r\nBest regards,\r\n[site-name]',1,1,'Dear user,\r\ndon\'t forget the event [title], scheduled for [field_date-view]!\r\nBest regards,\r\n[site-name]',0,0,1);
+INSERT INTO `signup` VALUES (0,'',1,'Dear user, your signup for the event [title] has correctly been registered.\r\nThe event is scheduled for [field_date-view].\r\nBest regards, [site-name]',1,1,'Dear user, don\'t forget the event [title], scheduled for [field_date-view]!\r\nBest regards, [site-name]',0,0,1);
 /*!40000 ALTER TABLE `signup` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `signup_log`;
@@ -4715,7 +4715,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237818837,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237824053,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237743367,1237718883,1,NULL,'','','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','0','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -4969,13 +4969,13 @@ INSERT INTO `variable` VALUES ('format','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('form_build_id_activity','s:37:\"form-7c6635fe2bd085a00c1a8f23c04b9d0a\";');
 INSERT INTO `variable` VALUES ('form_build_id_article','s:37:\"form-60f5b77d49b7589927a372f833a986a4\";');
 INSERT INTO `variable` VALUES ('form_build_id_credit','s:37:\"form-a86a9bbd56d2d9f66e0af082aad2d9e4\";');
-INSERT INTO `variable` VALUES ('form_build_id_event','s:37:\"form-4fd5e02f0f287b2cce327a49931a0604\";');
+INSERT INTO `variable` VALUES ('form_build_id_event','s:37:\"form-166a2ca7a5a2fab13c7fc72ae95a9aee\";');
 INSERT INTO `variable` VALUES ('form_build_id_outcome','s:37:\"form-644dc8fb55000c81fc488466179f5abc\";');
 INSERT INTO `variable` VALUES ('form_build_id_page','s:37:\"form-6a322bbca609ccee6710ff18ddce22a8\";');
 INSERT INTO `variable` VALUES ('form_build_id_partner','s:37:\"form-657b2aa6c25a3a71bb67f22198f778ee\";');
 INSERT INTO `variable` VALUES ('form_build_id_setting','s:37:\"form-587124af2f1aabfa01631a3436fe4464\";');
 INSERT INTO `variable` VALUES ('form_build_id_spotlight','s:37:\"form-0666de39f16e0ed66c7f9d897473c969\";');
-INSERT INTO `variable` VALUES ('form_build_id_story','s:37:\"form-6b61934718366b15ecd952df4ff9eaab\";');
+INSERT INTO `variable` VALUES ('form_build_id_story','s:37:\"form-8819eb6cf7148b4a419cac24e9e7eeb9\";');
 INSERT INTO `variable` VALUES ('gmap_node_markers','a:1:{s:8:\"activity\";s:6:\"drupal\";}');
 INSERT INTO `variable` VALUES ('googleanalytics_codesnippet_before','s:0:\"\";');
 INSERT INTO `variable` VALUES ('googleanalytics_last_cache','i:1237803792;');
@@ -5215,7 +5215,7 @@ INSERT INTO `variable` VALUES ('signup_fieldset_collapsed','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('signup_form_location','s:4:\"node\";');
 INSERT INTO `variable` VALUES ('signup_node_default_state_event','s:11:\"allowed_off\";');
 INSERT INTO `variable` VALUES ('signup_node_default_state_setting','s:8:\"disabled\";');
-INSERT INTO `variable` VALUES ('signup_node_default_state_story','s:11:\"allowed_off\";');
+INSERT INTO `variable` VALUES ('signup_node_default_state_story','s:8:\"disabled\";');
 INSERT INTO `variable` VALUES ('signup_user_list_view','s:23:\"signup_user_list:page_1\";');
 INSERT INTO `variable` VALUES ('site_403','s:15:\"toboggan/denied\";');
 INSERT INTO `variable` VALUES ('site_footer','s:0:\"\";');
@@ -5234,7 +5234,7 @@ INSERT INTO `variable` VALUES ('theme_garland_settings','a:20:{s:11:\"toggle_log
 INSERT INTO `variable` VALUES ('theme_project_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_satellite_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:0;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_settings','a:26:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:1;s:22:\"toggle_secondary_links\";i:1;s:24:\"toggle_node_info_article\";i:1;s:31:\"toggle_node_info_advpoll_binary\";i:1;s:23:\"toggle_node_info_credit\";i:0;s:22:\"toggle_node_info_event\";i:1;s:22:\"toggle_node_info_image\";i:1;s:24:\"toggle_node_info_outcome\";i:1;s:21:\"toggle_node_info_page\";i:0;s:24:\"toggle_node_info_partner\";i:0;s:32:\"toggle_node_info_advpoll_ranking\";i:1;s:26:\"toggle_node_info_spotlight\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
-INSERT INTO `variable` VALUES ('update_last_check','i:1237818788;');
+INSERT INTO `variable` VALUES ('update_last_check','i:1237823262;');
 INSERT INTO `variable` VALUES ('upload_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_credit','s:1:\"0\";');
@@ -5277,13 +5277,14 @@ INSERT INTO `variable` VALUES ('user_picture_path','s:8:\"pictures\";');
 INSERT INTO `variable` VALUES ('user_register','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('user_registration_help','s:0:\"\";');
 INSERT INTO `variable` VALUES ('user_signatures','s:1:\"0\";');
+INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_event','a:6:{i:0;s:4:\"menu\";i:1;s:20:\"revision_information\";i:2;s:6:\"author\";i:3;s:7:\"options\";i:4;s:4:\"path\";i:5;s:16:\"comment_settings\";}');
 INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_setting','a:0:{}');
 INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_story','a:0:{}');
 INSERT INTO `variable` VALUES ('views_block_hashes','a:0:{}');
 INSERT INTO `variable` VALUES ('views_defaults','a:4:{s:9:\"frontpage\";b:0;s:8:\"calendar\";b:0;s:7:\"archive\";b:1;s:16:\"signup_user_list\";b:0;}');
 INSERT INTO `variable` VALUES ('wipe','s:16:\"Wipe and rebuild\";');
 INSERT INTO `variable` VALUES ('ya_enabled','i:0;');
-INSERT INTO `variable` VALUES ('ya_key','i:14425;');
+INSERT INTO `variable` VALUES ('ya_key','i:254;');
 INSERT INTO `variable` VALUES ('yui_editor_button_profile','s:30:\"yui_editor_toolbar_no_style.js\";');
 INSERT INTO `variable` VALUES ('yui_editor_button_type','s:6:\"simple\";');
 INSERT INTO `variable` VALUES ('yui_editor_coder','i:0;');
@@ -5504,7 +5505,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6030 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5906 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
