@@ -99,7 +99,7 @@
 									</div>
 								<?php endif; ?>
 
-								<div class="clear-block"></div>
+								<!-- <div class="clear-block"></div> -->
 								<div id="footer">
 									<div id="inner-footer">
 										<div class="container">  
