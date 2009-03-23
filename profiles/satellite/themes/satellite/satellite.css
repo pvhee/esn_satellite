@@ -27,7 +27,7 @@ body.frontpage #wrapper #container #center { width:608px; }
 body.frontpage #wrapper #container .sidebar { width:314px;}
 */
 
-#inner-footer { background: #333 url("images/layout/footer_blue.png") no-repeat top left; margin-bottom:0.4em; padding-left:241px; padding-top:177px; }
+#inner-footer { margin: 0; background: #333 url("images/layout/footer_blue.png") no-repeat top left; margin-bottom:0.4em; padding-left:241px; padding-top:177px; }
 #footer .container { background: none; }
 
 .sidebar { border-bottom:1px solid #DDDDDD; }
@@ -236,6 +236,9 @@ body.sidebar-right #wrapper #container #center {width: 610px}
 
 ul.primary li.active a, ul.primary li.active a:link, ul.primary li.active a:visited, ul.primary li a:hover, ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active a:visited, ul.secondary li a:hover { background: #00ADEE; color:#FFFFFF; }
 
+.advanced-help-link { margin-right: 10px;}
 
+.views-field-field-teaser-value { line-height: 1.4em; font-size: 1em;}
+.views-field-title { font-size:1.3em; }
 
 
