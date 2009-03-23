@@ -71,7 +71,7 @@ CREATE TABLE `advanced_help_index` (
   `language` varchar(12) NOT NULL default '',
   PRIMARY KEY  (`sid`),
   KEY `language` (`language`)
-) ENGINE=MyISAM AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `advanced_help_index` WRITE;
 /*!40000 ALTER TABLE `advanced_help_index` DISABLE KEYS */;
@@ -159,6 +159,7 @@ INSERT INTO `advanced_help_index` VALUES (88,'calendar','embedding','en');
 INSERT INTO `advanced_help_index` VALUES (89,'calendar','ical','en');
 INSERT INTO `advanced_help_index` VALUES (90,'calendar','ical-export','en');
 INSERT INTO `advanced_help_index` VALUES (91,'calendar','ical-import','en');
+INSERT INTO `advanced_help_index` VALUES (92,'ya_satellite_blocks','about','en');
 /*!40000 ALTER TABLE `advanced_help_index` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `advpoll`;
@@ -273,7 +274,7 @@ CREATE TABLE `aggregator_feed` (
 
 LOCK TABLES `aggregator_feed` WRITE;
 /*!40000 ALTER TABLE `aggregator_feed` DISABLE KEYS */;
-INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237770356,'http://www.esn.org/news/feed','News view','','',1237770568,5);
+INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237803763,'http://www.esn.org/news/feed','News view','','',1237803974,5);
 /*!40000 ALTER TABLE `aggregator_feed` ENABLE KEYS */;
 UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `aggregator_item` (
@@ -343,7 +344,7 @@ CREATE TABLE `blocks` (
   PRIMARY KEY  (`bid`),
   UNIQUE KEY `tmd` (`theme`,`module`,`delta`),
   KEY `list` (`theme`,`status`,`region`,`weight`,`module`)
-) ENGINE=MyISAM AUTO_INCREMENT=246 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=247 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `blocks` WRITE;
 /*!40000 ALTER TABLE `blocks` DISABLE KEYS */;
@@ -504,15 +505,15 @@ INSERT INTO `blocks` VALUES (188,'views','credits-block_1','base',0,6,'',0,0,0,'
 INSERT INTO `blocks` VALUES (189,'views','signup_user_list-block_1','base',0,12,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (190,'views','signup_current_signups-block','base',0,11,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (191,'views','signup_available_signups-block','base',0,10,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (192,'advpoll','latest_poll','satellite',1,-19,'right',0,0,1,'<front>','',1);
-INSERT INTO `blocks` VALUES (193,'aggregator','feed-1','satellite',1,-25,'content_left',0,0,1,'<front>','',1);
+INSERT INTO `blocks` VALUES (192,'advpoll','latest_poll','satellite',1,-21,'right',0,0,1,'<front>','',1);
+INSERT INTO `blocks` VALUES (193,'aggregator','feed-1','satellite',1,-26,'content_right',0,0,1,'<front>','',1);
 INSERT INTO `blocks` VALUES (194,'block','4','satellite',1,-8,'footer_right',0,0,0,'','Get Updates',-1);
 INSERT INTO `blocks` VALUES (195,'block','5','satellite',0,-7,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (196,'calendar','0','satellite',0,-11,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (197,'comment','0','satellite',0,-22,'',0,0,1,'<front>','',1);
 INSERT INTO `blocks` VALUES (199,'devel','0','satellite',0,-10,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (200,'devel','2','satellite',0,-12,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (201,'fbconnect','0','satellite',1,-24,'right',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (201,'fbconnect','0','satellite',1,-26,'right',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (202,'image','0','satellite',0,-6,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (203,'image','1','satellite',0,-5,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (204,'logintoboggan','0','satellite',1,-26,'header_top',0,0,0,'','',-1);
@@ -528,34 +529,35 @@ INSERT INTO `blocks` VALUES (213,'profile','0','satellite',0,-17,'',0,0,0,'','',
 INSERT INTO `blocks` VALUES (214,'search','0','satellite',1,-25,'header_top',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (215,'service_links','0','satellite',0,-4,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (216,'system','0','satellite',0,-18,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (217,'user','0','satellite',1,-20,'right',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (218,'user','1','satellite',1,-21,'right',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (217,'user','0','satellite',1,-22,'right',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (218,'user','1','satellite',1,-23,'right',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (219,'user','2','satellite',0,-14,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (220,'user','3','satellite',0,4,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (221,'views','articles-block_1','satellite',1,-26,'content_left',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (222,'views','articles-block_2','satellite',0,-3,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (223,'views','calendar-block_1','satellite',0,-9,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (224,'views','calendar-calendar_block_1','satellite',1,-22,'right',0,0,1,'events\r\nevent/*','',-1);
+INSERT INTO `blocks` VALUES (224,'views','calendar-calendar_block_1','satellite',1,-24,'right',0,0,1,'events\r\nevent/*','',-1);
 INSERT INTO `blocks` VALUES (225,'views','credits-block_1','satellite',0,-1,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (226,'views','events-block_1','satellite',1,-26,'content_right',0,0,1,'<front>','',-1);
+INSERT INTO `blocks` VALUES (226,'views','events-block_1','satellite',1,-26,'right_top',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (227,'views','events-block_2','satellite',0,-2,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (228,'views','events-block_3','satellite',0,0,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (229,'views','outcomes-block_1','satellite',0,-24,'',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (230,'views','outcomes-block_2','satellite',0,-23,'',0,0,1,'outcome/*','',-1);
 INSERT INTO `blocks` VALUES (231,'views','outcomes-block_3','satellite',0,-21,'',0,0,1,'outcome/*','',-1);
 INSERT INTO `blocks` VALUES (232,'views','outcomes-block_4','satellite',0,-20,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (233,'views','partners-block_1','satellite',1,-23,'right',0,0,1,'<front>','',-1);
+INSERT INTO `blocks` VALUES (233,'views','partners-block_1','satellite',1,-25,'right',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (234,'views','signup_available_signups-block','satellite',0,1,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (235,'views','signup_current_signups-block','satellite',0,2,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (236,'views','signup_user_list-block_1','satellite',0,3,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (237,'views','spotlights-block_1','satellite',1,-24,'content',0,0,1,'<front>','',-1);
-INSERT INTO `blocks` VALUES (239,'content_complete','setting','satellite',1,0,'right_top',0,0,0,'','Satellite Configuration',-1);
+INSERT INTO `blocks` VALUES (239,'content_complete','setting','satellite',1,-26,'right_top',0,0,0,'','Satellite Configuration',-1);
 INSERT INTO `blocks` VALUES (240,'block','6','satellite',1,-23,'content',0,0,1,'node/244\r\nnode/244/*','',-1);
 INSERT INTO `blocks` VALUES (241,'nice_menus','1','satellite',1,1,'header',0,0,0,'','<none>',-1);
 INSERT INTO `blocks` VALUES (242,'ya_callhome_client','0','satellite',1,0,'right_bottom',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (243,'block','7','satellite',1,0,'content_right',0,0,1,'<front>','Facebook group',-1);
+INSERT INTO `blocks` VALUES (243,'block','7','satellite',1,-25,'content_right',0,0,1,'<front>','Facebook group',-1);
 INSERT INTO `blocks` VALUES (244,'ya_satellite_blocks','0','satellite',1,0,'footer_left',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (245,'ya_satellite_blocks','1','satellite',1,0,'header_top',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (246,'block','8','satellite',1,-27,'right',0,0,1,'<front>','ESN radioACTIVE',-1);
 /*!40000 ALTER TABLE `blocks` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `blocks_roles`;
@@ -593,7 +595,7 @@ CREATE TABLE `boxes` (
   `format` smallint(6) NOT NULL default '0',
   PRIMARY KEY  (`bid`),
   UNIQUE KEY `info` (`info`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `boxes` WRITE;
 /*!40000 ALTER TABLE `boxes` DISABLE KEYS */;
@@ -601,6 +603,7 @@ INSERT INTO `boxes` VALUES (4,'<p>Keep up with <?php echo variable_get(\'site_na
 INSERT INTO `boxes` VALUES (5,'<ul class=\"navigation\">\r\n<li><?php echo l(\'Home\', \'\') ?></li>\r\n<li><?php echo l(\'News\', \'articles\') ?></li>\r\n<li><?php echo l(\'Events\', \'events\') ?></li>\r\n<li><?php echo l(\'Outcomes\', \'outcomes\') ?></li>\r\n<li><?php echo l(\'Partners\', \'partners\') ?></li>\r\n<li><?php echo l(\'Contact\', \'contact\') ?></li>\r\n</ul>','Footer Links',3);
 INSERT INTO `boxes` VALUES (6,'<p>You probably want to configure other parts of your site as well, such as</p>\r\n<ul>\r\n    <li><a href=\"internal:admin/settings/fbconnect\">Facebook Connect</a> <em>allows your users to log in to your website using their Facebook account</em></li>\r\n    <li><a href=\"internal:admin/settings/site-information\">Site Information</a> <em>configures the site title that will appear in the search engines</em></li>\r\n    <li><a href=\"internal:admin/settings/googleanalytics\">Google Analytics</a> <em>will track website statistics</em></li>\r\n</ul>','Additional Settings',1);
 INSERT INTO `boxes` VALUES (7,'<p><a href=\"http://www.facebook.com/group.php?gid=11337950550\"><img width=\"160\" height=\"60\" alt=\"facebook-logo-300x112.jpg\" src=\"/webdev/satellite/satellite/imagebrowser/view/imagecache/255/160x\" /></a></p>','Facebook group',1);
+INSERT INTO `boxes` VALUES (8,'<object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\" width=\"180px\" height=\"133px\">\r\n<param name=\"movie\" value=\"http://www.radionomy.com/Flash/PlayerCustom.swf\" />\r\n<param name=\"quality\" value=\"high\" />\r\n<param name=\"allowscriptaccess\" value=\"always\" />\r\n<param name=\"flashvars\" value=\"fvBaseUrl=http%3a%2f%2fwww.radionomy.com%2f&amp;fvLng=EN&amp;fvCntUID=8597e564-fe47-4336-b992-c340861bab9d&amp;fvMenus=FAVORITE,RECOMMEND&amp;fvDefaultMenu=FAVORITE&amp;fvColumns=0&amp;fvLines=0&amp;fvBannerWidth=0&amp;fvBannerHeight=0&amp;fvDisplayMenuBy=0&amp;fvFormat=0&amp;fvImageUrl=NOLOGO&amp;fvPlayerMode=1&amp;fvPBaseUrl=http%3a%2f%2fwww.radionomy.com%2f&amp;fvPFormat=1&amp;fvPLng=EN&amp;fvPMenus=&amp;fvPMsg=You+are+listening+to+ESN+radioACTIVE&amp;fvPRadUID=1ce96847-01cd-44b9-89eb-c31c6ac36964\" /><embed src=\"http://www.radionomy.com/Flash/PlayerCustom.swf\" flashvars=\"fvBaseUrl=http%3a%2f%2fwww.radionomy.com%2f&amp;fvLng=EN&amp;fvCntUID=8597e564-fe47-4336-b992-c340861bab9d&amp;fvMenus=FAVORITE,RECOMMEND&amp;fvDefaultMenu=FAVORITE&amp;fvColumns=0&amp;fvLines=0&amp;fvBannerWidth=0&amp;fvBannerHeight=0&amp;fvDisplayMenuBy=0&amp;fvFormat=0&amp;fvImageUrl=NOLOGO&amp;fvPlayerMode=1&amp;fvPBaseUrl=http%3a%2f%2fwww.radionomy.com%2f&amp;fvPFormat=1&amp;fvPLng=EN&amp;fvPMenus=&amp;fvPMsg=You+are+listening+to+ESN+radioACTIVE&amp;fvPRadUID=1ce96847-01cd-44b9-89eb-c31c6ac36964\" allowscriptaccess=\"always\" quality=\"high\" salign=\"lt\" scale=\"noscale\" width=\"180px\" height=\"133px\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\"></embed></object>\r\n<div style=\"font:12px Trebuchet MS;padding-left:12px\"><a target=\"_blank\" style=\"color:#2E78FF\" href=\"http://www.radionomy.com/EN/Cust/RadioPromote.aspx?Section=CustomPlayer&amp;RadUID=1ce96847-01cd-44b9-89eb-c31c6ac36964\">Add this radio to your blog</a></div>','ESN radioACTIVE',2);
 /*!40000 ALTER TABLE `boxes` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `cache`;
@@ -817,7 +820,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `pid` (`pid`),
   KEY `nid` (`nid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=312 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=208 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
@@ -4630,7 +4633,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237775291,1237588426,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237804317,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237743367,1237718883,1,NULL,'','','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','0','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -4665,10 +4668,10 @@ INSERT INTO `variable` VALUES ('admin_menu_position_fixed','i:1;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_modules','i:0;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_tabs','i:0;');
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237771708;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237803763;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
-INSERT INTO `variable` VALUES ('blocktheme','a:6:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:9:\"pink_fill\";s:44:\"views-partners-block_1?destination=frontpage\";s:5:\"green\";s:22:\"views-partners-block_1\";s:9:\"blue_fill\";s:6:\"user-1\";s:5:\"green\";s:7:\"block-7\";s:9:\"blue_fill\";}');
+INSERT INTO `variable` VALUES ('blocktheme','a:6:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:10:\"green_fill\";s:44:\"views-partners-block_1?destination=frontpage\";s:5:\"green\";s:22:\"views-partners-block_1\";s:4:\"blue\";s:6:\"user-1\";s:5:\"green\";s:7:\"block-7\";s:4:\"blue\";}');
 INSERT INTO `variable` VALUES ('blocktheme_themes','s:143:\"blue|Blue\r\ngreen|Green\r\norange|Orange\r\npink|Pink\r\nblue_fill|Full Blue\r\ngreen_fill|Full Green \r\norange_fill|Full Orange\r\npink_fill|Full Pink\r\n\r\n\";');
 INSERT INTO `variable` VALUES ('block_cache','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('book_allowed_types','a:1:{i:0;s:4:\"book\";}');
@@ -4765,7 +4768,7 @@ INSERT INTO `variable` VALUES ('content_extra_weights_setting','a:2:{s:5:\"title
 INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-2\";s:4:\"menu\";s:1:\"0\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1237771739;');
+INSERT INTO `variable` VALUES ('cron_last','i:1237803793;');
 INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"GJ56wv3r90sRqdSfQh1V\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
@@ -4882,6 +4885,7 @@ INSERT INTO `variable` VALUES ('form_build_id_setting','s:37:\"form-587124af2f1a
 INSERT INTO `variable` VALUES ('form_build_id_spotlight','s:37:\"form-0666de39f16e0ed66c7f9d897473c969\";');
 INSERT INTO `variable` VALUES ('gmap_node_markers','a:1:{s:8:\"activity\";s:6:\"drupal\";}');
 INSERT INTO `variable` VALUES ('googleanalytics_codesnippet_before','s:0:\"\";');
+INSERT INTO `variable` VALUES ('googleanalytics_last_cache','i:1237803792;');
 INSERT INTO `variable` VALUES ('googleanalytics_pages','s:41:\"admin\nadmin/*\nuser/*/*\nnode/add*\nnode/*/*\";');
 INSERT INTO `variable` VALUES ('googleanalytics_segmentation','a:0:{}');
 INSERT INTO `variable` VALUES ('googleanalytics_visibility','i:0;');
@@ -4982,7 +4986,7 @@ INSERT INTO `variable` VALUES ('nice_menus_name_1','s:11:\"Nice Menu 1\";');
 INSERT INTO `variable` VALUES ('nice_menus_number','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('nice_menus_type_1','s:4:\"down\";');
 INSERT INTO `variable` VALUES ('node_admin_theme','i:0;');
-INSERT INTO `variable` VALUES ('node_cron_comments_scale','d:0.142857142857142849212692681248881854116916656494140625;');
+INSERT INTO `variable` VALUES ('node_cron_comments_scale','d:1;');
 INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1237768664\";');
 INSERT INTO `variable` VALUES ('node_cron_views_scale','d:1;');
 INSERT INTO `variable` VALUES ('node_options_activity','a:2:{i:0;s:6:\"status\";i:1;s:7:\"promote\";}');
@@ -5065,7 +5069,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
 INSERT INTO `variable` VALUES ('poormanscron_interval','s:3:\"480\";');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237771739;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237803793;');
 INSERT INTO `variable` VALUES ('poormanscron_log_cron_runs','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('poormanscron_log_progress','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('poormanscron_retry_interval','s:2:\"10\";');
@@ -5134,7 +5138,7 @@ INSERT INTO `variable` VALUES ('theme_garland_settings','a:20:{s:11:\"toggle_log
 INSERT INTO `variable` VALUES ('theme_project_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_satellite_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:0;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_settings','a:26:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:1;s:22:\"toggle_secondary_links\";i:1;s:24:\"toggle_node_info_article\";i:1;s:31:\"toggle_node_info_advpoll_binary\";i:1;s:23:\"toggle_node_info_credit\";i:0;s:22:\"toggle_node_info_event\";i:1;s:22:\"toggle_node_info_image\";i:1;s:24:\"toggle_node_info_outcome\";i:1;s:21:\"toggle_node_info_page\";i:0;s:24:\"toggle_node_info_partner\";i:0;s:32:\"toggle_node_info_advpoll_ranking\";i:1;s:26:\"toggle_node_info_spotlight\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
-INSERT INTO `variable` VALUES ('update_last_check','i:1237773182;');
+INSERT INTO `variable` VALUES ('update_last_check','i:1237803792;');
 INSERT INTO `variable` VALUES ('upload_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_credit','s:1:\"0\";');
@@ -5376,7 +5380,7 @@ CREATE TABLE IF NOT EXISTS `votingapi_vote` (
   KEY `content_source` (`content_type`,`content_id`,`vote_source`),
   KEY `content_vtype` (`content_type`,`content_id`,`value_type`),
   KEY `content_value_tag` (`content_type`,`content_id`,`value_type`,`tag`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOCK TABLES `votingapi_vote` WRITE;
 /*!40000 ALTER TABLE `votingapi_vote` DISABLE KEYS */;
@@ -5396,7 +5400,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6011 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7738 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
