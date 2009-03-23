@@ -22,6 +22,9 @@
 .block.green.fill {border-color: #346828;}
 
 
+#block-views-spotlights-block_1 { margin-top:0;background: transparent url("images/blocks/blue.png") repeat-x;  }
+
+
 /**
  * Orange
  */
@@ -68,6 +71,7 @@
 .block.blue.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
 .block.blue.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
 .block.blue.fill {border-color: #285468;}
+
 
 /**
  * Common

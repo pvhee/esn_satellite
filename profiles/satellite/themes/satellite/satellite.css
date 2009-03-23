@@ -10,7 +10,7 @@ fieldset {border:1px solid #d9eaf5; background: transparent url(images/layout/gr
 #block-menu_block-1 li { padding:0 15px; }
 #header-top { border-top: 7px solid #333; background: #EEEEEE; border-bottom: 1px solid #ddd; float: left; width: 923px;}
 #header-top .block { display: block; float: right;}
-#header-top .inner { padding: .8em;  float: left; width: 900px; }
+#header-top .inner { padding: .8em 0 .2em 0;  float: left; width: 900px; }
 #shadow-footer { padding:0 13px 13px;}
 #wrapper #container #header { margin-bottom:1.2em; }
 
@@ -198,7 +198,7 @@ ul li.collapsed { background:transparent url(images/menu-collapsed.gif) no-repea
 ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat scroll 1px 0.35em; }
 
 .terms ul.links.inline li {padding-left: .3em;}
-.terms ul.links.inline li a { padding: .5em; padding-left: 13px; background: transparent url("images/tag_blue.png") top left no-repeat; text-transform: uppercase; color: white; font-size: .85em;}
+.terms ul.links.inline li a { background: transparent url("images/tag_blue.png") top left no-repeat; font-weight: bold; text-transform: uppercase; color: white; font-size: .85em; padding: 0.5em 0.5em 0.3em 13px;}
 .terms ul.links.inline li a:hover {  padding-left: 13px;  background: transparent url("images/tag_green.png") top left no-repeat; text-decoration: none;}
 
 
@@ -231,6 +231,10 @@ body.sidebar-right #wrapper #container #center {width: 610px}
 #header-top { width: 919px; }
 .node { border: 0; border-bottom: none;}
 #wrapper #container .sidebar { margin: 0; }
+
+#comments { border-bottom: none; }
+
+ul.primary li.active a, ul.primary li.active a:link, ul.primary li.active a:visited, ul.primary li a:hover, ul.secondary li.active a, ul.secondary li.active a:link, ul.secondary li.active a:visited, ul.secondary li a:hover { background: #00ADEE; color:#FFFFFF; }
 
 
 
