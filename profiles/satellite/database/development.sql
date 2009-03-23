@@ -274,7 +274,7 @@ CREATE TABLE `aggregator_feed` (
 
 LOCK TABLES `aggregator_feed` WRITE;
 /*!40000 ALTER TABLE `aggregator_feed` DISABLE KEYS */;
-INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237803763,'http://www.esn.org/news/feed','News view','','',1237803974,5);
+INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237832595,'http://www.esn.org/news/feed','News view','','',1237832807,5);
 /*!40000 ALTER TABLE `aggregator_feed` ENABLE KEYS */;
 UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `aggregator_item` (
@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `aggregator_item` (
   `guid` varchar(255) default NULL,
   PRIMARY KEY  (`iid`),
   KEY `fid` (`fid`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `aggregator_item` WRITE;
 /*!40000 ALTER TABLE `aggregator_item` DISABLE KEYS */;
@@ -821,7 +821,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `pid` (`pid`),
   KEY `nid` (`nid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=311 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=208 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
@@ -1239,6 +1239,7 @@ CREATE TABLE `content_node_field` (
 
 LOCK TABLES `content_node_field` WRITE;
 /*!40000 ALTER TABLE `content_node_field` DISABLE KEYS */;
+INSERT INTO `content_node_field` VALUES ('field_address','text','a:4:{s:15:\"text_processing\";s:1:\"0\";s:10:\"max_length\";s:0:\"\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:0:\"\";}',0,0,1,'text','a:1:{s:5:\"value\";a:5:{s:4:\"type\";s:4:\"text\";s:4:\"size\";s:3:\"big\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;s:5:\"views\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_country_setting','text','a:4:{s:15:\"text_processing\";s:1:\"1\";s:10:\"max_length\";s:0:\"\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:749:\"$ya_xml_resource = \'http://center.youthagora.org/xml/esn-satellite/countries.xml\';\r\n$ya_xml_local_file = file_directory_path().\'/\'.\'countries.xml\';\r\n\r\nif(file_exists($ya_xml_local_file)) $ya_xml_resource = $ya_xml_local_file;\r\n\r\n$ya_xml = simplexml_load_file($ya_xml_resource, \'SimpleXMLElement\', LIBXML_NOCDATA);\r\nforeach($ya_xml->country as $item) {\r\n  $elements[\'c\'] = (string) $item->c;\r\n  $elements[\'cn\'] = (string) $item->cn;\r\n  $elements[\'website\'] = (string) $item->website;\r\n  $elements[\'mail\'] = (string) $item->mail;\r\n  $elements[\'latitude\'] = (string) $item->latitude;\r\n  $elements[\'longitude\'] = (string) $item->longitude;\r\n  \r\n  $code = base64_encode(serialize($elements));\r\n  $ya_list[$code] = $elements[\'cn\'];  \r\n}\r\nreturn($ya_list);\";}',0,0,1,'text','a:2:{s:5:\"value\";a:5:{s:4:\"type\";s:4:\"text\";s:4:\"size\";s:3:\"big\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;s:5:\"views\";b:1;}s:6:\"format\";a:4:{s:4:\"type\";s:3:\"int\";s:8:\"unsigned\";b:1;s:8:\"not null\";b:0;s:5:\"views\";b:0;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_date','date','a:14:{s:11:\"granularity\";a:3:{s:4:\"year\";s:4:\"year\";s:5:\"month\";s:5:\"month\";s:3:\"day\";s:3:\"day\";}s:11:\"timezone_db\";s:0:\"\";s:11:\"tz_handling\";s:4:\"none\";s:6:\"todate\";s:8:\"optional\";s:6:\"repeat\";i:0;s:16:\"repeat_collapsed\";s:0:\"\";s:18:\"output_format_date\";s:16:\"l, Y,  F j - H:i\";s:20:\"output_format_custom\";s:0:\"\";s:23:\"output_format_date_long\";s:5:\"m/d/Y\";s:25:\"output_format_custom_long\";s:0:\"\";s:25:\"output_format_date_medium\";s:5:\"m/d/Y\";s:27:\"output_format_custom_medium\";s:0:\"\";s:24:\"output_format_date_short\";s:5:\"m/d/Y\";s:26:\"output_format_custom_short\";s:0:\"\";}',1,0,0,'date','a:2:{s:5:\"value\";a:4:{s:4:\"type\";s:7:\"varchar\";s:6:\"length\";i:20;s:8:\"not null\";b:0;s:8:\"sortable\";b:1;}s:6:\"value2\";a:4:{s:4:\"type\";s:7:\"varchar\";s:6:\"length\";i:20;s:8:\"not null\";b:0;s:8:\"sortable\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_file','filefield','a:3:{s:10:\"list_field\";b:0;s:12:\"list_default\";s:1:\"1\";s:17:\"description_field\";s:1:\"1\";}',0,1,0,'filefield','a:3:{s:3:\"fid\";a:2:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;}s:4:\"list\";a:3:{s:4:\"type\";s:3:\"int\";s:4:\"size\";s:4:\"tiny\";s:8:\"not null\";b:0;}s:4:\"data\";a:2:{s:4:\"type\";s:4:\"text\";s:9:\"serialize\";b:1;}}',1,0);
@@ -1274,6 +1275,7 @@ CREATE TABLE `content_node_field_instance` (
 
 LOCK TABLES `content_node_field_instance` WRITE;
 /*!40000 ALTER TABLE `content_node_field_instance` DISABLE KEYS */;
+INSERT INTO `content_node_field_instance` VALUES ('field_address','partner',-2,'Address','text_textfield','a:4:{s:4:\"rows\";i:5;s:4:\"size\";s:2:\"60\";s:13:\"default_value\";a:1:{i:0;a:2:{s:5:\"value\";s:0:\"\";s:14:\"_error_element\";s:45:\"default_value_widget][field_address][0][value\";}}s:17:\"default_value_php\";N;}','a:7:{s:5:\"label\";a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:4;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:3;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','Write the full address of the partner premises/shop.','text',1);
 INSERT INTO `content_node_field_instance` VALUES ('field_country_setting','setting',-2,'Country','optionwidgets_select','a:2:{s:13:\"default_value\";a:1:{i:0;a:1:{s:5:\"value\";s:0:\"\";}}s:17:\"default_value_php\";N;}','a:9:{s:6:\"weight\";s:2:\"-2\";s:6:\"parent\";s:0:\"\";s:5:\"label\";a:1:{s:6:\"format\";s:6:\"inline\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:4;a:2:{s:6:\"format\";s:11:\"image_plain\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:11:\"image_plain\";s:7:\"exclude\";i:0;}i:3;a:2:{s:6:\"format\";s:11:\"image_plain\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:11:\"image_plain\";s:7:\"exclude\";i:0;}}','Select your ESN country from the official country list provided by ESN. ','optionwidgets',1);
 INSERT INTO `content_node_field_instance` VALUES ('field_date','event',-2,'Date','date_popup','a:10:{s:13:\"default_value\";s:5:\"blank\";s:18:\"default_value_code\";s:0:\"\";s:14:\"default_value2\";s:4:\"same\";s:19:\"default_value_code2\";s:0:\"\";s:12:\"input_format\";s:5:\"d/m/Y\";s:19:\"input_format_custom\";s:0:\"\";s:9:\"increment\";s:1:\"1\";s:10:\"text_parts\";a:0:{}s:10:\"year_range\";s:5:\"-3:+3\";s:14:\"label_position\";s:5:\"above\";}','a:10:{s:6:\"weight\";s:2:\"-3\";s:6:\"parent\";s:0:\"\";i:4;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"label\";a:1:{s:6:\"format\";s:6:\"inline\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:0;a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}i:1;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','','date',1);
 INSERT INTO `content_node_field_instance` VALUES ('field_date','outcome',-3,'Date','date_popup','a:10:{s:13:\"default_value\";s:3:\"now\";s:18:\"default_value_code\";s:0:\"\";s:14:\"default_value2\";s:4:\"same\";s:19:\"default_value_code2\";s:0:\"\";s:12:\"input_format\";s:5:\"d/m/Y\";s:19:\"input_format_custom\";s:0:\"\";s:9:\"increment\";s:1:\"1\";s:10:\"text_parts\";a:0:{}s:10:\"year_range\";s:5:\"-3:+3\";s:14:\"label_position\";s:5:\"above\";}','a:10:{s:6:\"weight\";s:2:\"-3\";s:6:\"parent\";s:0:\"\";i:4;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"label\";a:1:{s:6:\"format\";s:6:\"inline\";}s:6:\"teaser\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:4:\"full\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:0;a:2:{s:6:\"format\";s:5:\"above\";s:7:\"exclude\";i:0;}i:1;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}i:2;a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}s:5:\"token\";a:2:{s:6:\"format\";s:7:\"default\";s:7:\"exclude\";i:0;}}','The date when the event to which this outcome refers was held. For instance, in case of a meeting report you should put the date of the meeting here.','date',1);
@@ -1398,35 +1400,36 @@ DROP TABLE IF EXISTS `content_type_partner`;
 CREATE TABLE `content_type_partner` (
   `vid` int(10) unsigned NOT NULL default '0',
   `nid` int(10) unsigned NOT NULL default '0',
+  `field_address_value` longtext,
   PRIMARY KEY  (`vid`),
   KEY `nid` (`nid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOCK TABLES `content_type_partner` WRITE;
 /*!40000 ALTER TABLE `content_type_partner` DISABLE KEYS */;
-INSERT INTO `content_type_partner` VALUES (190,190);
-INSERT INTO `content_type_partner` VALUES (192,192);
-INSERT INTO `content_type_partner` VALUES (193,193);
-INSERT INTO `content_type_partner` VALUES (194,194);
-INSERT INTO `content_type_partner` VALUES (196,196);
-INSERT INTO `content_type_partner` VALUES (203,203);
-INSERT INTO `content_type_partner` VALUES (205,205);
-INSERT INTO `content_type_partner` VALUES (206,206);
-INSERT INTO `content_type_partner` VALUES (207,207);
-INSERT INTO `content_type_partner` VALUES (210,210);
-INSERT INTO `content_type_partner` VALUES (213,213);
-INSERT INTO `content_type_partner` VALUES (214,214);
-INSERT INTO `content_type_partner` VALUES (217,217);
-INSERT INTO `content_type_partner` VALUES (218,218);
-INSERT INTO `content_type_partner` VALUES (219,219);
-INSERT INTO `content_type_partner` VALUES (221,221);
-INSERT INTO `content_type_partner` VALUES (223,223);
-INSERT INTO `content_type_partner` VALUES (226,226);
-INSERT INTO `content_type_partner` VALUES (227,227);
-INSERT INTO `content_type_partner` VALUES (229,229);
-INSERT INTO `content_type_partner` VALUES (232,232);
-INSERT INTO `content_type_partner` VALUES (233,233);
-INSERT INTO `content_type_partner` VALUES (239,239);
+INSERT INTO `content_type_partner` VALUES (190,190,NULL);
+INSERT INTO `content_type_partner` VALUES (192,192,NULL);
+INSERT INTO `content_type_partner` VALUES (193,193,NULL);
+INSERT INTO `content_type_partner` VALUES (194,194,NULL);
+INSERT INTO `content_type_partner` VALUES (196,196,NULL);
+INSERT INTO `content_type_partner` VALUES (203,203,NULL);
+INSERT INTO `content_type_partner` VALUES (205,205,NULL);
+INSERT INTO `content_type_partner` VALUES (206,206,NULL);
+INSERT INTO `content_type_partner` VALUES (207,207,NULL);
+INSERT INTO `content_type_partner` VALUES (210,210,NULL);
+INSERT INTO `content_type_partner` VALUES (213,213,NULL);
+INSERT INTO `content_type_partner` VALUES (214,214,NULL);
+INSERT INTO `content_type_partner` VALUES (217,217,NULL);
+INSERT INTO `content_type_partner` VALUES (218,218,NULL);
+INSERT INTO `content_type_partner` VALUES (219,219,NULL);
+INSERT INTO `content_type_partner` VALUES (221,221,NULL);
+INSERT INTO `content_type_partner` VALUES (223,223,NULL);
+INSERT INTO `content_type_partner` VALUES (226,226,NULL);
+INSERT INTO `content_type_partner` VALUES (227,227,NULL);
+INSERT INTO `content_type_partner` VALUES (229,229,NULL);
+INSERT INTO `content_type_partner` VALUES (232,232,NULL);
+INSERT INTO `content_type_partner` VALUES (233,233,NULL);
+INSERT INTO `content_type_partner` VALUES (239,239,NULL);
 /*!40000 ALTER TABLE `content_type_partner` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_type_setting`;
@@ -2058,7 +2061,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=3227 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3231 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2871,7 +2874,9 @@ INSERT INTO `menu_links` VALUES ('admin_menu',3214,3208,'admin/content/node-type
 INSERT INTO `menu_links` VALUES ('navigation',3215,0,'admin/content/node-type/story/fields/field_images/remove','admin/content/node-type/story/fields/field_images/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,3215,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3217,3208,'admin/content/node-type/story/fields/field_images','admin/content/node-type/story/fields/field_images','Pictures','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,3202,3208,3217,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('primary-links',3219,0,'reports','reports','Give20 Reports','a:0:{}','system',0,0,0,0,0,1,0,3219,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3226,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3226,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3228,0,'admin/content/node-type/partner/fields/field_address/remove','admin/content/node-type/partner/fields/field_address/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,3228,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3229,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3229,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3230,3159,'admin/content/node-type/partner/fields/field_address','admin/content/node-type/partner/fields/field_address','Address','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2426,3159,3230,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -3151,15 +3156,17 @@ INSERT INTO `menu_router` VALUES ('admin/content/node-type/page/edit','','','use
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/page/fields','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:27:\"content_field_overview_form\";i:1;s:4:\"page\";}',31,5,'admin/content/node-type/page','admin/content/node-type/page','Manage fields','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/page/groups/%','a:1:{i:5;N;}','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:26:\"fieldgroup_group_edit_form\";i:1;s:4:\"page\";i:2;i:5;}',62,6,'','admin/content/node-type/page/groups/%','Edit group','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/page/groups/%/remove','a:1:{i:5;N;}','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:23:\"fieldgroup_remove_group\";i:1;s:4:\"page\";i:2;i:5;}',125,7,'','admin/content/node-type/page/groups/%/remove','Edit group','t','',4,'','','',0,'');
-INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:7:\"partner\";s:4:\"name\";s:7:\"Partner\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:233:\"A <em>partner</em> content type is suitable for creating and displaying partners of your project. <em>Partners</em> will be featured with their logo on the homepage, and you can give some more information and a link to their website.\";s:4:\"help\";s:147:\"Describe your partner, including a description of its activity and its logo.<br/>\r\nYou may also put a link to your partner\'s institutional website.\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',15,4,'','admin/content/node-type/partner','Partner','t','',4,'','','',0,'modules/node/content_types.inc');
-INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/delete','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:24:\"node_type_delete_confirm\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:7:\"partner\";s:4:\"name\";s:7:\"Partner\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:233:\"A <em>partner</em> content type is suitable for creating and displaying partners of your project. <em>Partners</em> will be featured with their logo on the homepage, and you can give some more information and a link to their website.\";s:4:\"help\";s:147:\"Describe your partner, including a description of its activity and its logo.<br/>\r\nYou may also put a link to your partner\'s institutional website.\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'','admin/content/node-type/partner/delete','Delete','t','',4,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:7:\"partner\";s:4:\"name\";s:7:\"Partner\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:233:\"A <em>partner</em> content type is suitable for creating and displaying partners of your project. <em>Partners</em> will be featured with their logo on the homepage, and you can give some more information and a link to their website.\";s:4:\"help\";s:155:\"<p>Describe your partner, including a description of its activity and its logo.<br />\r\nYou may also put a link to your partner\'s institutional website.</p>\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:4:\"Name\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:11:\"Description\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',15,4,'','admin/content/node-type/partner','Partner','t','',4,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/delete','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:24:\"node_type_delete_confirm\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:7:\"partner\";s:4:\"name\";s:7:\"Partner\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:233:\"A <em>partner</em> content type is suitable for creating and displaying partners of your project. <em>Partners</em> will be featured with their logo on the homepage, and you can give some more information and a link to their website.\";s:4:\"help\";s:155:\"<p>Describe your partner, including a description of its activity and its logo.<br />\r\nYou may also put a link to your partner\'s institutional website.</p>\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:4:\"Name\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:11:\"Description\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'','admin/content/node-type/partner/delete','Delete','t','',4,'','','',0,'modules/node/content_types.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/display','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:29:\"content_display_overview_form\";i:1;s:7:\"partner\";}',31,5,'admin/content/node-type/partner','admin/content/node-type/partner','Display fields','t','',128,'','','',2,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/display/basic','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:7:\"partner\";i:2;s:5:\"basic\";}',63,6,'admin/content/node-type/partner/display','admin/content/node-type/partner','Basic','t','',136,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/display/rss','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:7:\"partner\";i:2;s:3:\"rss\";}',63,6,'admin/content/node-type/partner/display','admin/content/node-type/partner','RSS','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/display/search','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:7:\"partner\";i:2;s:6:\"search\";}',63,6,'admin/content/node-type/partner/display','admin/content/node-type/partner','Search','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/display/token','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:29:\"content_display_overview_form\";i:1;s:7:\"partner\";i:2;s:5:\"token\";}',63,6,'admin/content/node-type/partner/display','admin/content/node-type/partner','Token','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
-INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/edit','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:7:\"partner\";s:4:\"name\";s:7:\"Partner\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:233:\"A <em>partner</em> content type is suitable for creating and displaying partners of your project. <em>Partners</em> will be featured with their logo on the homepage, and you can give some more information and a link to their website.\";s:4:\"help\";s:147:\"Describe your partner, including a description of its activity and its logo.<br/>\r\nYou may also put a link to your partner\'s institutional website.\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:5:\"Title\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:4:\"Body\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'admin/content/node-type/partner','admin/content/node-type/partner','Edit','t','',136,'','','',0,'modules/node/content_types.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/edit','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:14:\"node_type_form\";i:1;O:8:\"stdClass\":14:{s:4:\"type\";s:7:\"partner\";s:4:\"name\";s:7:\"Partner\";s:6:\"module\";s:4:\"node\";s:11:\"description\";s:233:\"A <em>partner</em> content type is suitable for creating and displaying partners of your project. <em>Partners</em> will be featured with their logo on the homepage, and you can give some more information and a link to their website.\";s:4:\"help\";s:155:\"<p>Describe your partner, including a description of its activity and its logo.<br />\r\nYou may also put a link to your partner\'s institutional website.</p>\";s:9:\"has_title\";s:1:\"1\";s:11:\"title_label\";s:4:\"Name\";s:8:\"has_body\";s:1:\"1\";s:10:\"body_label\";s:11:\"Description\";s:14:\"min_word_count\";s:2:\"10\";s:6:\"custom\";s:1:\"1\";s:8:\"modified\";s:1:\"1\";s:6:\"locked\";s:1:\"0\";s:9:\"orig_type\";s:0:\"\";}}',31,5,'admin/content/node-type/partner','admin/content/node-type/partner','Edit','t','',136,'','','',0,'modules/node/content_types.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/fields','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:2:{i:0;s:27:\"content_field_overview_form\";i:1;s:7:\"partner\";}',31,5,'admin/content/node-type/partner','admin/content/node-type/partner','Manage fields','t','',128,'','','',1,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/fields/field_address','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:23:\"content_field_edit_form\";i:1;s:7:\"partner\";i:2;s:13:\"field_address\";}',63,6,'admin/content/node-type/partner/fields','admin/content/node-type/partner','Address','t','',128,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/fields/field_address/remove','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:25:\"content_field_remove_form\";i:1;s:7:\"partner\";i:2;s:13:\"field_address\";}',127,7,'','admin/content/node-type/partner/fields/field_address/remove','Remove field','t','',4,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/fields/field_image','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:23:\"content_field_edit_form\";i:1;s:7:\"partner\";i:2;s:11:\"field_image\";}',63,6,'admin/content/node-type/partner/fields','admin/content/node-type/partner','Image','t','',128,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/fields/field_image/remove','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:25:\"content_field_remove_form\";i:1;s:7:\"partner\";i:2;s:11:\"field_image\";}',127,7,'','admin/content/node-type/partner/fields/field_image/remove','Remove field','t','',4,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/content/node-type/partner/fields/field_link','','','user_access','a:1:{i:0;s:24:\"administer content types\";}','drupal_get_form','a:3:{i:0;s:23:\"content_field_edit_form\";i:1;s:7:\"partner\";i:2;s:10:\"field_link\";}',63,6,'admin/content/node-type/partner/fields','admin/content/node-type/partner','Link','t','',128,'','','',0,'profiles/satellite/modules/cck/includes/content.admin.inc');
@@ -3873,7 +3880,7 @@ INSERT INTO `node_type` VALUES ('event','Event','node','An <em>event</em> is sui
 INSERT INTO `node_type` VALUES ('image','Image','image','An image (with thumbnail). This is ideal for publishing photographs or screenshots.','',1,'Title',1,'Body',0,0,0,1,'image');
 INSERT INTO `node_type` VALUES ('outcome','Outcome','node','An <em>outcome</em> is suitable for presenting outcomes of the project, such as meeting reports with presentations, files, external links, videos and images. The latest inserted outcomes are displayed on the front page.','Specify a title, a text body and optionally a reference date for your outcome.<br/>\r\nYou are required to attach at least one image, and you can attach more images or other files and specify external links.',1,'Title',1,'Body',10,1,1,0,'');
 INSERT INTO `node_type` VALUES ('page','Page','node','A <em>page</em> is suitable for information that rarely changes, such as an \"About us\" section of a website or institutional information. By default, a <em>page</em> entry does not allow visitor comments.','Specify a title and a main body for your page.<br/>\r\nYou can attach files too.',1,'Title',1,'Body',10,1,1,0,'page');
-INSERT INTO `node_type` VALUES ('partner','Partner','node','A <em>partner</em> content type is suitable for creating and displaying partners of your project. <em>Partners</em> will be featured with their logo on the homepage, and you can give some more information and a link to their website.','Describe your partner, including a description of its activity and its logo.<br/>\r\nYou may also put a link to your partner\'s institutional website.',1,'Title',1,'Body',10,1,1,0,'');
+INSERT INTO `node_type` VALUES ('partner','Partner','node','A <em>partner</em> content type is suitable for creating and displaying partners of your project. <em>Partners</em> will be featured with their logo on the homepage, and you can give some more information and a link to their website.','<p>Describe your partner, including a description of its activity and its logo.<br />\r\nYou may also put a link to your partner\'s institutional website.</p>',1,'Name',1,'Description',10,1,1,0,'');
 INSERT INTO `node_type` VALUES ('setting','Setting','node','Local settings of the website template.','',1,'Title',0,'',0,1,1,0,'');
 INSERT INTO `node_type` VALUES ('spotlight','Spotlight','node','The <em>spotlight</em> is the main feature of your website. It is prominently displayed on the front page and it should engage website visitors.','Describe the spotlight of your website. You are required to attach an image.<br/>\r\nThe text body and the image will be prominently displayed on the front page.',1,'Title',1,'Body',10,1,1,0,'');
 INSERT INTO `node_type` VALUES ('story','Give20 Report','node','An <em>activity report</em> will present the final report of the Give20 fundraising activity containing pictures, total amount fundraised and other information.','',1,'Title',1,'Body',0,1,1,0,'');
@@ -4395,13 +4402,35 @@ CREATE TABLE `term_data` (
   PRIMARY KEY  (`tid`),
   KEY `taxonomy_tree` (`vid`,`weight`,`name`),
   KEY `vid_name` (`vid`,`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `term_data` WRITE;
 /*!40000 ALTER TABLE `term_data` DISABLE KEYS */;
 INSERT INTO `term_data` VALUES (1,2,'party','',0);
 INSERT INTO `term_data` VALUES (2,2,'culture','',0);
 INSERT INTO `term_data` VALUES (3,2,'whatever','',0);
+INSERT INTO `term_data` VALUES (4,3,'Going Out','',0);
+INSERT INTO `term_data` VALUES (5,3,'Cinema & Theatre','',0);
+INSERT INTO `term_data` VALUES (6,3,'Clubs & Venues','',0);
+INSERT INTO `term_data` VALUES (7,3,'Festivals & Events','',0);
+INSERT INTO `term_data` VALUES (8,3,'Museums and Galleries','',0);
+INSERT INTO `term_data` VALUES (9,3,'Language Schools','',0);
+INSERT INTO `term_data` VALUES (10,3,'Health & Beauty','',0);
+INSERT INTO `term_data` VALUES (11,3,'Hairdressers','',0);
+INSERT INTO `term_data` VALUES (12,3,'Opticians','',0);
+INSERT INTO `term_data` VALUES (13,3,'Sports/Fitness','',0);
+INSERT INTO `term_data` VALUES (14,3,'DVD/video rental','',0);
+INSERT INTO `term_data` VALUES (15,3,'Mobile phones','',0);
+INSERT INTO `term_data` VALUES (16,3,'Bars, pubs and clubs','',0);
+INSERT INTO `term_data` VALUES (17,3,'Cafes and coffee-shops','',0);
+INSERT INTO `term_data` VALUES (18,3,'Restaurants','',0);
+INSERT INTO `term_data` VALUES (19,3,'Campsites','',0);
+INSERT INTO `term_data` VALUES (20,3,'Hostels','',0);
+INSERT INTO `term_data` VALUES (21,3,'Hotels','',0);
+INSERT INTO `term_data` VALUES (22,3,'Banks and Insurance','',0);
+INSERT INTO `term_data` VALUES (23,3,'Internet Cafes','',0);
+INSERT INTO `term_data` VALUES (24,3,'Taxis','',0);
+INSERT INTO `term_data` VALUES (25,3,'Cars, Motorcycles, Bicycles Rentals','',0);
 /*!40000 ALTER TABLE `term_data` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `term_hierarchy`;
@@ -4417,6 +4446,28 @@ LOCK TABLES `term_hierarchy` WRITE;
 INSERT INTO `term_hierarchy` VALUES (1,0);
 INSERT INTO `term_hierarchy` VALUES (2,0);
 INSERT INTO `term_hierarchy` VALUES (3,0);
+INSERT INTO `term_hierarchy` VALUES (4,0);
+INSERT INTO `term_hierarchy` VALUES (5,0);
+INSERT INTO `term_hierarchy` VALUES (6,0);
+INSERT INTO `term_hierarchy` VALUES (7,0);
+INSERT INTO `term_hierarchy` VALUES (8,0);
+INSERT INTO `term_hierarchy` VALUES (9,0);
+INSERT INTO `term_hierarchy` VALUES (10,0);
+INSERT INTO `term_hierarchy` VALUES (11,0);
+INSERT INTO `term_hierarchy` VALUES (12,0);
+INSERT INTO `term_hierarchy` VALUES (13,0);
+INSERT INTO `term_hierarchy` VALUES (14,0);
+INSERT INTO `term_hierarchy` VALUES (15,0);
+INSERT INTO `term_hierarchy` VALUES (16,0);
+INSERT INTO `term_hierarchy` VALUES (17,0);
+INSERT INTO `term_hierarchy` VALUES (18,0);
+INSERT INTO `term_hierarchy` VALUES (19,0);
+INSERT INTO `term_hierarchy` VALUES (20,0);
+INSERT INTO `term_hierarchy` VALUES (21,0);
+INSERT INTO `term_hierarchy` VALUES (22,0);
+INSERT INTO `term_hierarchy` VALUES (23,0);
+INSERT INTO `term_hierarchy` VALUES (24,0);
+INSERT INTO `term_hierarchy` VALUES (25,0);
 /*!40000 ALTER TABLE `term_hierarchy` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `term_node`;
@@ -4507,7 +4558,7 @@ CREATE TABLE `url_alias` (
   PRIMARY KEY  (`pid`),
   UNIQUE KEY `dst_language` (`dst`,`language`),
   KEY `src_language` (`src`,`language`)
-) ENGINE=MyISAM AUTO_INCREMENT=569 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=591 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `url_alias` WRITE;
 /*!40000 ALTER TABLE `url_alias` DISABLE KEYS */;
@@ -4635,7 +4686,7 @@ INSERT INTO `url_alias` VALUES (518,'node/238','article/aliquam-vulputate-tego-s
 INSERT INTO `url_alias` VALUES (519,'node/238/feed','article/aliquam-vulputate-tego-saluto/feed','');
 INSERT INTO `url_alias` VALUES (520,'node/239','partner/esn','');
 INSERT INTO `url_alias` VALUES (521,'node/239/feed','partner/esn/feed','');
-INSERT INTO `url_alias` VALUES (522,'taxonomy/term/','taxonomy/term/3','');
+INSERT INTO `url_alias` VALUES (522,'taxonomy/term/','taxonomy/term/25','');
 INSERT INTO `url_alias` VALUES (523,'taxonomy/term/1','category/tags/party','');
 INSERT INTO `url_alias` VALUES (524,'taxonomy/term/2','category/tags/culture','');
 INSERT INTO `url_alias` VALUES (525,'node/240','content/esn-galaxy','');
@@ -4682,6 +4733,28 @@ INSERT INTO `url_alias` VALUES (565,'node/258','content/consequat','');
 INSERT INTO `url_alias` VALUES (566,'node/258/feed','content/consequat/feed','');
 INSERT INTO `url_alias` VALUES (567,'node/259','content/ex-ymo-sed','');
 INSERT INTO `url_alias` VALUES (568,'node/259/feed','content/ex-ymo-sed/feed','');
+INSERT INTO `url_alias` VALUES (569,'taxonomy/term/4','category/discounts/going-out','');
+INSERT INTO `url_alias` VALUES (570,'taxonomy/term/5','category/discounts/cinema-theatre','');
+INSERT INTO `url_alias` VALUES (571,'taxonomy/term/6','category/discounts/clubs-venues','');
+INSERT INTO `url_alias` VALUES (572,'taxonomy/term/7','category/discounts/festivals-events','');
+INSERT INTO `url_alias` VALUES (573,'taxonomy/term/8','category/discounts/museums-and-galleries','');
+INSERT INTO `url_alias` VALUES (574,'taxonomy/term/9','category/discounts/language-schools','');
+INSERT INTO `url_alias` VALUES (575,'taxonomy/term/10','category/discounts/health-beauty','');
+INSERT INTO `url_alias` VALUES (576,'taxonomy/term/11','category/discounts/hairdressers','');
+INSERT INTO `url_alias` VALUES (577,'taxonomy/term/12','category/discounts/opticians','');
+INSERT INTO `url_alias` VALUES (578,'taxonomy/term/13','category/discounts/sports/fitness','');
+INSERT INTO `url_alias` VALUES (579,'taxonomy/term/14','category/discounts/dvd/video-rental','');
+INSERT INTO `url_alias` VALUES (580,'taxonomy/term/15','category/discounts/mobile-phones','');
+INSERT INTO `url_alias` VALUES (581,'taxonomy/term/16','category/discounts/bars-pubs-and-clubs','');
+INSERT INTO `url_alias` VALUES (582,'taxonomy/term/17','category/discounts/cafes-and-coffee-shops','');
+INSERT INTO `url_alias` VALUES (583,'taxonomy/term/18','category/discounts/restaurants','');
+INSERT INTO `url_alias` VALUES (584,'taxonomy/term/19','category/discounts/campsites','');
+INSERT INTO `url_alias` VALUES (585,'taxonomy/term/20','category/discounts/hostels','');
+INSERT INTO `url_alias` VALUES (586,'taxonomy/term/21','category/discounts/hotels','');
+INSERT INTO `url_alias` VALUES (587,'taxonomy/term/22','category/discounts/banks-and-insurance','');
+INSERT INTO `url_alias` VALUES (588,'taxonomy/term/23','category/discounts/internet-cafes','');
+INSERT INTO `url_alias` VALUES (589,'taxonomy/term/24','category/discounts/taxis','');
+INSERT INTO `url_alias` VALUES (590,'taxonomy/term/25','category/discounts/cars-motorcycles-bicycles-rentals','');
 /*!40000 ALTER TABLE `url_alias` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
@@ -4715,7 +4788,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237824053,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237833660,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237743367,1237718883,1,NULL,'','','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','0','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -4750,7 +4823,7 @@ INSERT INTO `variable` VALUES ('admin_menu_position_fixed','i:1;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_modules','i:0;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_tabs','i:0;');
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237803763;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237832596;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
 INSERT INTO `variable` VALUES ('blocktheme','a:6:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:10:\"green_fill\";s:44:\"views-partners-block_1?destination=frontpage\";s:5:\"green\";s:22:\"views-partners-block_1\";s:4:\"blue\";s:6:\"user-1\";s:5:\"green\";s:7:\"block-7\";s:4:\"blue\";}');
@@ -4772,7 +4845,7 @@ INSERT INTO `variable` VALUES ('comment_anonymous_credit','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('comment_anonymous_event','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('comment_anonymous_outcome','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('comment_anonymous_page','i:0;');
-INSERT INTO `variable` VALUES ('comment_anonymous_partner','i:0;');
+INSERT INTO `variable` VALUES ('comment_anonymous_partner','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('comment_anonymous_setting','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('comment_anonymous_spotlight','i:0;');
 INSERT INTO `variable` VALUES ('comment_anonymous_story','s:1:\"1\";');
@@ -4854,13 +4927,13 @@ INSERT INTO `variable` VALUES ('content_extra_weights_article','a:4:{s:5:\"title
 INSERT INTO `variable` VALUES ('content_extra_weights_credit','a:2:{s:5:\"title\";s:2:\"-5\";s:4:\"menu\";s:2:\"-2\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_event','a:5:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:1:\"0\";s:4:\"menu\";s:1:\"3\";s:8:\"taxonomy\";s:1:\"1\";s:16:\"signup_node_info\";s:1:\"4\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_outcome','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-4\";s:4:\"menu\";s:1:\"2\";}');
-INSERT INTO `variable` VALUES ('content_extra_weights_partner','a:4:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-1\";s:4:\"menu\";s:1:\"0\";s:8:\"taxonomy\";s:2:\"-2\";}');
+INSERT INTO `variable` VALUES ('content_extra_weights_partner','a:4:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:1:\"0\";s:4:\"menu\";s:1:\"1\";s:8:\"taxonomy\";s:2:\"-1\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_setting','a:2:{s:5:\"title\";s:2:\"-5\";s:4:\"menu\";s:2:\"-4\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-2\";s:4:\"menu\";s:1:\"0\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_story','a:5:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-1\";s:4:\"menu\";s:2:\"-2\";s:11:\"attachments\";s:1:\"2\";s:16:\"signup_node_info\";s:1:\"1\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1237803793;');
+INSERT INTO `variable` VALUES ('cron_last','i:1237832620;');
 INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"8eGJ56wv3r90sRqdSfQh\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
@@ -4972,7 +5045,7 @@ INSERT INTO `variable` VALUES ('form_build_id_credit','s:37:\"form-a86a9bbd56d2d
 INSERT INTO `variable` VALUES ('form_build_id_event','s:37:\"form-166a2ca7a5a2fab13c7fc72ae95a9aee\";');
 INSERT INTO `variable` VALUES ('form_build_id_outcome','s:37:\"form-644dc8fb55000c81fc488466179f5abc\";');
 INSERT INTO `variable` VALUES ('form_build_id_page','s:37:\"form-6a322bbca609ccee6710ff18ddce22a8\";');
-INSERT INTO `variable` VALUES ('form_build_id_partner','s:37:\"form-657b2aa6c25a3a71bb67f22198f778ee\";');
+INSERT INTO `variable` VALUES ('form_build_id_partner','s:37:\"form-9958c576ce04503f18890275e1bc752d\";');
 INSERT INTO `variable` VALUES ('form_build_id_setting','s:37:\"form-587124af2f1aabfa01631a3436fe4464\";');
 INSERT INTO `variable` VALUES ('form_build_id_spotlight','s:37:\"form-0666de39f16e0ed66c7f9d897473c969\";');
 INSERT INTO `variable` VALUES ('form_build_id_story','s:37:\"form-8819eb6cf7148b4a419cac24e9e7eeb9\";');
@@ -5080,7 +5153,7 @@ INSERT INTO `variable` VALUES ('nice_menus_number','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('nice_menus_type_1','s:4:\"down\";');
 INSERT INTO `variable` VALUES ('node_admin_theme','i:0;');
 INSERT INTO `variable` VALUES ('node_cron_comments_scale','d:1;');
-INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1237768664\";');
+INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1237814652\";');
 INSERT INTO `variable` VALUES ('node_cron_views_scale','d:1;');
 INSERT INTO `variable` VALUES ('node_options_activity','a:2:{i:0;s:6:\"status\";i:1;s:7:\"promote\";}');
 INSERT INTO `variable` VALUES ('node_options_article','a:1:{i:0;s:6:\"status\";}');
@@ -5163,7 +5236,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
 INSERT INTO `variable` VALUES ('poormanscron_interval','s:3:\"480\";');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237803793;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237832620;');
 INSERT INTO `variable` VALUES ('poormanscron_log_cron_runs','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('poormanscron_log_progress','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('poormanscron_retry_interval','s:2:\"10\";');
@@ -5208,12 +5281,14 @@ INSERT INTO `variable` VALUES ('service_links_show_yahoo','i:1;');
 INSERT INTO `variable` VALUES ('service_links_style','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('signup_close_early','s:1:\"4\";');
 INSERT INTO `variable` VALUES ('signup_date_field_event','s:10:\"field_date\";');
+INSERT INTO `variable` VALUES ('signup_date_field_partner','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('signup_date_field_story','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('signup_date_format','s:5:\"small\";');
 INSERT INTO `variable` VALUES ('signup_display_signup_user_list','s:10:\"embed-view\";');
 INSERT INTO `variable` VALUES ('signup_fieldset_collapsed','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('signup_form_location','s:4:\"node\";');
 INSERT INTO `variable` VALUES ('signup_node_default_state_event','s:11:\"allowed_off\";');
+INSERT INTO `variable` VALUES ('signup_node_default_state_partner','s:8:\"disabled\";');
 INSERT INTO `variable` VALUES ('signup_node_default_state_setting','s:8:\"disabled\";');
 INSERT INTO `variable` VALUES ('signup_node_default_state_story','s:8:\"disabled\";');
 INSERT INTO `variable` VALUES ('signup_user_list_view','s:23:\"signup_user_list:page_1\";');
@@ -5234,7 +5309,7 @@ INSERT INTO `variable` VALUES ('theme_garland_settings','a:20:{s:11:\"toggle_log
 INSERT INTO `variable` VALUES ('theme_project_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_satellite_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:0;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_settings','a:26:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:1;s:22:\"toggle_secondary_links\";i:1;s:24:\"toggle_node_info_article\";i:1;s:31:\"toggle_node_info_advpoll_binary\";i:1;s:23:\"toggle_node_info_credit\";i:0;s:22:\"toggle_node_info_event\";i:1;s:22:\"toggle_node_info_image\";i:1;s:24:\"toggle_node_info_outcome\";i:1;s:21:\"toggle_node_info_page\";i:0;s:24:\"toggle_node_info_partner\";i:0;s:32:\"toggle_node_info_advpoll_ranking\";i:1;s:26:\"toggle_node_info_spotlight\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
-INSERT INTO `variable` VALUES ('update_last_check','i:1237823262;');
+INSERT INTO `variable` VALUES ('update_last_check','i:1237832619;');
 INSERT INTO `variable` VALUES ('upload_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_credit','s:1:\"0\";');
@@ -5278,13 +5353,14 @@ INSERT INTO `variable` VALUES ('user_register','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('user_registration_help','s:0:\"\";');
 INSERT INTO `variable` VALUES ('user_signatures','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_event','a:6:{i:0;s:4:\"menu\";i:1;s:20:\"revision_information\";i:2;s:6:\"author\";i:3;s:7:\"options\";i:4;s:4:\"path\";i:5;s:16:\"comment_settings\";}');
+INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_partner','a:6:{i:0;s:4:\"menu\";i:1;s:6:\"author\";i:2;s:20:\"revision_information\";i:3;s:7:\"options\";i:4;s:4:\"path\";i:5;s:16:\"comment_settings\";}');
 INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_setting','a:0:{}');
 INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_story','a:0:{}');
 INSERT INTO `variable` VALUES ('views_block_hashes','a:0:{}');
 INSERT INTO `variable` VALUES ('views_defaults','a:4:{s:9:\"frontpage\";b:0;s:8:\"calendar\";b:0;s:7:\"archive\";b:1;s:16:\"signup_user_list\";b:0;}');
 INSERT INTO `variable` VALUES ('wipe','s:16:\"Wipe and rebuild\";');
 INSERT INTO `variable` VALUES ('ya_enabled','i:0;');
-INSERT INTO `variable` VALUES ('ya_key','i:254;');
+INSERT INTO `variable` VALUES ('ya_key','i:17806;');
 INSERT INTO `variable` VALUES ('yui_editor_button_profile','s:30:\"yui_editor_toolbar_no_style.js\";');
 INSERT INTO `variable` VALUES ('yui_editor_button_type','s:6:\"simple\";');
 INSERT INTO `variable` VALUES ('yui_editor_coder','i:0;');
@@ -5428,7 +5504,7 @@ CREATE TABLE `vocabulary` (
 LOCK TABLES `vocabulary` WRITE;
 /*!40000 ALTER TABLE `vocabulary` DISABLE KEYS */;
 INSERT INTO `vocabulary` VALUES (2,'Tags','Give your piece of content a tag, such as \'culture\', \'trip\', \'party\' and so on. You can reuse this tag across articles, events and all the other content types provided by this website.','Enter a comma separated list of words',1,0,0,0,1,'taxonomy',0);
-INSERT INTO `vocabulary` VALUES (3,'Discounts','Discount categories.','',1,0,1,0,0,'taxonomy',0);
+INSERT INTO `vocabulary` VALUES (3,'Discounts','Discount categories.','If this partner offers discounts, please select the appropriate categories.',1,0,1,0,0,'taxonomy',0);
 /*!40000 ALTER TABLE `vocabulary` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `vocabulary_node_types`;
@@ -5485,7 +5561,7 @@ CREATE TABLE IF NOT EXISTS `votingapi_vote` (
   KEY `content_source` (`content_type`,`content_id`,`vote_source`),
   KEY `content_vtype` (`content_type`,`content_id`,`value_type`),
   KEY `content_value_tag` (`content_type`,`content_id`,`value_type`,`tag`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 LOCK TABLES `votingapi_vote` WRITE;
 /*!40000 ALTER TABLE `votingapi_vote` DISABLE KEYS */;
@@ -5505,7 +5581,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=5906 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8000 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
