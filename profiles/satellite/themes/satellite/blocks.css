@@ -82,6 +82,8 @@
 .block.blue .views-field-tid a { color: #bbb; }
 .block.blue .views-field-tid a:hover { color: #00ADEE; text-decoration: none;}
 
+.block .views-field-tid a {background: none; padding: 0;}
+.block .views-field-tid {float: none; padding: 0;}
 
 /**
  * Common

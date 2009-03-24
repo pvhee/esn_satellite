@@ -269,8 +269,9 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 .views-field-tid a { text-transform:uppercase; font-size: .8em; font-weight: bold; color: #bbb; }
 .views-field-tid a:hover { text-decoration: none;}
 
-
+#block-views-spotlights-block_1.block .views-field-tid a,
 .views-field-tid a  { background: transparent url("images/tag_blue.png") top left no-repeat; font-weight: bold; text-transform: uppercase; color: white; font-size: .8em; padding: 0.3em 0.5em 0.2em 13px;}
+#block-views-spotlights-block_1.block .views-field-tid a:hover,
 .views-field-tid a:hover  {  padding-left: 13px;  background: transparent url("images/tag_green.png") top left no-repeat; text-decoration: none;}
 
 
