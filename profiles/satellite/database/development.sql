@@ -1803,7 +1803,7 @@ CREATE TABLE `imagecache_action` (
   `data` longtext NOT NULL,
   PRIMARY KEY  (`actionid`),
   KEY `presetid` (`presetid`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `imagecache_action` WRITE;
 /*!40000 ALTER TABLE `imagecache_action` DISABLE KEYS */;
@@ -1833,6 +1833,7 @@ INSERT INTO `imagecache_action` VALUES (36,16,0,'imagecache_coloractions','image
 INSERT INTO `imagecache_action` VALUES (37,16,0,'imagecache','imagecache_scale','a:3:{s:5:\"width\";s:0:\"\";s:6:\"height\";s:2:\"50\";s:7:\"upscale\";i:1;}');
 INSERT INTO `imagecache_action` VALUES (40,18,0,'imagecache','imagecache_scale','a:3:{s:5:\"width\";s:3:\"100\";s:6:\"height\";s:0:\"\";s:7:\"upscale\";i:1;}');
 INSERT INTO `imagecache_action` VALUES (41,18,0,'imagecache_coloractions','imagecache_convert','a:1:{s:6:\"format\";s:9:\"image/png\";}');
+INSERT INTO `imagecache_action` VALUES (42,19,0,'imagecache','imagecache_scale','a:3:{s:5:\"width\";s:3:\"930\";s:6:\"height\";s:0:\"\";s:7:\"upscale\";i:0;}');
 /*!40000 ALTER TABLE `imagecache_action` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `imagecache_preset`;
@@ -5374,7 +5375,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6228 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6232 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
