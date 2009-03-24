@@ -1840,7 +1840,7 @@ CREATE TABLE `imagecache_preset` (
   `presetid` int(10) unsigned NOT NULL auto_increment,
   `presetname` varchar(255) NOT NULL,
   PRIMARY KEY  (`presetid`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `imagecache_preset` WRITE;
 /*!40000 ALTER TABLE `imagecache_preset` DISABLE KEYS */;
@@ -1854,6 +1854,7 @@ INSERT INTO `imagecache_preset` VALUES (14,'160x');
 INSERT INTO `imagecache_preset` VALUES (15,'spotlight');
 INSERT INTO `imagecache_preset` VALUES (16,'x50');
 INSERT INTO `imagecache_preset` VALUES (18,'100x');
+INSERT INTO `imagecache_preset` VALUES (19,'header');
 /*!40000 ALTER TABLE `imagecache_preset` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `ldapauth`;
@@ -1997,7 +1998,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=3294 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3298 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2749,7 +2750,10 @@ INSERT INTO `menu_links` VALUES ('navigation',3228,0,'admin/content/node-type/pa
 INSERT INTO `menu_links` VALUES ('admin_menu',3230,3159,'admin/content/node-type/partner/fields/field_address','admin/content/node-type/partner/fields/field_address','Address','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2426,3159,3230,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',3288,0,'admin/content/node-type/setting/fields/field_facebook_gid/remove','admin/content/node-type/setting/fields/field_facebook_gid/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,3288,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3290,3167,'admin/content/node-type/setting/fields/field_facebook_gid','admin/content/node-type/setting/fields/field_facebook_gid','Facebook Group ID','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,2602,3167,3290,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3293,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3293,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3294,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3294,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3295,0,'node/244','node/%','Settings','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:8:\"Settings\";}}','menu',0,0,0,0,0,1,1,3295,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3296,0,'node/244','node/%','Settings','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:8:\"Settings\";}}','menu',0,0,0,0,0,1,1,3296,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3297,0,'node/244/edit','node/%/edit','Satellite Configuration','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:23:\"Satellite Configuration\";}}','menu',0,0,0,0,0,1,1,3297,0,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -4183,7 +4187,7 @@ INSERT INTO `system` VALUES ('profiles/satellite/modules/votingapi/votingapi.mod
 INSERT INTO `system` VALUES ('profiles/satellite/modules/webform/webform.module','webform','module','',0,0,0,-1,0,'a:9:{s:4:\"name\";s:7:\"Webform\";s:11:\"description\";s:49:\"Enables the creation of forms and questionnaires.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-2.6\";s:7:\"project\";s:7:\"webform\";s:9:\"datestamp\";s:10:\"1234762850\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/demo/demo.module','demo','module','',0,0,0,0,0,'a:10:{s:4:\"name\";s:9:\"Demo Site\";s:11:\"description\";s:74:\"Create snapshots and reset the site for demonstration or testing purposes.\";s:7:\"package\";s:11:\"Development\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-1.2\";s:7:\"project\";s:4:\"demo\";s:9:\"datestamp\";s:10:\"1233956111\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/token_filter/token_filter.module','token_filter','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:12:\"Token Filter\";s:11:\"description\";s:41:\"Allows token values to be used as filters\";s:7:\"package\";s:5:\"Other\";s:12:\"dependencies\";a:1:{i:0;s:5:\"token\";}s:4:\"core\";s:3:\"6.x\";s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
-INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_callhome_client/ya_callhome_client.module','ya_callhome_client','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:28:\"Youth Agora Call Home Client\";s:11:\"description\";s:61:\"Retrieves information from the Youth Agora server via XML/RPC\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_callhome_client/ya_callhome_client.module','ya_callhome_client','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:28:\"Youth Agora Call Home Client\";s:11:\"description\";s:61:\"Retrieves information from the Youth Agora server via XML/RPC\";s:7:\"package\";s:11:\"Youth Agora\";s:12:\"dependencies\";a:1:{i:0;s:5:\"token\";}s:4:\"core\";s:3:\"6.x\";s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_credits/ya_credits.module','ya_credits','module','',0,0,0,0,0,'a:8:{s:4:\"name\";s:19:\"Youth Agora Credits\";s:11:\"description\";s:44:\"Provides a block with credits to Youth Agora\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_password_check/ya_password_check.module','ya_password_check','module','',1,0,0,0,0,'a:8:{s:4:\"name\";s:14:\"Password Check\";s:11:\"description\";s:109:\"Provides a non-configurable action to check for default password combinations (admin/admin and editor/editor)\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/youthagora/ya_remote_xml/ya_remote_xml.module','ya_remote_xml','module','',0,0,0,0,0,'a:8:{s:4:\"name\";s:26:\"Remote XML [ESN Satellite]\";s:11:\"description\";s:45:\"Imports ESN Section and ESN Country XML files\";s:7:\"package\";s:11:\"Youth Agora\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
@@ -4616,7 +4620,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237869517,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237870851,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237743367,1237718883,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -5370,7 +5374,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6198 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6228 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
