@@ -196,10 +196,9 @@ ul li, ul.menu li, .item-list ul li, li.leaf { background:transparent url(images
 ul li.collapsed { background:transparent url(images/menu-collapsed.gif) no-repeat scroll 0 0.35em; }
 ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat scroll 1px 0.35em; }
 
-.terms ul.links.inline li {padding-left: .3em;}
-.terms ul.links.inline li a { background: transparent url("images/tag_blue.png") top left no-repeat; font-weight: bold; text-transform: uppercase; color: white; font-size: .85em; padding: 0.5em 0.5em 0.3em 13px;}
+.terms ul.links.inline li {padding-left: .2em;}
+.terms ul.links.inline li a { background: transparent url("images/tag_blue.png") top left no-repeat; font-weight: bold; text-transform: uppercase; color: white; font-size: .8em; padding: 0.3em 0.5em 0.2em 13px;}
 .terms ul.links.inline li a:hover {  padding-left: 13px;  background: transparent url("images/tag_green.png") top left no-repeat; text-decoration: none;}
-
 
 #header-top  #block-ya_satellite_blocks-1 { float:left; width:313px; }
 
@@ -266,9 +265,14 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 
 .node .field-field-date { margin-bottom: 1.2em; }
 
-.views-field-tid { line-height: 1.2em; color: #eee; }
+.views-field-tid { line-height: 1.2em; color:#EEEEEE; float:right; line-height:1.2em; margin-top:0.7em; }
 .views-field-tid a { text-transform:uppercase; font-size: .8em; font-weight: bold; color: #bbb; }
 .views-field-tid a:hover { text-decoration: none;}
+
+
+.views-field-tid a  { background: transparent url("images/tag_blue.png") top left no-repeat; font-weight: bold; text-transform: uppercase; color: white; font-size: .8em; padding: 0.3em 0.5em 0.2em 13px;}
+.views-field-tid a:hover  {  padding-left: 13px;  background: transparent url("images/tag_green.png") top left no-repeat; text-decoration: none;}
+
 
 
 /*#cck-complete-percent-bar-wrapper-setting { background: transparent url("images/blocks/green.png") repeat-x !important; }*/
