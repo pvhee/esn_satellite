@@ -1,4 +1,5 @@
 
+body { font-family: Helvetica,Arial,sans-serif;}
 body {background: white;}
 #wrapper {background: #76B0CD url(images/layout/wrapper_bg.png) top left repeat-x; padding:20px 15px;}
 fieldset {border:1px solid #d9eaf5; background: transparent url(images/layout/gradient-inner.png) repeat-x scroll 0 0; margin:1em 0;padding:1em;}
@@ -146,32 +147,34 @@ ul.nice-menu li.menuparent ul li a span,
 ul.nice-menu li ul li.menuparent ul li a span, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li a span, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a span, 
-ul.nice-menu li ul li a span { background: none; background-image: none; }
+ul.nice-menu li ul li a span { background: none; background-image: none; height: auto;  padding-bottom: 7px;}
 ul.nice-menu li.menuparent ul li a, 
 ul.nice-menu li ul li.menuparent ul li a, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li a, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a, 
-ul.nice-menu li ul li a { margin: 0; background: #00ADEE; background-image: none; }
+ul.nice-menu li ul li a { margin: 0; background: #00ADEE; background-image: none; height: auto;}
 
 ul.nice-menu li.menuparent ul li a:hover span, 
 ul.nice-menu li ul li.menuparent ul li a:hover span, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li a:hover span, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a:hover span, 
-ul.nice-menu li ul li a:hover span { background: none; background-image: none; }
+ul.nice-menu li ul li a:hover span { background: none; background-image: none; height: auto; padding-bottom: 7px;}
 ul.nice-menu li.menuparent ul li a:hover, 
 ul.nice-menu li ul li.menuparent ul li a:hover, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li a:hover, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a:hover,
-ul.nice-menu li ul li a:hover { margin: 0; background: #7BC043; background-image: none;  }
+ul.nice-menu li ul li a:hover { margin: 0; background: #7BC043; background-image: none;  height: auto;}
 
-.block-nice_menus { line-height:17px; }
+/*.block-nice_menus { line-height:17px; }*/
 
-ul.nice-menu li a { background: transparent url("images/navigation/blue_right.png") top right no-repeat; }
-ul.nice-menu li a span { margin-right: 9px; padding:8px 0 10px 10px; background: transparent url("images/navigation/blue_left.png") top left no-repeat; }
+ul.nice-menu li a { margin-bottom: .7em;}
+ul.nice-menu li.menuparent a,
+ul.nice-menu li a { display: block; height: 30px; padding: 0; background: transparent url("images/navigation/blue_right.png") top right no-repeat; }
+ul.nice-menu li a span {display: block; height: 20px; margin-right: 9px; padding: 10px 0 0px 10px; background: transparent url("images/navigation/blue_left.png") top left no-repeat; }
 
 ul.nice-menu li.menuparent a:hover,
-ul.nice-menu li a:hover { background: transparent url("images/navigation/green_right.png") top right no-repeat; }
-ul.nice-menu li a:hover span { margin-right: 9px; padding:8px 0 10px 10px; background: transparent url("images/navigation/green_left.png") top left no-repeat; }
+ul.nice-menu li a:hover { display: block; height: 30px; padding: 0; background: transparent url("images/navigation/green_right.png") top right no-repeat; }
+ul.nice-menu li a:hover span { display: block; height: 20px; margin-right: 9px; padding: 10px 0 0px 10px;background: transparent url("images/navigation/green_left.png") top left no-repeat; }
 
 ul.nice-menu ul li, ul.nice-menu ul li.menuparent { border-bottom: 1px solid #0099CF; }
 
