@@ -244,4 +244,9 @@ ul.primary li.active a, ul.primary li.active a:link, ul.primary li.active a:visi
 .views-field-field-teaser-value { line-height: 1.4em; font-size: 1em;}
 .views-field-title { font-size:1.3em; }
 
+.block .views-field-field-date-value,
+.block .views-field-created,
+.block .views-field-title,
+.block .views-field-field-teaser-value { padding-left: 90px; }
+
 
