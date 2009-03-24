@@ -210,7 +210,10 @@ ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat 
 .mini.has-events a { color: white; text-decoration: none; }
 .calendar-calendar tr td { padding-right: 3px; }
 /*.view.view-calendar.view-id-calendar { overflow-x: scroll;}*/
-
+.calendar-calendar th.days { background-color:#EEEEEE; border:medium none; }
+.calendar-calendar .year-view td table td { padding-bottom:0; padding-left:0; padding-right:7px; width:13%; }
+.calendar-calendar div.day { background: transparent; font-weight: bold;}
+.calendar-calendar td div.day { border-style:none none solid solid; border-width:0; }
 
 body.sidebars #wrapper #container,
 body.sidebar-left #wrapper #container,
