@@ -231,7 +231,7 @@ body #wrapper #container .sidebar { width:307px; }
 
 body.sidebar-left #wrapper #container #center,
 body.sidebar-right #wrapper #container #center {width: 610px}
-#header-top { width: 919px; }
+#header-top { width: 918px; }
 .node { border: 0; border-bottom: none;}
 #wrapper #container .sidebar { margin: 0; }
 
