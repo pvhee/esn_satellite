@@ -13,7 +13,7 @@ fieldset {border:1px solid #d9eaf5; background: transparent url(images/layout/gr
 #header-top .block { display: block; float: right;}
 #header-top .inner { padding: .8em 0 .2em 0;  float: left; width: 900px; }
 #shadow-footer { padding:0 13px 13px;}
-#wrapper #container #header { margin-bottom:1.2em; }
+#wrapper #container #header { margin-bottom: 0; }
 
 ul.tabs li a:hover { text-decoration: none;}
 
