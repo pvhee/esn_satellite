@@ -76,10 +76,6 @@ body.frontpage #wrapper #container .sidebar { width:314px;}
 
 #block-views-partners-block_1 .views-row-even, #block-views-partners-block_1 .views-row-odd { display: block; float: left; margin: 0 1em 1em 0; width: auto; }
 
-.view-id-partners.view-display-id-page_1 .views-field-field-image-fid {float: none;}
-.view-id-partners.view-display-id-page_1 td { height:265px; text-align:center; vertical-align:bottom; }
-.view-id-partners.view-display-id-page_1 .views-field-title a { font-size: 1.2em; color: #555; }
-
 td.block {border: 0;}
 
 
@@ -248,5 +244,15 @@ ul.primary li.active a, ul.primary li.active a:link, ul.primary li.active a:visi
 .block .views-field-created,
 .block .views-field-title,
 .block .views-field-field-teaser-value { padding-left: 90px; }
+
+.view-partners.view-display-id-page_1 .views-row-even, .view-partners.view-display-id-page_1 .views-row-odd {margin-bottom: 2em;}
+.view-partners.view-display-id-page_1 p {margin-bottom: .7em;}
+.view-partners.view-display-id-page_1 .views-field-title,
+.view-partners.view-display-id-page_1 .views-field-body,
+.view-partners.view-display-id-page_1 .views-field-field-link-url,
+.view-partners.view-display-id-page_1 .views-field-tid, 
+.view-partners.view-display-id-page_1 .views-field-field-address-value { padding-left:112px; }
+
+ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current { background:#00ADEE; }
 
 
