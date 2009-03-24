@@ -133,4 +133,5 @@
 .block.fill div.view-empty { color: #fff; border-color: #fff; }
 .block.fill div.view-empty a {font-weight: bold; text-decoration: underline;}
 
-
+.block.fill .views-field-title { font-weight: bold;}
+.block h2 { font-weight: bold;}

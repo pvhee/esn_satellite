@@ -126,6 +126,7 @@ td.block {border: 0;}
 /**
  * Nice Menu
  */
+ul.nice-menu li a {font-weight: bold;}
 ul.nice-menu li, ul.nice-menu li.leaf { padding: 0; }
 ul.nice-menu-down li { border-top: 0px solid #CCCCCC; }
 ul.nice-menu-down li.menuparent, #header-region ul.nice-menu-down li.menuparent,
@@ -203,12 +204,14 @@ ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat 
 
 #header-top  #block-ya_satellite_blocks-1 { float:left; width:313px; }
 
+.comment_add, 
 .more-link { text-transform: uppercase; font-size: .9em; font-weight: bold;}
+.comment_add a:before,
 .more-link a:before { content: '+ ';}
 
 .mini.has-events { background: #7BC043; }
 .mini.has-events a { color: white; text-decoration: none; }
-.calendar-calendar tr td { padding-right: 3px; }
+.calendar-calendar tr td { padding-right: 12px; }
 /*.view.view-calendar.view-id-calendar { overflow-x: scroll;}*/
 .calendar-calendar th.days { background-color:#EEEEEE; border:medium none; }
 .calendar-calendar .year-view td table td { padding-bottom:0; padding-left:0; padding-right:7px; width:13%; }
@@ -258,4 +261,5 @@ ul.primary li.active a, ul.primary li.active a:link, ul.primary li.active a:visi
 
 ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current { background:#00ADEE; }
 
+.node .field-field-date { margin-bottom: 1.2em; }
 
