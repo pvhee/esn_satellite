@@ -20,6 +20,28 @@ function satellite_footer_change() {
 }
 
 /**
+ * Select a diferent footer image at every reload. 
+ *
+ * @return CSS
+ */
+function satellite_header_background() {
+  global $base_path;
+  $theme = drupal_get_path('theme', 'satellite');
+
+  $token = token_get_values('esn');
+  $data = array_combine($token->tokens, $token->values);
+  
+  if (file_exists($data['header'])) {
+    $css = '<style type="text/css" media="all"> #wrapper #container #header {background: url('.$base_path.$data['header'].') top left no-repeat;}</style>';
+  } 
+  else {
+    $css = '<style type="text/css" media="all">  #wrapper #container #header {background: url('.$base_path.$theme.'/images/default_header.png) top left no-repeat;}</style>';
+  }
+  return $css;
+}
+
+
+/**
  * Print edit block link in block templates files
  *
  * @param $block
