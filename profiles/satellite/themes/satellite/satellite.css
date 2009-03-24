@@ -250,6 +250,10 @@ ul.primary li.active a, ul.primary li.active a:link, ul.primary li.active a:visi
 .block .views-field-title,
 .block .views-field-field-teaser-value { padding-left: 90px; }
 
+#block-views-partners-block_1 .views-field-title,
+#block-views-partners-block_1 .views-field-field-link-url,
+#block-views-partners-block_1 .views-field-tid { padding-left:110px; }
+
 .view-partners.view-display-id-page_1 .views-row-even, .view-partners.view-display-id-page_1 .views-row-odd {margin-bottom: 2em;}
 .view-partners.view-display-id-page_1 p {margin-bottom: .7em;}
 .view-partners.view-display-id-page_1 .views-field-title,
@@ -261,5 +265,10 @@ ul.primary li.active a, ul.primary li.active a:link, ul.primary li.active a:visi
 ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current { background:#00ADEE; }
 
 .node .field-field-date { margin-bottom: 1.2em; }
+
+.views-field-tid { line-height: 1.2em; color: #eee; }
+.views-field-tid a { text-transform:uppercase; font-size: .8em; font-weight: bold; color: #bbb; }
+.views-field-tid a:hover { text-decoration: none;}
+
 
 /*#cck-complete-percent-bar-wrapper-setting { background: transparent url("images/blocks/green.png") repeat-x !important; }*/

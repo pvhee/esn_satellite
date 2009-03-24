@@ -21,6 +21,9 @@
 .block.green.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
 .block.green.fill {border-color: #346828;}
 
+.block.green .views-field-tid a { color: #bbb; }
+.block.green .views-field-tid a:hover { color: #7BC043;}
+
 
 /**
  * Orange
@@ -36,6 +39,9 @@
 .block.orange.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
 .block.orange.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
 .block.orange.fill {border-color: #684228;}
+
+.block.orange .views-field-tid a { color: #bbb; }
+.block.orange .views-field-tid a:hover { color: #F15A24;}
 
 
 /**
@@ -53,6 +59,10 @@
 .block.pink.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
 .block.pink.fill {border-color: #6B285A;}
 
+.block.pink .views-field-tid a { color: #bbb; }
+.block.pink .views-field-tid a:hover { color: #EB008B;}
+
+
 /**
  * Blue
  */
@@ -68,6 +78,9 @@
 .block.blue.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
 .block.blue.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
 .block.blue.fill {border-color: #285468;}
+
+.block.blue .views-field-tid a { color: #bbb; }
+.block.blue .views-field-tid a:hover { color: #00ADEE; text-decoration: none;}
 
 
 /**
@@ -103,6 +116,9 @@
 #block-views-spotlights-block_1 .block .inner { padding: 0; padding-top:0; }
 #block-views-spotlights-block_1 .spotlight-image { float:left; margin-right:2.2em; width:250px; margin-top:-35px;}
 #wrapper #center #block-views-spotlights-block_1 .views-field-title { font-size:1.7em; line-height:1em; }
+
+#block-views-spotlights-block_1.block .views-field-tid a { color: #bbb; }
+#block-views-spotlights-block_1.block .views-field-tid a:hover { color: #00ADEE;}
 
 #block-views-spotlights-block_1 { margin-top:0;background: transparent url("images/blocks/blue.png") repeat-x;  }
 /*#block-views-spotlights-block_1 { background: transparent; }*/
