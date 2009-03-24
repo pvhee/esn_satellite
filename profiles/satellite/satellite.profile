@@ -6,6 +6,11 @@
  */
 
 /**
+ * Satellite version.
+ */
+define('YOUTHAGORA_SATELLITE_VERSION',  '3.0-ESN');
+
+/**
  * SQL Dump File for the installation profile.
  * 
  * This uses a modified version of the demo module allowing custom sql files for import.
@@ -140,6 +145,9 @@ function satellite_form_submit($form, &$form_state) {
   // Restore the database dump using the demo module and our constant YOUTHAGORA_DUMP_FILE
   module_load_include('inc', 'demo', 'demo.admin');
   demo_reset('', FALSE);
+
+  // Store the Satellite version in the database
+  variable_set('ya_satellite_version', YOUTHAGORA_SATELLITE_VERSION);
   
   // all the other configuration, will overwrite the database
   if ($form_state['values']['file_directory_path'])
