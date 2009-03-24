@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `aggregator_item` (
   `guid` varchar(255) default NULL,
   PRIMARY KEY  (`iid`),
   KEY `fid` (`fid`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `aggregator_item` WRITE;
 /*!40000 ALTER TABLE `aggregator_item` DISABLE KEYS */;
@@ -344,7 +344,7 @@ CREATE TABLE `blocks` (
   PRIMARY KEY  (`bid`),
   UNIQUE KEY `tmd` (`theme`,`module`,`delta`),
   KEY `list` (`theme`,`status`,`region`,`weight`,`module`)
-) ENGINE=MyISAM AUTO_INCREMENT=248 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=251 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `blocks` WRITE;
 /*!40000 ALTER TABLE `blocks` DISABLE KEYS */;
@@ -505,15 +505,15 @@ INSERT INTO `blocks` VALUES (188,'views','credits-block_1','base',0,6,'',0,0,0,'
 INSERT INTO `blocks` VALUES (189,'views','signup_user_list-block_1','base',0,12,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (190,'views','signup_current_signups-block','base',0,11,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (191,'views','signup_available_signups-block','base',0,10,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (192,'advpoll','latest_poll','satellite',0,-27,'',0,0,1,'<front>','',1);
-INSERT INTO `blocks` VALUES (193,'aggregator','feed-1','satellite',1,-27,'content_right',0,0,1,'<front>','',1);
+INSERT INTO `blocks` VALUES (192,'advpoll','latest_poll','satellite',0,-26,'',0,0,1,'<front>','',1);
+INSERT INTO `blocks` VALUES (193,'aggregator','feed-1','satellite',1,-26,'content_right',0,0,1,'<front>','',1);
 INSERT INTO `blocks` VALUES (194,'block','4','satellite',1,-8,'footer_right',0,0,0,'','Get Updates',-1);
 INSERT INTO `blocks` VALUES (195,'block','5','satellite',0,-7,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (196,'calendar','0','satellite',0,-11,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (197,'comment','0','satellite',0,-22,'',0,0,1,'<front>','',1);
 INSERT INTO `blocks` VALUES (199,'devel','0','satellite',0,-10,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (200,'devel','2','satellite',0,-12,'',0,0,0,'','',1);
-INSERT INTO `blocks` VALUES (201,'fbconnect','0','satellite',1,-24,'right',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (201,'fbconnect','0','satellite',1,-22,'right',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (202,'image','0','satellite',0,-6,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (203,'image','1','satellite',0,-5,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (204,'logintoboggan','0','satellite',1,-26,'header_top',0,0,0,'','',-1);
@@ -529,23 +529,18 @@ INSERT INTO `blocks` VALUES (213,'profile','0','satellite',0,-17,'',0,0,0,'','',
 INSERT INTO `blocks` VALUES (214,'search','0','satellite',1,-25,'header_top',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (215,'service_links','0','satellite',0,-4,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (216,'system','0','satellite',0,-18,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (217,'user','0','satellite',1,-21,'right',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (218,'user','1','satellite',1,-22,'right',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (217,'user','0','satellite',1,-19,'right',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (218,'user','1','satellite',1,-20,'right',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (219,'user','2','satellite',0,-14,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (220,'user','3','satellite',0,3,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (221,'views','articles-block_1','satellite',1,-27,'content_left',0,0,1,'<front>','',-1);
+INSERT INTO `blocks` VALUES (221,'views','articles-block_1','satellite',1,-26,'content_left',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (222,'views','articles-block_2','satellite',0,-3,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (223,'views','calendar-block_1','satellite',0,-9,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (224,'views','calendar-calendar_block_1','satellite',1,-26,'right',0,0,1,'events\r\nevent/*','',-1);
-INSERT INTO `blocks` VALUES (225,'views','credits-block_1','satellite',0,-1,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (226,'views','events-block_1','satellite',1,-26,'right_top',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (227,'views','events-block_2','satellite',0,-2,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (228,'views','events-block_3','satellite',1,-25,'right',0,0,1,'events\r\nevent/*','',-1);
-INSERT INTO `blocks` VALUES (229,'views','outcomes-block_1','satellite',0,-24,'',0,0,1,'<front>','',-1);
-INSERT INTO `blocks` VALUES (230,'views','outcomes-block_2','satellite',0,-23,'',0,0,1,'outcome/*','',-1);
-INSERT INTO `blocks` VALUES (231,'views','outcomes-block_3','satellite',0,-21,'',0,0,1,'outcome/*','',-1);
-INSERT INTO `blocks` VALUES (232,'views','outcomes-block_4','satellite',0,-20,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (233,'views','partners-block_1','satellite',1,-23,'right',0,0,1,'<front>','',-1);
+INSERT INTO `blocks` VALUES (233,'views','partners-block_1','satellite',1,-21,'right',0,0,1,'<front>','',-1);
 INSERT INTO `blocks` VALUES (234,'views','signup_available_signups-block','satellite',0,0,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (235,'views','signup_current_signups-block','satellite',0,1,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (236,'views','signup_user_list-block_1','satellite',0,2,'',0,0,0,'','',-1);
@@ -559,6 +554,9 @@ INSERT INTO `blocks` VALUES (244,'ya_satellite_blocks','0','satellite',1,0,'foot
 INSERT INTO `blocks` VALUES (245,'ya_satellite_blocks','1','satellite',1,0,'header_top',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (246,'block','8','satellite',1,-25,'content_right',0,0,1,'<front>','ESN radioACTIVE',-1);
 INSERT INTO `blocks` VALUES (247,'views','activity_report-block_1','satellite',1,0,'content_bottom',0,0,1,'<front>','',-1);
+INSERT INTO `blocks` VALUES (248,'tagadelic','3','satellite',1,-23,'right',0,0,1,'partners\r\npartner/*','Discounts',8);
+INSERT INTO `blocks` VALUES (249,'tagadelic','2','satellite',1,-24,'right',0,0,1,'articles\r\nevents\r\narticle/*\r\nevent/*','Tags',8);
+INSERT INTO `blocks` VALUES (250,'tagadelic','0','satellite',0,0,'',0,0,0,'','',4);
 /*!40000 ALTER TABLE `blocks` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `blocks_roles`;
@@ -821,7 +819,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `pid` (`pid`),
   KEY `nid` (`nid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=311 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=312 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
@@ -2040,7 +2038,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=3326 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3335 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2358,7 +2356,7 @@ INSERT INTO `menu_links` VALUES ('navigation',1941,15,'admin/help/image','admin/
 INSERT INTO `menu_links` VALUES ('navigation',1942,15,'admin/help/imagebrowser','admin/help/imagebrowser','imagebrowser','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1942,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1943,10,'admin/content/node-type/image','admin/content/node-type/image','Image','a:0:{}','system',-1,0,0,0,0,3,0,2,10,1943,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1944,0,'admin/content/node-type/image/delete','admin/content/node-type/image/delete','Delete','a:0:{}','system',-1,0,0,0,0,1,0,1944,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2159,0,'<front>','','<img class=\"admin-menu-icon\" src=\"/satellite/profiles/satellite/themes/satellite/favicon.ico\" width=\"16\" height=\"16\" alt=\"Home\" />','a:3:{s:11:\"extra class\";s:15:\"admin-menu-icon\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,1,1,0,-100,1,0,2159,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2159,0,'<front>','','<img class=\"admin-menu-icon\" src=\"/webdev/satellite/satellite/profiles/satellite/themes/satellite/favicon.ico\" width=\"16\" height=\"16\" alt=\"Home\" />','a:3:{s:11:\"extra class\";s:15:\"admin-menu-icon\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,1,1,0,-100,1,0,2159,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2160,0,'logout','logout','Log out @username','a:3:{s:11:\"extra class\";s:35:\"admin-menu-action admin-menu-logout\";s:1:\"t\";a:0:{}s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,-100,1,0,2160,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2161,0,'user','user','icon_users','a:3:{s:11:\"extra class\";s:50:\"admin-menu-action admin-menu-icon admin-menu-users\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,-90,1,0,2161,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2162,0,'admin/advanced_help','admin/advanced_help','Advanced help','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,9,1,0,2162,0,0,0,0,0,0,0,0,0);
@@ -2805,7 +2803,14 @@ INSERT INTO `menu_links` VALUES ('navigation',3308,0,'admin/content/node-type/st
 INSERT INTO `menu_links` VALUES ('admin_menu',3310,3208,'admin/content/node-type/story/fields/field_video','admin/content/node-type/story/fields/field_video','Video','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,3202,3208,3310,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',3311,0,'admin/content/node-type/story/fields/field_file/remove','admin/content/node-type/story/fields/field_file/remove','Remove field','a:0:{}','system',-1,0,0,0,0,1,0,3311,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3313,3208,'admin/content/node-type/story/fields/field_file','admin/content/node-type/story/fields/field_file','File','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,5,0,2163,2181,3202,3208,3313,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3325,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3325,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3327,0,'tagadelic','tagadelic','Tags','a:0:{}','system',1,0,0,0,0,1,0,3327,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3328,18,'admin/settings/tagadelic','admin/settings/tagadelic','Tagadelic configuration','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:89:\"Configure the tag clouds. Set the order, the number of tags, and the depth of the clouds.\";}}','system',0,0,0,0,0,3,0,2,18,3328,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3329,3327,'tagadelic/chunk/%','tagadelic/chunk/%','Tags','a:0:{}','system',1,0,0,0,0,2,0,3327,3329,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3330,3327,'tagadelic/list/%','tagadelic/list/%','Tags','a:0:{}','system',-1,0,0,0,0,2,0,3327,3330,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',3331,15,'admin/help/tagadelic','admin/help/tagadelic','tagadelic','a:0:{}','system',-1,0,0,0,0,3,0,2,15,3331,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3332,2168,'admin/settings/tagadelic','admin/settings/tagadelic','Tagadelic configuration','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,3332,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3333,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3333,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3334,2333,'http://drupal.org/project/issues/tagadelic','','Tagadelic issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3334,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -3184,6 +3189,7 @@ INSERT INTO `menu_router` VALUES ('admin/help/service_links','','','user_access'
 INSERT INTO `menu_router` VALUES ('admin/help/signup','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/signup','signup','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/system','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/system','system','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/tableofcontents','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/tableofcontents','tableofcontents','t','',4,'','','',0,'modules/help/help.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/help/tagadelic','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/tagadelic','tagadelic','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/taxonomy','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/taxonomy','taxonomy','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/trigger','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/trigger','trigger','t','',4,'','','',0,'modules/help/help.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/help/update','','','user_access','a:1:{i:0;s:27:\"access administration pages\";}','help_page','a:1:{i:0;i:2;}',7,3,'','admin/help/update','update','t','',4,'','','',0,'modules/help/help.admin.inc');
@@ -3281,6 +3287,7 @@ INSERT INTO `menu_router` VALUES ('admin/settings/servicelinks','','','user_acce
 INSERT INTO `menu_router` VALUES ('admin/settings/signup','','','user_access','a:1:{i:0;s:22:\"administer all signups\";}','drupal_get_form','a:1:{i:0;s:20:\"signup_settings_form\";}',7,3,'','admin/settings/signup','Signup','t','',6,'','Configure settings for signups.','',0,'profiles/satellite/modules/signup/includes/admin.settings.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/site-information','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:32:\"system_site_information_settings\";}',7,3,'','admin/settings/site-information','Site information','t','',6,'','Change basic site information, such as the site name, slogan, e-mail address, mission, front page and more.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/site-maintenance','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:32:\"system_site_maintenance_settings\";}',7,3,'','admin/settings/site-maintenance','Site maintenance','t','',6,'','Take the site off-line for maintenance or bring it back online.','',0,'modules/system/system.admin.inc');
+INSERT INTO `menu_router` VALUES ('admin/settings/tagadelic','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:18:\"tagadelic_settings\";}',7,3,'','admin/settings/tagadelic','Tagadelic configuration','t','',6,'','Configure the tag clouds. Set the order, the number of tags, and the depth of the clouds.','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/settings/teleport','','','user_access','a:1:{i:0;s:19:\"administer teleport\";}','drupal_get_form','a:1:{i:0;s:22:\"teleport_settings_form\";}',7,3,'','admin/settings/teleport','Teleport','t','',6,'','Manage settings for the Teleport utility.','',0,'');
 INSERT INTO `menu_router` VALUES ('admin/settings/uploads','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:21:\"upload_admin_settings\";}',7,3,'','admin/settings/uploads','File uploads','t','',6,'','Control how files may be attached to content.','',0,'modules/upload/upload.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/votingapi','','','user_access','a:1:{i:0;s:21:\"administer voting api\";}','drupal_get_form','a:1:{i:0;s:23:\"votingapi_settings_form\";}',7,3,'','admin/settings/votingapi','Voting API','t','',6,'','Global settings for the Voting API.','',0,'profiles/satellite/modules/votingapi/votingapi.admin.inc');
@@ -3437,6 +3444,9 @@ INSERT INTO `menu_router` VALUES ('signup/cancel/%/%','a:2:{i:2;N;i:3;N;}','','u
 INSERT INTO `menu_router` VALUES ('sites/default/files/imagecache','','','1','a:0:{}','imagecache_cache','a:0:{}',15,4,'','sites/default/files/imagecache','','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('system/files','','','1','a:1:{i:0;s:19:\"view uploaded files\";}','file_download','a:0:{}',3,2,'','system/files','File download','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('system/files/imagecache','','','1','a:0:{}','imagecache_cache_private','a:0:{}',7,3,'','system/files/imagecache','','t','',4,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('tagadelic','','','user_access','a:1:{i:0;s:14:\"access content\";}','tagadelic_page_chunk','a:1:{i:0;N;}',1,1,'','tagadelic','Tags','t','',20,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('tagadelic/chunk/%','a:1:{i:2;s:19:\"tagadelic_vocs_load\";}','','user_access','a:1:{i:0;s:14:\"access content\";}','tagadelic_page_chunk','a:1:{i:0;i:2;}',6,3,'','tagadelic/chunk/%','Tags','t','',20,'','','',0,'');
+INSERT INTO `menu_router` VALUES ('tagadelic/list/%','a:1:{i:2;s:19:\"tagadelic_vocs_load\";}','','user_access','a:1:{i:0;s:14:\"access content\";}','tagadelic_page_list','a:1:{i:0;i:2;}',6,3,'','tagadelic/list/%','Tags','t','',4,'','','',0,'');
 INSERT INTO `menu_router` VALUES ('taxonomy/autocomplete','','','user_access','a:1:{i:0;s:14:\"access content\";}','taxonomy_autocomplete','a:0:{}',3,2,'','taxonomy/autocomplete','Autocomplete taxonomy','t','',4,'','','',0,'modules/taxonomy/taxonomy.pages.inc');
 INSERT INTO `menu_router` VALUES ('taxonomy/term/%','a:1:{i:2;N;}','','user_access','a:1:{i:0;s:14:\"access content\";}','taxonomy_term_page','a:1:{i:0;i:2;}',6,3,'','taxonomy/term/%','Taxonomy term','t','',4,'','','',0,'modules/taxonomy/taxonomy.pages.inc');
 INSERT INTO `menu_router` VALUES ('teleport/autocomplete/title','','','user_access','a:1:{i:0;s:12:\"use teleport\";}','_teleport_autocomplete_title','a:1:{i:0;i:3;}',7,3,'','teleport/autocomplete/title','Autocomplete title','t','',4,'','','',0,'');
@@ -4237,6 +4247,7 @@ INSERT INTO `system` VALUES ('profiles/satellite/modules/spaces/spaces_taxonomy/
 INSERT INTO `system` VALUES ('profiles/satellite/modules/spaces/spaces_user/spaces_user.module','spaces_user','module','',0,0,0,-1,0,'a:10:{s:4:\"name\";s:11:\"Spaces User\";s:11:\"description\";s:44:\"Provides integration between Spaces and User\";s:7:\"package\";s:6:\"Spaces\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:6:\"spaces\";}s:7:\"version\";s:14:\"6.x-1.0-alpha3\";s:7:\"project\";s:6:\"spaces\";s:9:\"datestamp\";s:10:\"1231047636\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/tableofcontents/headinganchors.module','headinganchors','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:16:\"Headings anchors\";s:11:\"description\";s:100:\"Filter that marks H2 and H3 headings with id anchors from which Tables of Contents can be generated.\";s:7:\"package\";s:7:\"Filters\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-2.2\";s:7:\"project\";s:15:\"tableofcontents\";s:9:\"datestamp\";s:10:\"1219077628\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/tableofcontents/tableofcontents.module','tableofcontents','module','',1,0,0,0,0,'a:10:{s:4:\"name\";s:17:\"Table of Contents\";s:11:\"description\";s:102:\"Adds a filter that generates Tables of Contents for pages marked with  \'&lt;!--tableofcontents--&gt;\'.\";s:7:\"package\";s:7:\"Filters\";s:12:\"dependencies\";a:1:{i:0;s:14:\"headinganchors\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:7:\"6.x-2.2\";s:7:\"project\";s:15:\"tableofcontents\";s:9:\"datestamp\";s:10:\"1219077628\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
+INSERT INTO `system` VALUES ('profiles/satellite/modules/tagadelic/tagadelic.module','tagadelic','module','',1,0,0,6100,0,'a:10:{s:4:\"name\";s:9:\"Tagadelic\";s:11:\"description\";s:61:\"Tagadelic makes weighted tag clouds from your taxonomy terms.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:1:{i:0;s:8:\"taxonomy\";}s:7:\"package\";s:8:\"Taxonomy\";s:7:\"version\";s:7:\"6.x-1.2\";s:7:\"project\";s:9:\"tagadelic\";s:9:\"datestamp\";s:10:\"1230725138\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/teleport/teleport.module','teleport','module','',1,0,0,0,0,'a:7:{s:4:\"name\";s:8:\"Teleport\";s:11:\"description\";s:120:\"Allows fast Quicksilver-like \'launching\' to different pages. Searches node titles, menu items, users and taxonomy terms.\";s:4:\"core\";s:3:\"6.x\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:7:\"version\";N;s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/token/token.module','token','module','',1,0,0,1,10,'a:9:{s:4:\"name\";s:5:\"Token\";s:11:\"description\";s:79:\"Provides a shared API for replacement of textual placeholders with actual data.\";s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:8:\"6.x-1.11\";s:7:\"project\";s:5:\"token\";s:9:\"datestamp\";s:10:\"1217698238\";s:12:\"dependencies\";a:0:{}s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
 INSERT INTO `system` VALUES ('profiles/satellite/modules/token/token_actions.module','token_actions','module','',0,0,0,-1,0,'a:9:{s:4:\"name\";s:13:\"Token actions\";s:11:\"description\";s:73:\"Provides enhanced versions of core Drupal actions using the Token module.\";s:12:\"dependencies\";a:1:{i:0;s:5:\"token\";}s:4:\"core\";s:3:\"6.x\";s:7:\"version\";s:8:\"6.x-1.11\";s:7:\"project\";s:5:\"token\";s:9:\"datestamp\";s:10:\"1217698238\";s:10:\"dependents\";a:0:{}s:3:\"php\";s:5:\"4.3.5\";}');
@@ -4682,7 +4693,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237873401,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237874365,1237803915,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237743367,1237718883,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -4720,7 +4731,7 @@ INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237873499;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
-INSERT INTO `variable` VALUES ('blocktheme','a:7:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:10:\"green_fill\";s:44:\"views-partners-block_1?destination=frontpage\";s:5:\"green\";s:22:\"views-partners-block_1\";s:4:\"blue\";s:6:\"user-1\";s:5:\"green\";s:7:\"block-7\";s:5:\"green\";s:24:\"content_complete-setting\";s:4:\"blue\";}');
+INSERT INTO `variable` VALUES ('blocktheme','a:9:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:10:\"green_fill\";s:44:\"views-partners-block_1?destination=frontpage\";s:5:\"green\";s:22:\"views-partners-block_1\";s:4:\"blue\";s:6:\"user-1\";s:5:\"green\";s:7:\"block-7\";s:5:\"green\";s:24:\"content_complete-setting\";s:4:\"blue\";s:11:\"tagadelic-3\";s:6:\"orange\";s:11:\"tagadelic-2\";s:6:\"orange\";}');
 INSERT INTO `variable` VALUES ('blocktheme_themes','s:143:\"blue|Blue\r\ngreen|Green\r\norange|Orange\r\npink|Pink\r\nblue_fill|Full Blue\r\ngreen_fill|Full Green \r\norange_fill|Full Orange\r\npink_fill|Full Pink\r\n\r\n\";');
 INSERT INTO `variable` VALUES ('block_cache','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('book_allowed_types','a:1:{i:0;s:4:\"book\";}');
@@ -4801,7 +4812,7 @@ INSERT INTO `variable` VALUES ('content_extra_weights_story','a:4:{s:5:\"title\"
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
 INSERT INTO `variable` VALUES ('cron_last','i:1237873533;');
-INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"ID1p8eGJ56wv3r90sRqd\";');
+INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"FID1p8eGJ56wv3r90sRq\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
 INSERT INTO `variable` VALUES ('date_default_timezone','i:3600;');
@@ -5166,6 +5177,8 @@ INSERT INTO `variable` VALUES ('site_name','s:15:\"ESN Satellite 3\";');
 INSERT INTO `variable` VALUES ('site_slogan','s:23:\"Erasmus Student Network\";');
 INSERT INTO `variable` VALUES ('spaces_default_presets','a:1:{s:4:\"site\";s:4:\"site\";}');
 INSERT INTO `variable` VALUES ('spaces_disabled_presets','a:1:{s:0:\"\";a:1:{s:0:\"\";i:1;}}');
+INSERT INTO `variable` VALUES ('tagadelic_block_tags_2','s:2:\"12\";');
+INSERT INTO `variable` VALUES ('tagadelic_block_tags_3','s:2:\"12\";');
 INSERT INTO `variable` VALUES ('theme_base_settings','a:16:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:1;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";s:6:\"scheme\";s:39:\"#a5b3bc,#027ac6,#2385c2,#5ab5ee,#494949\";s:7:\"palette\";a:5:{s:4:\"base\";s:7:\"#a5b3bc\";s:4:\"link\";s:7:\"#027ac6\";s:3:\"top\";s:7:\"#2385c2\";s:6:\"bottom\";s:7:\"#5ab5ee\";s:4:\"text\";s:7:\"#494949\";}s:5:\"theme\";s:4:\"base\";s:4:\"info\";a:9:{s:7:\"schemes\";a:16:{s:39:\"#a5b3bc,#027ac6,#2385c2,#5ab5ee,#494949\";s:21:\"Blue Lagoon (Default)\";s:39:\"#2a2b2d,#464849,#2f416f,#5d6779,#494949\";s:3:\"Ash\";s:39:\"#085360,#55c0e2,#000000,#007e94,#696969\";s:10:\"Aquamarine\";s:39:\"#331900,#d5b048,#6c420e,#971702,#494949\";s:17:\"Belgian Chocolate\";s:39:\"#6598cb,#3f3f3f,#336699,#6598cb,#000000\";s:10:\"Bluemarine\";s:39:\"#efde01,#d0cb9a,#917803,#e6fb2d,#494949\";s:12:\"Citrus Blast\";s:39:\"#4d91ff,#0f005c,#434f8c,#1a1575,#000000\";s:8:\"Cold Day\";s:39:\"#03961e,#c9c497,#0c7a00,#7be000,#494949\";s:9:\"Greenbeam\";s:39:\"#fc6d1d,#ffe23d,#a9290a,#a30f42,#494949\";s:11:\"Mediterrano\";s:39:\"#a9adbc,#788597,#3f728d,#d4d4d4,#707070\";s:7:\"Mercury\";s:39:\"#0a2352,#5b5fa9,#5b5faa,#9fa8d5,#494949\";s:9:\"Nocturnal\";s:39:\"#b5d52a,#7db323,#6a9915,#7db323,#191a19\";s:6:\"Olivia\";s:39:\"#f391c6,#12020b,#1b1a13,#f41063,#898080\";s:12:\"Pink Plastic\";s:39:\"#a1443a,#b7a0ba,#c70000,#f21107,#515d52\";s:12:\"Shiny Tomato\";s:39:\"#34775a,#18583d,#1b5f42,#52bf90,#2d2d2d\";s:8:\"Teal Top\";s:0:\"\";s:6:\"Custom\";}s:4:\"copy\";a:3:{i:0;s:31:\"images/icons/menu-collapsed.gif\";i:1;s:30:\"images/icons/menu-expanded.gif\";i:2;s:26:\"images/icons/menu-leaf.gif\";}s:3:\"css\";a:1:{i:0;s:9:\"style.css\";}s:4:\"fill\";a:2:{s:4:\"base\";a:4:{i:0;i:0;i:1;i:0;i:2;i:1018;i:3;i:1464;}s:4:\"link\";a:4:{i:0;i:107;i:1;i:533;i:2;i:41;i:3;i:23;}}s:6:\"slices\";a:10:{s:26:\"images/layout/bg_color.png\";a:4:{i:0;i:0;i:1;i:37;i:2;i:4;i:3;i:4;}s:28:\"images/layout/shadow_top.png\";a:4:{i:0;i:31;i:1;i:37;i:2;i:958;i:3;i:396;}s:23:\"images/layout/tab_l.png\";a:4:{i:0;i:78;i:1;i:512;i:2;i:5;i:3;i:24;}s:23:\"images/layout/tab_r.png\";a:4:{i:0;i:98;i:1;i:512;i:2;i:5;i:3;i:24;}s:24:\"images/layout/bg-bar.png\";a:4:{i:0;i:205;i:1;i:512;i:2;i:76;i:3;i:14;}s:24:\"images/layout/bg-tab.png\";a:4:{i:0;i:281;i:1;i:512;i:2;i:42;i:3;i:23;}s:32:\"images/layout/gradient-inner.png\";a:4:{i:0;i:323;i:1;i:512;i:2;i:112;i:3;i:32;}s:30:\"images/layout/container_bg.png\";a:4:{i:0;i:31;i:1;i:433;i:2;i:958;i:3;i:4;}s:29:\"images/layout/footer_fade.png\";a:4:{i:0;i:942;i:1;i:1063;i:2;i:4;i:3;i:354;}s:31:\"images/layout/shadow_footer.png\";a:4:{i:0;i:31;i:1;i:1417;i:2;i:958;i:3;i:13;}}s:12:\"blend_target\";s:7:\"#ffffff\";s:13:\"preview_image\";s:17:\"color/preview.png\";s:11:\"preview_css\";s:17:\"color/preview.css\";s:10:\"base_image\";s:14:\"color/base.png\";}}');
 INSERT INTO `variable` VALUES ('theme_blueprint_settings','a:20:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:0;s:22:\"toggle_secondary_links\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:38:\"sites/default/files/blueprint_logo.png\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";s:6:\"scheme\";s:39:\"#a5b3bc,#027ac6,#2385c2,#5ab5ee,#494949\";s:7:\"palette\";a:5:{s:4:\"base\";s:7:\"#a5b3bc\";s:4:\"link\";s:7:\"#027ac6\";s:3:\"top\";s:7:\"#2385c2\";s:6:\"bottom\";s:7:\"#5ab5ee\";s:4:\"text\";s:7:\"#494949\";}s:5:\"theme\";s:9:\"blueprint\";s:4:\"info\";a:9:{s:7:\"schemes\";a:16:{s:39:\"#a5b3bc,#027ac6,#2385c2,#5ab5ee,#494949\";s:21:\"Blue Lagoon (Default)\";s:39:\"#2a2b2d,#464849,#2f416f,#5d6779,#494949\";s:3:\"Ash\";s:39:\"#085360,#55c0e2,#000000,#007e94,#696969\";s:10:\"Aquamarine\";s:39:\"#331900,#d5b048,#6c420e,#971702,#494949\";s:17:\"Belgian Chocolate\";s:39:\"#6598cb,#3f3f3f,#336699,#6598cb,#000000\";s:10:\"Bluemarine\";s:39:\"#efde01,#d0cb9a,#917803,#e6fb2d,#494949\";s:12:\"Citrus Blast\";s:39:\"#4d91ff,#0f005c,#434f8c,#1a1575,#000000\";s:8:\"Cold Day\";s:39:\"#03961e,#c9c497,#0c7a00,#7be000,#494949\";s:9:\"Greenbeam\";s:39:\"#fc6d1d,#ffe23d,#a9290a,#a30f42,#494949\";s:11:\"Mediterrano\";s:39:\"#a9adbc,#788597,#3f728d,#d4d4d4,#707070\";s:7:\"Mercury\";s:39:\"#0a2352,#5b5fa9,#5b5faa,#9fa8d5,#494949\";s:9:\"Nocturnal\";s:39:\"#b5d52a,#7db323,#6a9915,#7db323,#191a19\";s:6:\"Olivia\";s:39:\"#f391c6,#12020b,#1b1a13,#f41063,#898080\";s:12:\"Pink Plastic\";s:39:\"#a1443a,#b7a0ba,#c70000,#f21107,#515d52\";s:12:\"Shiny Tomato\";s:39:\"#34775a,#18583d,#1b5f42,#52bf90,#2d2d2d\";s:8:\"Teal Top\";s:0:\"\";s:6:\"Custom\";}s:4:\"copy\";a:3:{i:0;s:31:\"images/icons/menu-collapsed.gif\";i:1;s:30:\"images/icons/menu-expanded.gif\";i:2;s:26:\"images/icons/menu-leaf.gif\";}s:3:\"css\";a:1:{i:0;s:9:\"style.css\";}s:4:\"fill\";a:2:{s:4:\"base\";a:4:{i:0;i:0;i:1;i:0;i:2;i:1018;i:3;i:1464;}s:4:\"link\";a:4:{i:0;i:107;i:1;i:533;i:2;i:41;i:3;i:23;}}s:6:\"slices\";a:10:{s:26:\"images/layout/bg_color.png\";a:4:{i:0;i:0;i:1;i:37;i:2;i:4;i:3;i:4;}s:28:\"images/layout/shadow_top.png\";a:4:{i:0;i:31;i:1;i:37;i:2;i:958;i:3;i:396;}s:23:\"images/layout/tab_l.png\";a:4:{i:0;i:78;i:1;i:512;i:2;i:5;i:3;i:24;}s:23:\"images/layout/tab_r.png\";a:4:{i:0;i:98;i:1;i:512;i:2;i:5;i:3;i:24;}s:24:\"images/layout/bg-bar.png\";a:4:{i:0;i:205;i:1;i:512;i:2;i:76;i:3;i:14;}s:24:\"images/layout/bg-tab.png\";a:4:{i:0;i:281;i:1;i:512;i:2;i:42;i:3;i:23;}s:32:\"images/layout/gradient-inner.png\";a:4:{i:0;i:323;i:1;i:512;i:2;i:112;i:3;i:32;}s:30:\"images/layout/container_bg.png\";a:4:{i:0;i:31;i:1;i:433;i:2;i:958;i:3;i:4;}s:29:\"images/layout/footer_fade.png\";a:4:{i:0;i:942;i:1;i:1063;i:2;i:4;i:3;i:354;}s:31:\"images/layout/shadow_footer.png\";a:4:{i:0;i:31;i:1;i:1417;i:2;i:958;i:3;i:13;}}s:12:\"blend_target\";s:7:\"#ffffff\";s:13:\"preview_image\";s:17:\"color/preview.png\";s:11:\"preview_css\";s:17:\"color/preview.css\";s:10:\"base_image\";s:14:\"color/base.png\";}}');
 INSERT INTO `variable` VALUES ('theme_conference_settings','a:20:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:0;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:39:\"sites/default/files/conference_logo.jpg\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:0;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";s:16:\"default_org_logo\";i:0;s:13:\"org_logo_path\";s:28:\"sites/default/files/logo.jpg\";s:15:\"org_logo_upload\";s:0:\"\";s:6:\"scheme\";s:39:\"#7e9fbd,#027ac6,#2385c2,#5ab5ee,#494949\";s:7:\"palette\";a:5:{s:4:\"base\";s:7:\"#7e9fbd\";s:4:\"link\";s:7:\"#027ac6\";s:3:\"top\";s:7:\"#2385c2\";s:6:\"bottom\";s:7:\"#5ab5ee\";s:4:\"text\";s:7:\"#494949\";}s:5:\"theme\";s:10:\"conference\";s:4:\"info\";a:9:{s:7:\"schemes\";a:16:{s:39:\"#7e9fbd,#027ac6,#2385c2,#5ab5ee,#494949\";s:21:\"Blue Lagoon (Default)\";s:39:\"#2a2b2d,#464849,#2f416f,#5d6779,#494949\";s:3:\"Ash\";s:39:\"#085360,#55c0e2,#000000,#007e94,#696969\";s:10:\"Aquamarine\";s:39:\"#331900,#d5b048,#6c420e,#971702,#494949\";s:17:\"Belgian Chocolate\";s:39:\"#6598cb,#3f3f3f,#336699,#6598cb,#000000\";s:10:\"Bluemarine\";s:39:\"#efde01,#d0cb9a,#917803,#e6fb2d,#494949\";s:12:\"Citrus Blast\";s:39:\"#4d91ff,#0f005c,#434f8c,#1a1575,#000000\";s:8:\"Cold Day\";s:39:\"#03961e,#c9c497,#0c7a00,#7be000,#494949\";s:9:\"Greenbeam\";s:39:\"#fc6d1d,#ffe23d,#a9290a,#a30f42,#494949\";s:11:\"Mediterrano\";s:39:\"#a9adbc,#788597,#3f728d,#d4d4d4,#707070\";s:7:\"Mercury\";s:39:\"#0a2352,#5b5fa9,#5b5faa,#9fa8d5,#494949\";s:9:\"Nocturnal\";s:39:\"#b5d52a,#7db323,#6a9915,#7db323,#191a19\";s:6:\"Olivia\";s:39:\"#f391c6,#12020b,#1b1a13,#f41063,#898080\";s:12:\"Pink Plastic\";s:39:\"#a1443a,#b7a0ba,#c70000,#f21107,#515d52\";s:12:\"Shiny Tomato\";s:39:\"#34775a,#18583d,#1b5f42,#52bf90,#2d2d2d\";s:8:\"Teal Top\";s:0:\"\";s:6:\"Custom\";}s:4:\"copy\";a:7:{i:0;s:25:\"images/menu-collapsed.gif\";i:1;s:29:\"images/menu-collapsed-rtl.gif\";i:2;s:24:\"images/menu-expanded.gif\";i:3;s:20:\"images/menu-leaf.gif\";i:4;s:20:\"images/task-list.png\";i:5;s:23:\"images/bg-bar-white.png\";i:6;s:8:\"logo.png\";}s:3:\"css\";a:1:{i:0;s:9:\"style.css\";}s:4:\"fill\";a:2:{s:4:\"base\";a:4:{i:0;i:0;i:1;i:0;i:2;i:870;i:3;i:1000;}s:4:\"link\";a:4:{i:0;i:107;i:1;i:533;i:2;i:41;i:3;i:23;}}s:6:\"slices\";a:13:{s:17:\"images/bg-bar.png\";a:4:{i:0;i:43;i:1;i:643;i:2;i:76;i:3;i:14;}s:17:\"images/bg-tab.png\";a:4:{i:0;i:119;i:1;i:643;i:2;i:41;i:3;i:23;}s:25:\"images/gradient-inner.png\";a:4:{i:0;i:142;i:1;i:684;i:2;i:112;i:3;i:42;}s:19:\"images/box-body.png\";a:4:{i:0;i:0;i:1;i:189;i:2;i:870;i:3;i:5;}s:21:\"images/box-bottom.png\";a:4:{i:0;i:0;i:1;i:887;i:2;i:870;i:3;i:99;}s:18:\"images/box-top.png\";a:4:{i:0;i:0;i:1;i:0;i:2;i:870;i:3;i:46;}s:21:\"images/footer-top.png\";a:4:{i:0;i:26;i:1;i:726;i:2;i:819;i:3;i:32;}s:22:\"images/latest-news.png\";a:4:{i:0;i:254;i:1;i:473;i:2;i:34;i:3;i:158;}s:21:\"images/learn-more.png\";a:4:{i:0;i:506;i:1;i:395;i:2;i:104;i:3;i:32;}s:17:\"images/signup.png\";a:4:{i:0;i:646;i:1;i:395;i:2;i:104;i:3;i:32;}s:18:\"images/welcome.png\";a:4:{i:0;i:254;i:1;i:210;i:2;i:34;i:3;i:124;}s:21:\"images/wrapper-bg.png\";a:4:{i:0;i:845;i:1;i:964;i:2;i:25;i:3;i:22;}s:20:\"images/footer-bg.png\";a:4:{i:0;i:827;i:1;i:871;i:2;i:18;i:3;i:16;}}s:12:\"blend_target\";s:7:\"#ffffff\";s:13:\"preview_image\";s:17:\"color/preview.png\";s:11:\"preview_css\";s:17:\"color/preview.css\";s:10:\"base_image\";s:14:\"color/base.png\";}}');
@@ -5174,7 +5187,7 @@ INSERT INTO `variable` VALUES ('theme_garland_settings','a:20:{s:11:\"toggle_log
 INSERT INTO `variable` VALUES ('theme_project_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_satellite_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:0;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_settings','a:26:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:1;s:22:\"toggle_secondary_links\";i:1;s:24:\"toggle_node_info_article\";i:1;s:31:\"toggle_node_info_advpoll_binary\";i:1;s:23:\"toggle_node_info_credit\";i:0;s:22:\"toggle_node_info_event\";i:1;s:22:\"toggle_node_info_image\";i:1;s:24:\"toggle_node_info_outcome\";i:1;s:21:\"toggle_node_info_page\";i:0;s:24:\"toggle_node_info_partner\";i:0;s:32:\"toggle_node_info_advpoll_ranking\";i:1;s:26:\"toggle_node_info_spotlight\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
-INSERT INTO `variable` VALUES ('update_last_check','i:1237873531;');
+INSERT INTO `variable` VALUES ('update_last_check','i:1237873946;');
 INSERT INTO `variable` VALUES ('upload_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_credit','s:1:\"0\";');
@@ -5436,7 +5449,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6088 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6339 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
