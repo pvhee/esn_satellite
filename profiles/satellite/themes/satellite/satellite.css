@@ -126,7 +126,7 @@ td.block {border: 0;}
 /**
  * Nice Menu
  */
-ul.nice-menu li a {font-weight: bold;}
+/*ul.nice-menu li a {font-weight: bold;}*/
 ul.nice-menu li, ul.nice-menu li.leaf { padding: 0; }
 ul.nice-menu-down li { border-top: 0px solid #CCCCCC; }
 ul.nice-menu-down li.menuparent, #header-region ul.nice-menu-down li.menuparent,
