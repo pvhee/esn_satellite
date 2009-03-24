@@ -74,7 +74,7 @@ body.frontpage #wrapper #container .sidebar { width:314px;}
 #wrapper #container .sidebar #block-views-articles-block_2.block, #wrapper #container .sidebar #block-views-events-block_2.block { padding-top: 0.001em;}
 #block-views-articles-block_2 .views-row-1, #block-views-events-block_2 .views-row-1 {margin:0;}
 
-#block-views-partners-block_1 .views-row-even, #block-views-partners-block_1 .views-row-odd { display: block; float: left; margin: 0 1em 1em 0; width: auto; }
+#block-views-partners-block_1 .views-row-even, #block-views-partners-block_1 .views-row-odd { display: block; float: left; margin: 0 1em 1em 0; width: auto; width:300px;}
 
 td.block {border: 0;}
 
