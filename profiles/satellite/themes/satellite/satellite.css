@@ -115,7 +115,6 @@ td.block {border: 0;}
 /**
  * Custom fixes
  */
-#cck-complete-percent-bar-wrapper-setting { background:#FFFFFF none repeat scroll 0 0;border:1px solid #AAAAAA;padding:1px;width:100%;}
 #block-menu-menu-quick-links ul { margin: 0;}
 #block-menu-menu-quick-links li { margin-top: 0;}
 
@@ -263,3 +262,4 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 
 .node .field-field-date { margin-bottom: 1.2em; }
 
+/*#cck-complete-percent-bar-wrapper-setting { background: transparent url("images/blocks/green.png") repeat-x !important; }*/
