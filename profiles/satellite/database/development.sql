@@ -1885,6 +1885,8 @@ INSERT INTO `i18n_strings` VALUES (42,2519,'item','title');
 INSERT INTO `i18n_strings` VALUES (43,3343,'item','title');
 INSERT INTO `i18n_strings` VALUES (44,1364,'item','title');
 INSERT INTO `i18n_strings` VALUES (45,3351,'item','title');
+INSERT INTO `i18n_strings` VALUES (78,3,'vocabulary','name');
+INSERT INTO `i18n_strings` VALUES (82,2,'vocabulary','name');
 /*!40000 ALTER TABLE `i18n_strings` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `i18n_variable`;
@@ -2048,7 +2050,7 @@ CREATE TABLE `locales_source` (
   PRIMARY KEY  (`lid`),
   KEY `source` (`source`(30)),
   KEY `textgroup_location` (`textgroup`(30),`location`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `locales_source` WRITE;
 /*!40000 ALTER TABLE `locales_source` DISABLE KEYS */;
@@ -2099,6 +2101,37 @@ INSERT INTO `locales_source` VALUES (48,'misc/drupal.js','default',0x416E2065727
 INSERT INTO `locales_source` VALUES (49,'misc/drupal.js','default',0x416E2048545450206572726F722040737461747573206F636375727265642E205C6E40757269,'none');
 INSERT INTO `locales_source` VALUES (50,'profiles/satellite/modules/tableofcontents/tableofcontents.js','default',0x68696465,'none');
 INSERT INTO `locales_source` VALUES (51,'profiles/satellite/modules/tableofcontents/tableofcontents.js','default',0x73686F77,'none');
+INSERT INTO `locales_source` VALUES (52,'misc/tabledrag.js','default',0x4472616720746F2072652D6F72646572,'none');
+INSERT INTO `locales_source` VALUES (53,'misc/tabledrag.js','default',0x4368616E676573206D61646520696E2074686973207461626C652077696C6C206E6F7420626520736176656420756E74696C2074686520666F726D206973207375626D69747465642E,'none');
+INSERT INTO `locales_source` VALUES (54,'profiles/satellite/modules/fckeditor/fckeditor.utils.js; misc/teaser.js','default',0x4A6F696E2073756D6D617279,'none');
+INSERT INTO `locales_source` VALUES (55,'profiles/satellite/modules/fckeditor/fckeditor.utils.js; misc/teaser.js','default',0x53706C69742073756D6D61727920617420637572736F72,'none');
+INSERT INTO `locales_source` VALUES (56,'profiles/satellite/modules/filefield/filefield.js','default',0x5468652073656C65637465642066696C65202566696C656E616D652063616E6E6F74206E6F742062652075706C6F616465642E204F6E6C792066696C657320776974682074686520666F6C6C6F77696E6720657874656E73696F6E732061726520616C6C6F7765643A2025657874656E73696F6E732E,'none');
+INSERT INTO `locales_source` VALUES (57,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x31206174746163686D656E74,'none');
+INSERT INTO `locales_source` VALUES (58,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x40636F756E74206174746163686D656E7473,'none');
+INSERT INTO `locales_source` VALUES (59,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x3C6E6F6E653E,'none');
+INSERT INTO `locales_source` VALUES (60,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x4E6F7420696E20626F6F6B,'none');
+INSERT INTO `locales_source` VALUES (61,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x3C6372656174652061206E657720626F6F6B3E,'none');
+INSERT INTO `locales_source` VALUES (62,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x4E657720626F6F6B,'none');
+INSERT INTO `locales_source` VALUES (63,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x437265617465206E6577207265766973696F6E,'none');
+INSERT INTO `locales_source` VALUES (64,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x446F6E5C277420637265617465206E6577207265766973696F6E,'none');
+INSERT INTO `locales_source` VALUES (65,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x427920406E616D65206F6E204064617465,'none');
+INSERT INTO `locales_source` VALUES (66,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x427920406E616D65,'none');
+INSERT INTO `locales_source` VALUES (67,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x5075626C6973686564,'none');
+INSERT INTO `locales_source` VALUES (68,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x50726F6D6F74656420746F2066726F6E742070616765,'none');
+INSERT INTO `locales_source` VALUES (69,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x537469636B79206F6E20746F70206F66206C69737473,'none');
+INSERT INTO `locales_source` VALUES (70,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x4E6F6E65,'none');
+INSERT INTO `locales_source` VALUES (71,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x4E6F7420696E206D656E75,'none');
+INSERT INTO `locales_source` VALUES (72,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x4E6F206174746163686D656E7473,'none');
+INSERT INTO `locales_source` VALUES (73,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x4175746F6D6174696320616C696173,'none');
+INSERT INTO `locales_source` VALUES (74,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x416C6961733A2040616C696173,'none');
+INSERT INTO `locales_source` VALUES (75,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x4E6F20616C696173,'none');
+INSERT INTO `locales_source` VALUES (76,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x4E6F20666C616773,'none');
+INSERT INTO `locales_source` VALUES (77,'profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js','default',0x4E6F207465726D73,'none');
+INSERT INTO `locales_source` VALUES (78,'vocabulary:3:name','taxonomy',0x446973636F756E7473,'1');
+INSERT INTO `locales_source` VALUES (79,'/satellite/admin/content/taxonomy/edit/vocabulary/3','default',0x4372656174656420737472696E6720256C6F636174696F6E20666F7220746578742067726F757020257465787467726F75703A2025737472696E67,'6.10');
+INSERT INTO `locales_source` VALUES (80,'/satellite/admin/content/taxonomy/edit/vocabulary/3','default',0x5570646174656420766F636162756C61727920256E616D652E,'6.10');
+INSERT INTO `locales_source` VALUES (81,'/satellite/admin/content/taxonomy/edit/vocabulary/3','default',0x65646974,'6.10');
+INSERT INTO `locales_source` VALUES (82,'vocabulary:2:name','taxonomy',0x54616773,'1');
 /*!40000 ALTER TABLE `locales_source` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `locales_target`;
@@ -2230,7 +2263,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=3434 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3438 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -3041,10 +3074,10 @@ INSERT INTO `menu_links` VALUES ('admin_menu',3426,3416,'admin/settings/language
 INSERT INTO `menu_links` VALUES ('admin_menu',3427,3424,'admin/build/translate/table/menu','admin/build/translate/table/menu','Menu translator','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,1,4,0,2167,3414,3424,3427,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3428,3420,'admin/settings/language/i18n/configure','admin/settings/language/i18n/configure','Multilingual system','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,4,0,2168,3413,3420,3428,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3429,3424,'admin/build/translate/table/taxonomy','admin/build/translate/table/taxonomy','Taxonomy translator','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,4,0,2167,3414,3424,3429,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3430,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3430,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3431,2333,'http://drupal.org/project/issues/i18n','','Internationalization issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3431,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3432,2333,'http://drupal.org/project/issues/languageicons','','Language Icons issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3432,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3433,2333,'http://drupal.org/project/issues/translation_table','','Translation Table issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3433,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3437,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3437,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -4989,7 +5022,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237971137,1237967814,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237971742,1237967814,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237927425,1237926806,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -5043,7 +5076,7 @@ INSERT INTO `variable` VALUES ('clean_url','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('clear','s:17:\"Clear cached data\";');
 INSERT INTO `variable` VALUES ('comment_anonymous_article','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('comment_anonymous_event','s:1:\"2\";');
-INSERT INTO `variable` VALUES ('comment_anonymous_page','i:0;');
+INSERT INTO `variable` VALUES ('comment_anonymous_page','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('comment_anonymous_partner','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('comment_anonymous_setting','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('comment_anonymous_story','s:1:\"1\";');
@@ -5214,12 +5247,12 @@ INSERT INTO `variable` VALUES ('filter_html_nofollow_1','i:0;');
 INSERT INTO `variable` VALUES ('filter_url_length_1','s:2:\"72\";');
 INSERT INTO `variable` VALUES ('format','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('form_build_id_activity','s:37:\"form-7c6635fe2bd085a00c1a8f23c04b9d0a\";');
-INSERT INTO `variable` VALUES ('form_build_id_article','s:37:\"form-f09ae45c0881408f4359e1390fb89be0\";');
+INSERT INTO `variable` VALUES ('form_build_id_article','s:37:\"form-3bfac119ee5dd37f525c58edf15290bf\";');
 INSERT INTO `variable` VALUES ('form_build_id_credit','s:37:\"form-a86a9bbd56d2d9f66e0af082aad2d9e4\";');
-INSERT INTO `variable` VALUES ('form_build_id_event','s:37:\"form-9d1a470c73bc67c118de39643f55ba4c\";');
+INSERT INTO `variable` VALUES ('form_build_id_event','s:37:\"form-1ada5319ed53eaea57eb624090b847ad\";');
 INSERT INTO `variable` VALUES ('form_build_id_outcome','s:37:\"form-644dc8fb55000c81fc488466179f5abc\";');
-INSERT INTO `variable` VALUES ('form_build_id_page','s:37:\"form-6a322bbca609ccee6710ff18ddce22a8\";');
-INSERT INTO `variable` VALUES ('form_build_id_partner','s:37:\"form-adde8f99dc9ddf869112113d4496f407\";');
+INSERT INTO `variable` VALUES ('form_build_id_page','s:37:\"form-455c1da5e77dabf508acc633cb9b1d35\";');
+INSERT INTO `variable` VALUES ('form_build_id_partner','s:37:\"form-32c91c826eff5795219146838caf4963\";');
 INSERT INTO `variable` VALUES ('form_build_id_setting','s:37:\"form-587124af2f1aabfa01631a3436fe4464\";');
 INSERT INTO `variable` VALUES ('form_build_id_spotlight','s:37:\"form-0666de39f16e0ed66c7f9d897473c969\";');
 INSERT INTO `variable` VALUES ('form_build_id_story','s:37:\"form-8819eb6cf7148b4a419cac24e9e7eeb9\";');
@@ -5229,11 +5262,24 @@ INSERT INTO `variable` VALUES ('googleanalytics_last_cache','i:1237903305;');
 INSERT INTO `variable` VALUES ('googleanalytics_pages','s:41:\"admin\nadmin/*\nuser/*/*\nnode/add*\nnode/*/*\";');
 INSERT INTO `variable` VALUES ('googleanalytics_segmentation','a:0:{}');
 INSERT INTO `variable` VALUES ('googleanalytics_visibility','i:0;');
+INSERT INTO `variable` VALUES ('i18nsync_nodeapi_article','a:0:{}');
+INSERT INTO `variable` VALUES ('i18nsync_nodeapi_event','a:0:{}');
+INSERT INTO `variable` VALUES ('i18nsync_nodeapi_page','a:0:{}');
+INSERT INTO `variable` VALUES ('i18nsync_nodeapi_partner','a:0:{}');
+INSERT INTO `variable` VALUES ('i18ntaxonomy_vocabulary','a:2:{i:3;s:1:\"3\";i:2;s:1:\"3\";}');
+INSERT INTO `variable` VALUES ('i18n_node_article','s:1:\"1\";');
+INSERT INTO `variable` VALUES ('i18n_node_event','s:1:\"1\";');
+INSERT INTO `variable` VALUES ('i18n_node_page','s:1:\"3\";');
+INSERT INTO `variable` VALUES ('i18n_node_partner','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('imageapi_image_toolkit','s:11:\"imageapi_gd\";');
 INSERT INTO `variable` VALUES ('install_profile','s:9:\"satellite\";');
 INSERT INTO `variable` VALUES ('install_task','s:4:\"done\";');
 INSERT INTO `variable` VALUES ('install_time','i:1224322133;');
-INSERT INTO `variable` VALUES ('javascript_parsed','a:13:{i:0;s:14:\"misc/jquery.js\";i:1;s:14:\"misc/drupal.js\";i:2;s:51:\"profiles/satellite/modules/admin_menu/admin_menu.js\";i:3;s:62:\"profiles/satellite/modules/date/date_timezone/date_timezone.js\";i:4;s:62:\"profiles/satellite/modules/lightbox2/js/auto_image_handling.js\";i:5;s:51:\"profiles/satellite/modules/lightbox2/js/lightbox.js\";i:6;s:51:\"profiles/satellite/modules/nice_menus/nice_menus.js\";i:7;s:61:\"profiles/satellite/modules/tableofcontents/tableofcontents.js\";i:8;s:47:\"profiles/satellite/modules/teleport/teleport.js\";i:9;s:20:\"misc/autocomplete.js\";i:10;s:19:\"misc/tableheader.js\";i:11;s:16:\"misc/collapse.js\";i:12;s:52:\"profiles/satellite/modules/fbconnect/js/fbconnect.js\";}');
+INSERT INTO `variable` VALUES ('javascript_parsed','a:26:{i:0;s:14:\"misc/jquery.js\";i:1;s:14:\"misc/drupal.js\";i:2;s:51:\"profiles/satellite/modules/admin_menu/admin_menu.js\";i:3;s:62:\"profiles/satellite/modules/date/date_timezone/date_timezone.js\";i:4;s:62:\"profiles/satellite/modules/lightbox2/js/auto_image_handling.js\";i:5;s:51:\"profiles/satellite/modules/lightbox2/js/lightbox.js\";i:6;s:51:\"profiles/satellite/modules/nice_menus/nice_menus.js\";i:7;s:61:\"profiles/satellite/modules/tableofcontents/tableofcontents.js\";i:8;s:47:\"profiles/satellite/modules/teleport/teleport.js\";i:9;s:20:\"misc/autocomplete.js\";i:10;s:19:\"misc/tableheader.js\";i:11;s:16:\"misc/collapse.js\";i:12;s:52:\"profiles/satellite/modules/fbconnect/js/fbconnect.js\";i:13;s:17:\"misc/tabledrag.js\";i:14;s:47:\"profiles/satellite/modules/pathauto/pathauto.js\";i:15;s:59:\"profiles/satellite/modules/fckeditor/fckeditor/fckeditor.js\";i:16;s:55:\"profiles/satellite/modules/fckeditor/fckeditor.utils.js\";i:17;s:49:\"profiles/satellite/modules/filefield/filefield.js\";i:18;s:19:\"misc/jquery.form.js\";i:19;s:12:\"misc/ahah.js\";i:20;s:14:\"misc/teaser.js\";i:21;s:16:\"misc/textarea.js\";i:22;s:57:\"profiles/satellite/modules/vertical_tabs/vertical_tabs.js\";i:23;s:67:\"profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js\";i:24;s:59:\"profiles/satellite/modules/signup/js/admin.content_types.js\";i:25;s:49:\"profiles/satellite/modules/signup/js/node_form.js\";}');
+INSERT INTO `variable` VALUES ('language_content_type_article','s:1:\"2\";');
+INSERT INTO `variable` VALUES ('language_content_type_event','s:1:\"2\";');
+INSERT INTO `variable` VALUES ('language_content_type_page','s:1:\"0\";');
+INSERT INTO `variable` VALUES ('language_content_type_partner','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('ldapauth_alter_email_field','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('ldapauth_disable_pass_change','i:1;');
 INSERT INTO `variable` VALUES ('ldapauth_forget_passwords','b:1;');
@@ -5429,6 +5475,7 @@ INSERT INTO `variable` VALUES ('roles','a:0:{}');
 INSERT INTO `variable` VALUES ('rules_counter','i:1;');
 INSERT INTO `variable` VALUES ('rules_debug','i:0;');
 INSERT INTO `variable` VALUES ('rules_hide_token_message','i:0;');
+INSERT INTO `variable` VALUES ('rules_inactive_sets','a:22:{i:0;s:20:\"event_comment_insert\";i:1;s:20:\"event_comment_update\";i:2;s:20:\"event_comment_delete\";i:3;s:18:\"event_comment_view\";i:4;s:21:\"event_comment_publish\";i:5;s:23:\"event_comment_unpublish\";i:6;s:17:\"event_node_insert\";i:7;s:17:\"event_node_update\";i:8;s:18:\"event_node_presave\";i:9;s:15:\"event_node_view\";i:10;s:17:\"event_node_delete\";i:11;s:10:\"event_init\";i:12;s:10:\"event_cron\";i:13;s:26:\"event_taxonomy_term_insert\";i:14;s:26:\"event_taxonomy_term_update\";i:15;s:17:\"event_user_insert\";i:16;s:17:\"event_user_update\";i:17;s:15:\"event_user_view\";i:18;s:17:\"event_user_delete\";i:19;s:16:\"event_user_login\";i:20;s:17:\"event_user_logout\";i:21;s:11:\"rules_set_1\";}');
 INSERT INTO `variable` VALUES ('rules_show_fixed','i:0;');
 INSERT INTO `variable` VALUES ('service_links_category_types','a:0:{}');
 INSERT INTO `variable` VALUES ('service_links_in_links','s:1:\"0\";');
@@ -5451,6 +5498,7 @@ INSERT INTO `variable` VALUES ('service_links_style','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('signup_close_early','s:1:\"4\";');
 INSERT INTO `variable` VALUES ('signup_date_field_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('signup_date_field_event','s:10:\"field_date\";');
+INSERT INTO `variable` VALUES ('signup_date_field_page','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('signup_date_field_partner','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('signup_date_field_story','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('signup_date_format','s:5:\"small\";');
@@ -5459,6 +5507,7 @@ INSERT INTO `variable` VALUES ('signup_fieldset_collapsed','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('signup_form_location','s:4:\"node\";');
 INSERT INTO `variable` VALUES ('signup_node_default_state_article','s:8:\"disabled\";');
 INSERT INTO `variable` VALUES ('signup_node_default_state_event','s:11:\"allowed_off\";');
+INSERT INTO `variable` VALUES ('signup_node_default_state_page','s:8:\"disabled\";');
 INSERT INTO `variable` VALUES ('signup_node_default_state_partner','s:8:\"disabled\";');
 INSERT INTO `variable` VALUES ('signup_node_default_state_setting','s:8:\"disabled\";');
 INSERT INTO `variable` VALUES ('signup_node_default_state_story','s:8:\"disabled\";');
@@ -5530,8 +5579,9 @@ INSERT INTO `variable` VALUES ('user_picture_path','s:8:\"pictures\";');
 INSERT INTO `variable` VALUES ('user_register','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('user_registration_help','s:0:\"\";');
 INSERT INTO `variable` VALUES ('user_signatures','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_article','a:6:{i:0;s:4:\"menu\";i:1;s:20:\"revision_information\";i:2;s:6:\"author\";i:3;s:7:\"options\";i:4;s:4:\"path\";i:5;s:16:\"comment_settings\";}');
+INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_article','a:6:{i:0;s:4:\"menu\";i:1;s:6:\"author\";i:2;s:20:\"revision_information\";i:3;s:7:\"options\";i:4;s:16:\"comment_settings\";i:5;s:4:\"path\";}');
 INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_event','a:6:{i:0;s:4:\"menu\";i:1;s:20:\"revision_information\";i:2;s:6:\"author\";i:3;s:7:\"options\";i:4;s:4:\"path\";i:5;s:16:\"comment_settings\";}');
+INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_page','a:7:{i:0;s:4:\"menu\";i:1;s:20:\"revision_information\";i:2;s:6:\"author\";i:3;s:7:\"options\";i:4;s:16:\"comment_settings\";i:5;s:11:\"attachments\";i:6;s:4:\"path\";}');
 INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_partner','a:6:{i:0;s:4:\"menu\";i:1;s:20:\"revision_information\";i:2;s:6:\"author\";i:3;s:7:\"options\";i:4;s:4:\"path\";i:5;s:16:\"comment_settings\";}');
 INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_setting','a:0:{}');
 INSERT INTO `variable` VALUES ('vertical_tabs_fieldsets_story','a:0:{}');
@@ -5751,7 +5801,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6727 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6744 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
