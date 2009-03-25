@@ -77,15 +77,16 @@ function satellite_menu_item_link($link) {
  * Theme override of theme_block_fbconnect.
  */
 function satellite_render_friends_list_fbconnect($data, $title) {
+  $imagecache_action = 'user_image_facebook';
+  
   if (!empty($data)) {
     $items = '<h3>'.t('My friends').'</h3>';
     
     foreach ($data as $account) {
       if($account->picture && file_exists($account->picture)) {
-        // $picture = theme('user_picture', $account);
         
         $alt = t("@user's picture", array('@user' => $account->name ? $account->name : variable_get('anonymous', t('Anonymous'))));
-        $picture = theme('imagecache', 'user_image_facebook', $account->picture, $alt, $alt);
+        $picture = theme('imagecache', $imagecache_action, $account->picture, $alt, $alt);
         
         if (!empty($account->uid) && user_access('access user profiles')) {
           $attributes = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
