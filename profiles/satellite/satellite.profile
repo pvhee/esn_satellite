@@ -76,10 +76,15 @@ function satellite_profile_task_list() {
  * 
  * Perfom a redirect after installation to the settings page.
  */
-function satellite_profile_tasks(&$task, $url) {  
+function satellite_profile_tasks(&$task, $url) {
   if($task == 'profile') {
-    drupal_set_message(st('Congratulations! Your website is successfully installed. Please complete the following settings and start editing!'));
-    drupal_goto(YOUTHAGORA_SETTINGS_PAGE);
+    // skip task 'finished', and instead rewrite it here pointing to the correct settings page as the first page to visit
+    drupal_set_title(st('@drupal installation complete', array('@drupal' => drupal_install_profile_name())));
+    $messages = drupal_set_message();
+    $output = '<p>'. st('Congratulations, @drupal has been successfully installed.', array('@drupal' => drupal_install_profile_name())) .'</p>';
+    $output .= '<p>'. (isset($messages['error']) ? st('Please review the messages above before continuing on to <a href="@url">your new site</a>.', array('@url' => url(YOUTHAGORA_SETTINGS_PAGE))) : st('You may now visit <a href="@url">your new site</a> to continue with the configuration.', array('@url' => url(YOUTHAGORA_SETTINGS_PAGE)))) .'</p>';
+    $task = 'done';
+    return $output;
   }
 }
 
@@ -150,12 +155,14 @@ function satellite_form_submit($form, &$form_state) {
   variable_set('ya_satellite_version', YOUTHAGORA_SATELLITE_VERSION);
   
   // all the other configuration, will overwrite the database
-  if ($form_state['values']['file_directory_path'])
+  if ($form_state['values']['file_directory_path']) {
     variable_set('file_directory_path', $form_state['values']['file_directory_path']);
-
-  if ($form_state['values']['file_directory_temp'])
+  }
+    
+  if ($form_state['values']['file_directory_temp']) {
     variable_set('file_directory_temp', $form_state['values']['file_directory_temp']);
-
+  }
+  
   // Hmmm... have to call the proper submit handler ourselves? 
   install_configure_form_submit($form, $form_state);
 }
