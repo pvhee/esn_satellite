@@ -274,6 +274,10 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 #block-views-spotlights-block_1.block .views-field-tid a:hover,
 .views-field-tid a:hover  {  padding-left: 13px;  background: transparent url("images/tag_green.png") top left no-repeat; text-decoration: none;}
 
+/**
+ * Theming for fbconnect block
+ */
+#block-fbconnect-0 .picture { float: left; padding-left: 0em;}
 
 
 /*#cck-complete-percent-bar-wrapper-setting { background: transparent url("images/blocks/green.png") repeat-x !important; }*/
