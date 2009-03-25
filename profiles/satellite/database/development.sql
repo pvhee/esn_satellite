@@ -274,8 +274,8 @@ CREATE TABLE `aggregator_feed` (
 
 LOCK TABLES `aggregator_feed` WRITE;
 /*!40000 ALTER TABLE `aggregator_feed` DISABLE KEYS */;
-INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1237932813,'http://www.esn.org/news/feed','News view','','',1237932819,5);
-INSERT INTO `aggregator_feed` VALUES (2,'ESN Satellite Google Group','http://groups.google.com/group/esn-satellite/feed/rss_v2_0_msgs.xml',3600,1237932814,'http://groups.google.com/group/esn-satellite','The main task of this group is to give support to all webmasters managing an ESN Satellite in their local sections. Also bugs and other related issues to the ESN Satellite may be announced.','','',0,5);
+INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1238001717,'http://www.esn.org/news/feed','News view','','',1238001723,5);
+INSERT INTO `aggregator_feed` VALUES (2,'ESN Satellite Google Group','http://groups.google.com/group/esn-satellite/feed/rss_v2_0_msgs.xml',3600,1238001719,'http://groups.google.com/group/esn-satellite','The main task of this group is to give support to all webmasters managing an ESN Satellite in their local sections. Also bugs and other related issues to the ESN Satellite may be announced.','','',0,5);
 /*!40000 ALTER TABLE `aggregator_feed` ENABLE KEYS */;
 UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `aggregator_item` (
@@ -289,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `aggregator_item` (
   `guid` varchar(255) default NULL,
   PRIMARY KEY  (`iid`),
   KEY `fid` (`fid`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `aggregator_item` WRITE;
 /*!40000 ALTER TABLE `aggregator_item` DISABLE KEYS */;
@@ -820,7 +820,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `pid` (`pid`),
   KEY `nid` (`nid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=311 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=312 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
@@ -1246,7 +1246,7 @@ CREATE TABLE `content_node_field` (
 LOCK TABLES `content_node_field` WRITE;
 /*!40000 ALTER TABLE `content_node_field` DISABLE KEYS */;
 INSERT INTO `content_node_field` VALUES ('field_address','text','a:4:{s:15:\"text_processing\";s:1:\"0\";s:10:\"max_length\";s:0:\"\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:0:\"\";}',0,0,1,'text','a:1:{s:5:\"value\";a:5:{s:4:\"type\";s:4:\"text\";s:4:\"size\";s:3:\"big\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;s:5:\"views\";b:1;}}',1,0);
-INSERT INTO `content_node_field` VALUES ('field_country_setting','text','a:4:{s:15:\"text_processing\";s:1:\"1\";s:10:\"max_length\";s:0:\"\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:749:\"$ya_xml_resource = \'http://center.youthagora.org/xml/esn-satellite/countries.xml\';\r\n$ya_xml_local_file = file_directory_path().\'/\'.\'countries.xml\';\r\n\r\nif(file_exists($ya_xml_local_file)) $ya_xml_resource = $ya_xml_local_file;\r\n\r\n$ya_xml = simplexml_load_file($ya_xml_resource, \'SimpleXMLElement\', LIBXML_NOCDATA);\r\nforeach($ya_xml->country as $item) {\r\n  $elements[\'c\'] = (string) $item->c;\r\n  $elements[\'cn\'] = (string) $item->cn;\r\n  $elements[\'website\'] = (string) $item->website;\r\n  $elements[\'mail\'] = (string) $item->mail;\r\n  $elements[\'latitude\'] = (string) $item->latitude;\r\n  $elements[\'longitude\'] = (string) $item->longitude;\r\n  \r\n  $code = base64_encode(serialize($elements));\r\n  $ya_list[$code] = $elements[\'cn\'];  \r\n}\r\nreturn($ya_list);\";}',0,0,1,'text','a:2:{s:5:\"value\";a:5:{s:4:\"type\";s:4:\"text\";s:4:\"size\";s:3:\"big\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;s:5:\"views\";b:1;}s:6:\"format\";a:4:{s:4:\"type\";s:3:\"int\";s:8:\"unsigned\";b:1;s:8:\"not null\";b:0;s:5:\"views\";b:0;}}',1,0);
+INSERT INTO `content_node_field` VALUES ('field_country_setting','text','a:4:{s:15:\"text_processing\";s:1:\"1\";s:10:\"max_length\";s:0:\"\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:1078:\"/**\r\n * Insert this code in the phpfilter of the content type \'Setting\', text field \'Country\'.\r\n */\r\n$ya_xml_resources = array(\'http://center.youthagora.org/xml/esn-satellite/countries.xml\', \'http://galaxy.esn.org/countries/xml\');\r\n$ya_xml_local_file = file_directory_path().\'/\'.\'countries.xml\';\r\n\r\nif(file_exists($ya_xml_local_file)) array_unshift($ya_xml_resources, $ya_xml_local_file);\r\n\r\n$ya_xml = false;\r\nforeach($ya_xml_resources as $ya_xml_resource) {\r\n  $ya_xml = @simplexml_load_file($ya_xml_resource, \'SimpleXMLElement\', LIBXML_NOCDATA);\r\n  if($ya_xml) break;\r\n}\r\n\r\nif($ya_xml) {\r\n  foreach($ya_xml->country as $item) {\r\n    $elements[\'c\'] = (string) $item->c;\r\n    $elements[\'cn\'] = (string) $item->cn;\r\n    $elements[\'website\'] = (string) $item->website;\r\n    $elements[\'mail\'] = (string) $item->mail;\r\n    $elements[\'latitude\'] = (string) $item->latitude;\r\n    $elements[\'longitude\'] = (string) $item->longitude;\r\n  \r\n    $code = base64_encode(serialize($elements));\r\n    $ya_list[$code] = $elements[\'cn\'];  \r\n  }\r\n  return $ya_list;\r\n} else {\r\n  return array();\r\n}\";}',0,0,1,'text','a:2:{s:5:\"value\";a:5:{s:4:\"type\";s:4:\"text\";s:4:\"size\";s:3:\"big\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;s:5:\"views\";b:1;}s:6:\"format\";a:4:{s:4:\"type\";s:3:\"int\";s:8:\"unsigned\";b:1;s:8:\"not null\";b:0;s:5:\"views\";b:0;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_date','date','a:14:{s:11:\"granularity\";a:5:{s:4:\"year\";s:4:\"year\";s:5:\"month\";s:5:\"month\";s:3:\"day\";s:3:\"day\";s:4:\"hour\";s:4:\"hour\";s:6:\"minute\";s:6:\"minute\";}s:11:\"timezone_db\";s:3:\"UTC\";s:11:\"tz_handling\";s:4:\"site\";s:6:\"todate\";s:8:\"optional\";s:6:\"repeat\";i:0;s:16:\"repeat_collapsed\";s:0:\"\";s:18:\"output_format_date\";s:11:\"d/m/Y - H:i\";s:20:\"output_format_custom\";s:0:\"\";s:23:\"output_format_date_long\";s:5:\"m/d/Y\";s:25:\"output_format_custom_long\";s:0:\"\";s:25:\"output_format_date_medium\";s:5:\"m/d/Y\";s:27:\"output_format_custom_medium\";s:0:\"\";s:24:\"output_format_date_short\";s:5:\"m/d/Y\";s:26:\"output_format_custom_short\";s:0:\"\";}',1,0,0,'date','a:2:{s:5:\"value\";a:4:{s:4:\"type\";s:7:\"varchar\";s:6:\"length\";i:20;s:8:\"not null\";b:0;s:8:\"sortable\";b:1;}s:6:\"value2\";a:4:{s:4:\"type\";s:7:\"varchar\";s:6:\"length\";i:20;s:8:\"not null\";b:0;s:8:\"sortable\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_facebook_gid','text','a:4:{s:15:\"text_processing\";s:1:\"0\";s:10:\"max_length\";s:2:\"15\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:0:\"\";}',0,0,1,'text','a:1:{s:5:\"value\";a:5:{s:4:\"type\";s:7:\"varchar\";s:6:\"length\";s:2:\"15\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;s:5:\"views\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_file','filefield','a:3:{s:10:\"list_field\";s:1:\"0\";s:12:\"list_default\";i:1;s:17:\"description_field\";s:1:\"1\";}',0,1,0,'filefield','a:3:{s:3:\"fid\";a:2:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;}s:4:\"list\";a:3:{s:4:\"type\";s:3:\"int\";s:4:\"size\";s:4:\"tiny\";s:8:\"not null\";b:0;}s:4:\"data\";a:2:{s:4:\"type\";s:4:\"text\";s:9:\"serialize\";b:1;}}',1,0);
@@ -1254,7 +1254,7 @@ INSERT INTO `content_node_field` VALUES ('field_image','filefield','a:3:{s:10:\"
 INSERT INTO `content_node_field` VALUES ('field_images','filefield','a:3:{s:10:\"list_field\";s:1:\"0\";s:12:\"list_default\";i:1;s:17:\"description_field\";s:1:\"0\";}',0,1,0,'filefield','a:3:{s:3:\"fid\";a:2:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;}s:4:\"list\";a:3:{s:4:\"type\";s:3:\"int\";s:4:\"size\";s:4:\"tiny\";s:8:\"not null\";b:0;}s:4:\"data\";a:2:{s:4:\"type\";s:4:\"text\";s:9:\"serialize\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_image_setting','filefield','a:3:{s:10:\"list_field\";s:1:\"0\";s:12:\"list_default\";i:1;s:17:\"description_field\";s:1:\"0\";}',0,0,1,'filefield','a:3:{s:3:\"fid\";a:2:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;}s:4:\"list\";a:3:{s:4:\"type\";s:3:\"int\";s:4:\"size\";s:4:\"tiny\";s:8:\"not null\";b:0;}s:4:\"data\";a:2:{s:4:\"type\";s:4:\"text\";s:9:\"serialize\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_link','link','a:6:{s:10:\"attributes\";a:3:{s:6:\"target\";s:7:\"default\";s:3:\"rel\";s:0:\"\";s:5:\"class\";s:0:\"\";}s:7:\"display\";a:1:{s:10:\"url_cutoff\";s:2:\"80\";}s:3:\"url\";i:0;s:5:\"title\";s:8:\"optional\";s:11:\"title_value\";s:0:\"\";s:13:\"enable_tokens\";i:0;}',0,1,0,'link','a:3:{s:3:\"url\";a:4:{s:4:\"type\";s:7:\"varchar\";s:6:\"length\";i:255;s:8:\"not null\";b:0;s:8:\"sortable\";b:1;}s:5:\"title\";a:4:{s:4:\"type\";s:7:\"varchar\";s:6:\"length\";i:255;s:8:\"not null\";b:0;s:8:\"sortable\";b:1;}s:10:\"attributes\";a:3:{s:4:\"type\";s:4:\"text\";s:4:\"size\";s:6:\"medium\";s:8:\"not null\";b:0;}}',1,0);
-INSERT INTO `content_node_field` VALUES ('field_section_setting','text','a:4:{s:15:\"text_processing\";s:1:\"0\";s:10:\"max_length\";s:0:\"\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:1492:\"$ya_xml_resource = \'http://center.youthagora.org/xml/esn-satellite/sections.xml\';\r\n$ya_xml_local_file = file_directory_path().\'/\'.\'sections.xml\';\r\n\r\nif(file_exists($ya_xml_local_file)) $ya_xml_resource = $ya_xml_local_file;\r\n\r\n$ya_xml = simplexml_load_file($ya_xml_resource, \'SimpleXMLElement\', LIBXML_NOCDATA);\r\nforeach($ya_xml->section as $item) {\r\n  $elements[\'id\'] = (string) $item->id;\r\n  $elements[\'sc\'] = (string) $item->sc;\r\n  $elements[\'sectionname\'] = (string) $item->sectionname;\r\n  $elements[\'l\'] = (string) $item->l;\r\n  $elements[\'universityname\'] = (string) $item->universityname;\r\n  $elements[\'street\'] = (string) $item->street;\r\n  $elements[\'postaladdress\'] = (string) $item->postaladdress;\r\n  $elements[\'telephonenumber\'] = (string) $item->telephonenumber;\r\n  $elements[\'facsimiletelephonenumber\'] = (string) $item->facsimiletelephonenumber;\r\n  $elements[\'mail\'] = (string) $item->mail;\r\n  $elements[\'universitywebsite\'] = (string) $item->universitywebsite;\r\n  $elements[\'sectionpin\'] = (string) $item->sectionpin;\r\n  $elements[\'website\'] = (string) $item->website;\r\n  $elements[\'satellitejoindate\'] = (string) $item->satellitejoindate;\r\n  $elements[\'latitude\'] = (string) $item->latitude;\r\n  $elements[\'longitude\'] = (string) $item->longitude;\r\n  $elements[\'zoomlevel\'] = (string) $item->zoomlevel;\r\n  $elements[\'satellite\'] = (string) $item->satellite;\r\n  \r\n  $code = base64_encode(serialize($elements));\r\n  $ya_list[$code] = $elements[\'sectionname\'];\r\n}\r\nreturn($ya_list);\";}',0,0,1,'text','a:1:{s:5:\"value\";a:5:{s:4:\"type\";s:4:\"text\";s:4:\"size\";s:3:\"big\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;s:5:\"views\";b:1;}}',1,0);
+INSERT INTO `content_node_field` VALUES ('field_section_setting','text','a:4:{s:15:\"text_processing\";s:1:\"0\";s:10:\"max_length\";s:0:\"\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:1844:\"/**\r\n * Insert this code in the phpfilter of the content type \'Setting\', text field \'Section\'.\r\n */\r\n$ya_xml_resources = array(\'http://center.youthagora.org/xml/esn-satellite/sections.xml\', \'http://galaxy.esn.org/sections/xml\');\r\n$ya_xml_local_file = file_directory_path().\'/\'.\'sections.xml\';\r\n\r\nif(file_exists($ya_xml_local_file)) array_unshift($ya_xml_resources, $ya_xml_local_file);\r\n\r\n$ya_xml = false;\r\nforeach($ya_xml_resources as $ya_xml_resource) {\r\n  $ya_xml = @simplexml_load_file($ya_xml_resource, \'SimpleXMLElement\', LIBXML_NOCDATA);\r\n  if($ya_xml) break;\r\n}\r\n\r\nif($ya_xml) {\r\n  foreach($ya_xml->section as $item) {\r\n    $elements[\'id\'] = (string) $item->id;\r\n    $elements[\'sc\'] = (string) $item->sc;\r\n    $elements[\'sectionname\'] = (string) $item->sectionname;\r\n    $elements[\'l\'] = (string) $item->l;\r\n    $elements[\'universityname\'] = (string) $item->universityname;\r\n    $elements[\'street\'] = (string) $item->street;\r\n    $elements[\'postaladdress\'] = (string) $item->postaladdress;\r\n    $elements[\'telephonenumber\'] = (string) $item->telephonenumber;\r\n    $elements[\'facsimiletelephonenumber\'] = (string) $item->facsimiletelephonenumber;\r\n    $elements[\'mail\'] = (string) $item->mail;\r\n    $elements[\'universitywebsite\'] = (string) $item->universitywebsite;\r\n    $elements[\'sectionpin\'] = (string) $item->sectionpin;\r\n    $elements[\'website\'] = (string) $item->website;\r\n    $elements[\'satellitejoindate\'] = (string) $item->satellitejoindate;\r\n    $elements[\'latitude\'] = (string) $item->latitude;\r\n    $elements[\'longitude\'] = (string) $item->longitude;\r\n    $elements[\'zoomlevel\'] = (string) $item->zoomlevel;\r\n    $elements[\'satellite\'] = (string) $item->satellite;\r\n  \r\n    $code = base64_encode(serialize($elements));\r\n    $ya_list[$code] = $elements[\'sectionname\'];\r\n  }\r\n  return $ya_list;\r\n} else {\r\n  return array();\r\n}\";}',0,0,1,'text','a:1:{s:5:\"value\";a:5:{s:4:\"type\";s:4:\"text\";s:4:\"size\";s:3:\"big\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;s:5:\"views\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_spotlight','number_integer','a:6:{s:6:\"prefix\";s:0:\"\";s:6:\"suffix\";s:0:\"\";s:3:\"min\";s:0:\"\";s:3:\"max\";s:0:\"\";s:14:\"allowed_values\";s:102:\"0|Feature this item as a spotlight on the homepage\r\n1|Feature this item as a spotlight on the homepage\";s:18:\"allowed_values_php\";s:0:\"\";}',0,0,0,'number','a:1:{s:5:\"value\";a:3:{s:4:\"type\";s:3:\"int\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_teaser','text','a:4:{s:15:\"text_processing\";s:1:\"0\";s:10:\"max_length\";s:2:\"75\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:0:\"\";}',1,0,0,'text','a:1:{s:5:\"value\";a:5:{s:4:\"type\";s:7:\"varchar\";s:6:\"length\";s:2:\"75\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;s:5:\"views\";b:1;}}',1,0);
 INSERT INTO `content_node_field` VALUES ('field_total_amount','number_decimal','a:9:{s:6:\"prefix\";s:0:\"\";s:6:\"suffix\";s:3:\"€\";s:3:\"min\";s:0:\"\";s:3:\"max\";s:0:\"\";s:14:\"allowed_values\";s:0:\"\";s:18:\"allowed_values_php\";s:0:\"\";s:9:\"precision\";s:2:\"10\";s:5:\"scale\";s:1:\"2\";s:7:\"decimal\";s:1:\".\";}',1,0,1,'number','a:1:{s:5:\"value\";a:5:{s:4:\"type\";s:7:\"numeric\";s:9:\"precision\";s:2:\"10\";s:5:\"scale\";s:1:\"2\";s:8:\"not null\";b:0;s:8:\"sortable\";b:1;}}',1,0);
@@ -2050,7 +2050,7 @@ CREATE TABLE `locales_source` (
   PRIMARY KEY  (`lid`),
   KEY `source` (`source`(30)),
   KEY `textgroup_location` (`textgroup`(30),`location`)
-) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `locales_source` WRITE;
 /*!40000 ALTER TABLE `locales_source` DISABLE KEYS */;
@@ -2132,6 +2132,7 @@ INSERT INTO `locales_source` VALUES (79,'/satellite/admin/content/taxonomy/edit/
 INSERT INTO `locales_source` VALUES (80,'/satellite/admin/content/taxonomy/edit/vocabulary/3','default',0x5570646174656420766F636162756C61727920256E616D652E,'6.10');
 INSERT INTO `locales_source` VALUES (81,'/satellite/admin/content/taxonomy/edit/vocabulary/3','default',0x65646974,'6.10');
 INSERT INTO `locales_source` VALUES (82,'vocabulary:2:name','taxonomy',0x54616773,'1');
+INSERT INTO `locales_source` VALUES (83,'profiles/satellite/modules/views/js/ajax_view.js','default',0x416E206572726F72206F636375727265642061742040706174682E,'none');
 /*!40000 ALTER TABLE `locales_source` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `locales_target`;
@@ -2263,7 +2264,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=3438 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3439 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2555,7 +2556,7 @@ INSERT INTO `menu_links` VALUES ('navigation',1685,0,'events-past','events-past'
 INSERT INTO `menu_links` VALUES ('primary-links',1686,1354,'events/feed','events/feed','','a:0:{}','system',-1,0,0,0,0,2,0,1354,1686,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1693,0,'feed','feed','','a:0:{}','system',-1,0,0,0,0,1,0,1693,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1744,15,'admin/help/php','admin/help/php','php','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1744,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',1898,18,'admin/settings/signup','admin/settings/signup','Signup','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:31:\"Configure settings for signups.\";}}','system',0,0,0,0,0,3,0,2,18,1898,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',1898,18,'admin/settings/signup','admin/settings/signup','Signup settings','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:31:\"Configure settings for signups.\";}}','system',0,0,0,0,0,3,0,2,18,1898,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1899,10,'admin/content/signup','admin/content/signup','Signup administration','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:65:\"View all signup-enabled posts, and open or close signups on them.\";}}','system',0,0,0,0,0,3,0,2,10,1899,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1900,15,'admin/help/signup','admin/help/signup','signup','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1900,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1901,0,'node/%/signups/confirm','node/%/signups/confirm','','a:0:{}','system',-1,0,0,0,0,1,0,1901,0,0,0,0,0,0,0,0,0);
@@ -2581,7 +2582,7 @@ INSERT INTO `menu_links` VALUES ('navigation',1941,15,'admin/help/image','admin/
 INSERT INTO `menu_links` VALUES ('navigation',1942,15,'admin/help/imagebrowser','admin/help/imagebrowser','imagebrowser','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1942,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1943,10,'admin/content/node-type/image','admin/content/node-type/image','Image','a:0:{}','system',-1,0,0,0,0,3,0,2,10,1943,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1944,0,'admin/content/node-type/image/delete','admin/content/node-type/image/delete','Delete','a:0:{}','system',-1,0,0,0,0,1,0,1944,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2159,0,'<front>','','<img class=\"admin-menu-icon\" src=\"/satellite/profiles/satellite/themes/satellite/favicon.ico\" width=\"16\" height=\"16\" alt=\"Home\" />','a:3:{s:11:\"extra class\";s:15:\"admin-menu-icon\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,1,1,0,-100,1,0,2159,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2159,0,'<front>','','<img class=\"admin-menu-icon\" src=\"/webdev/satellite/satellite/profiles/satellite/themes/satellite/favicon.ico\" width=\"16\" height=\"16\" alt=\"Home\" />','a:3:{s:11:\"extra class\";s:15:\"admin-menu-icon\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,1,1,0,-100,1,0,2159,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2160,0,'logout','logout','Log out @username','a:3:{s:11:\"extra class\";s:35:\"admin-menu-action admin-menu-logout\";s:1:\"t\";a:0:{}s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,-100,1,0,2160,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2161,0,'user','user','icon_users','a:3:{s:11:\"extra class\";s:50:\"admin-menu-action admin-menu-icon admin-menu-users\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,-90,1,0,2161,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2162,0,'admin/advanced_help','admin/advanced_help','Advanced help','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,9,1,0,2162,0,0,0,0,0,0,0,0,0);
@@ -2609,7 +2610,7 @@ INSERT INTO `menu_links` VALUES ('admin_menu',2183,2168,'admin/settings/date-tim
 INSERT INTO `menu_links` VALUES ('admin_menu',2185,2163,'admin/content/emfield','admin/content/emfield','Embedded Media Field configuration','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,2163,2185,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2186,2168,'admin/settings/error-reporting','admin/settings/error-reporting','Error reporting','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2186,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2187,2163,'admin/content/aggregator','admin/content/aggregator','Feed aggregator','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,2163,2187,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2189,2168,'admin/settings/signup','admin/settings/signup','Signup','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2189,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2189,2168,'admin/settings/signup','admin/settings/signup','Signup settings','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2189,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2190,2168,'admin/settings/fckeditor','admin/settings/fckeditor','FCKeditor','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2190,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2191,2168,'admin/settings/file-system','admin/settings/file-system','File system','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2191,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2192,2168,'admin/settings/uploads','admin/settings/uploads','File uploads','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2192,0,0,0,0,0,0,0,0);
@@ -3077,7 +3078,7 @@ INSERT INTO `menu_links` VALUES ('admin_menu',3429,3424,'admin/build/translate/t
 INSERT INTO `menu_links` VALUES ('admin_menu',3431,2333,'http://drupal.org/project/issues/i18n','','Internationalization issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3431,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3432,2333,'http://drupal.org/project/issues/languageicons','','Language Icons issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3432,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3433,2333,'http://drupal.org/project/issues/translation_table','','Translation Table issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3433,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3437,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3437,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3438,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3438,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -3583,7 +3584,7 @@ INSERT INTO `menu_router` VALUES ('admin/settings/poormanscron','','','user_acce
 INSERT INTO `menu_router` VALUES ('admin/settings/search','','','user_access','a:1:{i:0;s:17:\"administer search\";}','drupal_get_form','a:1:{i:0;s:21:\"search_admin_settings\";}',7,3,'','admin/settings/search','Search settings','t','',6,'','Configure relevance settings for search and other indexing options','',0,'modules/search/search.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/search/wipe','','','user_access','a:1:{i:0;s:17:\"administer search\";}','drupal_get_form','a:1:{i:0;s:19:\"search_wipe_confirm\";}',15,4,'','admin/settings/search/wipe','Clear index','t','',4,'','','',0,'modules/search/search.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/servicelinks','','','user_access','a:1:{i:0;s:24:\"administer service links\";}','drupal_get_form','a:1:{i:0;s:28:\"service_links_admin_settings\";}',7,3,'','admin/settings/servicelinks','Service links','t','',6,'','Control which and where service links should be active.','',0,'');
-INSERT INTO `menu_router` VALUES ('admin/settings/signup','','','user_access','a:1:{i:0;s:22:\"administer all signups\";}','drupal_get_form','a:1:{i:0;s:20:\"signup_settings_form\";}',7,3,'','admin/settings/signup','Signup','t','',6,'','Configure settings for signups.','',0,'profiles/satellite/modules/signup/includes/admin.settings.inc');
+INSERT INTO `menu_router` VALUES ('admin/settings/signup','','','user_access','a:1:{i:0;s:22:\"administer all signups\";}','drupal_get_form','a:1:{i:0;s:20:\"signup_settings_form\";}',7,3,'','admin/settings/signup','Signup settings','t','',6,'','Configure settings for signups.','',0,'profiles/satellite/modules/signup/includes/admin.settings.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/site-information','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:32:\"system_site_information_settings\";}',7,3,'','admin/settings/site-information','Site information','t','',6,'','Change basic site information, such as the site name, slogan, e-mail address, mission, front page and more.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/site-maintenance','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:32:\"system_site_maintenance_settings\";}',7,3,'','admin/settings/site-maintenance','Site maintenance','t','',6,'','Take the site off-line for maintenance or bring it back online.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/tagadelic','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:18:\"tagadelic_settings\";}',7,3,'','admin/settings/tagadelic','Tagadelic configuration','t','',6,'','Configure the tag clouds. Set the order, the number of tags, and the depth of the clouds.','',0,'');
@@ -5022,7 +5023,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1237971742,1237967814,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1238002448,1237967814,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237927425,1237926806,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -5057,7 +5058,7 @@ INSERT INTO `variable` VALUES ('admin_menu_position_fixed','i:1;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_modules','i:0;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_tabs','i:0;');
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1237963980;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1238002549;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
 INSERT INTO `variable` VALUES ('blocktheme','a:9:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:10:\"green_fill\";s:44:\"views-partners-block_1?destination=frontpage\";s:5:\"green\";s:22:\"views-partners-block_1\";s:4:\"blue\";s:6:\"user-1\";s:5:\"green\";s:7:\"block-7\";s:5:\"green\";s:24:\"content_complete-setting\";s:4:\"blue\";s:11:\"tagadelic-3\";s:6:\"orange\";s:11:\"tagadelic-2\";s:6:\"orange\";}');
@@ -5140,8 +5141,8 @@ INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"tit
 INSERT INTO `variable` VALUES ('content_extra_weights_story','a:4:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-1\";s:4:\"menu\";s:2:\"-2\";s:11:\"attachments\";s:1:\"3\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1237964023;');
-INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"0YFpuM3mGSUT9B5XNzWr\";');
+INSERT INTO `variable` VALUES ('cron_last','i:1238002552;');
+INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"j0YFpuM3mGSUT9B5XNzW\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
 INSERT INTO `variable` VALUES ('date_default_timezone','i:3600;');
@@ -5258,7 +5259,7 @@ INSERT INTO `variable` VALUES ('form_build_id_spotlight','s:37:\"form-0666de39f1
 INSERT INTO `variable` VALUES ('form_build_id_story','s:37:\"form-8819eb6cf7148b4a419cac24e9e7eeb9\";');
 INSERT INTO `variable` VALUES ('gmap_node_markers','a:1:{s:8:\"activity\";s:6:\"drupal\";}');
 INSERT INTO `variable` VALUES ('googleanalytics_codesnippet_before','s:0:\"\";');
-INSERT INTO `variable` VALUES ('googleanalytics_last_cache','i:1237903305;');
+INSERT INTO `variable` VALUES ('googleanalytics_last_cache','i:1238001720;');
 INSERT INTO `variable` VALUES ('googleanalytics_pages','s:41:\"admin\nadmin/*\nuser/*/*\nnode/add*\nnode/*/*\";');
 INSERT INTO `variable` VALUES ('googleanalytics_segmentation','a:0:{}');
 INSERT INTO `variable` VALUES ('googleanalytics_visibility','i:0;');
@@ -5275,7 +5276,7 @@ INSERT INTO `variable` VALUES ('imageapi_image_toolkit','s:11:\"imageapi_gd\";')
 INSERT INTO `variable` VALUES ('install_profile','s:9:\"satellite\";');
 INSERT INTO `variable` VALUES ('install_task','s:4:\"done\";');
 INSERT INTO `variable` VALUES ('install_time','i:1224322133;');
-INSERT INTO `variable` VALUES ('javascript_parsed','a:26:{i:0;s:14:\"misc/jquery.js\";i:1;s:14:\"misc/drupal.js\";i:2;s:51:\"profiles/satellite/modules/admin_menu/admin_menu.js\";i:3;s:62:\"profiles/satellite/modules/date/date_timezone/date_timezone.js\";i:4;s:62:\"profiles/satellite/modules/lightbox2/js/auto_image_handling.js\";i:5;s:51:\"profiles/satellite/modules/lightbox2/js/lightbox.js\";i:6;s:51:\"profiles/satellite/modules/nice_menus/nice_menus.js\";i:7;s:61:\"profiles/satellite/modules/tableofcontents/tableofcontents.js\";i:8;s:47:\"profiles/satellite/modules/teleport/teleport.js\";i:9;s:20:\"misc/autocomplete.js\";i:10;s:19:\"misc/tableheader.js\";i:11;s:16:\"misc/collapse.js\";i:12;s:52:\"profiles/satellite/modules/fbconnect/js/fbconnect.js\";i:13;s:17:\"misc/tabledrag.js\";i:14;s:47:\"profiles/satellite/modules/pathauto/pathauto.js\";i:15;s:59:\"profiles/satellite/modules/fckeditor/fckeditor/fckeditor.js\";i:16;s:55:\"profiles/satellite/modules/fckeditor/fckeditor.utils.js\";i:17;s:49:\"profiles/satellite/modules/filefield/filefield.js\";i:18;s:19:\"misc/jquery.form.js\";i:19;s:12:\"misc/ahah.js\";i:20;s:14:\"misc/teaser.js\";i:21;s:16:\"misc/textarea.js\";i:22;s:57:\"profiles/satellite/modules/vertical_tabs/vertical_tabs.js\";i:23;s:67:\"profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js\";i:24;s:59:\"profiles/satellite/modules/signup/js/admin.content_types.js\";i:25;s:49:\"profiles/satellite/modules/signup/js/node_form.js\";}');
+INSERT INTO `variable` VALUES ('javascript_parsed','a:23:{i:0;s:14:\"misc/jquery.js\";i:1;s:14:\"misc/drupal.js\";i:2;s:51:\"profiles/satellite/modules/admin_menu/admin_menu.js\";i:3;s:62:\"profiles/satellite/modules/date/date_timezone/date_timezone.js\";i:4;s:62:\"profiles/satellite/modules/lightbox2/js/auto_image_handling.js\";i:5;s:51:\"profiles/satellite/modules/lightbox2/js/lightbox.js\";i:6;s:51:\"profiles/satellite/modules/nice_menus/nice_menus.js\";i:7;s:61:\"profiles/satellite/modules/tableofcontents/tableofcontents.js\";i:8;s:47:\"profiles/satellite/modules/teleport/teleport.js\";i:9;s:20:\"misc/autocomplete.js\";i:10;s:59:\"profiles/satellite/modules/fckeditor/fckeditor/fckeditor.js\";i:11;s:55:\"profiles/satellite/modules/fckeditor/fckeditor.utils.js\";i:12;s:16:\"misc/textarea.js\";i:13;s:16:\"misc/collapse.js\";i:14;s:52:\"profiles/satellite/modules/fbconnect/js/fbconnect.js\";i:15;s:17:\"misc/tabledrag.js\";i:16;s:41:\"profiles/satellite/modules/cck/content.js\";i:17;s:43:\"profiles/satellite/modules/views/js/base.js\";i:18;s:48:\"profiles/satellite/modules/views/js/ajax_view.js\";i:19;s:47:\"profiles/satellite/modules/pathauto/pathauto.js\";i:20;s:49:\"profiles/satellite/modules/filefield/filefield.js\";i:21;s:19:\"misc/jquery.form.js\";i:22;s:12:\"misc/ahah.js\";}');
 INSERT INTO `variable` VALUES ('language_content_type_article','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('language_content_type_event','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('language_content_type_page','s:1:\"0\";');
@@ -5452,7 +5453,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
 INSERT INTO `variable` VALUES ('poormanscron_interval','s:3:\"480\";');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1237964023;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1238001723;');
 INSERT INTO `variable` VALUES ('poormanscron_log_cron_runs','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('poormanscron_log_progress','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('poormanscron_retry_interval','s:2:\"10\";');
@@ -5531,7 +5532,7 @@ INSERT INTO `variable` VALUES ('theme_garland_settings','a:20:{s:11:\"toggle_log
 INSERT INTO `variable` VALUES ('theme_project_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:0;s:27:\"toggle_comment_user_picture\";i:0;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_satellite_settings','a:12:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:0;s:13:\"toggle_slogan\";i:0;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:14:\"toggle_favicon\";i:1;s:12:\"default_logo\";i:1;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
 INSERT INTO `variable` VALUES ('theme_settings','a:26:{s:11:\"toggle_logo\";i:1;s:11:\"toggle_name\";i:1;s:13:\"toggle_slogan\";i:0;s:14:\"toggle_mission\";i:1;s:24:\"toggle_node_user_picture\";i:1;s:27:\"toggle_comment_user_picture\";i:1;s:13:\"toggle_search\";i:1;s:14:\"toggle_favicon\";i:1;s:20:\"toggle_primary_links\";i:1;s:22:\"toggle_secondary_links\";i:1;s:24:\"toggle_node_info_article\";i:1;s:31:\"toggle_node_info_advpoll_binary\";i:1;s:23:\"toggle_node_info_credit\";i:0;s:22:\"toggle_node_info_event\";i:1;s:22:\"toggle_node_info_image\";i:1;s:24:\"toggle_node_info_outcome\";i:1;s:21:\"toggle_node_info_page\";i:0;s:24:\"toggle_node_info_partner\";i:0;s:32:\"toggle_node_info_advpoll_ranking\";i:1;s:26:\"toggle_node_info_spotlight\";i:0;s:12:\"default_logo\";i:0;s:9:\"logo_path\";s:0:\"\";s:11:\"logo_upload\";s:0:\"\";s:15:\"default_favicon\";i:1;s:12:\"favicon_path\";s:0:\"\";s:14:\"favicon_upload\";s:0:\"\";}');
-INSERT INTO `variable` VALUES ('update_last_check','i:1237971219;');
+INSERT INTO `variable` VALUES ('update_last_check','i:1238001715;');
 INSERT INTO `variable` VALUES ('upload_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_article','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('upload_credit','s:1:\"0\";');
@@ -5801,7 +5802,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6744 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6800 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
