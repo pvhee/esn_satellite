@@ -345,7 +345,7 @@ CREATE TABLE `blocks` (
   PRIMARY KEY  (`bid`),
   UNIQUE KEY `tmd` (`theme`,`module`,`delta`),
   KEY `list` (`theme`,`status`,`region`,`weight`,`module`)
-) ENGINE=MyISAM AUTO_INCREMENT=253 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=254 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `blocks` WRITE;
 /*!40000 ALTER TABLE `blocks` DISABLE KEYS */;
@@ -408,7 +408,7 @@ INSERT INTO `blocks` VALUES (66,'node','0','blueprint',0,-4,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (67,'profile','0','blueprint',0,-8,'',0,0,0,'','',5);
 INSERT INTO `blocks` VALUES (68,'search','0','blueprint',1,-8,'left',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (69,'system','0','blueprint',0,-10,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (70,'user','0','blueprint',1,-9,'left',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (70,'user','0','blueprint',1,-9,'left',0,0,0,'','User registration',-1);
 INSERT INTO `blocks` VALUES (71,'user','1','blueprint',1,-10,'left',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (72,'user','2','blueprint',0,-2,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (73,'user','3','blueprint',0,2,'',0,0,0,'','',-1);
@@ -432,7 +432,7 @@ INSERT INTO `blocks` VALUES (91,'node','0','base',0,-14,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (92,'profile','0','base',0,-17,'',0,0,0,'','',5);
 INSERT INTO `blocks` VALUES (93,'search','0','base',1,-24,'right_top',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (94,'system','0','base',0,-18,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (95,'user','0','base',1,-20,'right',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (95,'user','0','base',1,-20,'right',0,0,0,'','User registration',-1);
 INSERT INTO `blocks` VALUES (96,'user','1','base',1,-21,'right',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (97,'user','2','base',0,-13,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (98,'user','3','base',0,13,'',0,0,0,'','',-1);
@@ -462,7 +462,7 @@ INSERT INTO `blocks` VALUES (141,'node','0','project',0,-10,'',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (142,'profile','0','project',0,-13,'',0,0,0,'','',5);
 INSERT INTO `blocks` VALUES (143,'search','0','project',1,-19,'right_top',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (144,'system','0','project',0,-14,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (145,'user','0','project',1,-20,'right_bottom',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (145,'user','0','project',1,-20,'right_bottom',0,0,0,'','User registration',-1);
 INSERT INTO `blocks` VALUES (146,'user','1','project',1,-19,'right_bottom',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (147,'user','2','project',0,-9,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (148,'user','3','project',0,4,'',0,0,0,'','',-1);
@@ -530,7 +530,7 @@ INSERT INTO `blocks` VALUES (213,'profile','0','satellite',0,-17,'',0,0,0,'','',
 INSERT INTO `blocks` VALUES (214,'search','0','satellite',1,-27,'header_top',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (215,'service_links','0','satellite',0,-4,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (216,'system','0','satellite',0,-18,'',0,0,0,'','',-1);
-INSERT INTO `blocks` VALUES (217,'user','0','satellite',1,-19,'right',0,0,0,'','',-1);
+INSERT INTO `blocks` VALUES (217,'user','0','satellite',1,-19,'right',0,0,0,'','User registration',-1);
 INSERT INTO `blocks` VALUES (218,'user','1','satellite',1,-20,'right',0,0,0,'','',-1);
 INSERT INTO `blocks` VALUES (219,'user','2','satellite',0,-14,'',0,0,0,'','',1);
 INSERT INTO `blocks` VALUES (220,'user','3','satellite',0,3,'',0,0,0,'','',-1);
@@ -559,6 +559,7 @@ INSERT INTO `blocks` VALUES (249,'tagadelic','2','satellite',1,-24,'right',0,0,1
 INSERT INTO `blocks` VALUES (250,'tagadelic','0','satellite',0,0,'',0,0,0,'','',4);
 INSERT INTO `blocks` VALUES (251,'ya_satellite_facebook_group','0','satellite',1,-26,'content_left',0,0,1,'<front>','',1);
 INSERT INTO `blocks` VALUES (252,'aggregator','feed-2','satellite',0,0,'',0,0,0,'','',1);
+INSERT INTO `blocks` VALUES (253,'locale','0','satellite',0,0,'',0,0,0,'','',-1);
 /*!40000 ALTER TABLE `blocks` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `blocks_roles`;
@@ -1585,9 +1586,9 @@ CREATE TABLE `fbconnect_users` (
 
 LOCK TABLES `fbconnect_users` WRITE;
 /*!40000 ALTER TABLE `fbconnect_users` DISABLE KEYS */;
-INSERT INTO `fbconnect_users` VALUES (13,655030989,1237964020,'a:17:{s:4:\"name\";s:4:\"name\";s:12:\"affiliations\";s:12:\"affiliations\";s:8:\"birthday\";s:8:\"birthday\";s:3:\"sex\";s:3:\"sex\";s:8:\"about_me\";s:8:\"about_me\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";s:11:\"meeting_sex\";s:11:\"meeting_sex\";s:11:\"meeting_for\";s:11:\"meeting_for\";s:19:\"relationship_status\";s:19:\"relationship_status\";s:10:\"activities\";s:10:\"activities\";s:9:\"interests\";s:9:\"interests\";s:5:\"music\";s:5:\"music\";s:2:\"tv\";s:2:\"tv\";s:6:\"movies\";s:6:\"movies\";s:5:\"books\";s:5:\"books\";s:6:\"quotes\";s:6:\"quotes\";}',1,1);
-INSERT INTO `fbconnect_users` VALUES (11,657148454,1237964020,'a:4:{s:4:\"name\";s:4:\"name\";s:8:\"birthday\";s:8:\"birthday\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";}',1,1);
-INSERT INTO `fbconnect_users` VALUES (12,756274999,1237964020,'a:6:{s:4:\"name\";s:4:\"name\";s:12:\"affiliations\";s:12:\"affiliations\";s:8:\"birthday\";s:8:\"birthday\";s:3:\"sex\";s:3:\"sex\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";}',1,1);
+INSERT INTO `fbconnect_users` VALUES (13,655030989,1238062165,'a:17:{s:4:\"name\";s:4:\"name\";s:12:\"affiliations\";s:12:\"affiliations\";s:8:\"birthday\";s:8:\"birthday\";s:3:\"sex\";s:3:\"sex\";s:8:\"about_me\";s:8:\"about_me\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";s:11:\"meeting_sex\";s:11:\"meeting_sex\";s:11:\"meeting_for\";s:11:\"meeting_for\";s:19:\"relationship_status\";s:19:\"relationship_status\";s:10:\"activities\";s:10:\"activities\";s:9:\"interests\";s:9:\"interests\";s:5:\"music\";s:5:\"music\";s:2:\"tv\";s:2:\"tv\";s:6:\"movies\";s:6:\"movies\";s:5:\"books\";s:5:\"books\";s:6:\"quotes\";s:6:\"quotes\";}',1,1);
+INSERT INTO `fbconnect_users` VALUES (11,657148454,1238062165,'a:4:{s:4:\"name\";s:4:\"name\";s:8:\"birthday\";s:8:\"birthday\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";}',1,1);
+INSERT INTO `fbconnect_users` VALUES (12,756274999,1238062165,'a:6:{s:4:\"name\";s:4:\"name\";s:12:\"affiliations\";s:12:\"affiliations\";s:8:\"birthday\";s:8:\"birthday\";s:3:\"sex\";s:3:\"sex\";s:17:\"hometown_location\";s:17:\"hometown_location\";s:16:\"current_location\";s:16:\"current_location\";}',1,1);
 /*!40000 ALTER TABLE `fbconnect_users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `fckeditor_role`;
@@ -1884,7 +1885,6 @@ INSERT INTO `i18n_strings` VALUES (41,2515,'item','title');
 INSERT INTO `i18n_strings` VALUES (42,2519,'item','title');
 INSERT INTO `i18n_strings` VALUES (43,3343,'item','title');
 INSERT INTO `i18n_strings` VALUES (44,1364,'item','title');
-INSERT INTO `i18n_strings` VALUES (45,3351,'item','title');
 INSERT INTO `i18n_strings` VALUES (78,3,'vocabulary','name');
 INSERT INTO `i18n_strings` VALUES (82,2,'vocabulary','name');
 /*!40000 ALTER TABLE `i18n_strings` ENABLE KEYS */;
@@ -2050,7 +2050,7 @@ CREATE TABLE `locales_source` (
   PRIMARY KEY  (`lid`),
   KEY `source` (`source`(30)),
   KEY `textgroup_location` (`textgroup`(30),`location`)
-) ENGINE=MyISAM AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `locales_source` WRITE;
 /*!40000 ALTER TABLE `locales_source` DISABLE KEYS */;
@@ -2094,7 +2094,6 @@ INSERT INTO `locales_source` VALUES (41,'item:2515:title','menu',0x486F6D65,'1')
 INSERT INTO `locales_source` VALUES (42,'item:2519:title','menu',0x45534E2047616C617879,'1');
 INSERT INTO `locales_source` VALUES (43,'item:3343:title','menu',0x537570706F7274,'1');
 INSERT INTO `locales_source` VALUES (44,'item:1364:title','menu',0x486F6D65,'1');
-INSERT INTO `locales_source` VALUES (45,'item:3351:title','menu',0x4C6F67696E,'1');
 INSERT INTO `locales_source` VALUES (46,'misc/drupal.js','default',0x556E737065636966696564206572726F72,'none');
 INSERT INTO `locales_source` VALUES (47,'misc/drupal.js','default',0x416E206572726F72206F636375727265642E205C6E407572695C6E4074657874,'none');
 INSERT INTO `locales_source` VALUES (48,'misc/drupal.js','default',0x416E206572726F72206F636375727265642E205C6E407572695C6E286E6F20696E666F726D6174696F6E20617661696C61626C65292E,'none');
@@ -2132,7 +2131,10 @@ INSERT INTO `locales_source` VALUES (79,'/satellite/admin/content/taxonomy/edit/
 INSERT INTO `locales_source` VALUES (80,'/satellite/admin/content/taxonomy/edit/vocabulary/3','default',0x5570646174656420766F636162756C61727920256E616D652E,'6.10');
 INSERT INTO `locales_source` VALUES (81,'/satellite/admin/content/taxonomy/edit/vocabulary/3','default',0x65646974,'6.10');
 INSERT INTO `locales_source` VALUES (82,'vocabulary:2:name','taxonomy',0x54616773,'1');
-INSERT INTO `locales_source` VALUES (83,'profiles/satellite/modules/views/js/ajax_view.js','default',0x416E206572726F72206F636375727265642061742040706174682E,'none');
+INSERT INTO `locales_source` VALUES (83,'profiles/satellite/modules/views/js/ajax_view.js; profiles/satellite/modules/views/js/ajax.js','default',0x416E206572726F72206F636375727265642061742040706174682E,'none');
+INSERT INTO `locales_source` VALUES (84,'profiles/satellite/modules/views/js/tabs.js','default',0x6A517565727920554920546162733A204D69736D61746368696E6720667261676D656E74206964656E7469666965722E,'none');
+INSERT INTO `locales_source` VALUES (85,'profiles/satellite/modules/views/js/tabs.js','default',0x6A517565727920554920546162733A204E6F7420656E6F75676820617267756D656E747320746F20616464207461622E,'none');
+INSERT INTO `locales_source` VALUES (86,'modules/block/block.js','default',0x546865206368616E67657320746F20746865736520626C6F636B732077696C6C206E6F7420626520736176656420756E74696C20746865203C656D3E5361766520626C6F636B733C2F656D3E20627574746F6E20697320636C69636B65642E,'none');
 /*!40000 ALTER TABLE `locales_source` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `locales_target`;
@@ -2264,7 +2266,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=3439 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3445 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2556,7 +2558,7 @@ INSERT INTO `menu_links` VALUES ('navigation',1685,0,'events-past','events-past'
 INSERT INTO `menu_links` VALUES ('primary-links',1686,1354,'events/feed','events/feed','','a:0:{}','system',-1,0,0,0,0,2,0,1354,1686,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1693,0,'feed','feed','','a:0:{}','system',-1,0,0,0,0,1,0,1693,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1744,15,'admin/help/php','admin/help/php','php','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1744,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',1898,18,'admin/settings/signup','admin/settings/signup','Signup settings','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:31:\"Configure settings for signups.\";}}','system',0,0,0,0,0,3,0,2,18,1898,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',1898,18,'admin/settings/signup','admin/settings/signup','Signup','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:31:\"Configure settings for signups.\";}}','system',0,0,0,0,0,3,0,2,18,1898,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1899,10,'admin/content/signup','admin/content/signup','Signup administration','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:65:\"View all signup-enabled posts, and open or close signups on them.\";}}','system',0,0,0,0,0,3,0,2,10,1899,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1900,15,'admin/help/signup','admin/help/signup','signup','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1900,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1901,0,'node/%/signups/confirm','node/%/signups/confirm','','a:0:{}','system',-1,0,0,0,0,1,0,1901,0,0,0,0,0,0,0,0,0);
@@ -2610,7 +2612,7 @@ INSERT INTO `menu_links` VALUES ('admin_menu',2183,2168,'admin/settings/date-tim
 INSERT INTO `menu_links` VALUES ('admin_menu',2185,2163,'admin/content/emfield','admin/content/emfield','Embedded Media Field configuration','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,2163,2185,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2186,2168,'admin/settings/error-reporting','admin/settings/error-reporting','Error reporting','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2186,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2187,2163,'admin/content/aggregator','admin/content/aggregator','Feed aggregator','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,1,0,0,2,0,2163,2187,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2189,2168,'admin/settings/signup','admin/settings/signup','Signup settings','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2189,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2189,2168,'admin/settings/signup','admin/settings/signup','Signup','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2189,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2190,2168,'admin/settings/fckeditor','admin/settings/fckeditor','FCKeditor','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2190,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2191,2168,'admin/settings/file-system','admin/settings/file-system','File system','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2191,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2192,2168,'admin/settings/uploads','admin/settings/uploads','File uploads','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,2192,0,0,0,0,0,0,0,0);
@@ -3037,7 +3039,6 @@ INSERT INTO `menu_links` VALUES ('navigation',3331,15,'admin/help/tagadelic','ad
 INSERT INTO `menu_links` VALUES ('admin_menu',3332,2168,'admin/settings/tagadelic','admin/settings/tagadelic','Tagadelic configuration','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,3332,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3334,2333,'http://drupal.org/project/issues/tagadelic','','Tagadelic issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3334,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('primary-links',3343,0,'aggregator/sources/2','aggregator/sources/%','Support','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:7:\"Support\";}}','menu',0,0,0,0,0,1,1,3343,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('menu-quick-links',3351,0,'user','user','Login','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:0:\"\";}}','menu',0,0,0,0,0,1,1,3351,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3375,2333,'http://drupal.org/project/issues/imagecache_profiles','','Imagecache Profile Pictures issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3375,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('primary-links',3390,3219,'reports/feed','reports/feed','','a:0:{}','system',-1,0,0,0,0,2,0,3219,3390,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',3394,0,'i18nstrings/save','i18nstrings/save','Save string','a:0:{}','system',-1,0,0,0,0,1,0,3394,0,0,0,0,0,0,0,0,0);
@@ -3078,7 +3079,7 @@ INSERT INTO `menu_links` VALUES ('admin_menu',3429,3424,'admin/build/translate/t
 INSERT INTO `menu_links` VALUES ('admin_menu',3431,2333,'http://drupal.org/project/issues/i18n','','Internationalization issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3431,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3432,2333,'http://drupal.org/project/issues/languageicons','','Language Icons issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3432,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3433,2333,'http://drupal.org/project/issues/translation_table','','Translation Table issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3433,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3438,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3438,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3444,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3444,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -3584,7 +3585,7 @@ INSERT INTO `menu_router` VALUES ('admin/settings/poormanscron','','','user_acce
 INSERT INTO `menu_router` VALUES ('admin/settings/search','','','user_access','a:1:{i:0;s:17:\"administer search\";}','drupal_get_form','a:1:{i:0;s:21:\"search_admin_settings\";}',7,3,'','admin/settings/search','Search settings','t','',6,'','Configure relevance settings for search and other indexing options','',0,'modules/search/search.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/search/wipe','','','user_access','a:1:{i:0;s:17:\"administer search\";}','drupal_get_form','a:1:{i:0;s:19:\"search_wipe_confirm\";}',15,4,'','admin/settings/search/wipe','Clear index','t','',4,'','','',0,'modules/search/search.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/servicelinks','','','user_access','a:1:{i:0;s:24:\"administer service links\";}','drupal_get_form','a:1:{i:0;s:28:\"service_links_admin_settings\";}',7,3,'','admin/settings/servicelinks','Service links','t','',6,'','Control which and where service links should be active.','',0,'');
-INSERT INTO `menu_router` VALUES ('admin/settings/signup','','','user_access','a:1:{i:0;s:22:\"administer all signups\";}','drupal_get_form','a:1:{i:0;s:20:\"signup_settings_form\";}',7,3,'','admin/settings/signup','Signup settings','t','',6,'','Configure settings for signups.','',0,'profiles/satellite/modules/signup/includes/admin.settings.inc');
+INSERT INTO `menu_router` VALUES ('admin/settings/signup','','','user_access','a:1:{i:0;s:22:\"administer all signups\";}','drupal_get_form','a:1:{i:0;s:20:\"signup_settings_form\";}',7,3,'','admin/settings/signup','Signup','t','',6,'','Configure settings for signups.','',0,'profiles/satellite/modules/signup/includes/admin.settings.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/site-information','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:32:\"system_site_information_settings\";}',7,3,'','admin/settings/site-information','Site information','t','',6,'','Change basic site information, such as the site name, slogan, e-mail address, mission, front page and more.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/site-maintenance','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:32:\"system_site_maintenance_settings\";}',7,3,'','admin/settings/site-maintenance','Site maintenance','t','',6,'','Take the site off-line for maintenance or bring it back online.','',0,'modules/system/system.admin.inc');
 INSERT INTO `menu_router` VALUES ('admin/settings/tagadelic','','','user_access','a:1:{i:0;s:29:\"administer site configuration\";}','drupal_get_form','a:1:{i:0;s:18:\"tagadelic_settings\";}',7,3,'','admin/settings/tagadelic','Tagadelic configuration','t','',6,'','Configure the tag clouds. Set the order, the number of tags, and the depth of the clouds.','',0,'');
@@ -3867,7 +3868,7 @@ INSERT INTO `node` VALUES (235,235,'article','','Cui Capto Acsi Refero Suscipere
 INSERT INTO `node` VALUES (236,236,'page','','Abluo Laoreet Metuo Te Paratus Rusticus Quis',11,1,1237266830,1237411015,0,1,0,0,0,0);
 INSERT INTO `node` VALUES (237,237,'page','','Esse',11,1,1237326533,1237411015,0,1,0,0,0,0);
 INSERT INTO `node` VALUES (238,238,'article','','Aliquam Vulputate Tego Saluto',1,1,1237178882,1237411016,2,1,0,0,0,0);
-INSERT INTO `node` VALUES (239,239,'partner','','ESN',4,1,1237401926,1237857576,0,1,0,0,0,0);
+INSERT INTO `node` VALUES (239,239,'partner','','ESNandwhatelseisthereleftosaynothingiguessedsotoo',4,1,1237401926,1238027441,0,1,0,0,0,0);
 INSERT INTO `node` VALUES (240,240,'page','','ESN Galaxy',1,1,1237412529,1237818959,0,0,0,0,0,0);
 INSERT INTO `node` VALUES (241,241,'image','','DSC_3744.jpg',1,1,1237490135,1237490135,2,1,0,0,0,0);
 INSERT INTO `node` VALUES (242,242,'advpoll_binary','','This is a Binary Poll Test',1,1,1237490236,1237490236,2,1,0,0,0,0);
@@ -3899,8 +3900,8 @@ INSERT INTO `node` VALUES (268,268,'event','','Pneum Camur',0,1,1237763841,12378
 INSERT INTO `node` VALUES (269,269,'event','','Quis Singularis Persto Facilisi Praesent Lenis Decet',0,1,1237765629,1237848885,2,1,0,0,0,0);
 INSERT INTO `node` VALUES (270,270,'event','','AGM Utrecht 2009',1,1,1237860964,1237872589,2,1,0,0,0,0);
 INSERT INTO `node` VALUES (271,271,'event','','Yet another stupid event',1,1,1237861932,1237861932,2,1,0,0,0,0);
-INSERT INTO `node` VALUES (272,272,'partner','','Youth Agora',1,1,1237916586,1237916827,0,1,0,0,0,0);
-INSERT INTO `node` VALUES (273,273,'partner','','Erasmus Student Network',1,1,1237916738,1237916797,0,1,0,0,0,0);
+INSERT INTO `node` VALUES (272,272,'partner','','Youth Agora And It Never Ends',1,1,1237916586,1238027373,0,1,0,0,0,0);
+INSERT INTO `node` VALUES (273,273,'partner','','Erasmus Student Network And It Continues',1,1,1237916738,1238027344,0,1,0,0,0,0);
 /*!40000 ALTER TABLE `node` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `node_access`;
@@ -4011,7 +4012,7 @@ INSERT INTO `node_revisions` VALUES (235,235,1,'Cui Capto Acsi Refero Suscipere 
 INSERT INTO `node_revisions` VALUES (236,236,1,'Abluo Laoreet Metuo Te Paratus Rusticus Quis','node (page) - Abbas tamen euismod wisi tego ratis vel sed. Luctus commodo abluo defui melior dolore blandit. Dolor valetudo quidem esse ex camur capto obruo praesent. Illum facilisis interdico refero nulla. At volutpat dolor qui consectetuer humo. Commoveo sagaciter lucidus scisco natu conventio uxor cogo verto.\n\nVirtus ea humo gilvus interdico dolor. Iriure imputo refero. Tego ludus quibus. Gilvus sino inhibeo pertineo velit. Aptent minim elit ratis nulla jus. Iaceo accumsan huic. Quidem volutpat aliquip nulla te neque pertineo adipiscing. Probo ideo iriure lucidus consectetuer iriure nisl pagus. Dolore aliquam nunc.\n\nErat suscipere dolore autem. Aptent saepius ymo metuo causa veniam gemino.\n\nLetalis secundum ille conventio adipiscing abico probo vel ut quia. Duis macto valde. Letalis at magna euismod ille. Ymo volutpat paratus incassum facilisi tum caecus. Quibus causa sudo adipiscing os iusto haero comis eligo si. Molior quia facilisi cui neque. Jus luctus pala ratis nobis sit. Esca ludus pneum mauris utrum torqueo vero ullamcorper enim dolor.\n\nJugis tation genitus nutus defui. Mauris nimis humo persto jumentum genitus ut utinam. Neo metuo secundum sit saluto molior. Facilisis cui dolor et neque nisl suscipit. Pertineo nunc premo. Feugiat loquor gilvus nostrud brevitas. Quia iaceo tation premo sed cogo valde. Facilisi utrum augue wisi quadrum eum voco. At odio luptatum erat incassum valde probo verto odio iriure.\n\nSed vindico hendrerit melior macto aliquip vereor gilvus. Plaga cogo illum qui plaga cui. Voco populus haero. Elit nostrud jumentum interdico volutpat.\n\nPecus utinam luctus virtus nibh similis uxor. Turpis os cogo commoveo iustum mos ex refero. Scisco similis aptent importunus voco eu mos erat.\n\nAbdo wisi roto olim cui probo metuo magna validus. Pecus haero damnum sed. Volutpat letalis abigo. Valde nostrud quadrum sed acsi cogo. Probo quidem iusto singularis. Quia uxor usitas plaga. Commoveo quae vulputate tum os natu pertineo valetudo. Neque distineo aliquam importunus valde pneum dolore. Iusto acsi natu aliquam ludus nibh vel. Nibh immitto jus typicus aptent.\n\nVero quae eligo modo. Illum utinam neque te. Modo suscipit inhibeo consectetuer. Paulatim erat modo laoreet ymo decet vulpes minim jus.\n\nGenitus dolor vindico molior scisco inhibeo zelus quidne conventio. Ibidem esca in. Abbas capto aliquam virtus inhibeo elit. Macto ymo interdico typicus vereor dolus augue. Appellatio tation verto tamen comis. Ratis validus adipiscing augue tincidunt paratus. Mos si sino quis abigo voco at blandit. Patria si aliquip abigo loquor.\n\nTum refoveo iusto gilvus comis consequat inhibeo tamen vel distineo. Elit sit capto pecus fere cogo typicus jus praemitto comis. Voco turpis ludus ullamcorper proprius facilisis autem. Saepius luctus quidem usitas nibh iusto huic.\n\nSecundum tamen saluto abico lenis hos dolore. Ullamcorper eligo consectetuer euismod sed lenis haero proprius.\n\n','node (page) - Abbas tamen euismod wisi tego ratis vel sed. Luctus commodo abluo defui melior dolore blandit. Dolor valetudo quidem esse ex camur capto obruo praesent. Illum facilisis interdico refero nulla. At volutpat dolor qui consectetuer humo. Commoveo sagaciter lucidus scisco natu conventio uxor cogo verto.\n\nVirtus ea humo gilvus interdico dolor. Iriure imputo refero. Tego ludus quibus. Gilvus sino inhibeo pertineo velit. Aptent minim elit ratis nulla jus. Iaceo accumsan huic. Quidem volutpat aliquip nulla te neque pertineo adipiscing.','',1237411015,0);
 INSERT INTO `node_revisions` VALUES (237,237,1,'Esse','node (page) - <p>Magna tation esca abbas scisco esse capto. Enim eligo persto modo tum praemitto quis. Roto melior luctus ratis neque adipiscing vero genitus enim. Nobis elit brevitas interdico quidem rusticus brevitas eros. Melior exerci conventio. Verto metuo ideo. Neo nunc eligo proprius saepius imputo eros olim bene tincidunt.</p><p>Pneum loquor modo tego pecus feugiat saluto. Vulputate eum tation in molior occuro torqueo. Ad eu in ex interdico metuo persto eum luptatum. Bene lobortis humo dolore populus populus magna vel enim eros. Veniam saepius typicus enim lenis vicis eros. Vel quibus et enim rusticus paulatim ideo.</p><p>Tum vicis amet elit tego eu suscipere. Abluo vereor pneum consectetuer. Jus conventio quadrum hendrerit tation neque iusto nibh quadrum. Facilisis vulputate gemino. Ex esca abluo praemitto genitus hos jumentum.</p><p>Iaceo damnum dolore dignissim. Refoveo paulatim jus jumentum iusto ulciscor. Quadrum plaga facilisis. Utrum patria populus quis loquor abbas nutus esca defui haero. Dignissim secundum suscipit volutpat tum gemino.</p><p>Dolus plaga brevitas nostrud nulla diam quia nunc causa luctus. Comis secundum distineo wisi. Oppeto roto saluto huic quidem iusto loquor. Oppeto laoreet paratus metuo. Proprius voco gravis elit. Pagus pecus pecus neo vero. Dignissim bene ex brevitas sit ibidem. Secundum adipiscing ut tamen. Oppeto aliquip dignissim iusto ymo persto olim.</p><p>Neo nostrud suscipere. Refoveo molior nostrud tincidunt amet acsi. Mauris luptatum iusto ymo exputo ullamcorper brevitas tego vereor.</p><p>Illum adipiscing ille virtus brevitas secundum. Laoreet hendrerit mauris typicus nobis persto refero fere adipiscing. Ulciscor luctus nibh jus eum luctus. Haero qui typicus obruo brevitas abluo antehabeo amet. Sino saepius iriure at melior aliquam. Iusto proprius damnum elit nobis caecus similis ratis.</p><p>Paulatim luptatum immitto nostrud tum verto. Plaga vero quidne distineo amet usitas pala duis. Euismod sit quidem nibh. Mauris praemitto suscipit luctus ullamcorper conventio volutpat ideo iaceo quidem. Quae at magna scisco facilisi mauris. Quidem vulputate ibidem. Pala nisl melior camur amet haero importunus aptent incassum os.</p><p>Valde zelus causa qui praesent typicus ibidem vulpes facilisis enim. Tego hos populus. Vero nibh saluto qui caecus. Blandit mauris humo gravis roto valetudo eum. Esca huic eu interdico dolus. Singularis quidem feugiat. Tego abigo jus loquor aliquip singularis lenis. Pala cogo jus quidne turpis wisi pecus aliquip eum. Os causa ludus.</p><p>Nisl gravis magna persto autem cui utrum luctus. Pala velit defui. Tincidunt saluto pecus hos. Quidem facilisi ille natu defui ex gravis. Quibus caecus vereor typicus interdico gilvus plaga ex. Ullamcorper modo valetudo facilisi ex fere macto saepius augue loquor. Genitus fere iaceo adipiscing jus. Vulpes euismod tincidunt jugis defui fere commoveo nobis.</p><p>Dolor imputo interdico odio os abdo ille. Quidne proprius utinam aptent ideo letalis secundum abbas dignissim voco. Abluo acsi decet qui diam et vereor. Abigo camur saluto gravis feugiat natu qui hendrerit ut. Duis euismod hendrerit nulla paratus refoveo macto. Volutpat eros te odio nimis praesent commoveo. Suscipere modo probo huic. Eros appellatio amet ullamcorper modo vero utinam sagaciter saluto vero.</p>','node (page) - <p>Magna tation esca abbas scisco esse capto. Enim eligo persto modo tum praemitto quis. Roto melior luctus ratis neque adipiscing vero genitus enim. Nobis elit brevitas interdico quidem rusticus brevitas eros. Melior exerci conventio. Verto metuo ideo. Neo nunc eligo proprius saepius imputo eros olim bene tincidunt.</p>','',1237411015,0);
 INSERT INTO `node_revisions` VALUES (238,238,1,'Aliquam Vulputate Tego Saluto','node (article) - Valde refero euismod facilisi iriure capto praesent. Esca vulputate ullamcorper tego. Illum tum enim wisi. Iustum persto populus validus sino. Tamen in eu camur odio eligo abigo utrum. Vereor vereor capto erat nutus at causa tincidunt meus cogo. Plaga letalis quidne cui feugiat amet erat. Feugiat eum utinam.\n\nNimis proprius consequat aliquam abbas refero. Jumentum verto valde consectetuer mauris. Hendrerit et gilvus oppeto sit voco uxor. Premo vicis ratis pneum esca roto imputo dolore roto. Imputo magna mos os. Dolus torqueo luptatum quia jumentum. Adipiscing dolus luptatum eros. Commodo diam mos sed lobortis. Esca modo ullamcorper quae commoveo immitto similis commodo gilvus premo.\n\nModo jus acsi dolor eu. Aliquam humo comis aliquip. Distineo feugiat decet qui aliquam. Vel cui capto inhibeo. Pagus premo quadrum pecus gilvus. Pecus conventio praemitto saepius secundum autem modo. Hendrerit saepius similis. Turpis sino ille. Nisl illum plaga wisi refero decet nunc pneum saepius.\n\nPraesent illum neo paratus. Commodo refero damnum. Tation paulatim dignissim si at inhibeo. Diam quis zelus usitas utinam zelus inhibeo.\n\nLetalis rusticus dolus jumentum facilisis si utrum. Refoveo refoveo sino patria feugiat illum. Suscipit ludus pneum nutus facilisi mauris gravis accumsan nunc utinam. Metuo vulputate odio. Augue illum consequat elit ratis vindico illum melior quibus sino. Quidne autem imputo hendrerit et neque ibidem quia usitas.\n\nFacilisi quis saepius euismod quia. Refoveo accumsan sagaciter quae imputo. Quibus tego modo verto tation. Feugiat aliquam fere. Duis ideo gemino utinam commodo abico natu persto vicis. Incassum lucidus adipiscing. Ludus damnum causa quis interdico velit minim validus iusto luptatum. Pala wisi roto jumentum antehabeo mauris aliquam loquor. Lucidus jugis dolore tation tation quidem mauris.\n\nQuia saluto imputo singularis valetudo vicis nibh autem duis iaceo. Scisco nobis uxor. Uxor valetudo tamen. Dolore interdico torqueo natu voco gravis. Causa suscipit jumentum sed secundum tego commodo eu. Iaceo saluto pneum sagaciter metuo plaga refero valde abdo. Quae adipiscing turpis voco lobortis nibh dolor sit odio importunus.\n\nPraesent esse ea abdo. Fere abluo mos nostrud verto ymo dignissim oppeto. Volutpat interdico exerci nisl iustum neque plaga exputo olim quibus.\n\nVulputate camur damnum. Iustum gilvus dignissim odio si vero turpis diam. Oppeto uxor lobortis. Eligo vulputate tamen at dolus.\n\n','node (article) - Valde refero euismod facilisi iriure capto praesent. Esca vulputate ullamcorper tego. Illum tum enim wisi. Iustum persto populus validus sino. Tamen in eu camur odio eligo abigo utrum. Vereor vereor capto erat nutus at causa tincidunt meus cogo. Plaga letalis quidne cui feugiat amet erat. Feugiat eum utinam.\n\nNimis proprius consequat aliquam abbas refero. Jumentum verto valde consectetuer mauris. Hendrerit et gilvus oppeto sit voco uxor. Premo vicis ratis pneum esca roto imputo dolore roto. Imputo magna mos os. Dolus torqueo luptatum quia jumentum.','',1237411016,0);
-INSERT INTO `node_revisions` VALUES (239,239,1,'ESN','<p>node (partner) - Caecus iriure loquor magna vulpes. Ibidem euismod abbas pala immitto virtus. Venio valetudo praemitto venio. Velit iusto abluo commoveo abigo.  Minim aptent populus luptatum inhibeo obruo adipiscing enim nimis. Ex ille immitto genitus facilisis humo ymo macto. Iaceo sed cui usitas. Sudo praemitto enim tamen exerci voco interdico ex. Si mauris blandit acsi vero luptatum premo sagaciter abbas.  Causa abico esse. Meus utrum eum typicus eu. Vulputate immitto usitas wisi adipiscing mauris hendrerit consectetuer. Vel os tamen.  Tincidunt voco causa. Natu accumsan huic pertineo venio melior iaceo. Nibh quadrum appellatio roto. Nibh dolore neo inhibeo proprius macto. Vel melior vulputate gravis vereor facilisi eligo pecus. Camur ille hos aptent huic occuro abico olim.  Veniam molior roto. Augue nisl ulciscor quadrum molior modo nutus ymo. Veniam praemitto ideo lobortis vulpes meus amet acsi abluo. Interdico haero haero. Sudo volutpat autem importunus tum. Aliquip dolor iustum. Olim jumentum oppeto ulciscor.  Venio secundum tego quadrum gemino obruo saluto consequat. Dolore volutpat nulla venio eum accumsan. Esca quis abico plaga quis dolor ad macto blandit. Adipiscing secundum causa nutus oppeto illum luctus iustum eligo ex. Tamen abbas quadrum praesent letalis. Quia pneum tincidunt meus wisi antehabeo pneum premo venio.  Quidem si aptent euismod ideo plaga. Quidne quia venio singularis ut mauris. Duis facilisi abluo loquor at laoreet praemitto. Commoveo uxor eros imputo gemino validus praesent patria secundum venio. Hendrerit in damnum importunus ea gemino loquor dolore melior camur.  Euismod vulputate saepius mauris ea veniam olim pneum dolor consectetuer. Valetudo pertineo hendrerit aliquip luctus mauris.</p>','<p>node (partner) - Caecus iriure loquor magna vulpes. Ibidem euismod abbas pala immitto virtus. Venio valetudo praemitto venio. Velit iusto abluo commoveo abigo.  Minim aptent populus luptatum inhibeo obruo adipiscing enim nimis. Ex ille immitto genitus facilisis humo ymo macto. Iaceo sed cui usitas. Sudo praemitto enim tamen exerci voco interdico ex. Si mauris blandit acsi vero luptatum premo sagaciter abbas.  Causa abico esse. Meus utrum eum typicus eu. Vulputate immitto usitas wisi adipiscing mauris hendrerit consectetuer. Vel os tamen.  Tincidunt voco causa.','',1237857576,1);
+INSERT INTO `node_revisions` VALUES (239,239,1,'ESNandwhatelseisthereleftosaynothingiguessedsotoo','<p>node (partner) - Caecus iriure loquor magna vulpes. Ibidem euismod abbas pala immitto virtus. Venio valetudo praemitto venio. Velit iusto abluo commoveo abigo.  Minim aptent populus luptatum inhibeo obruo adipiscing enim nimis. Ex ille immitto genitus facilisis humo ymo macto. Iaceo sed cui usitas. Sudo praemitto enim tamen exerci voco interdico ex. Si mauris blandit acsi vero luptatum premo sagaciter abbas.  Causa abico esse. Meus utrum eum typicus eu. Vulputate immitto usitas wisi adipiscing mauris hendrerit consectetuer. Vel os tamen.  Tincidunt voco causa. Natu accumsan huic pertineo venio melior iaceo. Nibh quadrum appellatio roto. Nibh dolore neo inhibeo proprius macto. Vel melior vulputate gravis vereor facilisi eligo pecus. Camur ille hos aptent huic occuro abico olim.  Veniam molior roto. Augue nisl ulciscor quadrum molior modo nutus ymo. Veniam praemitto ideo lobortis vulpes meus amet acsi abluo. Interdico haero haero. Sudo volutpat autem importunus tum. Aliquip dolor iustum. Olim jumentum oppeto ulciscor.  Venio secundum tego quadrum gemino obruo saluto consequat. Dolore volutpat nulla venio eum accumsan. Esca quis abico plaga quis dolor ad macto blandit. Adipiscing secundum causa nutus oppeto illum luctus iustum eligo ex. Tamen abbas quadrum praesent letalis. Quia pneum tincidunt meus wisi antehabeo pneum premo venio.  Quidem si aptent euismod ideo plaga. Quidne quia venio singularis ut mauris. Duis facilisi abluo loquor at laoreet praemitto. Commoveo uxor eros imputo gemino validus praesent patria secundum venio. Hendrerit in damnum importunus ea gemino loquor dolore melior camur.  Euismod vulputate saepius mauris ea veniam olim pneum dolor consectetuer. Valetudo pertineo hendrerit aliquip luctus mauris.</p>','<p>node (partner) - Caecus iriure loquor magna vulpes. Ibidem euismod abbas pala immitto virtus. Venio valetudo praemitto venio. Velit iusto abluo commoveo abigo.  Minim aptent populus luptatum inhibeo obruo adipiscing enim nimis. Ex ille immitto genitus facilisis humo ymo macto. Iaceo sed cui usitas. Sudo praemitto enim tamen exerci voco interdico ex. Si mauris blandit acsi vero luptatum premo sagaciter abbas.  Causa abico esse. Meus utrum eum typicus eu. Vulputate immitto usitas wisi adipiscing mauris hendrerit consectetuer. Vel os tamen.  Tincidunt voco causa.','',1238027441,1);
 INSERT INTO `node_revisions` VALUES (240,240,1,'ESN Galaxy','<p><script src=\"http://www.gmodules.com/ig/ifr?url=http://galaxy.esn.org/gadget.xml&amp;up_latitude=53&amp;up_longitude=10&amp;up_zoom=11&amp;up_type=Physical&amp;up_satelliteID=[token esn section.sc]&amp;up_contributedLayers=1&amp;synd=open&amp;w=540&amp;h=450&amp;title=ESN+Galaxy+%7C+Discover+Erasmus&amp;nocache=1&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js\"></script>Not yet a part of the <a href=\"http://galaxy.esn.org\">ESN Galaxy</a>? Then <a href=\"http://galaxy.esn.org/index.php/satellites/add\">join now</a>!</p>','<p><script src=\"http://www.gmodules.com/ig/ifr?url=http://galaxy.esn.org/gadget.xml&amp;up_latitude=53&amp;up_longitude=10&amp;up_zoom=11&amp;up_type=Physical&amp;up_satelliteID=[token esn section.sc]&amp;up_contributedLayers=1&amp;synd=open&amp;w=540&amp;h=450&amp;title=ESN+Galaxy+%7C+Discover+Erasmus&amp;nocache=1&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js\"></script>Not yet a part of the <a href=\"http://galaxy.esn.org\">ESN Galaxy</a>? Then <a href=\"http://galaxy.esn.org/index.php/satellites/add\">join now</a>!</p>','',1237818959,2);
 INSERT INTO `node_revisions` VALUES (241,241,1,'DSC_3744.jpg','','','',1237490135,0);
 INSERT INTO `node_revisions` VALUES (242,242,1,'This is a Binary Poll Test','<p><img width=\"437\" height=\"640\" src=\"/webdev/satellite/satellite/imagebrowser/view/image/188/preview\" alt=\"8th National Congress on Theoretical and Applied Mechanics_1237306580784.png\" /></p>','<p><img width=\"437\" height=\"640\" src=\"/webdev/satellite/satellite/imagebrowser/view/image/188/preview\" alt=\"8th National Congress on Theoretical and Applied Mechanics_1237306580784.png\" /></p>','',1237490236,1);
@@ -4043,8 +4044,8 @@ INSERT INTO `node_revisions` VALUES (268,268,1,'Pneum Camur','node (event) - Neq
 INSERT INTO `node_revisions` VALUES (269,269,1,'Quis Singularis Persto Facilisi Praesent Lenis Decet','node (event) - <p>Distineo abico sudo elit nisl. Distineo typicus vereor. Pagus gemino bene. Plaga immitto iaceo iustum commoveo acsi aptent metuo quadrum sed. Valde oppeto singularis validus typicus sino. Bene blandit typicus quibus. Dolor ludus ludus nisl eligo rusticus gilvus.</p><p>Sino luctus brevitas os secundum consectetuer cui plaga te. Quis jus capto aliquip nibh aliquam vindico praesent molior. Quae eum antehabeo.</p><p>Quia eu singularis. Zelus causa saluto esse roto. Blandit aptent refoveo pala pala vulpes vulpes. Importunus abico neque. Lucidus vero haero quae neque erat pneum. Gilvus meus cui appellatio augue sino feugiat ut.</p>','node (event) - <p>Distineo abico sudo elit nisl. Distineo typicus vereor. Pagus gemino bene. Plaga immitto iaceo iustum commoveo acsi aptent metuo quadrum sed. Valde oppeto singularis validus typicus sino. Bene blandit typicus quibus. Dolor ludus ludus nisl eligo rusticus gilvus.</p><p>Sino luctus brevitas os secundum consectetuer cui plaga te. Quis jus capto aliquip nibh aliquam vindico praesent molior. Quae eum antehabeo.</p>','',1237848885,0);
 INSERT INTO `node_revisions` VALUES (270,270,1,'AGM Utrecht 2009','','','',1237872589,1);
 INSERT INTO `node_revisions` VALUES (271,271,1,'Yet another stupid event','','','',1237861932,1);
-INSERT INTO `node_revisions` VALUES (272,272,1,'Youth Agora','<p>dd</p>','<p>dd</p>','',1237916827,1);
-INSERT INTO `node_revisions` VALUES (273,273,1,'Erasmus Student Network','','','',1237916797,1);
+INSERT INTO `node_revisions` VALUES (272,272,1,'Youth Agora And It Never Ends','<p>dd</p>','<p>dd</p>','',1238027373,1);
+INSERT INTO `node_revisions` VALUES (273,273,1,'Erasmus Student Network And It Continues','','','',1238027344,1);
 /*!40000 ALTER TABLE `node_revisions` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `node_type`;
@@ -4892,8 +4893,8 @@ INSERT INTO `url_alias` VALUES (516,'node/237','content/esse','');
 INSERT INTO `url_alias` VALUES (517,'node/237/feed','content/esse/feed','');
 INSERT INTO `url_alias` VALUES (518,'node/238','article/aliquam-vulputate-tego-saluto','');
 INSERT INTO `url_alias` VALUES (519,'node/238/feed','article/aliquam-vulputate-tego-saluto/feed','');
-INSERT INTO `url_alias` VALUES (520,'node/239','partner/esn','');
-INSERT INTO `url_alias` VALUES (521,'node/239/feed','partner/esn/feed','');
+INSERT INTO `url_alias` VALUES (520,'node/239','partner/esnandwhatelseisthereleftosaynothingiguessedsotoo','');
+INSERT INTO `url_alias` VALUES (521,'node/239/feed','partner/esnandwhatelseisthereleftosaynothingiguessedsotoo/feed','');
 INSERT INTO `url_alias` VALUES (522,'taxonomy/term/','taxonomy/term/26','');
 INSERT INTO `url_alias` VALUES (523,'taxonomy/term/1','category/tags/party','');
 INSERT INTO `url_alias` VALUES (524,'taxonomy/term/2','category/tags/culture','');
@@ -4986,10 +4987,10 @@ INSERT INTO `url_alias` VALUES (612,'node/270','event/agm-utrecht-2009','');
 INSERT INTO `url_alias` VALUES (613,'node/270/feed','event/agm-utrecht-2009/feed','');
 INSERT INTO `url_alias` VALUES (614,'node/271','event/yet-another-stupid-event','');
 INSERT INTO `url_alias` VALUES (615,'node/271/feed','event/yet-another-stupid-event/feed','');
-INSERT INTO `url_alias` VALUES (616,'node/272','partner/youth-agora','');
-INSERT INTO `url_alias` VALUES (617,'node/272/feed','partner/youth-agora/feed','');
-INSERT INTO `url_alias` VALUES (618,'node/273','partner/erasmus-student-network','');
-INSERT INTO `url_alias` VALUES (619,'node/273/feed','partner/erasmus-student-network/feed','');
+INSERT INTO `url_alias` VALUES (616,'node/272','partner/youth-agora-and-it-never-ends','');
+INSERT INTO `url_alias` VALUES (617,'node/272/feed','partner/youth-agora-and-it-never-ends/feed','');
+INSERT INTO `url_alias` VALUES (618,'node/273','partner/erasmus-student-network-and-it-continues','');
+INSERT INTO `url_alias` VALUES (619,'node/273/feed','partner/erasmus-student-network-and-it-continues/feed','');
 /*!40000 ALTER TABLE `url_alias` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
@@ -5023,11 +5024,11 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1238002448,1237967814,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1238065747,1237967814,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
-INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1237927425,1237926806,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
-INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
-INSERT INTO `users` VALUES (13,'Christof Devriendt','4b440f6de77330d398c5231ec47c9a91','cdevrien@vub.ac.be',0,0,0,'','',1237743472,1237774302,1237743472,1,NULL,'','sites/default/files/pictures/picture-fb_655030989.jpg','cdevrien@vub.ac.be','a:1:{s:7:\"contact\";i:1;}','');
+INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1238064866,1238064866,1,NULL,'','','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
+INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
+INSERT INTO `users` VALUES (13,'Christof Devriendt','4b440f6de77330d398c5231ec47c9a91','cdevrien@vub.ac.be',0,0,0,'','',1237743472,1237774302,1237743472,1,NULL,'','','cdevrien@vub.ac.be','a:1:{s:7:\"contact\";i:1;}','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users_roles`;
@@ -5058,7 +5059,7 @@ INSERT INTO `variable` VALUES ('admin_menu_position_fixed','i:1;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_modules','i:0;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_tabs','i:0;');
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1238002549;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1238062164;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
 INSERT INTO `variable` VALUES ('blocktheme','a:9:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:10:\"green_fill\";s:44:\"views-partners-block_1?destination=frontpage\";s:5:\"green\";s:22:\"views-partners-block_1\";s:4:\"blue\";s:6:\"user-1\";s:5:\"green\";s:7:\"block-7\";s:5:\"green\";s:24:\"content_complete-setting\";s:4:\"blue\";s:11:\"tagadelic-3\";s:6:\"orange\";s:11:\"tagadelic-2\";s:6:\"orange\";}');
@@ -5141,8 +5142,8 @@ INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"tit
 INSERT INTO `variable` VALUES ('content_extra_weights_story','a:4:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-1\";s:4:\"menu\";s:2:\"-2\";s:11:\"attachments\";s:1:\"3\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1238002552;');
-INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"j0YFpuM3mGSUT9B5XNzW\";');
+INSERT INTO `variable` VALUES ('cron_last','i:1238062165;');
+INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"AZeJQOj0YFpuM3mGSUT9\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
 INSERT INTO `variable` VALUES ('date_default_timezone','i:3600;');
@@ -5276,7 +5277,7 @@ INSERT INTO `variable` VALUES ('imageapi_image_toolkit','s:11:\"imageapi_gd\";')
 INSERT INTO `variable` VALUES ('install_profile','s:9:\"satellite\";');
 INSERT INTO `variable` VALUES ('install_task','s:4:\"done\";');
 INSERT INTO `variable` VALUES ('install_time','i:1224322133;');
-INSERT INTO `variable` VALUES ('javascript_parsed','a:23:{i:0;s:14:\"misc/jquery.js\";i:1;s:14:\"misc/drupal.js\";i:2;s:51:\"profiles/satellite/modules/admin_menu/admin_menu.js\";i:3;s:62:\"profiles/satellite/modules/date/date_timezone/date_timezone.js\";i:4;s:62:\"profiles/satellite/modules/lightbox2/js/auto_image_handling.js\";i:5;s:51:\"profiles/satellite/modules/lightbox2/js/lightbox.js\";i:6;s:51:\"profiles/satellite/modules/nice_menus/nice_menus.js\";i:7;s:61:\"profiles/satellite/modules/tableofcontents/tableofcontents.js\";i:8;s:47:\"profiles/satellite/modules/teleport/teleport.js\";i:9;s:20:\"misc/autocomplete.js\";i:10;s:59:\"profiles/satellite/modules/fckeditor/fckeditor/fckeditor.js\";i:11;s:55:\"profiles/satellite/modules/fckeditor/fckeditor.utils.js\";i:12;s:16:\"misc/textarea.js\";i:13;s:16:\"misc/collapse.js\";i:14;s:52:\"profiles/satellite/modules/fbconnect/js/fbconnect.js\";i:15;s:17:\"misc/tabledrag.js\";i:16;s:41:\"profiles/satellite/modules/cck/content.js\";i:17;s:43:\"profiles/satellite/modules/views/js/base.js\";i:18;s:48:\"profiles/satellite/modules/views/js/ajax_view.js\";i:19;s:47:\"profiles/satellite/modules/pathauto/pathauto.js\";i:20;s:49:\"profiles/satellite/modules/filefield/filefield.js\";i:21;s:19:\"misc/jquery.form.js\";i:22;s:12:\"misc/ahah.js\";}');
+INSERT INTO `variable` VALUES ('javascript_parsed','a:17:{i:0;s:14:\"misc/jquery.js\";i:1;s:14:\"misc/drupal.js\";i:2;s:51:\"profiles/satellite/modules/admin_menu/admin_menu.js\";i:3;s:62:\"profiles/satellite/modules/date/date_timezone/date_timezone.js\";i:4;s:62:\"profiles/satellite/modules/lightbox2/js/auto_image_handling.js\";i:5;s:51:\"profiles/satellite/modules/lightbox2/js/lightbox.js\";i:6;s:51:\"profiles/satellite/modules/nice_menus/nice_menus.js\";i:7;s:61:\"profiles/satellite/modules/tableofcontents/tableofcontents.js\";i:8;s:47:\"profiles/satellite/modules/teleport/teleport.js\";i:9;s:20:\"misc/autocomplete.js\";i:10;s:43:\"profiles/satellite/modules/views/js/base.js\";i:11;s:48:\"profiles/satellite/modules/views/js/ajax_view.js\";i:12;s:52:\"profiles/satellite/modules/fbconnect/js/fbconnect.js\";i:13;s:24:\"modules/openid/openid.js\";i:14;s:17:\"misc/tabledrag.js\";i:15;s:19:\"misc/tableheader.js\";i:16;s:16:\"misc/textarea.js\";}');
 INSERT INTO `variable` VALUES ('language_content_type_article','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('language_content_type_event','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('language_content_type_page','s:1:\"0\";');
@@ -5338,6 +5339,8 @@ INSERT INTO `variable` VALUES ('location_maxnum_activity','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('location_settings_node_activity','a:4:{s:8:\"multiple\";a:3:{s:3:\"min\";s:1:\"0\";s:3:\"max\";s:1:\"0\";s:3:\"add\";s:1:\"0\";}s:4:\"form\";a:4:{s:6:\"weight\";s:1:\"0\";s:11:\"collapsible\";i:1;s:9:\"collapsed\";i:1;s:6:\"fields\";a:8:{s:4:\"name\";a:3:{s:7:\"collect\";s:1:\"1\";s:7:\"default\";s:0:\"\";s:6:\"weight\";s:1:\"2\";}s:6:\"street\";a:3:{s:7:\"collect\";s:1:\"1\";s:7:\"default\";s:0:\"\";s:6:\"weight\";s:1:\"4\";}s:10:\"additional\";a:3:{s:7:\"collect\";s:1:\"1\";s:7:\"default\";s:0:\"\";s:6:\"weight\";s:1:\"6\";}s:4:\"city\";a:3:{s:7:\"collect\";s:1:\"0\";s:7:\"default\";s:0:\"\";s:6:\"weight\";s:1:\"8\";}s:8:\"province\";a:3:{s:7:\"collect\";s:1:\"0\";s:7:\"default\";s:0:\"\";s:6:\"weight\";s:2:\"10\";}s:11:\"postal_code\";a:3:{s:7:\"collect\";s:1:\"0\";s:7:\"default\";s:0:\"\";s:6:\"weight\";s:2:\"12\";}s:7:\"country\";a:3:{s:7:\"collect\";s:1:\"1\";s:7:\"default\";s:2:\"us\";s:6:\"weight\";s:2:\"14\";}s:5:\"phone\";a:3:{s:7:\"collect\";s:1:\"0\";s:7:\"default\";s:0:\"\";s:6:\"weight\";s:2:\"25\";}}}s:7:\"display\";a:4:{s:6:\"weight\";s:1:\"0\";s:4:\"hide\";a:12:{s:4:\"name\";i:0;s:6:\"street\";i:0;s:10:\"additional\";i:0;s:4:\"city\";i:0;s:8:\"province\";i:0;s:11:\"postal_code\";i:0;s:7:\"country\";i:0;s:5:\"phone\";i:0;s:13:\"province_name\";i:0;s:12:\"country_name\";i:0;s:8:\"map_link\";i:0;s:6:\"coords\";i:0;}s:6:\"teaser\";i:1;s:4:\"full\";i:1;}s:3:\"rss\";a:1:{s:4:\"mode\";s:6:\"simple\";}}');
 INSERT INTO `variable` VALUES ('logintoboggan_confirm_email_at_registration','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('logintoboggan_immediate_login_on_register','i:1;');
+INSERT INTO `variable` VALUES ('logintoboggan_login_block_message','s:0:\"\";');
+INSERT INTO `variable` VALUES ('logintoboggan_login_block_type','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('logintoboggan_login_successful_message','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('logintoboggan_login_with_email','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('logintoboggan_minimum_password_length','s:1:\"0\";');
@@ -5370,7 +5373,7 @@ INSERT INTO `variable` VALUES ('nice_menus_number','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('nice_menus_type_1','s:4:\"down\";');
 INSERT INTO `variable` VALUES ('node_admin_theme','i:0;');
 INSERT INTO `variable` VALUES ('node_cron_comments_scale','d:0.142857142857142849212692681248881854116916656494140625;');
-INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1237944436\";');
+INSERT INTO `variable` VALUES ('node_cron_last','s:10:\"1238027441\";');
 INSERT INTO `variable` VALUES ('node_cron_views_scale','d:1;');
 INSERT INTO `variable` VALUES ('node_options_activity','a:2:{i:0;s:6:\"status\";i:1;s:7:\"promote\";}');
 INSERT INTO `variable` VALUES ('node_options_article','a:1:{i:0;s:6:\"status\";}');
@@ -5453,7 +5456,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
 INSERT INTO `variable` VALUES ('poormanscron_interval','s:3:\"480\";');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1238001723;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1238062165;');
 INSERT INTO `variable` VALUES ('poormanscron_log_cron_runs','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('poormanscron_log_progress','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('poormanscron_retry_interval','s:2:\"10\";');
@@ -5591,7 +5594,7 @@ INSERT INTO `variable` VALUES ('views_defaults','a:4:{s:9:\"frontpage\";b:0;s:8:
 INSERT INTO `variable` VALUES ('wipe','s:16:\"Wipe and rebuild\";');
 INSERT INTO `variable` VALUES ('ya_key','s:8:\"7bfd8aec\";');
 INSERT INTO `variable` VALUES ('ya_satellite_version','s:7:\"3.0-ESN\";');
-INSERT INTO `variable` VALUES ('ya_status','a:1:{s:2:\"op\";s:4:\"pass\";}');
+INSERT INTO `variable` VALUES ('ya_status','b:0;');
 INSERT INTO `variable` VALUES ('yui_editor_button_profile','s:30:\"yui_editor_toolbar_no_style.js\";');
 INSERT INTO `variable` VALUES ('yui_editor_button_type','s:6:\"simple\";');
 INSERT INTO `variable` VALUES ('yui_editor_coder','i:0;');
@@ -5802,7 +5805,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6800 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7027 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
