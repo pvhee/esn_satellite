@@ -72,7 +72,8 @@ function satellite_menu_item_link($link) {
 }
 
 /**
- * Theme override of theme_block_fbconnect.
+ * Theme override of theme_block_fbconnect, use imagecache 'user_image_facebook' to format user pictures
+ * in the block provided by facebook.
  */
 function satellite_render_friends_list_fbconnect($data, $title) {
   $imagecache_action = 'user_image_facebook';
@@ -97,4 +98,13 @@ function satellite_render_friends_list_fbconnect($data, $title) {
     
     return $items;
   }
+}
+
+/**
+ * Theme override for the loggedinblock that shows for logged-in users:
+ * Turn the username into a link to the user page.
+ */
+function satellite_lt_loggedinblock(){
+  global $user;
+  return theme('username', $user) .' | ' . l(t('Log out'), 'logout');
 }
