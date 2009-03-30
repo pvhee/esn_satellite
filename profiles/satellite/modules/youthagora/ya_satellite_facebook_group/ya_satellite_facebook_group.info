@@ -1,0 +1,6 @@
+; $Id$
+name = Satellite Facebook Group
+description = Provides a block with a link to the Facebook Group taken from the satellite tokens
+package = Youth Agora
+dependencies[] = ya_satellite_token
+core = 6.x

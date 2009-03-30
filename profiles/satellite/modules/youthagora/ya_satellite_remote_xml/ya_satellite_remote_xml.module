@@ -1,0 +1,56 @@
+<?php
+// $Id$
+
+/**
+ * Implementation of hook_cron().
+ *
+ * Checks news feeds for updates once their refresh interval has elapsed.
+ */
+function ya_satellite_remote_xml_cron() {
+  _ya_satellite_remote_xml_update_resources();
+}
+
+function _ya_satellite_remote_xml_update_resources() {
+  // list resources here, every resource needs a set of remote URLs and a local filename
+  $resources = array(
+    array(
+      'url' => array('http://center.youthagora.org/xml/esn-satellite/sections.xml', 'http://galaxy.esn.org/sections/xml'),
+      'file' => 'sections.xml'
+    ), 
+    array(
+      'url' => array('http://center.youthagora.org/xml/esn-satellite/countries.xml', 'http://galaxy.esn.org/countries/xml'),
+      'file' => 'countries.xml'
+    )
+  );
+  
+  foreach ($resources as $resource) {
+    $file = $resource['file'];
+    foreach ($resource['url'] as $url) {
+      if(_ya_satellite_remote_xml_copy_remote_file($url, $file)) break;
+    }
+  }
+}
+
+/**
+ * Copy a file at the URL to a local file.
+ */
+function _ya_satellite_remote_xml_copy_remote_file($url, $local_filename) {
+  $result=drupal_http_request($url);
+  if ($result->code != 200) {
+    watchdog('ya_satellite_remote_xml', 'Unable to read remote XML file at URL %url, due to error %error', array('%url' => $url, '%error' => $result->code));
+    return FALSE;
+  }
+  
+  $dest=file_directory_path().'/'.$local_filename; 
+  
+  $ret = file_save_data($result->data, $dest, FILE_EXISTS_REPLACE);
+  if(!$ret) {
+    watchdog('ya_satellite_remote_xml', 'Unable to copy data to file %file', array('%file' => $dest));
+    return FALSE;
+  }
+  
+  return TRUE;
+}
+
+
+

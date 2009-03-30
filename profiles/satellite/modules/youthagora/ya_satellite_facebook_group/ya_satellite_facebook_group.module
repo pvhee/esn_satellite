@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * Provides a block with a link to the Facebook group.
+ * Uses a token provided by the ya_satellite_token module to get the facebook gid inside.
+ * 
+ * @author Peter Vanhee
+ */
+
+/**
+ * Define a default Facebook gid, use the gid from the Erasmus Student Network facebook group.
+ * This gid is used if no gid is defined in the settings.
+ * http://www.facebook.com/group.php?gid=11337950550
+ */
+define('YA_FACEBOOK_FACEBOOK_GID', '11337950550');
+
+/**
+ * Implementation of hook_block.
+ */
+function ya_satellite_facebook_group_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
+    case 'list':
+      $blocks[0] = array('info' => t('Facebook Group'));
+      return $blocks;
+    case 'view':
+      $block['subject'] = t('Facebook group');
+      $block['content'] = ya_satellite_facebook_group_block_content();
+      return $block;
+  }
+}
+
+function ya_satellite_facebook_group_block_content() {
+  $token = token_get_values('esn');
+  $data = array_combine($token->tokens, $token->values);
+  
+  $facebook_gid = isset($data['facebook_gid']) ? $data['facebook_gid'] : YA_FACEBOOK_FACEBOOK_GID;
+  
+  
+  
+  $link = "<a href='http://www.facebook.com/group.php?gid=".$facebook_gid."'>Facebook group</a>";
+  // dprint_r($s);
+  
+  return t("<a href='http://www.facebook.com/group.php?gid=".$facebook_gid."'>
+              <img id='ya_satellite_facebook_logo' src='" . base_path() . drupal_get_path('module', 'ya_satellite_facebook_group') . "/images/facebook-logo.png' alt='Facebook logo' />
+            </a>");
+}

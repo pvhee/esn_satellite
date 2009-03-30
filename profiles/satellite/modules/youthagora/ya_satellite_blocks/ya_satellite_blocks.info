@@ -1,0 +1,8 @@
+; $Id$
+name = Satellite Blocks
+description = Provides custom blocks for ESN Satellite
+package = Youth Agora
+dependencies[] = content
+dependencies[] = ya_satellite_token
+dependencies[] = token
+core = 6.x

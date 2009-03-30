@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * Implementation of hook_token_values().
+ */
+function ya_satellite_token_token_values($type, $object = NULL, $options = array()) {
+  $values = array();
+  switch($type) {
+    case 'esn':
+      $values = _ya_satellite_token_get_cck_tokens();
+      break;
+  }
+  return $values;
+}
+
+/**
+ * Implementation of hook_token_list().
+ */
+function ya_satellite_token_token_list($type = 'all') {
+  if ($type == 'esn' || $type == 'all') {
+    $tokens['esn']['esn-section']      = t("The name of the ESN Section.");
+    $tokens['esn']['esn-country']      = t("The name of the ESN Country.");
+  }
+  return $tokens;
+}
+
+/**
+ * Retrieve token values from CCK. This is very hardcoded and needs the presence
+ * of the "setting" content type as implemented in the Satellite profile.
+ */
+function _ya_satellite_token_get_cck_tokens() {
+  $content_type = 'setting';
+  $mapping = array(
+    'section' => array('field' => 'field_section_setting', 'compression' => TRUE),
+    'country' => array('field' => 'field_country_setting', 'compression' => TRUE),
+    'facebook_gid' => array('field' => 'field_facebook_gid', 'compression' => FALSE),
+    'header' => array('field' => 'field_image_setting', 'compression' => FALSE),
+  );
+  $cck_module = 'text';
+  $content_is_empty = $cck_module .'_content_is_empty';
+
+  $tokens = array();
+  
+  $sql = "SELECT n.nid FROM {node} n WHERE type = '%s'";
+  $result = db_query($sql, $content_type);
+  $data = db_fetch_object($result); // only take the first one for now
+
+  if($data) {
+    $node = node_load($data->nid);
+    foreach($mapping as $base_token => $field) {
+      $field_name = $field['field'];
+      $compression = $field['compression'];
+      
+      if(isset($node->{$field_name})) {
+        $value_raw = $node->{$field_name}[0];         
+
+        if(!$content_is_empty($value_raw, $field_name)) {
+          $value = $value_raw['value'];
+          
+          if($compression) {
+            _ya_satellite_token_deserialize_to_tokens($tokens, $value, $base_token);
+          } else {
+            $tokens[$base_token] = $value;
+          }
+        }
+        else if(isset($value_raw['filepath'])) { // for imagefield (HACK)
+          $value = $value_raw['filepath'];
+          $tokens[$base_token] = $value;
+        }
+      }
+    }
+  }
+  
+  // fix token names
+  _ya_satellite_token_fix_token_names($tokens);
+  
+   return $tokens;
+}
+
+/**
+ * Our data array is coded in base64 and serialized, we will provide tokens such as
+ * 'section.sc' for the section code.
+ * 
+ * 'sc' corresponds to the fieldnames used in the XML file.
+ */
+function _ya_satellite_token_deserialize_to_tokens(&$tokens, $data, $base_token) {
+  $data = unserialize(base64_decode($data));
+  
+  foreach($data as $key => $value) {
+    $token = $base_token. '.' .$key;
+    $tokens[$token] = $value;
+  }  
+}
+
+/**
+ * Fix for token's problems. E.g.
+ * tokens 'country.c' -> 'BE' and 'country.cn' -> 'Belgium' 
+ * get confused, and we will end up replacing 'country.cn' with
+ * 'BEn' (first part from 'country.c', second 'n' from the '.cn')
+ * 
+ * Solution: rename short tags, so 'country.c' gets 'country.country'
+ */
+function _ya_satellite_token_fix_token_names(&$tokens) {
+  $replacements = array(
+    'section.l'   => 'section.location',
+    'section.c'   => 'section.country',
+    'country.c'   => 'country.country'
+  );
+  
+  foreach($replacements as $from => $to) {
+    $tokens[$to] = $tokens[$from];
+    unset($tokens[$from]);
+  }
+}
+

@@ -1,0 +1,7 @@
+; $Id$
+name = Satellite Token
+description = Provides tokens like [section.sectionname] and [section.mail] from the ESN Galaxy for the Satellite
+package = Youth Agora
+dependencies[] = token
+dependencies[] = ya_satellite_remote_xml
+core = 6.x

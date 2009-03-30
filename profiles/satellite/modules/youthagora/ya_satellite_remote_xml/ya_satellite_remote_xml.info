@@ -1,0 +1,5 @@
+; $Id$
+name = Satellite Remote XML
+description = Imports ESN Section and ESN Country XML files from the ESN Galaxy at cron
+package = Youth Agora
+core = 6.x
