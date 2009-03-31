@@ -274,8 +274,8 @@ CREATE TABLE `aggregator_feed` (
 
 LOCK TABLES `aggregator_feed` WRITE;
 /*!40000 ALTER TABLE `aggregator_feed` DISABLE KEYS */;
-INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1238412820,'http://www.esn.org/news/feed','News view','','',1238412825,5);
-INSERT INTO `aggregator_feed` VALUES (2,'ESN Satellite Google Group','http://groups.google.com/group/esn-satellite/feed/rss_v2_0_msgs.xml',3600,1238412821,'http://groups.google.com/group/esn-satellite','The main task of this group is to give support to all webmasters managing an ESN Satellite in their local sections. Also bugs and other related issues to the ESN Satellite may be announced.','','',0,5);
+INSERT INTO `aggregator_feed` VALUES (1,'ESN International News ','http://www.esn.org/news/feed',3600,1238442927,'http://www.esn.org/news/feed','News view','','',1238442932,5);
+INSERT INTO `aggregator_feed` VALUES (2,'ESN Satellite Google Group','http://groups.google.com/group/esn-satellite/feed/rss_v2_0_msgs.xml',3600,1238442943,'http://groups.google.com/group/esn-satellite','The main task of this group is to give support to all webmasters managing an ESN Satellite in their local sections. Also bugs and other related issues to the ESN Satellite may be announced.','','',0,5);
 /*!40000 ALTER TABLE `aggregator_feed` ENABLE KEYS */;
 UNLOCK TABLES;
 CREATE TABLE IF NOT EXISTS `aggregator_item` (
@@ -5030,7 +5030,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1238439518,1238141209,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@admin.com',0,0,0,'','',1224322056,1238487613,1238141209,1,NULL,'','','admin@admin.com','a:2:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-ae354b3a13ba57c331c92975e12b610c\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1235335213,1235317223,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 INSERT INTO `users` VALUES (11,'pvhee','189304941332c12efdc15dafcab73437','peter.vanhee@gmail.com',0,0,0,'','',1237407389,1238064866,1238064866,1,NULL,'','sites/default/files/pictures/picture-fb_657148454.jpg','peter.vanhee@gmail.com','a:4:{s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";s:13:\"form_build_id\";s:37:\"form-87d5a5253bd38dd77e29378e821bb204\";}','');
 INSERT INTO `users` VALUES (12,'Antonio De Marco','460b965f172a9ba5d896a318a53f1ed9','s@s.c',0,0,0,'','',1237487791,1237490852,1237490852,1,NULL,'','sites/default/files/pictures/picture-fb_756274999.jpg','s@s.c','a:1:{s:7:\"contact\";i:1;}','');
@@ -5065,7 +5065,7 @@ INSERT INTO `variable` VALUES ('admin_menu_position_fixed','i:1;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_modules','i:0;');
 INSERT INTO `variable` VALUES ('admin_menu_tweak_tabs','i:0;');
 INSERT INTO `variable` VALUES ('admin_theme','s:1:\"0\";');
-INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1238412821;}');
+INSERT INTO `variable` VALUES ('advanced_help_last_cron','a:1:{s:4:\"time\";i:1238482194;}');
 INSERT INTO `variable` VALUES ('allowed_html_1','s:98:\"<a> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <p> <br> <img> <h1> <h2> <h3> <div> \";');
 INSERT INTO `variable` VALUES ('anonymous','s:9:\"Anonymous\";');
 INSERT INTO `variable` VALUES ('blocktheme','a:9:{s:22:\"views-articles-block_1\";s:6:\"orange\";s:20:\"views-events-block_1\";s:10:\"green_fill\";s:44:\"views-partners-block_1?destination=frontpage\";s:5:\"green\";s:22:\"views-partners-block_1\";s:4:\"blue\";s:6:\"user-1\";s:5:\"green\";s:7:\"block-7\";s:5:\"green\";s:24:\"content_complete-setting\";s:4:\"blue\";s:11:\"tagadelic-3\";s:6:\"orange\";s:11:\"tagadelic-2\";s:6:\"orange\";}');
@@ -5143,12 +5143,12 @@ INSERT INTO `variable` VALUES ('content_extra_weights_credit','a:2:{s:5:\"title\
 INSERT INTO `variable` VALUES ('content_extra_weights_event','a:5:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:1:\"0\";s:4:\"menu\";s:1:\"5\";s:8:\"taxonomy\";s:1:\"4\";s:16:\"signup_node_info\";s:1:\"3\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_outcome','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-4\";s:4:\"menu\";s:1:\"2\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_partner','a:4:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:1:\"0\";s:4:\"menu\";s:1:\"1\";s:8:\"taxonomy\";s:2:\"-1\";}');
-INSERT INTO `variable` VALUES ('content_extra_weights_setting','a:2:{s:5:\"title\";s:2:\"-5\";s:4:\"menu\";s:2:\"-4\";}');
+INSERT INTO `variable` VALUES ('content_extra_weights_setting','a:2:{s:5:\"title\";s:1:\"1\";s:4:\"menu\";s:1:\"2\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_spotlight','a:3:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-2\";s:4:\"menu\";s:1:\"0\";}');
 INSERT INTO `variable` VALUES ('content_extra_weights_story','a:4:{s:5:\"title\";s:2:\"-5\";s:10:\"body_field\";s:2:\"-1\";s:4:\"menu\";s:2:\"-2\";s:11:\"attachments\";s:1:\"3\";}');
 INSERT INTO `variable` VALUES ('content_schema_version','i:6009;');
 INSERT INTO `variable` VALUES ('context_status','a:1:{s:27:\"context_ui:section:sitewide\";i:1;}');
-INSERT INTO `variable` VALUES ('cron_last','i:1238412857;');
+INSERT INTO `variable` VALUES ('cron_last','i:1238482195;');
 INSERT INTO `variable` VALUES ('css_js_query_string','s:20:\"2yVIAZeJQOj0YFpuM3mG\";');
 INSERT INTO `variable` VALUES ('date_api_version','s:3:\"5.2\";');
 INSERT INTO `variable` VALUES ('date_db_tz_support','b:0;');
@@ -5283,7 +5283,7 @@ INSERT INTO `variable` VALUES ('imageapi_image_toolkit','s:11:\"imageapi_gd\";')
 INSERT INTO `variable` VALUES ('install_profile','s:9:\"satellite\";');
 INSERT INTO `variable` VALUES ('install_task','s:4:\"done\";');
 INSERT INTO `variable` VALUES ('install_time','i:1224322133;');
-INSERT INTO `variable` VALUES ('javascript_parsed','a:14:{i:0;s:14:\"misc/jquery.js\";i:1;s:14:\"misc/drupal.js\";i:2;s:51:\"profiles/satellite/modules/admin_menu/admin_menu.js\";i:3;s:62:\"profiles/satellite/modules/date/date_timezone/date_timezone.js\";i:4;s:62:\"profiles/satellite/modules/lightbox2/js/auto_image_handling.js\";i:5;s:51:\"profiles/satellite/modules/lightbox2/js/lightbox.js\";i:6;s:51:\"profiles/satellite/modules/nice_menus/nice_menus.js\";i:7;s:61:\"profiles/satellite/modules/tableofcontents/tableofcontents.js\";i:8;s:47:\"profiles/satellite/modules/teleport/teleport.js\";i:9;s:20:\"misc/autocomplete.js\";i:10;s:43:\"profiles/satellite/modules/views/js/base.js\";i:11;s:48:\"profiles/satellite/modules/views/js/ajax_view.js\";i:12;s:52:\"profiles/satellite/modules/fbconnect/js/fbconnect.js\";i:13;s:16:\"misc/collapse.js\";}');
+INSERT INTO `variable` VALUES ('javascript_parsed','a:21:{i:0;s:14:\"misc/jquery.js\";i:1;s:14:\"misc/drupal.js\";i:2;s:51:\"profiles/satellite/modules/admin_menu/admin_menu.js\";i:3;s:62:\"profiles/satellite/modules/date/date_timezone/date_timezone.js\";i:4;s:62:\"profiles/satellite/modules/lightbox2/js/auto_image_handling.js\";i:5;s:51:\"profiles/satellite/modules/lightbox2/js/lightbox.js\";i:6;s:51:\"profiles/satellite/modules/nice_menus/nice_menus.js\";i:7;s:61:\"profiles/satellite/modules/tableofcontents/tableofcontents.js\";i:8;s:47:\"profiles/satellite/modules/teleport/teleport.js\";i:9;s:20:\"misc/autocomplete.js\";i:10;s:43:\"profiles/satellite/modules/views/js/base.js\";i:11;s:48:\"profiles/satellite/modules/views/js/ajax_view.js\";i:12;s:52:\"profiles/satellite/modules/fbconnect/js/fbconnect.js\";i:13;s:16:\"misc/collapse.js\";i:14;s:17:\"misc/tabledrag.js\";i:15;s:41:\"profiles/satellite/modules/cck/content.js\";i:16;s:47:\"profiles/satellite/modules/pathauto/pathauto.js\";i:17;s:49:\"profiles/satellite/modules/filefield/filefield.js\";i:18;s:19:\"misc/jquery.form.js\";i:19;s:12:\"misc/ahah.js\";i:20;s:16:\"misc/textarea.js\";}');
 INSERT INTO `variable` VALUES ('language_content_type_article','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('language_content_type_event','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('language_content_type_page','s:1:\"0\";');
@@ -5462,7 +5462,7 @@ INSERT INTO `variable` VALUES ('pathauto_user_pattern','s:16:\"users/[user-raw]\
 INSERT INTO `variable` VALUES ('pathauto_user_supportsfeeds','N;');
 INSERT INTO `variable` VALUES ('pathauto_verbose','i:0;');
 INSERT INTO `variable` VALUES ('poormanscron_interval','s:3:\"480\";');
-INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1238412857;');
+INSERT INTO `variable` VALUES ('poormanscron_lastrun','i:1238482195;');
 INSERT INTO `variable` VALUES ('poormanscron_log_cron_runs','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('poormanscron_log_progress','s:1:\"0\";');
 INSERT INTO `variable` VALUES ('poormanscron_retry_interval','s:2:\"10\";');
@@ -5600,7 +5600,7 @@ INSERT INTO `variable` VALUES ('views_defaults','a:4:{s:9:\"frontpage\";b:0;s:8:
 INSERT INTO `variable` VALUES ('wipe','s:16:\"Wipe and rebuild\";');
 INSERT INTO `variable` VALUES ('ya_key','s:8:\"7bfd8aec\";');
 INSERT INTO `variable` VALUES ('ya_satellite_version','s:7:\"3.0-ESN\";');
-INSERT INTO `variable` VALUES ('ya_status','a:1:{s:2:\"op\";s:4:\"pass\";}');
+INSERT INTO `variable` VALUES ('ya_status','b:0;');
 INSERT INTO `variable` VALUES ('yui_editor_button_profile','s:30:\"yui_editor_toolbar_no_style.js\";');
 INSERT INTO `variable` VALUES ('yui_editor_button_type','s:6:\"simple\";');
 INSERT INTO `variable` VALUES ('yui_editor_coder','i:0;');
@@ -5811,7 +5811,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=8254 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8390 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
