@@ -18,8 +18,10 @@ function ya_satellite_token_token_values($type, $object = NULL, $options = array
  */
 function ya_satellite_token_token_list($type = 'all') {
   if ($type == 'esn' || $type == 'all') {
-    $tokens['esn']['esn-section']      = t("The name of the ESN Section.");
-    $tokens['esn']['esn-country']      = t("The name of the ESN Country.");
+    $tokens['esn']['section.*']      = t("ESN Section tokens, e.g. section.sc");
+    $tokens['esn']['country.*']      = t("ESN Country tokens, e.g. country.c");
+    $tokens['esn']['facebook_gid']   = t("Facebook Group ID");
+    $tokens['esn']['header']         = t("Location of the header image");
   }
   return $tokens;
 }
