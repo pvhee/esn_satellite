@@ -30,6 +30,18 @@
 									<div id="header-top">
 										<div class="inner">
 											<?php print $header_top; ?>
+											<div class="container">  
+												<div id="header_top_left" class="span-12 ">
+													<div class="span-inner">
+														<?php print $header_top_left ?>
+													</div>
+												</div>
+												<div id="header_top_right" class="span-12 ">
+													<div class="span-inner">
+														<?php print $header_top_right ?>
+													</div>
+												</div>												
+											</div>
 										</div>
 									</div>
 									<!-- <div class="clear-block"></div> -->
