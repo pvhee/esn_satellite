@@ -204,7 +204,7 @@ ul li.collapsed { background:transparent url(images/menu-collapsed.gif) no-repea
 ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat scroll 1px 0.35em; }
 
 .terms ul.links.inline li {padding-left: .2em;}
-.terms ul.links.inline li a { background: transparent url("images/tag_blue.png") top left no-repeat; font-weight: bold; text-transform: uppercase; color: white; font-size: .8em; padding: 0.3em 0.5em 0.2em 13px;}
+.terms ul.links.inline li a { color: white; background: transparent url("images/tag_blue.png") top left no-repeat; font-weight: bold; text-transform: uppercase; font-size: .8em; padding: 0.3em 0.5em 0.2em 13px;}
 .terms ul.links.inline li a:hover {  padding-left: 13px;  background: transparent url("images/tag_green.png") top left no-repeat; text-decoration: none;}
 
 #header-top  #block-ya_satellite_blocks-1 { float:left; width:313px; }
@@ -276,9 +276,7 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 .views-field-tid a { text-transform:uppercase; font-size: .8em; font-weight: bold; color: #bbb; }
 .views-field-tid a:hover { text-decoration: none;}
 
-#block-views-spotlights-block_1.block .views-field-tid a,
 .views-field-tid a  { background: transparent url("images/tag_blue.png") top left no-repeat; font-weight: bold; text-transform: uppercase; color: white; font-size: .8em; padding: 0.3em 0.5em 0.2em 13px;}
-#block-views-spotlights-block_1.block .views-field-tid a:hover,
 .views-field-tid a:hover  {  padding-left: 13px;  background: transparent url("images/tag_green.png") top left no-repeat; text-decoration: none;}
 
 /**

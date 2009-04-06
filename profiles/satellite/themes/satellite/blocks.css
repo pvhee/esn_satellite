@@ -5,16 +5,15 @@
 .block  h2 span.title-outer { padding: 9px 17px 23px 0px;  }
 .block  h2 { margin-top: 0.7em; margin-bottom:2em; }
 
-
 /**
  * Green
  */
-.block.green { border-top: 5px solid #7BC043;}
+.block.green { border-top: 5px solid #7BC043 !important;}
 .block.green a, 
 .block.green.fill h2,
 .block.green .views-field-title  { color: #7BC043; }
-.block.green {background: transparent url("images/blocks/green.png") repeat-x; }
-.block.green.fill {background: #8DC96D url("images/blocks/green_fill.png"); }
+.block.green {background: transparent url("images/blocks/green.png") repeat-x !important; }
+.block.green.fill {background: #8DC96D url("images/blocks/green_fill.png") !important; }
 .block.green h2 span.title-inner { background: transparent url("images/comics/green_left.png") top left no-repeat; }
 .block.green h2 span.title-outer { background: transparent url("images/comics/green_right.png") top right no-repeat; }
 .block.green.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
@@ -25,15 +24,16 @@
 .block.green .views-field-tid a:hover { color: #7BC043;}
 
 
+
 /**
  * Orange
  */
-.block.orange { border-top: 5px solid #F15A24;}
+.block.orange { border-top: 5px solid #F15A24 !important;}
 .block.orange a, 
 .block.orange.fill h2,
 .block.orange .views-field-title  { color: #F15A24; }
-.block.orange {background: transparent url("images/blocks/orange.png") repeat-x; }
-.block.orange.fill {background: #F6BE7B url("images/blocks/orange_fill.png"); }
+.block.orange {background: transparent url("images/blocks/orange.png") repeat-x !important; }
+.block.orange.fill {background: #F6BE7B url("images/blocks/orange_fill.png") !important; }
 .block.orange h2 span.title-inner { background: transparent url("images/comics/orange_left.png") top left no-repeat; }
 .block.orange h2 span.title-outer { background: transparent url("images/comics/orange_right.png") top right no-repeat; }
 .block.orange.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
@@ -44,15 +44,16 @@
 .block.orange .views-field-tid a:hover { color: #F15A24;}
 
 
+
 /**
  * Pink
  */
-.block.pink { border-top: 5px solid #EB008B;}
+.block.pink { border-top: 5px solid #EB008B !important;}
 .block.pink a, 
 .block.pink.fill h2,
 .block.pink .views-field-title  { color: #EB008B; }
-.block.pink {background: transparent url("images/blocks/pink.png") repeat-x; }
-.block.pink.fill {background: #EC76BC url("images/blocks/pink_fill.png"); }
+.block.pink {background: transparent url("images/blocks/pink.png") repeat-x !important; }
+.block.pink.fill {background: #EC76BC url("images/blocks/pink_fill.png") !important; }
 .block.pink h2 span.title-inner { background: transparent url("images/comics/pink_left.png") top left no-repeat; }
 .block.pink h2 span.title-outer { background: transparent url("images/comics/pink_right.png") top right no-repeat; }
 .block.pink.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
@@ -67,12 +68,12 @@
  * Blue
  */
 .block,
-.block.blue { border-top: 5px solid #00ADEE;}
+.block.blue { border-top: 5px solid #00ADEE; !important}
 .block.blue a, 
 .block.blue.fill h2,
 .block.blue .views-field-title  { color: #00ADEE; }
-.block, .block.blue {background: transparent url("images/blocks/blue.png") repeat-x; }
-.block.blue.fill {background: #6DC4D7 url("images/blocks/blue_fill.png"); }
+.block, .block.blue {background: transparent url("images/blocks/blue.png") repeat-x !important; }
+.block.blue.fill {background: #6DC4D7 url("images/blocks/blue_fill.png") !important; }
 .block h2 span.title-inner, .block.blue h2 span.title-inner { background: transparent url("images/comics/blue_left.png") top left no-repeat; overflow:hidden; white-space:nowrap; }
 .block h2 span.title-outer, .block.blue h2 span.title-outer { background: transparent url("images/comics/blue_right.png") top right no-repeat; }
 .block.blue.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
@@ -84,6 +85,8 @@
 
 .block .views-field-tid a {background: none; padding: 0;}
 .block .views-field-tid {float: none; padding: 0;}
+
+
 
 /**
  * Common
@@ -121,7 +124,7 @@
 
 #block-views-spotlights-block_1 .views-field-tid { float: none;}
 
-#block-views-spotlights-block_1 { margin-top:0;background: transparent url("images/blocks/blue.png") repeat-x;  }
+/*#block-views-spotlights-block_1 { margin-top:0;background: transparent url("images/blocks/blue.png") repeat-x;  }*/
 /*#block-views-spotlights-block_1 { background: transparent; }*/
 #block-views-spotlights-block_1 h2 { display:inline; position:relative; top:11px; }
 #block-views-spotlights-block_1 .wrapper-in { height:226px; margin-top:0; padding-bottom:0; padding-top:0px; }
@@ -129,6 +132,19 @@
 
 #block-views-spotlights-block_1 .views-field-view-node { text-transform: uppercase; font-size: .9em; font-weight: bold; float:right;}
 #block-views-spotlights-block_1 .views-field-view-node a:before { content: '+ ';}
+
+#block-views-spotlights-block_1.block.green .views-field-tid a { color: white; background: transparent url("images/tags/tag_green.png") top left no-repeat; }
+#block-views-spotlights-block_1.block.orange .views-field-tid a { color: white; background: transparent url("images/tags/tag_orange.png") top left no-repeat; }
+#block-views-spotlights-block_1.block.pink .views-field-tid a { color: white; background: transparent url("images/tags/tag_pink.png") top left no-repeat; }
+#block-views-spotlights-block_1.block.blue .views-field-tid a { color: white; background: transparent url("images/tags/tag_blue.png") top left no-repeat; }
+#block-views-spotlights-block_1.block.fill .views-field-tid a { background: transparent url("images/tags/tag_white.png") top left no-repeat; }
+
+#block-views-spotlights-block_1.block.fill.blue .views-field-tid a { color: #00ADEE; }
+#block-views-spotlights-block_1.block.fill.orange .views-field-tid a { color: #F15A24; }
+#block-views-spotlights-block_1.block.fill.green .views-field-tid a { color: #7BC043; }
+#block-views-spotlights-block_1.block.fill.pink .views-field-tid a { color: #EB008B; }
+
+#block-views-spotlights-block_1 .views-field-tid a { padding:0.3em 0.5em 0.2em 13px; }
 
 /**
  * Custom admin links
@@ -152,4 +168,4 @@
 
 .block.fill .views-field-title { font-weight: bold;}
 /*.block h2 { font-weight: bold;}*/
-#block-views-spotlights-block_1.block { border-top:5px solid #00ADEE; }
+/*#block-views-spotlights-block_1.block { border-top:5px solid #00ADEE; }*/
