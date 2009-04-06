@@ -33,10 +33,10 @@ function satellite_header_background() {
   $data = array_combine($token->tokens, $token->values);
   
   if (file_exists($data['header'])) {
-    $css = '<style type="text/css" media="all"> #wrapper #container #header {background: url("'.$base_path.$file_directory_path.'/imagecache/header/'.$data['header'].'") top left no-repeat;}</style>';
+    $css = '<style type="text/css" media="all"> #wrapper #container #header #header-title {background: url("'.$base_path.$file_directory_path.'/imagecache/header/'.$data['header'].'") top left no-repeat;}</style>';
   } 
   else {
-    $css = '<style type="text/css" media="all">  #wrapper #container #header {background: url("'.$base_path.$theme.'/images/default_header.png") top left no-repeat;}</style>';
+    $css = '<style type="text/css" media="all">  #wrapper #container #header #header-title {background: url("'.$base_path.$theme.'/images/default_header.png") top left no-repeat;}</style>';
   }
   return $css;
 }
