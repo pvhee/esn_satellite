@@ -92,7 +92,7 @@
  * Common
  */
 #header .block .inner, #footer .block .inner { background: none; }
-#header .block, #footer .block { background: none; }
+#header .block, #footer .block { background: none !important; }
 #footer .block  h2 span.title-inner { margin: 0; padding:0; background-image: none; }
 #footer .block  h2 span.title-outer { padding: 0; background-image: none; }
 #footer .block  h2 {margin-top: 0em; margin-bottom:1.2em; }

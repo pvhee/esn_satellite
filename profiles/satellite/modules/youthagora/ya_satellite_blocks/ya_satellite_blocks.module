@@ -74,7 +74,7 @@ function ya_satellite_blocks_section_info() {
   
   if(user_access('view advanced help topic')) $out .= theme('advanced_help_topic', 'ya_satellite_blocks', 'about');
   $out .= '<div class="section-logo">';
-  $out .= '<img id="esn_logo" src="' . base_path() . drupal_get_path('theme', 'satellite') . '/images/countries/40/'.$country.'.png" alt="logo" />';
+  $out .= '<img id="esn_logo" src="' . base_path() . drupal_get_path('module', 'ya_satellite_blocks') . '/images/countries/40/'.$country.'.png" alt="logo" />';
   $out .= '</div>';
   $out .= '<div class="section-name">';
   $out .= $section_name;  
