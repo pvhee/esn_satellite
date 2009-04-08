@@ -8,7 +8,7 @@
 /**
  * Satellite version.
  */
-define('YOUTHAGORA_SATELLITE_VERSION',  '3.0-ESN');
+define('YOUTHAGORA_TEMPLATE_VERSION',  '3.0-ESN');
 
 /**
  * SQL Dump File for the installation profile.
@@ -152,7 +152,7 @@ function satellite_form_submit($form, &$form_state) {
   demo_reset('', FALSE);
 
   // Store the Satellite version in the database
-  variable_set('ya_satellite_version', YOUTHAGORA_SATELLITE_VERSION);
+  variable_set('ya_satellite_version', YOUTHAGORA_TEMPLATE_VERSION);
   
   // all the other configuration, will overwrite the database
   if ($form_state['values']['file_directory_path']) {
