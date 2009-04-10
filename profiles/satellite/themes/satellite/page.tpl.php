@@ -17,7 +17,6 @@
 <body<?php print base_body_class($left_top, $left, $left_bottom, $right_top, $right, $right_top); ?>>
 	
 	<!-- Layout -->
-	<div class="clear-block"></div>
 
 	<div id="wrapper">
 			<div id="container" class="clear-block">
@@ -25,25 +24,25 @@
 					<div id="shadow-top">
 						<div id="shadow-footer">
 							<div id="footer-fade">
-
-								<div id="header">
-									<div id="header-top">
-										<div class="inner">
-											<?php print $header_top; ?>
-											<div class="container">  
-												<div id="header_top_left" class="span-12 ">
-													<div class="span-inner">
-														<?php print $header_top_left ?>
-													</div>
+								<div id="header-top">
+									<div class="inner">
+										<?php print $header_top; ?>
+										<div class="container">  
+											<div id="header_top_left" class="span-12 ">
+												<div class="span-inner">
+													<?php print $header_top_left ?>
 												</div>
-												<div id="header_top_right" class="span-12 ">
-													<div class="span-inner">
-														<?php print $header_top_right ?>
-													</div>
-												</div>												
 											</div>
+											<div id="header_top_right" class="span-12 ">
+												<div class="span-inner">
+													<?php print $header_top_right ?>
+												</div>
+											</div>												
 										</div>
 									</div>
+								</div>
+
+								<div id="header">
 									<!-- <div class="clear-block"></div> -->
 									<div id="header-title">
 										<?php
@@ -56,7 +55,7 @@
 											}
 										?>
 									</div>
-									<!-- <div class="clear-block"></div> -->
+									<div class="clear-block"></div>
 									<?php print $header; ?>
 								</div> <!-- /header -->
 
@@ -110,7 +109,6 @@
 									</div>
 								<?php endif; ?>
 
-								<!-- <div class="clear-block"></div> -->
 								<div id="footer">
 									<div id="inner-footer">
 										<div class="container">  
