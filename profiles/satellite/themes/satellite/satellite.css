@@ -136,7 +136,7 @@ td.block {border: 0;}
 ul.nice-menu li, ul.nice-menu li.leaf { padding: 0; }
 ul.nice-menu-down li { border-top: 0px solid #CCCCCC; }
 ul.nice-menu-down li.menuparent, #header-region ul.nice-menu-down li.menuparent,
-ul.nice-menu li { background: none; text-transform:uppercase; border:none; border-width:0; float:left; margin-right: 0.5em;  }
+ul.nice-menu li { background: none; text-transform:uppercase; border:none; border-width:0; margin-right: 0.5em;  }
 ul.nice-menu-down li.menuparent a, #header-region ul.nice-menu-down li.menuparent a,
 ul.nice-menu li a { padding:7px 0 10px 0px; color: white; }
 ul.nice-menu ul, #header-region ul.nice-menu ul { top: 2.1em; border: 0; }
@@ -286,4 +286,207 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 
 #block-ya_satellite_blocks-1 { float: right; }
 
-/*#cck-complete-percent-bar-wrapper-setting { background: transparent url("images/blocks/green.png") repeat-x !important; }*/
+
+
+/************************************************
+ * Blocks
+ ************************************************/
+
+
+
+
+/**
+ * Comics
+ */
+.block  h2 span.title-inner { margin: 0; padding: 9px 0px 23px 13px;}
+.block  h2 span.title-outer { padding: 9px 17px 23px 0px;  }
+.block  h2 { margin-top: 0.7em; margin-bottom:2em; }
+
+/**
+ * Green
+ */
+.block.green { border-top: 5px solid #7BC043 !important;}
+.block.green a, 
+.block.green.fill h2,
+.block.green .views-field-title  { color: #7BC043; }
+.block.green {background: transparent url("images/blocks/green.png") repeat-x !important; }
+.block.green.fill {background: #8DC96D url("images/blocks/green_fill.png") !important; }
+.block.green h2 span.title-inner { background: transparent url("images/comics/green_left.png") top left no-repeat; }
+.block.green h2 span.title-outer { background: transparent url("images/comics/green_right.png") top right no-repeat; }
+.block.green.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
+.block.green.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
+.block.green.fill {border-color: #346828;}
+
+.block.green .views-field-tid a { color: #bbb; }
+.block.green .views-field-tid a:hover { color: #7BC043;}
+
+
+
+/**
+ * Orange
+ */
+.block.orange { border-top: 5px solid #F15A24 !important;}
+.block.orange a, 
+.block.orange.fill h2,
+.block.orange .views-field-title  { color: #F15A24; }
+.block.orange {background: transparent url("images/blocks/orange.png") repeat-x !important; }
+.block.orange.fill {background: #F6BE7B url("images/blocks/orange_fill.png") !important; }
+.block.orange h2 span.title-inner { background: transparent url("images/comics/orange_left.png") top left no-repeat; }
+.block.orange h2 span.title-outer { background: transparent url("images/comics/orange_right.png") top right no-repeat; }
+.block.orange.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
+.block.orange.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
+.block.orange.fill {border-color: #684228;}
+
+.block.orange .views-field-tid a { color: #bbb; }
+.block.orange .views-field-tid a:hover { color: #F15A24;}
+
+
+
+/**
+ * Pink
+ */
+.block.pink { border-top: 5px solid #EB008B !important;}
+.block.pink a, 
+.block.pink.fill h2,
+.block.pink .views-field-title  { color: #EB008B; }
+.block.pink {background: transparent url("images/blocks/pink.png") repeat-x !important; }
+.block.pink.fill {background: #EC76BC url("images/blocks/pink_fill.png") !important; }
+.block.pink h2 span.title-inner { background: transparent url("images/comics/pink_left.png") top left no-repeat; }
+.block.pink h2 span.title-outer { background: transparent url("images/comics/pink_right.png") top right no-repeat; }
+.block.pink.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
+.block.pink.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
+.block.pink.fill {border-color: #6B285A;}
+
+.block.pink .views-field-tid a { color: #bbb; }
+.block.pink .views-field-tid a:hover { color: #EB008B;}
+
+
+/**
+ * Blue
+ */
+.block,
+.block.blue { border-top: 5px solid #00ADEE; !important}
+.block.blue a, 
+.block.blue.fill h2,
+.block.blue .views-field-title  { color: #00ADEE; }
+.block, .block.blue {background: transparent url("images/blocks/blue.png") repeat-x !important; }
+.block.blue.fill {background: #6DC4D7 url("images/blocks/blue_fill.png") !important; }
+.block h2 span.title-inner, .block.blue h2 span.title-inner { background: transparent url("images/comics/blue_left.png") top left no-repeat; overflow:hidden; white-space:nowrap; }
+.block h2 span.title-outer, .block.blue h2 span.title-outer { background: transparent url("images/comics/blue_right.png") top right no-repeat; }
+.block.blue.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
+.block.blue.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
+.block.blue.fill {border-color: #285468;}
+
+.block.blue .views-field-tid a { color: #bbb; }
+.block.blue .views-field-tid a:hover { color: #00ADEE; text-decoration: none;}
+
+.block .views-field-tid a {background: none; padding: 0;}
+.block .views-field-tid {float: none; padding: 0;}
+
+
+
+/**
+ * Common
+ */
+#header .block .inner, #footer .block .inner { background: none; }
+#header .block, #footer .block { background: none !important; }
+#footer .block  h2 span.title-inner { margin: 0; padding:0; background-image: none; }
+#footer .block  h2 span.title-outer { padding: 0; background-image: none; }
+#footer .block  h2 {margin-top: 0em; margin-bottom:1.2em; }
+
+.block h2 {color: white;}
+
+.block { border-bottom: 0; }
+#sidebar-right .block, #sidebar-left .block, #center .block {padding: 2em 0;}
+#block-views-spotlights-block_1 .inner { background-image: none; }
+#header-top .block .inner { float:none;padding:0;width: auto; }
+
+#wrapper #container .block,
+#wrapper #container .sidebar .block { padding-top: 0; margin-bottom: 0;}
+.block .inner { padding-top: 1.2em; margin-bottom: 0;}
+#header .block { padding-top: 0;}
+
+.block.fill { background: none; color: white;}
+#wrapper #container div.sidebar .block-views.block.fill .views-field-teaser,
+.block.fill .views-field-field-date-value,
+.block.fill a, 
+.block.fill h2 { color: white;}
+
+#block-views-spotlights-block_1.block { margin-bottom: 0; padding-bottom: 0;}
+#block-views-spotlights-block_1 .black-text { height:100px; margin-top:166px; background: transparent;}
+#block-views-spotlights-block_1 h2 { display:inline; margin-left:210px; }
+#block-views-spotlights-block_1 .block .inner { padding: 0; padding-top:0; }
+#block-views-spotlights-block_1 .spotlight-image { float:left; margin-right:2.2em; width:250px; margin-top:-37px;}
+#wrapper #center #block-views-spotlights-block_1 .views-field-title { font-size:1.7em; line-height:1em; }
+
+#block-views-spotlights-block_1 .views-field-tid { float: none;}
+
+/*#block-views-spotlights-block_1 { margin-top:0;background: transparent url("images/blocks/blue.png") repeat-x;  }*/
+/*#block-views-spotlights-block_1 { background: transparent; }*/
+#block-views-spotlights-block_1 h2 { display:inline; position:relative; top:11px; }
+#block-views-spotlights-block_1 .wrapper-in { height:226px; margin-top:0; padding-bottom:0; padding-top:0px; }
+#block-views-spotlights-block_1 .spotlight-content { padding-top:45px; }
+
+#block-views-spotlights-block_1 .views-field-view-node { text-transform: uppercase; font-size: .9em; font-weight: bold; float:right;}
+#block-views-spotlights-block_1 .views-field-view-node a:before { content: '+ ';}
+
+#block-views-spotlights-block_1.block.green .views-field-tid a { color: white; background: transparent url("images/tags/tag_green.png") top left no-repeat; }
+#block-views-spotlights-block_1.block.orange .views-field-tid a { color: white; background: transparent url("images/tags/tag_orange.png") top left no-repeat; }
+#block-views-spotlights-block_1.block.pink .views-field-tid a { color: white; background: transparent url("images/tags/tag_pink.png") top left no-repeat; }
+#block-views-spotlights-block_1.block.blue .views-field-tid a { color: white; background: transparent url("images/tags/tag_blue.png") top left no-repeat; }
+#block-views-spotlights-block_1.block.fill .views-field-tid a { background: transparent url("images/tags/tag_white.png") top left no-repeat; }
+
+#block-views-spotlights-block_1.block.fill.blue .views-field-tid a { color: #00ADEE; }
+#block-views-spotlights-block_1.block.fill.orange .views-field-tid a { color: #F15A24; }
+#block-views-spotlights-block_1.block.fill.green .views-field-tid a { color: #7BC043; }
+#block-views-spotlights-block_1.block.fill.pink .views-field-tid a { color: #EB008B; }
+
+#block-views-spotlights-block_1 .views-field-tid a { padding:0.3em 0.5em 0.2em 13px; }
+
+/**
+ * Custom admin links
+ */
+.block .views-field-edit-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .views-field-edit-node a:hover { color: green; text-decoration: none !important;}
+.block .views-field-delete-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #AF999A;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .views-field-delete-node a:hover { color: red; text-decoration: none !important;}
+
+.block .block-edit-link {z-index: 1000; position: absolute; right: 0;}
+.block .block-edit-link a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .block-edit-link a:hover { color: green; text-decoration: none !important;}
+.block .block-edit-link {display: none;}
+.block:hover .block-edit-link {display: inline;}
+#header .block:hover .block-edit-link,
+#header-top .block:hover .block-edit-link,
+#footer .block:hover .block-edit-link {display: none;}
+
+.block.fill div.view-empty { color: #fff; border-color: #fff; }
+.block.fill div.view-empty a {font-weight: bold; text-decoration: underline;}
+
+.block.fill .views-field-title { font-weight: bold;}
+/*.block h2 { font-weight: bold;}*/
+/*#block-views-spotlights-block_1.block { border-top:5px solid #00ADEE; }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
