@@ -71,9 +71,9 @@ body.frontpage #squeeze { margin-left: 1em;}
 body.sidebars #wrapper #container, body.sidebar-left #wrapper #container, body.sidebar-right #wrapper #container { width:944px; padding: 0; }
 #shadow-top { border: 0 auto; }
 #footer-fade { padding: 0; padding-left: 13px;}
-#wrapper #container #footer { margin: 0; padding-bottom: 1em; width: 918px; }
+#wrapper #container #footer { margin: 0; padding-bottom: 1em; width: 918px;}
 
-.block  h2 span.title-outer { padding: 0; }
+.block  h2 span.title-outer { padding: 0px; }
 
 /*ul.nice-menu li a {  height: auto; }
 ul.nice-menu li a span { height: auto; }

@@ -6,13 +6,11 @@
 		<title><?php print $head_title ?></title>
 		<?php print $head ?>
 		<?php print $styles ?>
-		<?php print satellite_get_ie_styles(); ?>
+    	<?php print satellite_footer_change(); ?>
+    	<?php print satellite_header_background(); ?>
+		<!--[if lt IE 7]><?php print phptemplate_get_ie_styles(); ?><![endif]-->
+		<!--[if IE 7]><?php print base_get_ie_styles(7); ?><![endif]-->		
 		<?php print $scripts ?>
-		<!--[if lt IE 7]>
-			<?php print phptemplate_get_ie_styles(); ?>
-		<![endif]-->
-    <?php print satellite_footer_change(); ?>
-    <?php print satellite_header_background(); ?>
 	</head>
 <body<?php print base_body_class($left_top, $left, $left_bottom, $right_top, $right, $right_top); ?>>
 	
