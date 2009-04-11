@@ -133,7 +133,9 @@ td.block {border: 0;}
 
 #center .container, #center .span-8, #center .span-inner {margin: 0; padding: 0;}
 #center .colborder { border-right:1px solid #ddd; }
-#center .span-8 { width:305px;}
+#center .container .span-8 { width:305px;}
+#center .container {width: 611px; overflow: hidden;}
+
 
 
 #header-top  #block-ya_satellite_blocks-1 { float:left; width:313px; }
@@ -181,7 +183,7 @@ ul.primary li.active a, ul.primary li.active a:link, ul.primary li.active a:visi
 .block .views-field-field-date-value,
 .block .views-field-created,
 .block .views-field-title,
-.block .views-field-field-teaser-value { padding-left: 90px; }
+.block .views-field-field-teaser-value { padding-left: 90px; white-space:normal; }
 
 #block-views-partners-block_1 .views-field-title,
 #block-views-partners-block_1 .views-field-field-link-url,
@@ -219,25 +221,58 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
  * Blocks
  ************************************************/
 
-
-
-
 /**
  * Comics
  */
-.block  h2 span.title-inner { margin: 0; padding: 9px 0px 23px 13px;}
+/*.block  h2 span.title-inner { margin: 0; padding: 9px 0px 23px 13px;}
 .block  h2 span.title-outer { padding: 9px 17px 23px 0px;  }
 .block  h2 { margin-top: 0.7em; margin-bottom:2em; }
+*/
+
+
+.block  h2 span.title-outer { padding: 9px 0 11px 0px; }
+.block  h2 span.title-inner { margin-right: 13px; padding: 9px 0px 23px 13px;}
+.block  h2 { margin-top: 0.7em; margin-bottom:2em; }
+
+
+
+/*.block  h2 span.title-outer { padding: 0; padding-left: 13px;  }
+.block  h2 span.title-inner { margin: 9px 0px 23px 13px; margin-right: 13px; padding: 13px 23px 0 13px; }
+.block  h2 { margin-top: 0.7em; margin-bottom:2em; }
+*/
+
+/*ul.nice-menu li a { color: white; padding: 10px 0; background: transparent url("images/navigation/blue_right.png") top right no-repeat; }
+ul.nice-menu li a span { color: white; margin-right: 9px; padding: 10px 0 10px 10px; background: transparent url("images/navigation/blue_left.png") top left no-repeat; }
+*/
+
+
+/**
+ * Blue
+ */
+.block.blue { border-top: 5px solid #00ADEE;}
+.block.blue a, 
+.block.blue.fill h2,
+.block.blue .views-field-title  { color: #00ADEE; }
+.block.blue {background: transparent url("images/blocks/blue.png") repeat-x; }
+.block.blue.fill {background: #6DC4D7 url("images/blocks/blue_fill.png"); }
+.block.blue h2 span.title-inner { background: transparent url("images/comics/blue_left.png") top left no-repeat; overflow:hidden; white-space:nowrap; }
+.block.blue h2 span.title-outer { background: transparent url("images/comics/blue_right.png") top right no-repeat; }
+.block.blue.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
+.block.blue.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
+.block.blue.fill {border-color: #285468;}
+
+.block.blue .views-field-tid a { color: #bbb; }
+.block.blue .views-field-tid a:hover { color: #00ADEE; text-decoration: none;}
 
 /**
  * Green
  */
-.block.green { border-top: 5px solid #7BC043 !important;}
+.block.green { border-top: 5px solid #7BC043;}
 .block.green a, 
 .block.green.fill h2,
 .block.green .views-field-title  { color: #7BC043; }
-.block.green {background: transparent url("images/blocks/green.png") repeat-x !important; }
-.block.green.fill {background: #8DC96D url("images/blocks/green_fill.png") !important; }
+.block.green {background: transparent url("images/blocks/green.png") repeat-x; }
+.block.green.fill {background: #8DC96D url("images/blocks/green_fill.png"); }
 .block.green h2 span.title-inner { background: transparent url("images/comics/green_left.png") top left no-repeat; }
 .block.green h2 span.title-outer { background: transparent url("images/comics/green_right.png") top right no-repeat; }
 .block.green.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
@@ -252,12 +287,12 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 /**
  * Orange
  */
-.block.orange { border-top: 5px solid #F15A24 !important;}
+.block.orange { border-top: 5px solid #F15A24;}
 .block.orange a, 
 .block.orange.fill h2,
 .block.orange .views-field-title  { color: #F15A24; }
-.block.orange {background: transparent url("images/blocks/orange.png") repeat-x !important; }
-.block.orange.fill {background: #F6BE7B url("images/blocks/orange_fill.png") !important; }
+.block.orange {background: transparent url("images/blocks/orange.png") repeat-x; }
+.block.orange.fill {background: #F6BE7B url("images/blocks/orange_fill.png"); }
 .block.orange h2 span.title-inner { background: transparent url("images/comics/orange_left.png") top left no-repeat; }
 .block.orange h2 span.title-outer { background: transparent url("images/comics/orange_right.png") top right no-repeat; }
 .block.orange.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
@@ -272,12 +307,12 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 /**
  * Pink
  */
-.block.pink { border-top: 5px solid #EB008B !important;}
+.block.pink { border-top: 5px solid #EB008B;}
 .block.pink a, 
 .block.pink.fill h2,
 .block.pink .views-field-title  { color: #EB008B; }
-.block.pink {background: transparent url("images/blocks/pink.png") repeat-x !important; }
-.block.pink.fill {background: #EC76BC url("images/blocks/pink_fill.png") !important; }
+.block.pink {background: transparent url("images/blocks/pink.png") repeat-x; }
+.block.pink.fill {background: #EC76BC url("images/blocks/pink_fill.png"); }
 .block.pink h2 span.title-inner { background: transparent url("images/comics/pink_left.png") top left no-repeat; }
 .block.pink h2 span.title-outer { background: transparent url("images/comics/pink_right.png") top right no-repeat; }
 .block.pink.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
@@ -288,25 +323,6 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 .block.pink .views-field-tid a:hover { color: #EB008B;}
 
 
-/**
- * Blue
- */
-.block,
-.block.blue { border-top: 5px solid #00ADEE; !important}
-.block.blue a, 
-.block.blue.fill h2,
-.block.blue .views-field-title  { color: #00ADEE; }
-.block, .block.blue {background: transparent url("images/blocks/blue.png") repeat-x !important; }
-.block.blue.fill {background: #6DC4D7 url("images/blocks/blue_fill.png") !important; }
-.block h2 span.title-inner, .block.blue h2 span.title-inner { background: transparent url("images/comics/blue_left.png") top left no-repeat; overflow:hidden; white-space:nowrap; }
-.block h2 span.title-outer, .block.blue h2 span.title-outer { background: transparent url("images/comics/blue_right.png") top right no-repeat; }
-.block.blue.fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
-.block.blue.fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
-.block.blue.fill {border-color: #285468;}
-
-.block.blue .views-field-tid a { color: #bbb; }
-.block.blue .views-field-tid a:hover { color: #00ADEE; text-decoration: none;}
-
 .block .views-field-tid a {background: none; padding: 0;}
 .block .views-field-tid {float: none; padding: 0;}
 
@@ -316,7 +332,7 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
  * Common
  */
 #header-top .block .inner, #header .block .inner, #footer .block .inner { background: none; }
-#header-top .block, #header .block, #footer .block { background: none !important; }
+#header-top .block, #header .block, #footer .block { background: none; }
 #header-top .block, #header .block { padding-top: 0;}
 #footer .block  h2 span.title-inner { margin: 0; padding:0; background-image: none; }
 #footer .block  h2 span.title-outer { padding: 0; background-image: none; }
@@ -374,13 +390,13 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
  * Custom admin links
  */
 .block .views-field-edit-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .views-field-edit-node a:hover { color: green; text-decoration: none !important;}
+.block .views-field-edit-node a:hover { color: green; text-decoration: none;}
 .block .views-field-delete-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #AF999A;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .views-field-delete-node a:hover { color: red; text-decoration: none !important;}
+.block .views-field-delete-node a:hover { color: red; text-decoration: none;}
 
 .block .block-edit-link {z-index: 1000; position: absolute; right: 0;}
 .block .block-edit-link a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .block-edit-link a:hover { color: green; text-decoration: none !important;}
+.block .block-edit-link a:hover { color: green; text-decoration: none;}
 .block .block-edit-link {display: none;}
 .block:hover .block-edit-link {display: inline;}
 #header .block:hover .block-edit-link,

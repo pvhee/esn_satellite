@@ -73,6 +73,7 @@ body.sidebars #wrapper #container, body.sidebar-left #wrapper #container, body.s
 #footer-fade { padding: 0; padding-left: 13px;}
 #wrapper #container #footer { margin: 0; padding-bottom: 1em; width: 918px; }
 
+.block  h2 span.title-outer { padding: 0; }
 
 /*ul.nice-menu li a {  height: auto; }
 ul.nice-menu li a span { height: auto; }
