@@ -27,7 +27,7 @@
 .block.blue h2 span.title-outer { background: transparent url("images/comics/blue_right.png") top right no-repeat; }
 .block.blue-fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
 .block.blue-fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
-.block.blue-fill {border-color: #285468;}
+.block.blue-fill {border-top: 5px solid #285468;}
 
 .block.blue .views-field-tid a { color: #bbb; }
 .block.blue .views-field-tid a:hover { color: #00ADEE; text-decoration: none;}
@@ -46,7 +46,7 @@
 .block.green h2 span.title-outer { background: transparent url("images/comics/green_right.png") top right no-repeat; }
 .block.green-fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
 .block.green-fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
-.block.green-fill {border-color: #346828;}
+.block.green-fill {border-top: 5px solid #346828;}
 
 .block.green .views-field-tid a { color: #bbb; }
 .block.green .views-field-tid a:hover { color: #7BC043;}
@@ -65,7 +65,7 @@
 .block.orange h2 span.title-outer { background: transparent url("images/comics/orange_right.png") top right no-repeat; }
 .block.orange-fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
 .block.orange-fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
-.block.orange-fill {border-color: #684228;}
+.block.orange-fill {border-top: 5px solid #684228;}
 
 .block.orange .views-field-tid a { color: #bbb; }
 .block.orange .views-field-tid a:hover { color: #F15A24;}
@@ -84,7 +84,7 @@
 .block.pink h2 span.title-outer { background: transparent url("images/comics/pink_right.png") top right no-repeat; }
 .block.pink-fill h2 span.title-inner { background: transparent url("images/comics/white_left.png") top left no-repeat;} 
 .block.pink-fill h2 span.title-outer { background: transparent url("images/comics/white_right.png") top right no-repeat;}
-.block.pink-fill {border-color: #6B285A;}
+.block.pink-fill {border-top: 5px solid #6B285A;}
 
 .block.pink .views-field-tid a { color: #bbb; }
 .block.pink .views-field-tid a:hover { color: #EB008B;}
@@ -99,35 +99,39 @@
 .block.pink-fill, 
 .block.blue-fill, 
 .block.green-fill, 
-.block.orange-fill { color: white !important; }
- 
+.block.orange-fill { color: white; }
+
 #wrapper #container div.sidebar .block-views.block.pink-fill .views-field-teaser,
 #wrapper #container div.sidebar .block-views.block.blue-fill .views-field-teaser,
 #wrapper #container div.sidebar .block-views.block.green-fill .views-field-teaser,
-#wrapper #container div.sidebar .block-views.block.orange-fill .views-field-teaser,
+#wrapper #container div.sidebar .block-views.block.orange-fill .views-field-teaser { color: white; }
+
 .block.pink-fill .views-field-field-date-value,
 .block.blue-fill .views-field-field-date-value,
 .block.green-fill .views-field-field-date-value,
-.block.orange-fill .views-field-field-date-value,
+.block.orange-fill .views-field-field-date-value { color: white; }
 
 .block.pink-fill a, .block.blue-fill a, .block.green-fill a, .block.orange-fill a, 
 .block.pink-fill a:hover, .block.blue-fill a:hover, .block.green-fill a:hover, .block.orange-fill a:hover, 
-.block.pink-fill a:visited, .block.blue-fill a:visited, .block.green-fill a:visited, .block.orange-fill a:visited, 
- { color: white !important; }
+.block.pink-fill a:visited, .block.blue-fill a:visited, .block.green-fill a:visited, .block.orange-fill a:visited { color: white; }
+
 
 
 
 /**
  * Custom admin links
  */
-.block .views-field-edit-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .views-field-edit-node a:hover { color: green; text-decoration: none;}
-.block .views-field-delete-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #AF999A;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .views-field-delete-node a:hover { color: red; text-decoration: none;}
+.block .views-field-edit-node a:visited,
+.block .views-field-edit-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99 !important;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .views-field-edit-node a:hover { color: green !important; text-decoration: none;}
+.block .views-field-delete-node a:visited,
+.block .views-field-delete-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #AF999A !important;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .views-field-delete-node a:hover { color: red !important; text-decoration: none;}
 
 .block .block-edit-link {z-index: 1000; position: absolute; right: 0;}
-.block .block-edit-link a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .block-edit-link a:hover { color: green; text-decoration: none;}
+.block .views-edit-link a:visited,
+.block .block-edit-link a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99 !important;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .block-edit-link a:hover { color: green !important; text-decoration: none;}
 .block .block-edit-link {display: none;}
 .block:hover .block-edit-link {display: inline;}
 #header .block:hover .block-edit-link,

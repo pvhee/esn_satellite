@@ -250,7 +250,7 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 #block-views-spotlights-block_1 h2 { margin-left:200px;margin-top:0;position:relative;top:30px; }
 #block-views-spotlights-block_1 .wrapper-in { height: 250px; margin-top:0; padding-bottom:0; padding-top:0px; }
 #block-views-spotlights-block_1 .spotlight-content { padding-top: 30px; padding-left: 275px; }
-#block-views-spotlights-block_1.block .views-field-field-teaser-value { padding-left:0px; }
+#block-views-spotlights-block_1.block .views-field-field-teaser-value { padding-left:0px; padding-top: 1.2em; }
 #block-views-spotlights-block_1 .views-field-view-node { text-transform: uppercase; font-size: .9em; font-weight: bold; float:right;}
 #block-views-spotlights-block_1 .views-field-view-node a:before { content: '+ ';}
 
