@@ -227,7 +227,7 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 
 .block { border-bottom: 0; }
 #sidebar-right .block, #sidebar-left .block, #center .block {padding: 2em 0;}
-#block-views-spotlights-block_1 .inner { background-image: none; }
+#block-views-spotlights-block_1 .inner { background-image: none; padding: 0;}
 #header-top .block .inner { float:none;padding:0;width: auto; }
 
 #wrapper #container .block,
@@ -242,51 +242,23 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 
 #block-views-spotlights-block_1.block { margin-bottom: 0; padding-bottom: 0;}
 #block-views-spotlights-block_1 .black-text { height:100px; margin-top:166px; background: transparent;}
-#block-views-spotlights-block_1 h2 { display:inline; margin-left:210px; }
 #block-views-spotlights-block_1 .block .inner { padding: 0; padding-top:0; }
-#block-views-spotlights-block_1 .spotlight-image { float:left; margin-right:2.2em; width:250px; margin-top:-37px;}
+#block-views-spotlights-block_1 .spotlight-image { float:left; margin-right:2.2em; width:250px; margin-top:-81px;}
 #wrapper #center #block-views-spotlights-block_1 .views-field-title { font-size:1.7em; line-height:1em; }
 
 #block-views-spotlights-block_1 .views-field-tid { float: none;}
 
 /*#block-views-spotlights-block_1 { margin-top:0;background: transparent url("images/blocks/blue.png") repeat-x;  }*/
 /*#block-views-spotlights-block_1 { background: transparent; }*/
-#block-views-spotlights-block_1 h2 { display:inline; position:relative; top:11px; }
-#block-views-spotlights-block_1 .wrapper-in { height:226px; margin-top:0; padding-bottom:0; padding-top:0px; }
-#block-views-spotlights-block_1 .spotlight-content { padding-top:45px; }
-
+#block-views-spotlights-block_1 h2 { margin-left:200px;margin-top:0;position:relative;top:30px; }
+#block-views-spotlights-block_1 .wrapper-in { height: 250px; margin-top:0; padding-bottom:0; padding-top:0px; }
+#block-views-spotlights-block_1 .spotlight-content { padding-top: 30px; padding-left: 275px; }
+#block-views-spotlights-block_1.block .views-field-field-teaser-value { padding-left:0px; }
 #block-views-spotlights-block_1 .views-field-view-node { text-transform: uppercase; font-size: .9em; font-weight: bold; float:right;}
 #block-views-spotlights-block_1 .views-field-view-node a:before { content: '+ ';}
 
-#block-views-spotlights-block_1.block.green .views-field-tid a { color: white; background: transparent url("images/tags/tag_green.png") top left no-repeat; }
-#block-views-spotlights-block_1.block.orange .views-field-tid a { color: white; background: transparent url("images/tags/tag_orange.png") top left no-repeat; }
-#block-views-spotlights-block_1.block.pink .views-field-tid a { color: white; background: transparent url("images/tags/tag_pink.png") top left no-repeat; }
-#block-views-spotlights-block_1.block.blue .views-field-tid a { color: white; background: transparent url("images/tags/tag_blue.png") top left no-repeat; }
-#block-views-spotlights-block_1.block.fill .views-field-tid a { background: transparent url("images/tags/tag_white.png") top left no-repeat; }
-
-#block-views-spotlights-block_1.block.fill.blue .views-field-tid a { color: #00ADEE; }
-#block-views-spotlights-block_1.block.fill.orange .views-field-tid a { color: #F15A24; }
-#block-views-spotlights-block_1.block.fill.green .views-field-tid a { color: #7BC043; }
-#block-views-spotlights-block_1.block.fill.pink .views-field-tid a { color: #EB008B; }
-
 #block-views-spotlights-block_1 .views-field-tid a { padding:0.3em 0.5em 0.2em 13px; }
 
-/**
- * Custom admin links
- */
-.block .views-field-edit-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .views-field-edit-node a:hover { color: green; text-decoration: none;}
-.block .views-field-delete-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #AF999A;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .views-field-delete-node a:hover { color: red; text-decoration: none;}
-
-.block .block-edit-link {z-index: 1000; position: absolute; right: 0;}
-.block .block-edit-link a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
-.block .block-edit-link a:hover { color: green; text-decoration: none;}
-.block .block-edit-link {display: none;}
-.block:hover .block-edit-link {display: inline;}
-#header .block:hover .block-edit-link,
-#header-top .block:hover .block-edit-link,
-#footer .block:hover .block-edit-link {display: none;}
 
 .block.fill div.view-empty { color: #fff; border-color: #fff; }
 .block.fill div.view-empty a {font-weight: bold; text-decoration: underline;}

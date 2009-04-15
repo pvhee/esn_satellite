@@ -98,3 +98,21 @@
 .block .views-field-tid {float: none; padding: 0;}
 
 
+/**
+ * Custom admin links
+ */
+.block .views-field-edit-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .views-field-edit-node a:hover { color: green; text-decoration: none;}
+.block .views-field-delete-node a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #AF999A;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .views-field-delete-node a:hover { color: red; text-decoration: none;}
+
+.block .block-edit-link {z-index: 1000; position: absolute; right: 0;}
+.block .block-edit-link a {background: white; padding:0 5px; float:right; font-size:0.8em; color: #99AF99;letter-spacing:0.07em; text-transform: uppercase; font-weight: bold;}
+.block .block-edit-link a:hover { color: green; text-decoration: none;}
+.block .block-edit-link {display: none;}
+.block:hover .block-edit-link {display: inline;}
+#header .block:hover .block-edit-link,
+#header-top .block:hover .block-edit-link,
+#footer .block:hover .block-edit-link {display: none;}
+
+

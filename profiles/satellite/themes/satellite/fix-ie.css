@@ -59,14 +59,6 @@ tr.taxonomy-term-preview {
   background-color: #ffffff;
 }
 
-/*#block-views-spotlights-block_1 .black-text { filter: alpha(opacity=50); }
-body.frontpage #squeeze { margin-left: 1em;}
-#header-title { margin: 0 13px; display: inline-block; height: 10px;}
-#wrapper #container #sidebar-right.sidebar { top:-198px;}
-*/
-
-/*ul.nice-menu-down li.menuparent, #header-region ul.nice-menu-down li.menuparent, ul.nice-menu li { display: none; }*/
-
 #shadow-footer { padding:0; padding-right: 0px;}
 body.sidebars #wrapper #container, body.sidebar-left #wrapper #container, body.sidebar-right #wrapper #container { width:944px; padding: 0; }
 #shadow-top { border: 0 auto; }
@@ -75,13 +67,6 @@ body.sidebars #wrapper #container, body.sidebar-left #wrapper #container, body.s
 
 .block  h2 span.title-outer { padding: 0px; }
 
-/*ul.nice-menu li a {  height: auto; }
-ul.nice-menu li a span { height: auto; }
-
-ul.nice-menu li.menuparent a:hover,
-ul.nice-menu li a:hover { height: auto;}
-ul.nice-menu li a:hover span { height: auto; }
-*/
 
 /**
  * PNG-8 Comics

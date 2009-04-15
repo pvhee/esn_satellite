@@ -29,17 +29,8 @@
 ?>
 
 <div class="wrapper-out">
-  <div class="spotlight-image" style="<?php if ($background) print "background: url('$background') no-repeat 0 0;"; ?>">
-    <div class="black-text">
-      <div class="inner">
-        <?php 
-          print $fields['field_text_spotlight_value']->content;
-          unset($fields['field_text_spotlight_value']);
-        ?>      
-      </div>
-    </div>
-  </div>
-    <div class="wrapper-in">
+    <div class="wrapper-in"  style="<?php if ($background) print "background: url('$background') no-repeat 0 0;"; ?> ">
+      <h2><span class="title-outer"><span class="title-inner"><?php print t('In the Spotlight');?></span></span></h2>
       <div class="spotlight-content">
 	      <?php foreach ($fields as $id => $field): ?>
 	        <?php if (!empty($field->separator)): ?>
