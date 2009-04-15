@@ -97,7 +97,7 @@ body.sidebar-right #wrapper #container #center {width: 610px}
 #wrapper #container .sidebar #block-views-articles-block_2.block, #wrapper #container .sidebar #block-views-events-block_2.block { padding-top: 0.001em;}
 #block-views-articles-block_2 .views-row-1, #block-views-events-block_2 .views-row-1 {margin:0;}
 
-#block-views-partners-block_1 .views-row-even, #block-views-partners-block_1 .views-row-odd { display: block; float: left; margin: 0 1em 1em 0; width: auto; width:300px;}
+#block-views-partners-block_1 .views-row-even, #block-views-partners-block_1 .views-row-odd { float: left; margin: 0 0em 1em 0; }
 
 td.block {border: 0;}
 
