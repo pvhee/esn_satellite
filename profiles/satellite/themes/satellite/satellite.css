@@ -236,11 +236,6 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 #wrapper #container .sidebar .block { padding-top: 0; margin-bottom: 0;}
 .block .inner { padding-top: 1.2em; margin-bottom: 0;}
 
-.block.fill { background: none; color: white;}
-#wrapper #container div.sidebar .block-views.block.fill .views-field-teaser,
-.block.fill .views-field-field-date-value,
-.block.fill a, 
-.block.fill h2 { color: white;}
 
 #block-views-spotlights-block_1.block { margin-bottom: 0; padding-bottom: 0;}
 #block-views-spotlights-block_1 .black-text { height:100px; margin-top:166px; background: transparent;}
