@@ -118,9 +118,6 @@ td.block {border: 0;}
 .view-id-activity_report.view-display-id-block_1 .views-row-odd, 
 .view-id-activity_report.view-display-id-block_1 .views-row-even { margin-bottom: 0px;}
 
-.view-id-activity.view-display-id-page_1 .views-field-field-image-fid,
-.view-id-activity.view-display-id-block_1 .views-field-field-image-fid { float: left; margin-right: 10px; border: 2px solid #ccc;}
-
 .node .field-type-filefield.field-field-images img { float:left; margin:1px; }
 
 /**
@@ -344,8 +341,5 @@ ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat 
 .terms ul.links.inline li {padding-left: .2em;}
 .terms ul.links.inline li a { color: white; background: transparent url("images/tag_blue.png") top left no-repeat; font-weight: bold; text-transform: uppercase; font-size: .8em; padding: 0.3em 0.5em 0.2em 13px;}
 .terms ul.links.inline li a:hover {  padding-left: 13px;  background: transparent url("images/tag_green.png") top left no-repeat; text-decoration: none;}
-
-
-
 
 
