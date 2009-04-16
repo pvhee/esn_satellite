@@ -1,0 +1,42 @@
+<?php
+// $Id: unlimited_css.module,v 1.1 2009/04/15 10:20:04 antoniodemarco Exp $
+
+/**
+ * @file
+ * IE Unlimited CSS Loader module.
+ *
+ * This module solves the Internet Explorer limitation of loading 
+ * not more then 30 CSS files per HTML page  (http://support.microsoft.com/kb/262161).
+ */
+
+/**
+ * Implementation of hook_preprocess_page().
+ */
+function unlimited_css_preprocess_page(&$vars) {
+  
+  $preprocess_css = variable_get('preprocess_css', 0);
+  if (!$preprocess_css) {
+    $styles = '';
+    foreach ($vars['css'] as $media => $types) {
+      $import = '';
+      $counter = 0;
+      foreach ($types as $files) {
+        foreach ($files as $css => $preprocess) {
+          $import .= '@import "'. base_path() . $css .'";'."\n";
+          $counter++;
+          if ($counter == 15) {
+            $styles .= "\n".'<style type="text/css" media="'. $media .'">'."\n". $import .'</style>';
+            $import = '';
+            $counter = 0;
+          }
+        }
+      }
+      if ($import) {
+        $styles .= "\n".'<style type="text/css" media="'. $media .'">'."\n". $import .'</style>';
+      }
+    }
+    if ($styles) {
+      $vars['styles'] = $styles;
+    }
+  }
+}
