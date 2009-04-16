@@ -88,3 +88,17 @@ body.sidebars #wrapper #container, body.sidebar-left #wrapper #container, body.s
 .block.pink-fill h2 span.title-inner { background-image: url("images/comics/png8/white_left.png");} 
 .block.pink-fill h2 span.title-outer { background-image: url("images/comics/png8/white_right.png");}
 
+
+/**
+ * PNG-8 Navigation
+ */
+ul.nice-menu li.menuparent a,
+ul.nice-menu li a { background: transparent url("images/navigation/png8/blue_right.png") top right no-repeat; }
+ul.nice-menu li a span { background: transparent url("images/navigation/png8/blue_left.png") top left no-repeat; }
+ul.nice-menu li.menuparent a:hover,
+ul.nice-menu li a:hover { background: transparent url("images/navigation/png8/green_right.png") top right no-repeat; }
+ul.nice-menu li a:hover span { background: transparent url("images/navigation/png8/green_left.png") top left no-repeat; }
+ul.nice-menu li a.active { background: transparent url("images/navigation/png8/green_right.png") top right no-repeat; }
+ul.nice-menu li a.active span { background: transparent url("images/navigation/png8/green_left.png") top left no-repeat; }
+
+
