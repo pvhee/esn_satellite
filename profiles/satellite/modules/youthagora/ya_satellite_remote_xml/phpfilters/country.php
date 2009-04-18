@@ -21,6 +21,8 @@ if($ya_xml) {
     $elements['mail'] = (string) $item->mail;
     $elements['latitude'] = (string) $item->latitude;
     $elements['longitude'] = (string) $item->longitude;
+    $elements['subject'] = (string) $item->subject;
+    $elements['subject_id'] = (string) $item->subject_id;
   
     $code = base64_encode(serialize($elements));
     $ya_list[$code] = $elements['cn'];  

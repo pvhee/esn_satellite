@@ -33,6 +33,8 @@ if($ya_xml) {
     $elements['longitude'] = (string) $item->longitude;
     $elements['zoomlevel'] = (string) $item->zoomlevel;
     $elements['satellite'] = (string) $item->satellite;
+    $elements['subject'] = (string) $item->subject;
+    $elements['subject_id'] = (string) $item->subject_id;
   
     $code = base64_encode(serialize($elements));
     $ya_list[$code] = $elements['sectionname'];
