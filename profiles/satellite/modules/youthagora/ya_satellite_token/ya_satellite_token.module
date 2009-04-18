@@ -104,9 +104,11 @@ function _ya_satellite_token_deserialize_to_tokens(&$tokens, $data, $base_token)
  */
 function _ya_satellite_token_fix_token_names(&$tokens) {
   $replacements = array(
-    'section.l'   => 'section.location',
-    'section.c'   => 'section.country',
-    'country.c'   => 'country.country'
+    'section.l'           => 'section.location',
+    'section.c'           => 'section.country',
+    'section.subject_id'  => 'section.sid',
+    'country.c'           => 'country.country',
+    'country.subject_id'  => 'country.sid',
   );
   
   foreach($replacements as $from => $to) {
