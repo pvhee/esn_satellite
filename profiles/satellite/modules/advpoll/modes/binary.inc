@@ -1,5 +1,5 @@
 <?php
-// $Id: binary.inc,v 1.7.2.32.2.5 2009/03/21 18:32:00 chriskennedy Exp $
+// $Id: binary.inc,v 1.7.2.32.2.6 2009/04/11 16:02:50 chriskennedy Exp $
 
 /**
  * @file
@@ -169,7 +169,7 @@ function advpoll_view_results_binary($node, $teaser, $page) {
 function advpoll_calculate_results_binary(&$cache, $node) {
   $result = db_query('SELECT uid, vote_source FROM {votingapi_vote} WHERE content_type = "advpoll" AND content_id = %d AND value_type = "option" GROUP BY uid, vote_source, timestamp', $node->nid);
   $total_votes = 0;
-  while ($vote = db_fetch_objecT($result)) {
+  while ($vote = db_fetch_object($result)) {
     $total_votes++;
   }
   votingapi_add_results(array(array('content_type' => 'advpoll', 'content_id' => $node->nid, 'value_type' => '', 'tag' => '_advpoll', 'function' => 'total_votes', 'value' => $total_votes)));
@@ -289,7 +289,6 @@ function advpoll_voting_binary_form_validate($form, &$form_state) {
     if ($node->max_choices != 0 && $num_choices > $node->max_choices) {
       $message = t('%num choices were selected but only %max are allowed.', array('%num' => $num_choices, '%max' => $node->max_choices));
       _advpoll_form_set_error('choice[', $message, $ajax);
-
     }
 
     // Not enough choices ranked.

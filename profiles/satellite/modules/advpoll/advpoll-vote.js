@@ -1,4 +1,4 @@
-// $Id: advpoll-vote.js,v 1.1.2.11.2.3 2009/01/31 19:27:49 chriskennedy Exp $
+// $Id: advpoll-vote.js,v 1.1.2.11.2.4 2009/04/11 16:02:47 chriskennedy Exp $
 
 /*
 * Submit advpoll forms with ajax
@@ -93,52 +93,83 @@ Drupal.behaviors.handleWriteins = function(context) {
 Drupal.behaviors.rankingDragAndDrop = function(context) {
   $('form.advpoll-vote.drag-and-drop:not(.advpoll-drag-and-drop-processed)', context).addClass('advpoll-drag-and-drop-processed').each(function() {
     var mainForm = $(this);
-    // Loop through the choices.
-    $(".vote-choices div.form-item", $(this))
-      .wrapAll("<ul class='vote-list' style='cursor: pointer'></ul>")
-      .parent().parent().prepend('<div class="choice-header">' + Drupal.t("Choices") + '</div>')
-      .end().end()
-      .wrap("<li></li>").removeClass("form-item").parent().parent()
-      .sortable({connectWith: [".advpoll-vote-list", "ol"]})
-      .end().end().each(function() {
+    var formId = mainForm.attr('id');
+    var $existingChoicesTable = $('.advpoll-existing-choices-table', mainForm);
+    var stringRemoveFromVote = Drupal.t('(x)');
+    var stringRemoveFromVoteURL = document.location.href + '/' + Drupal.t('remove-from-vote');
+    var stringAddToVote = Drupal.t('add &gt;');
+    var stringAddToVoteURL = document.location.href + '/' + Drupal.t('add-to-vote');
+    var voteButton = $(".form-submit", mainForm);
+    var newVoteButton = voteButton.clone().attr("disabled", "true").css("margin-left", "10px").css("margin-top", "4px").addClass("vote-button");
+    // Remove the old vote button
+    voteButton.remove();
+    $('.advpoll-drag-box', mainForm).append(newVoteButton);
+   // Copy write-in text field and specifically add to end of list.
+    $(this).parent().parent().siblings().filter(".writein-choice").clone().insertAfter($("select.advpoll-writeins", mainForm));
+    // Hide the selects.
+    $("select.form-select", mainForm).css('display', 'none');//remove();
+    $("select.form-select", mainForm).addClass('advpoll-choice-order');
+    var maxChoices = parseInt(mainForm.find('input[name=max_choices]').val());
+
+    // Loop through the choices and perform initial setup.
+    $('.vote-choices div.form-item', $(this))
+      .wrapAll('<ul class="advpoll-pending-choices-list"></ul>')
+      .wrap('<li class="advpoll-choice-container"></li>').removeClass("form-item").addClass("advpoll-pending-choice").each(function() {
+        // Each form element, outside of which is an <li></li>.
         $(this).parent().attr("id", "choice-" + parseInt($(this).attr("id").replace(/[^0-9]/g, "")));
-        // Take off the annoying colon that Drupal adds to each title.
-        $(this).html($(this).html().replace(/: <\/label>/ig, ''));
-        $(this).parent().parent().siblings().filter(".writein-choice").clone().insertAfter($("select.advpoll-writeins", mainForm));
-        // Hide the selects.
-        $("select", $(this)).remove(); //("display", "none");
-    });
+        $(this).append('<a href="' + stringAddToVoteURL + '" class="advpoll-add-to-vote advpoll-choice-action-link">' + stringAddToVote + '</a>');
 
-    var maxChoices = parseInt($(this).find('input[name=max_choices]').val());
-    var voteList = $('<ol class="advpoll-vote-list"></ol>').sortable({
-        connectWith: [".vote-list", "ul"],
-        placeholder: "choice-placeholder",
-        drop: function(ev, ui) {
-      },
-      receive: function(ev, ui) {
-        pseudoDeactivate(this, ev, ui, "receive");
-        var mainItem = this;
-        $(ui.item).not(".has-advpoll-x").addClass("has-advpoll-x").find("label").append($(' <span class="advpoll-x">(<a href="#" title="' + Drupal.t("Remove choice") + '">x</a>)</span>').click(function() {
-          $(ui.item).removeClass("has-advpoll-x");
-          $(".vote-list", mainForm).append($(this).parent().parent().find("span").remove().end().clone().end().parent().remove());
-          // Call so that we update the number of remaining choices.
-          pseudoDeactivate(mainItem, ev, ui, "remove");
-          // Return false so that browser doesn't evaluate href and visit "#".
-          return false;
-        }));
-      },
-      remove: function(ev, ui) {
-       $(ui.item).removeClass("has-advpoll-x").find(".advpoll-x").remove();
-        pseudoDeactivate(this, ev, ui, "remove");
-      }});
+        function handleChoiceClick(event) {
+          // Stop browser from forwarding to "#" in href.
+          event.preventDefault();
+          // Element that issued click.
+          var $element = $(event.target);
+          // Handle a pending choice or an existing choice.
+          var isPending = $element.parent('.advpoll-pending-choice').size() > 0;
+          var choiceType = isPending ? 'pending' : 'existing';
+          var choiceNotType = isPending ? 'existing' : 'pending';
+          var $choice = $element.parent('.advpoll-'+ choiceType +'-choice');
+          var $pendingChoicesList = $('.advpoll-pending-choices-list', mainForm);
+          var $newChoice = $choice.clone(true)
+            // Migrate choice outer div.
+            .removeClass('advpoll-'+ choiceType + '-choice').addClass('advpoll-'+ choiceNotType + '-choice')
+            // Migrate action link.
+            .find("a.advpoll-choice-action-link").html(isPending ? stringRemoveFromVote : stringAddToVote).attr('href', isPending ? stringRemoveFromVoteURL : stringAddToVoteURL).removeClass(isPending ? 'advpoll-add-to-vote' : 'advpoll-remove-from-vote').addClass(isPending ? 'advpoll-remove-from-vote' : 'advpoll-add-to-vote').end();
+          // Unchained to avoid undefined parent JS error - unsure why needed.
+          var $newRow = isPending ? $('<tr class="draggable advpoll-choice-container"><td class="advpoll-receive-choice"></td></tr>') : $('<li class="advpoll-receive-choice advpoll-choice-container"></li>');
+          // TODO: unify these two cases into a single command.
+          if (isPending) {
+            $newRow.find('.advpoll-receive-choice').append($newChoice);
+            $existingChoicesTable.append($newRow)
+          }
+          else {
+            $newRow.append($newChoice);
+            $pendingChoicesList.append($newRow);
+            // Reset weight.
+            $newRow.find('select.advpoll-choice-order').val(0);
+          }
+          $choice.parents('.advpoll-choice-container').remove();
 
-     function pseudoDeactivate(obj, ev, ui, eventType) {
-        // Have to subtract 1 when receiving a new choice due to the placeholder element also being included in the count.
-        var currentChoices = $("li", $(obj)).size() - (eventType == "receive" ? 1 : 0);
+        var currentOrder = 0;
+        $("tr.advpoll-choice-container select.advpoll-choice-order", $existingChoicesTable).each(function() {
+          if ($(this).val() != currentOrder + 1) {
+            $(this).val(currentOrder + 1);
+          }
+          currentOrder++;
+        });
+        var currentChoices = currentOrder;
+        // Hide drag-icon if there's only one choice in the current vote.
+        if (currentChoices <= 1) {
+          // TODO: take another stab at implementing this.
+        }
+        else {
+          // Hack to have tabledrag.js parse the new table rows.
+          $existingChoicesTable.removeClass('dragtable-processed');
+          Drupal.attachBehaviors();
+        }
         $(".vote-status", mainForm).show().html(Drupal.t("Choices remaining: %choices", {"%choices" : maxChoices - currentChoices}));
         if (currentChoices > maxChoices) {
           // Don't allow more votes if we have hit the limit.
-          // Doesn't seem to work: $(this).sortable({connectWith: ""});
           $(".vote-status", mainForm).addClass("error");
           newVoteButton.attr("disabled", "true");
         }
@@ -155,34 +186,33 @@ Drupal.behaviors.rankingDragAndDrop = function(context) {
           // Back at 0, so the user can't cast a vote.
           newVoteButton.attr("disabled", "true");
         }
-        var results = $("<span></span>");
-        var order = 1;
-        var votes = $(obj).sortable("toArray");
-        // Output the sorted vote as hidden inputs so we can use the normal form handling code.
-        for (var choice in votes) {
-          if (votes[choice]) {
-            results.append('<input type="hidden" name="'+ votes[choice].replace(/-(\d+)/, "[$1]") + '" value="'+ order + '" />');
-            order++;
-          }
-        }
-        $(".vote-results", mainForm).html(results);
-      }
 
-    var voteButton = $(".form-submit", $(this));
-    var newVoteButton = voteButton.clone().attr("disabled", "true").css("margin-left", "10px").css("margin-top", "4px").addClass("vote-button");
-    // Create a droppable area.
-    $(this).append('<div class="advpoll-drag-box"><div class="advpoll-vote-header">'+ Drupal.t('Your Vote') + '</div><div class="advpoll-vote-choices"></div></div>')
-      .find(".advpoll-vote-choices").append(voteList)
-      .append(newVoteButton);
-    // Remove the old vote button
-    voteButton.remove();
-    $('<div class="vote-status"></div>').insertAfter(newVoteButton).hide();
-    $(this).append("<br clear='left' />").append('<div class="vote-results"></div>');
+        // Re-apply table-dragging to access for updated table.
+        $('.tabledrag-handle', $existingChoicesTable).remove();
+        $existingChoicesTable.removeClass('tabledrag-processed');
+        Drupal.attachBehaviors($existingChoicesTable);
+      }
+      // Allow clicks to trigger adding the choice to the vote.
+      $("label", this).click(handleChoiceClick);
+      $("a.advpoll-choice-action-link", this).click(handleChoiceClick);
+
+    });
 
     // Show the write-in box if it exists.
-    var newInput = $(".writein-choice input", mainForm).clone().css("display", "inline");
-    $(".writein-choice").remove();
-    $("li:last", mainForm).append(newInput);
+    if ($('.writein-choice input', mainForm).size() > 0) {
+      var newInput = $(".writein-choice input", mainForm).clone().css("display", "inline");
+      $(".writein-choice", mainForm).remove();
+      $("li:last .advpoll-pending-choice", mainForm).append("<br />").append(newInput);
+    }
+
+    newVoteButton.click(function() {
+      // Re-do tabledrag ordering so poll choice selects start at 1... lame.
+      var currentOrder = 1;
+      $("tr.advpoll-choice-container select.advpoll-choice-order", mainForm).each(function() {
+        $(this).val(currentOrder);
+        currentOrder++;
+      }); 
+    });
   });
 };
 

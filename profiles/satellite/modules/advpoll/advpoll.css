@@ -1,4 +1,4 @@
-/* $Id: advpoll.css,v 1.2.2.5.2.2 2009/01/31 16:46:23 chriskennedy Exp $ */
+/* $Id: advpoll.css,v 1.2.2.5.2.3 2009/04/11 16:02:47 chriskennedy Exp $ */
 
 .node-form .choices {
   margin-right: 0.2em;
@@ -27,29 +27,36 @@ html.js input.writein-choice {
  * Begin drag-and-drop specific styles for ranking polls.
  */
 
-.drag-and-drop .vote-choices {
+.advpoll-drag-and-drop-processed .advpoll-available-choices {
+  clear: left;
   float: left;
   min-width: 200px;
   margin-right: 20px;
 }
 
-.drag-and-drop .vote-choices ul {
+.advpoll-drag-and-drop-processed .vote-choices ul {
   cursor: pointer;
+  clear: left;
 }
 
-.drag-and-drop .advpoll-x {
-  font-size: 80%;
-  margin-left: 3px;
+.advpoll-choice-wrapper label {
+  clear: inherit;
 }
 
-.drag-and-drop .advpoll-drag-box {
+.advpoll-drag-box {
+  display: none; /* Hide if drag-and-drop JS hasn't run yet. */
+}
+
+.advpoll-drag-and-drop-processed .advpoll-drag-box {
   min-width: 150px;
   float: left;
   padding-bottom: 5px;
   text-align: center;
+  width: 220px; /* Needed so IE doesn't expand to 100% width. */
+  display: block; /* Show using if drag-and-drop enabled. */
 }
 
-.advpoll-drag-box ol {
+.drag-and-drop .advpoll-existing-choices-table {
   margin-left: 5px;
   margin-bottom: 5px;
   padding-bottom: 0;
@@ -57,6 +64,7 @@ html.js input.writein-choice {
   background-color: #eee;
   border: 2px solid #ddd;
   text-align: left;
+  min-height: 25px;
 }
 
 .advpoll-vote-list ol {
@@ -70,10 +78,23 @@ html.js input.writein-choice {
   font-weight: bold;
 }
 
+.advpoll-drag-and-drop-processed .choice-header {
+  float: left;
+}
+
 .advpoll-vote-header {
   text-align: center;
   font-weight: bold;
   padding: 3px;
+}
+
+/* Hide the default Drupal 6  warning message for drag-and-drop tables. */
+.advpoll-drag-box .warning {
+  display: none !important;
+}
+
+.advpoll-existing-choice {
+  margin-left: 25px;
 }
 
 .vote-status {
@@ -83,11 +104,10 @@ html.js input.writein-choice {
   margin-right: 5px;
 }
 
-.advpoll-vote-list {
-  min-height: 25px;
+.advpoll-vote-list label, .pending-choice-list label {
   cursor: pointer;
 }
 
-.advpoll-vote-list label, .vote-list label {
-  cursor: pointer;
+.advpoll-choice-action-link {
+  margin-left: 10pt;
 }

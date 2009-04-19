@@ -1,8 +1,13 @@
 <?php
-// $ID: $
+// $Id: canvasactions.inc,v 1.1.4.11 2009/03/16 02:24:54 dman Exp $
 /**
  * Helper functions for the text2canvas action for imagecache
  * 
+ * @author Dan Morrison http://coders.co.nz
+ * 
+ * Individually configurable rounded corners logic contributed by canaryMason
+ * 2009 03 http://drupal.org/node/402112
+ *
  */
 
 /**
@@ -14,6 +19,10 @@
  * @return a form definition
  */
 function canvasactions_definecanvas_form($action) {
+  if (imageapi_default_toolkit() != 'imageapi_gd') {
+    drupal_set_message('Define Canvas not currently supported by using imagemagick. This effect requires GD image toolkit only.', 'warning');
+  }
+
   $defaults = array(
     'RGB' => array(
       'HEX' => '#333333',
@@ -156,7 +165,11 @@ function theme_canvasactions_definecanvas($element) {
  *
  *   $image->res handle on the image object
  */
-function canvasactions_definecanvas_image(& $image, $action = array()) {
+function canvasactions_definecanvas_image(&$image, $action = array()) {
+  if ($image->toolkit != 'imageapi_gd') {
+    drupal_set_message("Unable to define canvas with {$image->toolkit}");
+    return FALSE;
+  }
  
   // May be given either exact or relative dimensions.
   if ($action['exact']['width'] || $action['exact']['width']) {
@@ -222,6 +235,10 @@ function canvasactions_definecanvas_image(& $image, $action = array()) {
  * @return a form definition
  */
 function canvasactions_canvas2file_form($action) {
+  if (imageapi_default_toolkit() != 'imageapi_gd') {
+    drupal_set_message('Overlays are not currently supported by using imagemagick. This effect requires GD image toolkit only.', 'warning');
+  }
+
   $defaults = array(
     'xpos' => '0',
     'ypos' => '0',
@@ -337,6 +354,10 @@ function canvasactions_canvas2file_image(&$image, $action = array()) {
  * @return a form definition
  */
 function canvasactions_file2canvas_form($action) {
+  if (imageapi_default_toolkit() != 'imageapi_gd') {
+    drupal_set_message('Overlays are not currently supported by using imagemagick. This effect requires GD image toolkit only.', 'warning');
+  }
+
   $defaults = array(
     'xpos' => '',
     'ypos' => '',
@@ -423,9 +444,23 @@ function canvasactions_file2canvas_image(&$image, $action = array()) {
  * @return a form definition
  */
 function canvasactions_roundedcorners_form($action) {
+  if (imageapi_default_toolkit() != 'imageapi_gd') {
+    drupal_set_message('Rounded corners are not currently supported by using imagemagick. This effect requires GD image toolkit only.', 'warning');
+  }
+
+  drupal_add_js(drupal_get_path('module', 'imagecache_canvasactions') .'/imagecache_actions.jquery.js');
   $defaults = array(
     'radius' => '16',
     'antialias' => TRUE,
+    'independent_corners_set' => array(
+      'independent_corners' => FALSE,
+      'radii' => array(
+        'tl' => 0,
+        'tr' => 0,
+        'bl' => 0,
+        'br' => 0,
+      ),
+    ),
   );
   $action = array_merge($defaults, (array)$action);
 
@@ -435,6 +470,34 @@ function canvasactions_roundedcorners_form($action) {
       '#default_value' => $action['radius'],
       '#size' => 2,
   );
+
+  $form['independent_corners_set'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Individual Corner Values'),
+      '#collapsible' => TRUE,
+      '#collapsed' => (! $action['independent_corners_set']['independent_corners']),
+  );
+  $form['independent_corners_set']['independent_corners'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Set Corners Independently'),
+      '#default_value' => $action['independent_corners_set']['independent_corners'],
+  );
+  $corners = array(
+    'tl' => t("Top Left Radius"),
+    'tr' => t("Top Right Radius"),
+    'bl' => t("Bottom Left Radius"),
+    'br' => t("Bottom Right Radius"),
+  );
+  // Loop over the four corners and create field elements for them.
+  $form['independent_corners_set']['radii'] = array('#type' => 'item', '#id' => 'independent-corners-set', );
+  foreach ($corners as $attribute => $label) {
+    $form['independent_corners_set']['radii'][$attribute] = array(
+        '#type' => 'textfield',
+        '#title' => $label,
+        '#default_value' => 0+$action['independent_corners_set']['radii'][$attribute],
+        '#size' => 2,
+    );
+  }
 
   $form['antialias'] = array(
       '#type' => 'checkbox',
@@ -466,20 +529,46 @@ function canvasactions_roundedcorners_form($action) {
  * Create a rounded corner mask and alpha-merge it with the image.
  * 
  * Implementation of hook_image()
+ * 
+ * Note, this is not image toolkit-agnostic yet! It just assumes GD.
+ * We can abstract it out once we have something else to abstract to.
+ * In the meantime just don't.
+ * 
+ * 'independant' rounded corners logic contributed by canaryMason 2009-03
  *
  * @param $image
  * @param $action
  */
 function canvasactions_roundedcorners_image(&$image, $action = array()) {
-
+  if ($image->toolkit != 'imageapi_gd') {
+    drupal_set_message("Unable to create rounded corners with {$image->toolkit}");
+    // Pretend we did anyway, just return the untrimmed version.
+    return TRUE;
+  }
+  
   $width = $image->info['width'];
   $height = $image->info['height'];
   $radius = $action['radius'];
+  $independent_corners = $action['independent_corners_set']['independent_corners'];
+  $radii = $action['independent_corners_set']['radii'];
+  $diameter = array();
 
   if ($action['antialias']) {
     $width = $width * 3;
     $height = $height * 3;
     $radius = $radius * 3;
+    foreach ($radii as $corner => $corner_radius) {
+      $radii[$corner] = $radii[$corner] * 3;
+    }
+  }
+
+  foreach ($radii as $corner => $corner_radius) {
+    if(!$independent_corners){
+      // Use the unique maths for independant corners, 
+      // even if they are all the same.
+      $radii[$corner] = $radius;
+    }
+    $diameter[$corner] = $radii[$corner] * 2;
   }
   
   // Create a mask with rounded corners
@@ -491,6 +580,7 @@ function canvasactions_roundedcorners_image(&$image, $action = array()) {
     'resource' => &$mask, 
     'info' => array('width' => $width, 'height' => $height, 'extension' => 'png'), 
     'toolkit' => $image->toolkit,
+    'resource' => &$mask,
   );
 
   // Start with a blank slate
@@ -501,32 +591,36 @@ function canvasactions_roundedcorners_image(&$image, $action = array()) {
   // Place solid lumps on it
   $foreground = imagecolorallocatealpha($mask, 0, 0, 0, 0);
 
-  // Blobs in the corners
-  $diameter = $radius * 2;
-  ImageFilledEllipse($mask, $radius, $radius, $diameter, $diameter, $foreground);
-  ImageFilledEllipse($mask, $width-$radius, $radius, $diameter, $diameter, $foreground);
-  ImageFilledEllipse($mask, $radius, $height-$radius, $diameter, $diameter, $foreground);
-  ImageFilledEllipse($mask, $width-$radius, $height-$radius, $diameter, $diameter, $foreground);
+  // Place blobs in the corners
+  ImageFilledEllipse($mask, $radii['tl'], $radii['tl'], $diameter['tl'], $diameter['tl'], $foreground);
+  ImageFilledEllipse($mask, $width-$radii['tr'], $radii['tr'], $diameter['tr'], $diameter['tr'], $foreground);
+  ImageFilledEllipse($mask, $radii['bl'], $height-$radii['bl'], $diameter['bl'], $diameter['bl'], $foreground);
+  ImageFilledEllipse($mask, $width-$radii['br'], $height-$radii['br'], $diameter['br'], $diameter['br'], $foreground);
   
   // Block out the middle
-  ImageFilledRectangle($mask, $radius, 0, $width-$radius, $height, $foreground);
-  ImageFilledRectangle($mask, 0, $radius, $width, $height-$radius, $foreground);
+  ImageFilledRectangle($mask, $radii['tl'], 0, $width*0.5, $height*0.5, $foreground);
+  ImageFilledRectangle($mask, 0, $radii['tl'], $width*0.5, $height*0.5, $foreground);
+  ImageFilledRectangle($mask, $width*0.5, 0, $width-$radii['tr'], $height*0.5, $foreground);
+  ImageFilledRectangle($mask, $width*0.5, $radii['tr'], $width, $height*0.5, $foreground);
+  ImageFilledRectangle($mask, 0, $height*0.5, $width*0.5, $height-$radii['bl'], $foreground);
+  ImageFilledRectangle($mask, $radii['bl'], $height*0.5, $width*0.5, $height, $foreground);
+  ImageFilledRectangle($mask, $width*0.5, $height*0.5, $width, $height-$radii['br'], $foreground);
+  ImageFilledRectangle($mask, $width*0.5, $height*0.5, $width-$radii['br'], $height, $foreground);
 
   if ($action['antialias']) {
     // Use toolkit so scale down again. 
     imageapi_image_scale($mask_image, $width/3, $height/3);
     $mask = $mask_image->resource;
   }
-  // No we have a mask. Merge to get a result
-  #$image->res = $mask;  
+  // Now we have a mask. Merge to get a result
   canvasactions_mask($image, $mask_image);
   
   return TRUE;
 }
 
 /**
- * Given a source image in the $action, use the alpha values from it to set
- * transparency on the source image.
+ * Given a mask image resource object in the $action, use the alpha values from
+ * it to set transparency on the source image.
  * 
  * Note that the returned image has transparency set BUT if it's a jpeg it may
  * not remember that channel.
@@ -577,16 +671,19 @@ function canvasactions_mask(&$image, $mask) {
     }
   }
   return TRUE;
-
 }
-
 
 /**
  * Implementation of theme_hook() for imagecache_ui.module
  */
 function theme_canvasactions_roundedcorners($element) {
   $data = $element['#value'];
-  return "Radius: {$data['radius']}px " . ($data['antialias'] ? "antialiased" : "") ;
+  if($data['independent_corners_set']['independent_corners']){
+    $dimens = join('px | ', $data['independent_corners_set']['radii']).'px';
+  } else { 
+    $dimens = "Radius: {$data['radius']}px "; 
+  }
+  return $dimens ." | ". ($data['antialias'] ? "antialiased" : "") ;
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -600,8 +697,7 @@ function theme_canvasactions_roundedcorners($element) {
  * @return a form definition
  */
 function canvasactions_aspect_form($action) {
-  $defaults = array(
-  );
+  $defaults = array(  );
   $action = array_merge($defaults, (array)$action);
   
   $form = array(

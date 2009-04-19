@@ -443,7 +443,8 @@ function textactions_keyword_filter($value, $current_pixels, $new_pixels, $adj, 
  * @ingroup imageapi
  */
 function imageapi_image_overlaytext_alpha(&$image, $text, $size = 12, $x = 0, $y = 0, $RGB = 0, $fontfile = 'MgOpenModernaBold', $angle = 0) {
-  return call_user_func($image->toolkit .'_image_overlaytext_alpha', $image, $text, $size, $x, $y, $RGB, $fontfile, $angle);
+  return imageapi_toolkit_invoke('overlaytext_alpha', $image, array($text, $size, $x, $y, $RGB, $fontfile, $angle));
+  #return call_user_func($image->toolkit .'_image_overlaytext_alpha', $image, $text, $size, $x, $y, $RGB, $fontfile, $angle);
 }
 
 /**
@@ -452,15 +453,15 @@ function imageapi_image_overlaytext_alpha(&$image, $text, $size = 12, $x = 0, $y
  * @ingroup imageapi
  */
 function imageapi_gd_image_overlaytext_alpha(&$image, $text, $size = 12, $x = 0, $y = 0, $RGB, $fontfile = 'MgOpenModernaBold', $angle = 0) {
-  $color = imagecolorallocatealpha($image->res, $RGB['red'], $RGB['green'], $RGB['blue'], $RGB['alpha']);
+  $color = imagecolorallocatealpha($image->resource, $RGB['red'], $RGB['green'], $RGB['blue'], $RGB['alpha']);
 
   // Merging images where one or the other is partially transparent needs to be supported or we get black blocks.
   //  EG text over PNG
   // This flag will be lost again in jpegs, but that's after we've merged, so it's OK.
-  imagesavealpha($image->res, TRUE);
-  imagealphablending($image->res, TRUE);
+  imagesavealpha($image->resource, TRUE);
+  imagealphablending($image->resource, TRUE);
 
-  $bounds = imagettftext($image->res, $size, $angle, $x, $y, $color, $fontfile, $text);
+  $bounds = imagettftext($image->resource, $size, $angle, $x, $y, $color, $fontfile, $text);
   if (empty($bounds)) { return FALSE; }
   return TRUE;
 }

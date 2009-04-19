@@ -1,5 +1,5 @@
 <?php
-// $Id: imagecache_canvasactions.module,v 1.3.2.9 2009/03/10 14:47:29 dman Exp $
+// $Id: imagecache_canvasactions.module,v 1.3.2.10 2009/03/15 15:13:39 dman Exp $
 
 /**
  * @file A collection of canvas (layer) type manipulations for imagecache -
@@ -99,7 +99,9 @@ function imagecache_canvasactions_imagecache_actions() {
  * @ingroup imageapi
  */
 function imageapi_image_overlay(&$image, $overlay, $x, $y, $alpha, $reverse = FALSE) {
-  return call_user_func_array($image->toolkit .'_image_overlay', array(&$image, $overlay, $x, $y, $alpha, $reverse));
+  return imageapi_toolkit_invoke('overlay', $image, array($overlay, $x, $y, $alpha, $reverse));
+  
+#  return call_user_func_array($image->toolkit .'_image_overlay', array(&$image, $overlay, $x, $y, $alpha, $reverse));
 }
 
 /**

@@ -1,5 +1,5 @@
 <?php
-// $Id: ranking.inc,v 1.8.2.37.2.10 2009/03/08 20:37:39 chriskennedy Exp $
+// $Id: ranking.inc,v 1.8.2.37.2.11 2009/04/11 16:02:50 chriskennedy Exp $
 
 /**
  * @file
@@ -29,35 +29,36 @@ function advpoll_voting_ranking_form(&$form_state, &$node, $teaser, $page, $stat
     '#attributes' => array('class' => 'advpoll-vote'),
     '#node' => $node,
   );
+  
+  // Add write-in select box if write-ins are enabled and user has permission.
+  $handle_writeins = $node->writeins && user_access('add write-ins');
 
   $form['ajax'] = array(
     '#type' => 'hidden',
     '#attributes' => array('class' => 'ajax'),
   );
 
-  if (module_exists('jquery_ui')) {
-    jquery_ui_add(array('ui.draggable', 'ui.droppable', 'ui.sortable'));
-    $form['#attributes']['class'] .= ' drag-and-drop';
-    $form['js_order'] = array(
-      '#type' => 'hidden',
-      '#value' => '',
-    );
-    if ($node->max_choices) {
-      $max_choices = $node->max_choices;
-    }
-    else {
-      $max_choices = count($node->choice);
-      if ($node->writeins) {
-        $max_choices++;
-      }
-    }
-    $form['max_choices'] = array(
-      '#type' => 'hidden',
-      '#value' => $max_choices,
-    );
+  $form['#attributes']['class'] .= ' drag-and-drop';
+  $form['js_order'] = array(
+    '#type' => 'hidden',
+    '#value' => '',
+  );
+  if ($node->max_choices) {
+    $max_choices = $node->max_choices;
   }
+  else {
+    $max_choices = count($node->choice) - $node->writein_choices;
+    /*if ($handle_writeins) {
+      $max_choices++;
+    }
+    */
+  }
+  $form['max_choices'] = array(
+    '#type' => 'hidden',
+    '#value' => $max_choices,
+  );
 
-
+  // TODO: figure out why this is here. shouldn't every poll have choices?
   if (isset($node->choice)) {
     $list = array();
     $num_choices = count($node->choice);
@@ -87,11 +88,8 @@ function advpoll_voting_ranking_form(&$form_state, &$node, $teaser, $page, $stat
     // TODO: Find a better solution for this.
     array(t('4th'), t('5th'), t('6th'), t('7th'), t('8th'), t('9th'), t('10th'), t('11th'), t('12th'), t('13th'), t('14th'), t('15th'));
 
-    $form['choice'] = array(
-      '#tree' => TRUE,
-      '#prefix' => '<div class="vote-choices">',
-      '#suffix' => '</div>',
-    );
+    // List of poll choices, to be populated.
+    $form['choice'] = array('#tree' => TRUE);
 
     // If previewing check the format against the current users permissions.
     $check = $node->build_mode == NODE_BUILD_PREVIEW;
@@ -106,8 +104,7 @@ function advpoll_voting_ranking_form(&$form_state, &$node, $teaser, $page, $stat
       }
     }
 
-    // Add write-in select box if write-ins are enabled and user has permission.
-    if ($node->writeins && user_access('add write-ins')) {
+    if ($handle_writeins) {
       $form['choice'][$key + 1] = array(
         '#type' => 'select',
         '#title' => t('(write-in)'),
@@ -122,11 +119,9 @@ function advpoll_voting_ranking_form(&$form_state, &$node, $teaser, $page, $stat
     }
   }
 
-  // Add write-in text field if write-ins are enabled and user has permission.
-  if ($node->writeins && user_access('add write-ins')) {
+  // Add write-in text field.
+  if ($handle_writeins) {
     $form['writein_choice'] = array(
-      '#prefix' => '<div class="writein-choice">',
-      '#suffix' => '</div>',
       '#type' => 'textfield',
       '#title' => t('Write-in vote'),
       '#size' => 25,
@@ -161,8 +156,43 @@ function advpoll_voting_ranking_form(&$form_state, &$node, $teaser, $page, $stat
   }
 
   $form['#action'] = url('node/'. $node->nid);
+  // Set form caching because we could have multiple forms on the page.
+  // (from poll.module).
+  $form['#cache'] = TRUE;
   
   return $form;
+}
+
+/**
+ * Process variables for advpoll-display-ranking-form.tpl.php.
+ *
+ * The variables array contains the following arguments:
+ * - $form
+ *
+ * @see advpoll-display-ranking-form.tpl.php
+ */
+function template_preprocess_advpoll_voting_ranking_form(&$variables) {
+  $form = &$variables['form'];
+  $variables['message'] = drupal_render($form['message']);
+    // If write-ins are used on this form.
+  if (isset($form['writein_choice'])) {
+    $variables['writein_choice'] = drupal_render($form['writein_choice']);
+  }
+  $variables['form_id'] = $form['#id'];
+  // Every form element that should be carried in drag needs this class.
+  $variables['tabledrag_group_class'] = $form['#id'] . '-tabledrag-group';
+  foreach (element_children($form['choice']) as $i) {
+    $choice = &$variables['form']['choice'][$i];
+    // Add draggable class - TODO: fix this.
+    $choice['#attributes']['class'] = $variables['tabledrag_group_class'];
+    //$form['choice'][$i]['#attributes']['class'] = $variables['tabledrag_group_class'];
+  }
+  // List of available choices in the poll.
+  $variables['choice_list'] = drupal_render($form['choice']);
+  // Take off the annoying colon & endlines that Drupal adds to each title.
+  $variables['choice_list'] = preg_replace('/[\n\r]*: <\/label>[\n\r]*/i', '</label>', $variables['choice_list']);
+  // All remaining form elements.
+  $variables['form_submit'] = drupal_render($form);
 }
 
 function advpoll_view_results_ranking($node, $teaser, $page) {
@@ -319,17 +349,19 @@ function advpoll_calculate_results_ranking(&$cache, $node) {
 
   // Cache rankings.
   // API: $cache[$tag][$type][$function] = $value (0 is the default $type)
-  for ($i = 0; $i < count($results->ranking); $i++) {
-    foreach ($results->ranking[$i]['choices'] as $choice) {
-      $cache[$choice][0]['ranking'] = $i;
-      if (isset($results->ranking[$i]['raw_score'])) {
-        $cache[$choice][0]['raw_score'] = $results->ranking[$i]['raw_score'];
-      }
-      if (isset($results->ranking[$i]['view_score'])) {
-        $cache[$choice][0]['view_score'] = $results->ranking[$i]['view_score'];
-      }
-      if (isset($results->ranking[$i]['percentage'])) {
-        $cache[$choice][0]['percentage'] = $results->ranking[$i]['percentage'];
+  if (isset($results->ranking)) {
+    for ($i = 0; $i < count($results->ranking); $i++) {
+      foreach ($results->ranking[$i]['choices'] as $choice) {
+        $cache[$choice][0]['ranking'] = $i;
+        if (isset($results->ranking[$i]['raw_score'])) {
+          $cache[$choice][0]['raw_score'] = $results->ranking[$i]['raw_score'];
+        }
+        if (isset($results->ranking[$i]['view_score'])) {
+          $cache[$choice][0]['view_score'] = $results->ranking[$i]['view_score'];
+        }
+        if (isset($results->ranking[$i]['percentage'])) {
+          $cache[$choice][0]['percentage'] = $results->ranking[$i]['percentage'];
+        }
       }
     }
   }
@@ -346,7 +378,7 @@ function advpoll_calculate_results_ranking(&$cache, $node) {
   }
 
   // Cache total votes.
-  $cache['_advpoll'][0]['total_votes'] = $results->total_votes;
+  $cache['_advpoll'][0]['total_votes'] = isset($results->total_votes) ? $results->total_votes : 0;
 
   // Cache total points (if it exists).
   if (isset($results->total_points)) {
@@ -669,12 +701,14 @@ function advpoll_voting_ranking_form_submit($form, &$form_state) {
   $node = $form['#node'];
 
   // Do submission specific to writeins.
-  _advpoll_writeins_voting_form_submit($node, $form_state, $votes, $form_state['values']['choice'][$form_state['values']['writein_key']]);
+  if (isset($form_state['values']['writein_key'])) {
+    _advpoll_writeins_voting_form_submit($node, $form_state, $votes, $form_state['values']['choice'][$form_state['values']['writein_key']]);
+  }
 
   foreach ($form_state['values']['choice'] as $choice => $rank) {
     $vote = array();
     // Ignore write-in choice that has already been taken care of.
-    if (!$node->writeins || $choice != $form_state['values']['writein_key']) {
+    if (!$node->writeins || !isset($form_state['values']['writein_key']) || $choice != $form_state['values']['writein_key']) {
       $vote['value'] = $rank;
       // A zero value indicates they didn't rank that choice.
       if ($vote['value'] != 0) {
@@ -791,20 +825,6 @@ function advpoll_voting_ranking_form_validate($form, &$form_state) {
   }
 }
 
-/**
- * Render the voting form.
- */
-function theme_advpoll_voting_ranking_form($form) {
-  $message = drupal_render($form['message']);
-  
-  $output = "<div class=\"poll\">\n";
-  $output .= drupal_render($form);
-  if ($message) {
-    $output .= "<p class=\"message\">$message</p>\n";
-  }
-  $output .= "</div>\n";
-  return $output;
-}
 
 /**
  * Hook to handle a cancelled vote for a ranking poll.

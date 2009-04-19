@@ -1,5 +1,5 @@
 <?php
-// $Id: advpoll.module,v 1.21.2.88.2.19 2009/03/21 18:14:17 chriskennedy Exp $
+// $Id: advpoll.module,v 1.21.2.88.2.22 2009/04/11 16:21:08 chriskennedy Exp $
 
 /**
  * @file
@@ -184,11 +184,11 @@ function advpoll_init() {
 }
 
 function _advpoll_results_access($node) {
-  return strstr($node->type, 'advpoll_') && _advpoll_is_active($node) && !$node->voted && _advpoll_can_view_results($node);
+  return strstr($node->type, 'advpoll_') && _advpoll_is_active($node) && $node->votes > 0 && !$node->voted && _advpoll_can_view_results($node);
 }
 
 function _advpoll_electoral_list_access($node) {
-  return user_access('access electoral_list') && strstr($node->type, 'advpoll_') &&  $node->use_list;
+  return user_access('access electoral list') && strstr($node->type, 'advpoll_') &&  $node->use_list;
 }
 
 function _advpoll_votes_access($node) {
@@ -644,8 +644,12 @@ function advpoll_load($node) {
   $poll = db_fetch_object(db_query('SELECT * FROM {advpoll} WHERE nid = %d', $node->nid));
   $result = db_query('SELECT cid, weight, label, writein FROM {advpoll_choices} WHERE nid = %d ORDER BY weight', $node->nid);
   $poll->choice = array();
+  $poll->writein_choices = 0;
   while ($choice = db_fetch_array($result)) {
     $poll->choice[$choice['cid']] = $choice;
+    if ($choice['writein'] == 1) {
+      $poll->writein_choices++;
+    }
   }
   $poll->choices = count($poll->choice);
 
@@ -1026,6 +1030,7 @@ function advpoll_votes_page($node) {
     $output = t('This table lists all the recorded votes for this poll. If anonymous users are allowed to vote, they will be identified by the IP address of the computer they used when they voted.');
 
     $header[] = array('data' => t('Visitor'), 'field' => 'u.name');
+    $header[] = array('data' => t('Date'), 'field' => 'v.timestamp');
     $header[] = array('data' => t('Vote'), '');
   
     $result = pager_query("SELECT v.uid, v.vote_source, v.timestamp, u.name FROM {votingapi_vote} v LEFT JOIN {users} u ON v.uid = u.uid WHERE v.content_type = 'advpoll' AND v.content_id = %d GROUP BY v.uid, v.vote_source, v.timestamp, u.name". tablesort_sql($header), 20, 0, NULL, $node->nid);
@@ -1055,6 +1060,7 @@ function advpoll_votes_page($node) {
       while ($vote = db_fetch_object($result)) {
         $key = $vote->uid ? $vote->uid : $vote->vote_source .'-'. $vote->timestamp;
         $rows[$key]['name'] = $vote->name ? theme('username', $vote) : check_plain($vote->vote_source);
+        $rows[$key]['timestamp'] = $vote->timestamp;
         if ($node->type == 'advpoll_ranking') {
           // Need two dimensional results (if equal rankings are allowed).
           $rows[$key]['votes'][$vote->value][] = _advpoll_choice_markup($node->choice[$vote->tag]['label'], $node->format, FALSE);
@@ -1087,6 +1093,7 @@ function advpoll_votes_page($node) {
       }
       ksort($rankings);
       $results[$key]['name'] = $rows[$key]['name'];
+      $results[$key]['timestamp'] = format_date($rows[$key]['timestamp'], 'small');
       $results[$key]['vote'] = implode($separators[$node->type], $rankings);
     }
 
@@ -1397,6 +1404,7 @@ function advpoll_cancel($node) {
     if (function_exists($function)) {
       $function($node, $user_votes);
     }
+    votingapi_recalculate_results('advpoll', $node->nid);
     drupal_set_message(t('Your vote was canceled.'));
   }
   else {
@@ -1741,6 +1749,7 @@ function advpoll_theme() {
     'advpoll_block_latest_poll' => array('arguments' => array()),
     'advpoll_results' => array('arguments' => array('title' => '', 'results' => '', 'votes' => '', 'links' => '', 'nid' => '', 'voted' => '', 'cancel_vote' => '')),
     'advpoll_bar' => array('arguments' => array('title' => '', 'percentage' => '', 'votes' => '', 'choice' => NULL)),
+    'advpoll_voting_ranking_form' => array('template' => 'advpoll-display-ranking-form', 'file' => 'modes/ranking.inc', 'arguments' => array('form' => NULL)),
   );
 }
 
