@@ -172,6 +172,7 @@ $tables_structure = array(
   'locales_target',
   'menu_custom',
   'menu_router',
+  'node_comment_statistics',
   'node_type',
   'permission',
   'profile_fields',
