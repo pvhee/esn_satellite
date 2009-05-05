@@ -273,10 +273,10 @@ ul.nice-menu li ul li a:hover { margin: 0; background: #7BC043; background-image
 
 ul.nice-menu li a { margin-bottom: .7em;}
 ul.nice-menu li.menuparent a,
-ul.nice-menu li a { color: white; padding: 10px 0; background: transparent url("images/navigation/blue_right.png") top right no-repeat; }
+ul.nice-menu li a { color: white; padding: 0; background: transparent url("images/navigation/blue_right.png") top right no-repeat; }
 ul.nice-menu li a span { color: white; margin-right: 9px; padding: 10px 0 10px 10px; background: transparent url("images/navigation/blue_left.png") top left no-repeat; }
 ul.nice-menu li.menuparent a:hover,
-ul.nice-menu li a:hover { color: white; padding: 10px 0; background: transparent url("images/navigation/green_right.png") top right no-repeat; }
+ul.nice-menu li a:hover { color: white; padding: 0; background: transparent url("images/navigation/green_right.png") top right no-repeat; }
 ul.nice-menu li a:hover span { color: white; margin-right: 9px; padding: 10px 0 10px 10px;background: transparent url("images/navigation/green_left.png") top left no-repeat; }
 ul.nice-menu ul li, ul.nice-menu ul li.menuparent { border-bottom: 1px solid #0099CF; }
 ul.nice-menu li a.active { background: transparent url("images/navigation/green_right.png") top right no-repeat; }
