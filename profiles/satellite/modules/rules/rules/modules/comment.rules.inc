@@ -1,13 +1,16 @@
 <?php
-// $Id: comment.rules.inc,v 1.1.2.3 2009/02/19 12:58:46 fago Exp $
+// $Id: comment.rules.inc,v 1.1.2.7 2009/05/18 12:05:20 fago Exp $
+
 
 /**
  * @file rules integration for the comment module
+ *
+ * @addtogroup rules
+ * @{
  */
 
 /**
- * Implementation of hook_event_info()
- * @ingroup rules
+ * Implementation of hook_rules_event_info()
  */
 function comment_rules_event_info() {
   return array(
@@ -15,19 +18,16 @@ function comment_rules_event_info() {
       'label' => t('After saving a new comment'),
       'module' => 'Comment',
       'arguments' => rules_events_hook_comment_arguments(t('created comment')),
-      'redirect' => TRUE,
     ),
     'comment_update' => array(
       'label' => t('After saving an updated comment'),
       'module' => 'Comment',
       'arguments' => rules_events_hook_comment_arguments(t('updated comment')),
-      'redirect' => TRUE,
     ),
     'comment_delete' => array(
       'label' => t('After deleting a comment'),
       'module' => 'Comment',
       'arguments' => rules_events_hook_comment_arguments(t('deleted comment')),
-      'redirect' => TRUE,
     ),
     'comment_view' => array(
       'label' => t('Comment is being viewed'),
@@ -38,13 +38,11 @@ function comment_rules_event_info() {
       'label' => t('After publishing a comment'),
       'module' => 'Comment',
       'arguments' => rules_events_hook_comment_arguments(t('published comment')),
-      'redirect' => TRUE,
     ),
     'comment_unpublish' => array(
       'label' => t('After unpublishing a comment'),
       'module' => 'Comment',
       'arguments' => rules_events_hook_comment_arguments(t('unpublished comment')),
-      'redirect' => TRUE,
     ),
   );
 }
@@ -71,8 +69,9 @@ function rules_events_hook_comment_arguments($comment_label) {
     'node_author' => array(
       'type' => 'user',
       'label' => t('commented content author'),
-      'handler' => 'rules_events_argument_comment_node_author'),
-    ) + rules_events_global_user_argument();
+      'handler' => 'rules_events_argument_comment_node_author',
+    ),
+  ) + rules_events_global_user_argument();
 }
 
 /**
@@ -98,7 +97,6 @@ function rules_events_argument_comment_node_author($comment) {
 
 /**
  * Implementation of hook_rules_action_info().
- * @ingroup rules
  */
 function comment_rules_action_info() {
   return array(
@@ -136,7 +134,7 @@ function rules_action_load_comment($cid) {
 function comment_rules_data_type_info() {
   return array(
     'comment' => array(
-      'label' => t('Comment'),
+      'label' => t('comment'),
       'class' => 'rules_data_type_comment',
       'savable' => FALSE,
       'identifiable' => TRUE,
@@ -149,7 +147,6 @@ function comment_rules_data_type_info() {
  * Defines the comment data type
  */
 class rules_data_type_comment extends rules_data_type {
-
   function load($cid) {
     return _comment_load($cid);
   }
@@ -159,3 +156,7 @@ class rules_data_type_comment extends rules_data_type {
     return $comment->cid;
   }
 }
+
+/**
+ * @}
+ */

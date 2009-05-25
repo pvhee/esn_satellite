@@ -1,8 +1,13 @@
 <?php
-// $Id: rules.events.inc,v 1.1.2.9 2009/02/19 10:48:46 fago Exp $
+// $Id: rules.events.inc,v 1.1.2.12 2009/05/15 13:03:12 fago Exp $
+
+
 /**
- * @file rules Invokes events for supported modules. Usually this should be directly
- *   in the module providing rules integration instead.
+ * @file Invokes events for supported modules. Usually this should be
+ *   directly in the module providing rules integration instead.
+ *
+ * @addtogroup rules
+ * @{
  */
 
 /**
@@ -77,3 +82,19 @@ function rules_taxonomy($op, $type, $array) {
     rules_invoke_event('taxonomy_term_'. $op, $taxonomy_object);
   }
 }
+
+/**
+ * Implementation of hook_theme_registry_alter().
+ *
+ * We need to use the alter hook here, so we can make sure we are the first prepross
+ * handler called. So drupal messages aren't consumed before the redirect is initiated.
+ *
+ * @see _rules_action_drupal_goto_handler()
+ */
+function rules_theme_registry_alter(&$items) {
+  array_unshift($items['page']['preprocess functions'], '_rules_action_drupal_goto_handler');
+}
+
+/**
+ * @}
+ */

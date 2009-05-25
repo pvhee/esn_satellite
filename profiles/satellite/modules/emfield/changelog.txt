@@ -1,4 +1,16 @@
-/* $Id: changelog.txt,v 1.12.4.20 2009/01/11 04:15:16 aaron Exp $ */
+/* $Id: changelog.txt,v 1.12.4.26 2009/03/13 02:28:39 aaron Exp $ */
+
+March 2009
+----------
+ * Link to proper video value in _emfield_emfield_widget (aaron).
+ * Add json option to request xml for brightcove support (aaron).
+ * Documentation; default value of '' for error field (aaron).
+ * Pass error field when validating data element (aaron).
+ * Fix regex for loading include files so .inc~ no longer loaded (aaron).
+
+February 2009
+-------------
+ * #365223 - Drewish fixed some PHP E_ALL warnings
 
 January 2009
 -------------

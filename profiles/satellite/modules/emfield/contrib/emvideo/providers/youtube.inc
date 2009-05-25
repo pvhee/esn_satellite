@@ -1,5 +1,5 @@
 <?php
-// $Id: youtube.inc,v 1.1.2.15 2009/01/04 18:17:24 alexua Exp $
+// $Id: youtube.inc,v 1.1.2.19 2009/04/19 22:01:06 alexua Exp $
 
 /**
  * @file
@@ -112,6 +112,18 @@ function emvideo_youtube_settings() {
     '#title' => t('Allow fullscreen'),
     '#default_value' => variable_get('emvideo_youtube_full_screen', 1),
     '#description' => t('Allow users to view video using the entire computer screen.'),
+  );
+  $form['youtube']['player_options']['emvideo_youtube_high_quality'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use YouTube high quality content'),
+    '#default_value' => variable_get('emvideo_youtube_high_quality', FALSE),
+    '#description' => t("If checked, then a parameter will be set to request high quality content.  Note: Not all videos from youtube are available in high quality. Those that aren't will play in normal quality."),
+  );
+   $form['youtube']['player_options']['emvideo_youtube_display_info'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Remove titles and ratings on videos'),
+    '#default_value' => variable_get('emvideo_youtube_display_info', FALSE),
+    '#description' => t("If checked, additional info, such as title and rating, will NOT be displayed on the YouTube player."),
   );
 
   if (module_exists('colorpicker')) {
@@ -254,7 +266,7 @@ function theme_emvideo_youtube_flash($embed, $width, $height, $autoplay, $option
   static $count;
   $output = '';
   if ($embed) {
-    $fullscreen = variable_get('emvideo_youtube_full_screen', 1);
+    $fullscreen = isset($options['fullscreen']) ? $options['fullscreen'] : variable_get('emvideo_youtube_full_screen', 1);
     $fullscreen_value = $fullscreen ? "true" : "false";
     $fs = $fullscreen ? "&amp;fs=$fullscreen" : "";
     $related = isset($options['related']) ? $options['related'] : variable_get('emvideo_youtube_show_related_videos', 0);
@@ -272,9 +284,13 @@ function theme_emvideo_youtube_flash($embed, $width, $height, $autoplay, $option
     $border = $border ? '&border=1' : '';
     $enablejsapi = isset($options['enablejsapi']) ? $options['enablejsapi'] : variable_get('emvideo_youtube_enablejsapi', TRUE);
     $enablejsapi = $enablejsapi ? '&enablejsapi=1&playerapiid=ytplayer' : '';
-    $id = isset($options['id']) ? $options['id'] : 'video-cck-youtube-flash-'. (++$count);
-    $div_id = isset($options['div_id']) ? $options['div_id'] : 'video-cck-youtube-flash-wrapper-'. $count;
-    $url = "http://www.youtube.com/v/$embed&amp;$related$autoplay_value$colors$border$enablejsapi$fs";
+    $id = isset($options['id']) ? $options['id'] : 'emvideo-youtube-flash-'. (++$count);
+    $div_id = isset($options['div_id']) ? $options['div_id'] : 'emvideo-youtube-flash-wrapper-'. $count;
+    $high_quality = isset($options['high_quality']) ? $options['high_quality'] : variable_get('emvideo_youtube_high_quality', FALSE);
+    $high_quality = $high_quality ? '&amp;ap=%2526fmt%3D18' : '';
+    $display_info = isset($options['display_info']) ? $options['display_info'] : variable_get('emvideo_youtube_display_info', FALSE);
+    $display_info  = $display_info  ? '&showinfo=0' : '';
+    $url = "http://www.youtube.com/v/$embed&amp;$related$autoplay_value$colors$border$high_quality$display_info$enablejsap$fs";
     if (variable_get('emfield_swfobject', FALSE) && (module_exists('swfobject_api') || variable_get('emfield_swfobject_location', ''))) {
       if (module_exists('swfobject_api')) {
         $params['width'] = $width;
@@ -290,8 +306,7 @@ function theme_emvideo_youtube_flash($embed, $width, $height, $autoplay, $option
             Sorry, you need to install flash to see this content.
           </div>
           <script language="JavaScript" type="text/javascript">
-            var so = new SWFObject("$url", "$id", "$width", "$height", "7");
-            so.write("$div_id");
+            swfobject.embedSWF("$url", "$div_id", "$width", "$height", "8");
           </script>
 FLASH;
       }
@@ -332,15 +347,18 @@ function emvideo_youtube_thumbnail($field, $item, $formatter, $node, $width, $he
 //$request = emvideo_youtube_request('youtube.videos.get_details', array('video_id' => $youtube_id));
 //$tn = $request['THUMBNAIL_URL'][0];
 
-  // if we have a large thumbnail size, then get the larger version available.
-  if ($width > 130 || $height > 97) {
-    $tn = "http://img.youtube.com/vi/$youtube_id/0.jpg";
-  }
-  else {
-    // youtube offers 3 thumbnails. select one randomly.
-    $rand = rand(0, 2) + 1;
-    $tn = "http://img.youtube.com/vi/$youtube_id/$rand.jpg";
-  }
+//   // if we have a large thumbnail size, then get the larger version available.
+//   if ($width > 130 || $height > 97) {
+//     $tn = "http://img.youtube.com/vi/$youtube_id/0.jpg";
+//   }
+//   else {
+//     // youtube offers 3 thumbnails. select one randomly.
+//     $rand = rand(0, 2) + 1;
+//     $tn = "http://img.youtube.com/vi/$youtube_id/$rand.jpg";
+//   }
+
+  // Always return the larger image now, since we're storing images locally.
+  $tn = "http://img.youtube.com/vi/$youtube_id/0.jpg";
 
   return $tn;
 }

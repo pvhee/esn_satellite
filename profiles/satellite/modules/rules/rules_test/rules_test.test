@@ -1,5 +1,9 @@
 <?php
-// $Id: rules_test.test,v 1.1.2.3 2009/02/24 10:32:11 fago Exp $
+// $Id: rules_test.test,v 1.1.2.5 2009/04/29 12:19:41 fago Exp $
+
+/**
+ * @file Rules Testing Module - File containing test cases.
+ */
 
 class RulesTestCase extends DrupalWebTestCase {
   function getInfo() {
@@ -12,7 +16,7 @@ class RulesTestCase extends DrupalWebTestCase {
 
   function setUp() {
     parent::setUp();
-    drupal_install_modules(array('rules','rules_test'));
+    drupal_install_modules(array('rules', 'rules_test'));
     rules_test_keep_rules_log();
   }
   function tearDown() {
@@ -63,7 +67,7 @@ class RulesTestCase extends DrupalWebTestCase {
 
   //Tests adding a new variable
   function test_5() {
-    rules_invoke_rule_set('rules_test_5', $argument);
+    rules_invoke_rule_set('rules_test_5');
     $error = FALSE;
     $log = rules_test_show_log($error);
     $this->assertFalse($error, t('Rule was not evaluated successfully.') .' '. $log);

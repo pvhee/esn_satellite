@@ -1,12 +1,16 @@
 <?php
-// $Id: user.rules.inc,v 1.1.2.14 2009/02/19 13:44:16 fago Exp $
+// $Id: user.rules.inc,v 1.1.2.19 2009/05/18 12:05:20 fago Exp $
+
+
 /**
  * @file rules integration for the user module
+ *
+ * @addtogroup rules
+ * @{
  */
 
 /**
  * Implementation of hook_rules_event_info().
- * @ingroup rules
  */
 function user_rules_event_info() {
   return array(
@@ -14,7 +18,6 @@ function user_rules_event_info() {
       'label' => t('User account has been created'),
       'module' => 'User',
       'arguments' => rules_events_hook_user_arguments(t('registered user')),
-      'redirect' => TRUE,
     ),
     'user_update' => array(
       'label' => t('User account details have been updated'),
@@ -22,7 +25,6 @@ function user_rules_event_info() {
       'arguments' => rules_events_hook_user_arguments(t('updated user')) + array(
         'account_unchanged' => array('type' => 'user', 'label' => t('unchanged user')),
       ),
-      'redirect' => TRUE,
     ),
     'user_view' => array(
       'label' => t('User page has been viewed'),
@@ -34,7 +36,6 @@ function user_rules_event_info() {
       'label' => t('User has been deleted'),
       'module' => 'User',
       'arguments' => rules_events_hook_user_arguments(t('deleted user')),
-      'redirect' => TRUE,
     ),
     'user_login' => array(
       'label' => t('User has logged in'),
@@ -42,7 +43,6 @@ function user_rules_event_info() {
       'arguments' => array(
         'account' => array('type' => 'user', 'label' => t('logged in user')),
       ),
-      'redirect' => TRUE,
     ),
     'user_logout' => array(
       'label' => t('User has logged out'),
@@ -50,7 +50,6 @@ function user_rules_event_info() {
       'arguments' => array(
         'account' => array('type' => 'user', 'label' => t('logged out user')),
       ),
-      'redirect' => TRUE,
     ),
   );
 }
@@ -61,7 +60,6 @@ function user_rules_event_info() {
 function rules_events_global_user_argument() {
   return array('user' => array('type' => 'user', 'label' => t('acting user'), 'handler' => 'rules_events_argument_global_user'));
 }
-
 
 /**
  * Returns some arguments suitable for hook_user
@@ -80,10 +78,8 @@ function rules_events_argument_global_user() {
   return user_load(array('uid' => $user->uid));
 }
 
-
 /**
  * Implementation of hook_rules_condition_info().
- * @ingroup rules
  */
 function user_rules_condition_info() {
   return array(
@@ -129,6 +125,7 @@ function rules_condition_user_hasrole($user, $settings) {
         }
       }
       return FALSE;
+
     case 'AND':
       foreach ($roles as $rid) {
         if (!isset($user->roles[$rid])) {
@@ -140,7 +137,7 @@ function rules_condition_user_hasrole($user, $settings) {
 }
 
 /**
- * Implementation of hook_rules_action_info
+ * Implementation of hook_rules_action_info().
  */
 function user_rules_action_info() {
   return array(
@@ -167,20 +164,14 @@ function user_rules_action_info() {
       'module' => 'User',
     ),
     'rules_action_user_create' => array(
-      'label' => t('Create User'),
+      'label' => t('Create a user'),
       'arguments' => array(
         'username' => array('type' => 'string', 'label' => t('User name')),
         'email' => array('type' => 'string', 'label' => t("User's E-mail")),
-        ),
+      ),
       'new variables' => array(
-        'user_added' => array(
-          'type' => 'user',
-          'label' => t('New user'),
-        ),
-        'user_added_pw' => array(
-          'type' => 'string',
-          'label' => t("New user's password"),
-        ),
+        'user_added' => array('type' => 'user', 'label' => t('New user')),
+        'user_added_pw' => array('type' => 'string', 'label' => t("New user's password")),
       ),
       'module' => 'User',
     ),
@@ -229,9 +220,9 @@ function rules_action_load_user($settings) {
 }
 
 /**
-  * Creates a user
-  */
-function rules_action_user_create($user_name, $user_mail)  {
+ * Action: Creates a user.
+ */
+function rules_action_user_create($user_name, $user_mail) {
   $password = user_password();
   $user_data = array(
     'name' => $user_name,
@@ -239,42 +230,39 @@ function rules_action_user_create($user_name, $user_mail)  {
     'status' => 1,
     'pass' => $password,
   );
-  //validate name input
+  //validate name input.
   if (user_validate_name($user_data['name'])) {
     rules_log(t('No appropriate user name. No user has been created.'));
   }
-  else if (drupal_is_denied('user', $user_data['name'])) {
+  elseif (drupal_is_denied('user', $user_data['name'])) {
     rules_log(t('The name %name has been denied access. No user has been created.', array('%name' => $user_data['name'])));
   }
-  else if ($account = user_load(array('name' => $user_data['name']))) {
+  elseif ($account = user_load(array('name' => $user_data['name']))) {
     rules_log(t('User !name already exists. No user has been created.', array('!name' => $user_data['name'])));
   }
-  //validate e-mail
-  else if ($error = user_validate_mail($user_data['mail'])) {
+  //validate e-mail.
+  elseif ($error = user_validate_mail($user_data['mail'])) {
     rules_log(t('No appropriate mail address. No user has been created.'));
   }
-  else if (drupal_is_denied('mail', $user_data['mail'])) {
+  elseif (drupal_is_denied('mail', $user_data['mail'])) {
     rules_log(t('The e-mail address %email has been denied access. No user has been created.', array('%email' => $user_data['mail'])));
   }
-  else if ($account = user_load(array('mail' => $user_data['mail']))) {
-     rules_log(t('The e-mail address %email is already registered. No user has been created.', array('%email' => $user_data['mail'])));
+  elseif ($account = user_load(array('mail' => $user_data['mail']))) {
+    rules_log(t('The e-mail address %email is already registered. No user has been created.', array('%email' => $user_data['mail'])));
   }
   else {
     $user = user_save(NULL, $user_data);
     return array('user_added' => $user, 'user_added_pw' => $password);
   }
-
 }
-
 
 /**
  * Implementation of hook_rules_data_type_info().
- * @ingroup rules
  */
 function user_rules_data_type_info() {
   return array(
     'user' => array(
-      'label' => t('User'),
+      'label' => t('user'),
       'class' => 'rules_data_type_user',
       'savable' => FALSE,
       'identifiable' => TRUE,
@@ -284,10 +272,8 @@ function user_rules_data_type_info() {
 
 /**
  * Defines the user data type
- * @ingroup rules
  */
 class rules_data_type_user extends rules_data_type {
-
   function load($uid) {
     return user_load($uid);
   }
@@ -298,13 +284,11 @@ class rules_data_type_user extends rules_data_type {
   }
 }
 
-
 /**
  * Implementation of hook_rules_action_info_alter().
  *
  * Adapts the action info of some core actions to better fit for being
  * used with rules.
- * @ingroup rules
  */
 function user_rules_action_info_alter(&$actions) {
   // This action doesn't take the user argument.
@@ -313,4 +297,6 @@ function user_rules_action_info_alter(&$actions) {
   $actions['rules_core_user_block_user_action']['label'] = t('Block a user');
 }
 
-
+/**
+ * @}
+ */

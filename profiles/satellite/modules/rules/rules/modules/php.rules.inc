@@ -1,13 +1,17 @@
 <?php
-// $Id: php.rules.inc,v 1.1.2.8 2008/11/06 19:33:29 fago Exp $
+// $Id: php.rules.inc,v 1.1.2.11 2009/05/15 13:03:12 fago Exp $
+
+
 /**
  * @file rules integration for the php module
  * This provides an php input evaluator as well as a execute php code action.
+ *
+ * @addtogroup rules
+ * @{
  */
 
 /**
  * Implementation of hook_rules_evaluator().
- * @ingroup rules
  */
 function php_rules_evaluator() {
   return array(
@@ -25,6 +29,7 @@ function php_rules_evaluator() {
  *   The string to evaluate later.
  * @param $variables
  *   An array of available variables.
+ *
  * @return
  *   Arbitrary data, which is passed to the evaluator on evaluation.
  *   If NULL is returned the input evaluator will be skipped later.
@@ -47,7 +52,7 @@ function rules_input_evaluator_php_prepare($string, $variables) {
  * @param $string
  *   The string to evaluate.
  * @param $data
- *   If the prepare method is used, the data as return from prepare().
+ *   The data as returned from the prepare() callback.
  * @param $state
  *   The current evaluation state.
  * @param $return_output
@@ -72,8 +77,9 @@ function rules_input_evaluator_php_apply($string, $data = NULL, &$state, $return
  * Evalutes the given PHP code, with the given variables defined. This is like
  * drupal_eval() but allows to pass some arguments to the code.
  *
- * @param $code The PHP code to run, with <? ?>
+ * @param $code The PHP code to run, with <?php ?>
  * @param $arguments Array containing variables to be extracted to the code
+ *
  * @return The output of the php code.
  */
 function rules_php_eval($code, $arguments = array()) {
@@ -91,8 +97,9 @@ function rules_php_eval($code, $arguments = array()) {
  * Evalutes the given PHP code, with the given variables defined. This is like
  * rules_php_eval() but does return the returned data from the PHP code.
  *
- * @param $code The PHP code to run, without <? ?>
+ * @param $code The PHP code to run, without <?php ?>
  * @param $arguments Array containing variables to be extracted to the code
+ *
  * @return The return value of eval
  */
 function rules_php_eval_return($code, $arguments = array()) {
@@ -100,10 +107,8 @@ function rules_php_eval_return($code, $arguments = array()) {
   return eval($code);
 }
 
-
 /**
  * Implementation of hook_rules_action_info().
- * @ingroup rules
  */
 function php_rules_action_info() {
   return array(
@@ -127,7 +132,6 @@ function rules_action_custom_php($settings, $element, &$state) {
 
 /**
  * Implementation of hook_rules_condition_info().
- * @ingroup rules
  */
 function php_rules_condition_info() {
   return array(
@@ -148,3 +152,7 @@ function rules_condition_custom_php($settings, $element, &$state) {
 
   return rules_input_evaluator_php_apply($settings['code'], $settings['vars'], $state, FALSE);
 }
+
+/**
+ * @}
+ */

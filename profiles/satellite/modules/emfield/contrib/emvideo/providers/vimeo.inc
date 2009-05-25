@@ -1,5 +1,5 @@
 <?php
-// $Id: vimeo.inc,v 1.1.2.6 2008/12/19 18:17:14 aaron Exp $
+// $Id: vimeo.inc,v 1.1.2.8 2009/04/19 22:01:06 alexua Exp $
 
 /**
  * @file
@@ -115,7 +115,9 @@ function emvideo_vimeo_settings() {
 function emvideo_vimeo_extract($embed = '') {
   // http://vimeo.com/123456
   // http://www.vimeo.com/123456
+  //<object width="400" height="270"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=4106135&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=4106135&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="400" height="270"></embed></object><br /><a href="http://vimeo.com/4106135">Two Knives One Motive</a> from <a href="http://vimeo.com/x351">Tyler Capehart</a> on <a href="http://vimeo.com">Vimeo</a>.
   return array(
+    '@vimeo\.com/moogaloop\.swf\?clip_id\=([^\"\&]+)@i',
     '@vimeo\.com/([^\"\&]+)@i',
   );
 }
@@ -224,9 +226,9 @@ function emvideo_vimeo_thumbnail($field, $item, $formatter, $node, $width, $heig
 
 function emvideo_vimeo_emfield_subtheme() {
   return array(
-  'emvideo_vimeo_flash' => array(
-  'arguments' => array('embed' => NULL, 'width' => NULL, 'height' => NULL, 'autoplay' => NULL),
-  'file' => 'providers/brightcove.inc'
-    )
+    'emvideo_vimeo_flash' => array(
+      'arguments' => array('embed' => NULL, 'width' => NULL, 'height' => NULL, 'autoplay' => NULL),
+      'file' => 'providers/vimeo.inc',
+    ),
   );
 }

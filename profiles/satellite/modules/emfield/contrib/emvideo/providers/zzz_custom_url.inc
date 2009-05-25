@@ -1,5 +1,5 @@
 <?php
-// $Id: zzz_custom_url.inc,v 1.1.2.12 2008/12/19 18:17:14 aaron Exp $
+// $Id: zzz_custom_url.inc,v 1.1.2.13 2009/02/10 18:24:47 alexua Exp $
 
 /**
  * @file
@@ -114,6 +114,18 @@ function emvideo_zzz_custom_url_embedded_link($video_code) {
 
 function theme_emvideo_zzz_custom_url_embedded_video($type, $url, $width, $height, $autoplay = FALSE, $field = NULL, $item = NULL) {
   if ($url) {
+      if (module_exists('flowplayer')) {
+      $config = array(
+        'clip' => array(
+          'autoPlay' => $autoplay,
+          'url' => $url,
+        ),
+      );
+      $attributes = array(
+        'style' => "width:{$width}px;height:{$height}px;",
+      );
+      return theme('flowplayer', $config, 'emvideo-zzz-custom-url-embedded-video', $attributes);
+    }
     switch ($type) {
       case 'wmv':
       case 'wma':

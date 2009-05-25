@@ -1,5 +1,5 @@
 <?php
-// $Id: emvideo.module,v 1.1.2.13 2009/01/04 18:17:23 alexua Exp $
+// $Id: emvideo.module,v 1.1.2.16 2009/03/05 16:56:36 aaron Exp $
 
 /**
  * @file
@@ -21,13 +21,11 @@ define('EMVIDEO_DEFAULT_THUMBNAIL_HEIGHT', 90);
  */
 function emvideo_menu() {
   $items = array();
-  if (module_exists('thickbox')) {
-    $items['emvideo/thickbox'] = array(
-      'page callback' => 'emvideo_thickbox',
-      'access arguments' => array('access content'),
-      'type' => MENU_CALLBACK,
-    );
-  }
+  $items['emvideo/thickbox'] = array(
+    'page callback' => 'emvideo_thickbox',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
 
   $items += module_invoke('emfield', 'provider_menus', 'emvideo');
 
@@ -70,6 +68,14 @@ function emvideo_theme() {
       'arguments' => array('field' => NULL, 'item' => NULL, 'formatter' => NULL, 'node' => NULL, 'options' => array()),
       'file' => 'emvideo.theme.inc',
     ),
+    'emvideo_video_replace' => array(
+      'arguments' => array('field' => NULL, 'item' => NULL, 'formatter' => NULL, 'node' => NULL, 'options' => array()),
+      'file' => 'emvideo.theme.inc',
+    ),
+    'emvideo_video_replace_preview' => array(
+      'arguments' => array('field' => NULL, 'item' => NULL, 'formatter' => NULL, 'node' => NULL, 'options' => array()),
+      'file' => 'emvideo.theme.inc',
+    ),
     'emvideo_thickbox' => array(
       'arguments' => array('field' => NULL, 'item' => NULL, 'formatter' => NULL, 'node' => NULL, 'options' => array()),
       'file' => 'emvideo.theme.inc',
@@ -94,7 +100,15 @@ function emvideo_theme() {
         'arguments' => array('element' => NULL),
         'file' => 'emvideo.theme.inc'
     ),
-	'emvideo_formatter_thickbox' => array(
+    'emvideo_formatter_thickbox' => array(
+        'arguments' => array('element' => NULL),
+        'file' => 'emvideo.theme.inc'
+    ),
+    'emvideo_formatter_video_replace' => array(
+        'arguments' => array('element' => NULL),
+        'file' => 'emvideo.theme.inc'
+    ),
+    'emvideo_formatter_video_replace_preview' => array(
         'arguments' => array('element' => NULL),
         'file' => 'emvideo.theme.inc'
     ),
@@ -188,12 +202,20 @@ function emvideo_field_formatter_info() {
       'label' => t('Embed Code'),
       'field types' => $types,
     ),
+    'video_replace' => array(
+      'label' => t('Thumbnail -> Full Size Video inline replacement'),
+      'field types' => $types,
+    ),
+    'video_replace_preview' => array(
+      'label' => t('Thumbnail -> Preview Size Video inline replacement'),
+      'field types' => $types,
+    ),
   );
 
   // Add thickbox formatter if thickbox module exists.
-  if (module_exists('thickbox')) {
+  if (module_exists('thickbox') || module_exists('lightbox2')) {
     $formats['thickbox'] = array(
-      'label' => t('Thickbox: Image Thumbnail -> Full Size Video'),
+      'label' => t('Thickbox/Lightbox2: Image Thumbnail -> Full Size Video'),
       'field types' => $types,
       );
   }
@@ -435,14 +457,21 @@ function emvideo_handler_arg_provider($op, &$query, $argtype, $arg = '') {
  *    The provider of the video.
  *  @param $code
  *    The video code to display.
+ *  @param $extra
+ *    Some video codes have a '/' character, so we have to accomodate in the URL.
  */
-function emvideo_thickbox($nid, $width, $height, $field_name, $provider, $code) {
+function emvideo_thickbox($nid, $width, $height, $field_name, $provider, $code, $extra = NULL) {
   $field = array();
   $field['widget']['video_width'] = $width;
   $field['widget']['video_height'] = $height;
   $field['widget']['video_autoplay'] = 1;
   $field['field_name'] = $field_name;
   $node = node_load($nid);
+
+  // If the URL has an extra bit, then append that to the video code.
+  if (isset($extra)) {
+    $code .= '/'. $extra;
+  }
   foreach ($node->{$field_name} as $video) {
     if ($video['provider'] == $provider && $video['value'] == $code) {
       $item = $video;

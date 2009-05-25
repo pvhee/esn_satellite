@@ -1,5 +1,5 @@
 <?php
-// $Id: emimage.module,v 1.1.2.7 2008/12/16 16:27:58 aaron Exp $
+// $Id: emimage.module,v 1.1.2.8 2009/04/19 22:01:06 alexua Exp $
 
 /**
  * @file
@@ -159,14 +159,14 @@ function emimage_widget_settings($op, $widget) {
         $form['full']['full_width'] = array(
           '#type' => 'textfield',
           '#title' => t('Full size display width'),
-          '#default_value' => empty($widget['full_width']) ? $width : $widget['full_width'],
+          '#default_value' => ($widget['full_width'] == '') ? $width : $widget['full_width'],
           '#required' => true,
           '#description' => t('The width of the image. It defaults to @width. Set it to 0 if you want to leave the image at its original aspect ratio.', array('@width' => $width)),
         );
         $form['full']['full_height'] = array(
           '#type' => 'textfield',
           '#title' => t('Full size display height'),
-          '#default_value' => empty($widget['full_height']) ? $height : $widget['full_height'],
+          '#default_value' => ($widget['full_height'] == '') ? $height : $widget['full_height'],
           '#required' => true,
           '#description' => t('The height of the image. It defaults to @height. Set it to 0 if you want to leave the image at its original aspect ratio.', array('@height' => $height)),
         );
@@ -176,7 +176,7 @@ function emimage_widget_settings($op, $widget) {
           '#title' => t('Full size link'),
           '#description' => t("Where the image will link when displayed in its full size. 'Content' links to the content page, 'provider' links to the provider's image page, and 'none' displays the image with no link."),
           '#options' => $link_options,
-          '#default_value' => empty($widget['full_link']) ? $full_link : $widget['full_link'],
+          '#default_value' => ($widget['full_link'] == '') ? $full_link : $widget['full_link'],
         );
 
         $width = variable_get('emimage_default_preview_width', EMIMAGE_DEFAULT_PREVIEW_WIDTH);
@@ -191,14 +191,14 @@ function emimage_widget_settings($op, $widget) {
         $form['preview']['preview_width'] = array(
           '#type' => 'textfield',
           '#title' => t('Image preview width'),
-          '#default_value' => empty($widget['preview_width']) ? $width : $widget['preview_width'],
+          '#default_value' => ($widget['preview_width'] == '') ? $width : $widget['preview_width'],
           '#required' => true,
           '#description' => t('The width of the image preview. It defaults to @width. Set it to 0 if you want to leave the image at its original aspect ratio.', array('@width' => $width)),
         );
         $form['preview']['preview_height'] = array(
           '#type' => 'textfield',
           '#title' => t('Image preview height'),
-          '#default_value' => empty($widget['preview_height']) ? $height : $widget['preview_height'],
+          '#default_value' => ($widget['preview_height'] == '') ? $height : $widget['preview_height'],
           '#required' => true,
           '#description' => t('The height of the image preview. It defaults to @height. Set it to 0 if you want to leave the image at its original aspect ratio.', array('@height' => $height)),
         );
@@ -208,7 +208,7 @@ function emimage_widget_settings($op, $widget) {
           '#title' => t('Preview size link'),
           '#description' => t("Where the image will link when displayed in its preview size. 'Content' links to the content page, 'provider' links to the provider's image page, and 'none' displays the image with no link."),
           '#options' => $link_options,
-          '#default_value' => empty($widget['full_link']) ? $full_link : $widget['full_link'],
+          '#default_value' => ($widget['full_link'] == '') ? $full_link : $widget['full_link'],
         );
         $width = variable_get('emimage_default_thumbnail_width', EMIMAGE_DEFAULT_THUMBNAIL_WIDTH);
         $height = variable_get('emimage_default_thumbnail_height', EMIMAGE_DEFAULT_THUMBNAIL_HEIGHT);
@@ -222,7 +222,7 @@ function emimage_widget_settings($op, $widget) {
         $form['tn']['thumbnail_width'] = array(
           '#type' => 'textfield',
           '#title' => t('Image thumbnail width'),
-          '#default_value' => empty($widget['thumbnail_width']) ? $width : $widget['thumbnail_width'],
+          '#default_value' => ($widget['thumbnail_width'] == '') ? $width : $widget['thumbnail_width'],
           '#required' => true,
           '#description' => t('The width of the image thumbnail. It defaults to @width. Set it to 0 if you want to leave the image at its original aspect ratio.', array('@width' => $width)),
         );
@@ -239,7 +239,7 @@ function emimage_widget_settings($op, $widget) {
           '#title' => t('Image thumbnail link'),
           '#description' => t("Where the image will link when displayed as a thumbnail. 'Content' links to the content page, 'provider' links to the provider's image page, and 'none' displays the image with no link."),
           '#options' => $link_options,
-          '#default_value' => empty($widget['thumbnail_link']) ? $thumb_link : $widget['thumbnail_link'],
+          '#default_value' => ($widget['thumbnail_link'] == '') ? $thumb_link : $widget['thumbnail_link'],
         );
       }
       return $form;

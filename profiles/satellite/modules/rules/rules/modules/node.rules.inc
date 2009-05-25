@@ -1,12 +1,16 @@
 <?php
-// $Id: node.rules.inc,v 1.1.2.31 2009/02/25 20:50:07 fago Exp $
+// $Id: node.rules.inc,v 1.1.2.37 2009/05/18 12:05:20 fago Exp $
+
+
 /**
  * @file rules integration for the node module
+ *
+ * @addtogroup rules
+ * @{
  */
 
 /**
- * Implementation of hook_event_info()
- * @ingroup rules
+ * Implementation of hook_rules_event_info()
  */
 function node_rules_event_info() {
   $items = array(
@@ -14,19 +18,16 @@ function node_rules_event_info() {
       'label' => t('After saving new content'),
       'module' => 'Node',
       'arguments' => rules_events_node_arguments(t('created content'), t("content's author")),
-      'redirect' => TRUE,
     ),
     'node_update' => array(
       'label' => t('After updating existing content'),
       'module' => 'Node',
       'arguments' => rules_events_node_arguments(t('updated content'), t("content's author"), TRUE),
-      'redirect' => TRUE,
     ),
     'node_presave' => array(
       'label' => t('Content is going to be saved'),
       'module' => 'Node',
       'arguments' => rules_events_node_arguments(t('saved content'), t("content's author"), TRUE),
-      'redirect' => TRUE,
     ),
     'node_view' => array(
       'label' => t('Content is going to be viewed'),
@@ -41,7 +42,6 @@ function node_rules_event_info() {
       'label' => t('After deleting content'),
       'module' => 'Node',
       'arguments' => rules_events_node_arguments(t('deleted content'), t('content author')),
-      'redirect' => TRUE,
     ),
   );
   // Specify that on presave the node is saved anyway.
@@ -61,8 +61,9 @@ function rules_events_node_arguments($node_label, $author_label, $update = FALSE
     'author' => array(
       'type' => 'user',
       'label' => $author_label,
-      'handler' => 'rules_events_argument_node_author'),
-    );
+      'handler' => 'rules_events_argument_node_author',
+    ),
+  );
   if ($update) {
     $args += array(
       'node_unchanged' => array(
@@ -101,11 +102,8 @@ function rules_events_argument_unchanged_node_author($node) {
   return rules_events_argument_node_author(rules_events_argument_node_unchanged($node));
 }
 
-
-
 /**
  * Implementation of hook_rules_condition_info()
- * @ingroup rules
  */
 function node_rules_condition_info() {
   $items = array();
@@ -159,10 +157,8 @@ function rules_condition_content_is_promoted(&$node, $settings) {
   return $node->promote == 1;
 }
 
-
 /**
  * Implementation of hook_rules_action_info().
- * @ingroup rules
  */
 function node_rules_action_info() {
   return array(
@@ -239,7 +235,6 @@ function node_rules_action_info() {
   );
 }
 
-
 /**
  * Modifies a node as configured
  */
@@ -274,9 +269,9 @@ function rules_action_add_node($author, $title, $settings) {
     $node = (object)array('type' => $settings['type']);
     node_object_prepare($node);
 
-    $node->name = $author->name;
-    $node->uid = $author->uid;
-    $node->type = $settings['type'];
+    $node->name  = $author->name;
+    $node->uid   = $author->uid;
+    $node->type  = $settings['type'];
     $node->title = $title;
     return array('node_added' => $node);
   }
@@ -289,13 +284,8 @@ function rules_action_load_node($nid, $vid = NULL) {
   return array('node_loaded' => node_load($nid, $vid ? $vid : NULL));
 }
 
-
-
-
-
 /**
  * Implementation of hook_rules_action_info_alter().
- * @ingroup rules
  *
  * Adapts the action info of the core actions to better fit for rules.
  */
@@ -311,15 +301,13 @@ function node_rules_action_info_alter(&$actions) {
   unset($actions['rules_core_node_save_action']);
 }
 
-
 /**
  * Implementation of hook_rules_data_type_info()
- * @ingroup rules
  */
 function node_rules_data_type_info() {
   return array(
     'node' => array(
-      'label' => t('Content'),
+      'label' => t('content'),
       'class' => 'rules_data_type_node',
       'savable' => TRUE,
       'identifiable' => TRUE,
@@ -330,10 +318,8 @@ function node_rules_data_type_info() {
 
 /**
  * Defines the node type
- * @ingroup rules
  */
 class rules_data_type_node extends rules_data_type {
-
   function save() {
     $node = &$this->get();
     node_save($node);
@@ -350,3 +336,6 @@ class rules_data_type_node extends rules_data_type {
   }
 }
 
+/**
+ * @}
+ */

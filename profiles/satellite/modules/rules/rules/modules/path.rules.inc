@@ -1,13 +1,16 @@
 <?php
-// $Id: path.rules.inc,v 1.1.2.4 2008/10/03 10:21:04 fago Exp $
+// $Id: path.rules.inc,v 1.1.2.6 2009/05/15 13:03:12 fago Exp $
+
 
 /**
  * @file Rules integration for the path module
+ *
+ * @addtogroup rules
+ * @{
  */
 
 /**
  * Implementation of hook_rules_condition_info().
- * @ingroup rules
  */
 function path_rules_condition_info() {
   return array(
@@ -41,7 +44,6 @@ function rules_condition_alias_exists($settings) {
 
 /**
  * Implementation of hook_rules_action_info().
- * @ingroup rules
  */
 function path_rules_action_info() {
   return array(
@@ -95,3 +97,7 @@ function rules_clean_path($path, $replace) {
     return $path;
   }
 }
+
+/**
+ * @}
+ */

@@ -1,5 +1,5 @@
 <?php
-// $Id: emvideo.install,v 1.1.2.7 2008/10/08 17:39:09 alexua Exp $
+// $Id: emvideo.install,v 1.1.2.10 2009/03/10 17:34:56 aaron Exp $
 
 /**
  * @file
@@ -70,15 +70,16 @@ function hook_requirements($phase) {
 function _emvideo_upgrade_from_video_cck() {
   $ret = array();
 
-  // Do nothing if this is a new install. We know that if there are no existing fields with video_cck type. Hoorah!
-  if ($__TODO_REPLACE_WITH_PROPER_CHECK) {
-    return $ret;
-  }
+  // Do nothing if this is a new install. We know that if there are no existing fields with video_cck type.
+  // if ($__TODO_REPLACE_WITH_PROPER_CHECK) {
+  //  return $ret;
+  // }
 
-  // <Fancy Hand-Waving>
 
   // Change any fields from 'video_cck' to 'emvideo' type.
   db_query("UPDATE {content_node_field} SET type='emvideo' WHERE type='video_cck'");
+  db_query("UPDATE {content_node_field_instance} SET widget_type='emvideo_textfields' WHERE widget_type='video_cck_textfields'");
+
 
   // Rebuild our content types.
   content_clear_type_cache();
@@ -225,6 +226,18 @@ function emvideo_update_5() {
 
 function emvideo_update_6() {
   $ret = _emvideo_update_reset_cache_views();
+
+  return $ret;
+}
+
+function emvideo_update_6001() {
+  // We added the archive.org provider file, so need to rebuild the theme.
+  drupal_rebuild_theme_registry();
+
+  $ret[] = array(
+    'query' => t('Rebuilt the theme to accommodate new third party video providers.'),
+    'success' => TRUE
+  );
 
   return $ret;
 }

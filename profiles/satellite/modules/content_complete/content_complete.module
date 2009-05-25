@@ -1,5 +1,5 @@
 <?php
-// $Id: content_complete.module,v 1.1.2.2 2009/03/09 05:03:33 pvhee Exp $
+// $Id: content_complete.module,v 1.1.2.7 2009/04/17 09:09:02 pvhee Exp $
 
 /**
  * @file
@@ -187,17 +187,32 @@ function content_complete_get_data($content_type, &$user = NULL) {
   $nid = $user_fields['nid'];
   $type_names = node_get_types('names');
   
+  // divide percentages in 4 regions of 25 each
+  $leq_percent=0;
+  while ($leq_percent<=100) {
+    if ($percent <= $leq_percent) break;
+    $leq_percent+=25;
+  }
+  
   $complete_data = array();
   $complete_data['nid'] = $nid;
   $complete_data['percent'] = $percent;
+  $complete_data['leq_percent'] = $leq_percent;
   $complete_data['completed'] = $complete;
   $complete_data['incomplete'] = $incomplete;
   $complete_data['total'] = $total;
-  $complete_data['nextfield'] = $nextfield;
+  $complete_data['nextfield'] = t($nextfield);
   $complete_data['nextpercent'] = $nextpercent;
   $complete_data['nextname'] = $nextname;
   $complete_data['type'] = $content_type;
-  $complete_data['name'] = $type_names[$content_type]; // put human readble name
+  
+  // Put human readble name.
+  if (module_exists('i18ncontent')) {
+    $complete_data['name'] = tt("nodetype:type:$content_type:name", $type_names[$content_type]);
+  }
+  else {
+    $complete_data['name'] = $type_names[$content_type];
+  }
   
   return $complete_data;
 }
@@ -379,62 +394,13 @@ function content_complete_get_fields($content_type) {
 }
 
 /**
- * Theme function for the content complete block.
+ * Implementation of hook_theme(). 
  */
 function content_complete_theme() {
   return array(
     'content_complete_profile_percent_complete' => array(
-      'arguments' => array(
-        'complete_data' => NULL 
-      ) 
-    ) 
+      'arguments' => array('complete_data' => NULL),
+      'file' => 'content_complete.theme.inc',
+    )
   );
-}
-
-/**
- * Block Theme function that displays the default output of a content
- * complete percent. Use this theme function to override
- * the output / display of this block.
- *
- * @param $complete_data
- *   Assoc array of
- *   ['type'] - str - The machine-readable name of this content type.
- *   ['name'] - str - The human-readable name of this content type.
- *   ['nid'] - int - The node ID of the node from this content type.
- *   ['percent'] - int - A number that represents the total percent complete (ie 50).
- *   ['completed'] - int - How many fields total that have been completed (filled out).
- *   ['incomplete'] - int - How many fields still need to be filled out.
- *   ['total'] - int - The count of all tagged profile fields.
- *   ['nextfield'] - str - The next field to fill out that is currently empty.
- *   ['nextpercent'] - int - What the total percent complete value will be when ['nextfield'] is complete.
- *   ['nextname'] - str - The field name of the next field for field focus.
- */
-function theme_content_complete_profile_percent_complete($complete_data) {
-  $id = $complete_data['type'];
-  
-  $output = '<style type="text/css">';
-  $output .= '#cck-complete-percent-bar-wrapper-'. $id .' {width: 100%; border: 1px solid #000; padding: 1px;}';
-  $output .= '#cck-complete-percent-bar-'. $id .' { width: '. $complete_data['percent'] .'%; height: 10px; background-color: #777777;}';
-  $output .= '</style>';
-  
-  $output .= '<div id="cck-complete-wrapper-'. $id .'">';
-  $output .= t('!complete% complete', array(
-    '!complete' => $complete_data['percent'] 
-  ));
-  $output .= '<div id="cck-complete-percent-bar-wrapper-'. $id .'">';
-  $output .= '<div id="cck-complete-percent-bar-'. $id .'"></div>';
-  $output .= '</div>';
-  $output .= '</div>';
-  
-  if ($complete_data['nextfield'] && $complete_data['nextpercent']) {
-    $output .= t('Filling out <i>!nextfield</i> will bring !typename to !complete%.', array(
-      '!nextfield' => l($complete_data['nextfield'], 'node/'. $complete_data['nid'] .'/edit', array(
-        'query' => 'content_complete_fieldname='. $complete_data['nextname'] 
-      )),
-      '!typename' => $complete_data['name'],
-      '!complete' => $complete_data['nextpercent']
-    ));
-  }
-  
-  return $output;
 }

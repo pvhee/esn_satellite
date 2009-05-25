@@ -1,28 +1,29 @@
 <?php
-// $Id: taxonomy.rules.inc,v 1.1.2.3 2009/02/05 13:43:06 fago Exp $
+// $Id: taxonomy.rules.inc,v 1.1.2.8 2009/05/18 12:05:20 fago Exp $
+
 
 /**
- * @file
- * Rules integration for the taxonomy module.
+ * @file Rules integration for the taxonomy module.
+ *
+ * @addtogroup rules
+ * @{
  */
-
 
 /**
  * Implementation of hook_rules_event_info().
- * @ingroup rules
  */
 function taxonomy_rules_event_info() {
   return array(
     'taxonomy_term_insert' => array(
       'label' => t('After saving a new term'),
       'module' => 'Taxonomy',
-      'arguments' => rules_events_hook_taxonomy_term_arguments(t('created term'))
-      ),
+      'arguments' => rules_events_hook_taxonomy_term_arguments(t('created term')),
+    ),
     'taxonomy_term_update' => array(
       'label' => t('After updating a term'),
       'module' => 'Taxonomy',
-      'arguments' => rules_events_hook_taxonomy_term_arguments(t('updated term'), TRUE)
-      ),
+      'arguments' => rules_events_hook_taxonomy_term_arguments(t('updated term'), TRUE),
+    ),
   );
 }
 
@@ -78,7 +79,7 @@ function taxonomy_rules_action_info() {
     'arguments' => array(
       'node' => array(
         'type' => 'node',
-        'label' => t('Content which term will be assigned to'),
+        'label' => t('Content'),
       ),
       'taxonomy_term' => array(
         'type' => 'taxonomy_term',
@@ -92,7 +93,7 @@ function taxonomy_rules_action_info() {
     'arguments' => array(
       'node' => array(
         'type' => 'node',
-        'label' => t('Content which term will be removed from'),
+        'label' => t('Content'),
       ),
       'taxonomy_term' => array(
         'type' => 'taxonomy_term',
@@ -169,7 +170,8 @@ function rules_action_taxonomy_load_vocab($settings) {
  */
 function rules_action_taxonomy_add_vocab($settings) {
   taxonomy_save_vocabulary($settings);
-  return array('taxonomy_vocab' => $settings);
+  $vocabs = taxonomy_get_vocabularies();
+  return array('taxonomy_vocab' => $vocabs[$settings['vid']]);
 }
 
 /**
@@ -178,14 +180,14 @@ function rules_action_taxonomy_add_vocab($settings) {
 function taxonomy_rules_data_type_info() {
   return array(
     'taxonomy_term' => array(
-      'label' => t('Taxonomy term'),
+      'label' => t('taxonomy term'),
       'class' => 'rules_data_type_taxonomy_term',
       'savable' => FALSE,
       'identifiable' => TRUE,
       'module' => 'Taxonomy',
     ),
     'taxonomy_vocab' => array(
-      'label' => t('Taxonomy vocabulary'),
+      'label' => t('taxonomy vocabulary'),
       'class' => 'rules_data_type_taxonomy_vocab',
       'savable' => FALSE,
       'identifiable' => TRUE,
@@ -198,7 +200,6 @@ function taxonomy_rules_data_type_info() {
  * Defines the taxonomy term data type.
  */
 class rules_data_type_taxonomy_term extends rules_data_type {
-
   function load($tid) {
     return taxonomy_get_term($tid);
   }
@@ -213,7 +214,6 @@ class rules_data_type_taxonomy_term extends rules_data_type {
  * Defines the taxonomy vocab data type.
  */
 class rules_data_type_taxonomy_vocab extends rules_data_type {
-
   function load($vid) {
     return taxonomy_vocabulary_load($vid);
   }
@@ -223,3 +223,7 @@ class rules_data_type_taxonomy_vocab extends rules_data_type {
     return $vocab->vid;
   }
 }
+
+/**
+ * @}
+ */

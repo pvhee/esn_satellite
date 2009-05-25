@@ -1,5 +1,10 @@
 <?php
-// $Id: rules.install,v 1.1.2.18 2009/02/25 10:48:25 fago Exp $
+// $Id: rules.install,v 1.1.2.24 2009/04/30 09:48:39 fago Exp $
+
+
+/**
+ * @file Rules - Installation file.
+ */
 
 /**
  * Implementation of hook_install().
@@ -7,6 +12,9 @@
 function rules_install() {
   drupal_load('module', 'rules');
   drupal_install_schema('rules');
+  // Set the modules' weight to 20, see
+  // http://drupal.org/node/445084#comment-1533280 for the reasoning.
+  db_query("UPDATE {system} SET weight = 20 WHERE name = 'rules'");
 }
 
 /**
@@ -27,11 +35,9 @@ function rules_uninstall() {
  */
 function rules_schema() {
   drupal_load('module', 'rules');
-  // We define a table for each item type.
 
-  // When the module is installed, the hook implementation of rules is not invoked,
-  // as the module is not yet active. So we manually retrieve our item types then.
-  $items = !module_exists('rules') ? rules_rules_item_info() : rules_get_items();
+  // We define a table for each item type.
+  $items = rules_get_items();
 
   foreach ($items as $name => $info) {
     $schema[$info['db_table']] = array(
@@ -60,16 +66,14 @@ function rules_schema() {
   return $schema;
 }
 
-
-
 /**
  * Upgrade from workflow-ng
  */
 function rules_update_6001() {
   drupal_load('module', 'rules');
-  require_once drupal_get_path('module', 'rules') . '/rules.admin.inc';
   rules_include('rules');
   rules_include('rules_forms');
+  rules_include('rules_admin');
   $ret = array();
 
   if (db_table_exists('workflow_ng_cfgs')) {
@@ -86,8 +90,8 @@ function rules_update_6001() {
         db_query("DELETE FROM {workflow_ng_cfgs} WHERE name = '%s'", $row->name);
       }
       else {
-        $msg = t('Failed importing the rule %label.', array('%label' => $cfg['#label']));
-        $ret[] = array('success' => FALSE, 'query' => $msg);
+        $msg    = t('Failed importing the rule %label.', array('%label' => $cfg['#label']));
+        $ret[]  = array('success' => FALSE, 'query' => $msg);
         $failed = TRUE;
       }
     }
@@ -102,7 +106,6 @@ function rules_update_6001() {
   rules_clear_cache(FALSE);
   return $ret;
 }
-
 
 /**
  * Initialize the new rules counter variable
@@ -119,9 +122,9 @@ function rules_update_6002() {
  */
 function rules_update_6003() {
   drupal_load('module', 'rules');
-  
+
   $rules = rules_get_configured_items('rules');
-  
+
   foreach ($rules as $name => $rule) {
     if (($rule['#status'] == 'altered' || $rule['#status'] == 'custom') && !isset($rule['#version'])) {
       $rule = rules_rule_format_upgrade_6003($rule);
@@ -149,6 +152,29 @@ function _rules_element_flip_argument_map(&$element) {
   }
 }
 
+/**
+ * Enable the new separated Admin UI module
+ */
+function rules_update_6004() {
+  drupal_install_modules(array('rules_admin'));
+  menu_rebuild();
+  drupal_clear_css_cache();
+  drupal_clear_js_cache();
+  rules_clear_cache();
+  drupal_set_message(t('The now separated rules administration UI module has been enabled.'));
+  return array();
+}
+
+/**
+ * Update the modules weight to 20.
+ */
+function rules_update_6005() {
+  $ret = array();
+  $ret[] = update_sql("UPDATE {system} SET weight = 20 WHERE name = 'rules'");
+  return $ret;
+}
+
+
 
 /**
  * Transform a workflow-ng rule into a rule
@@ -162,9 +188,9 @@ function rules_import_workflow_ng_rule(&$name, $cfg) {
       $rule[$key] = $cfg[$key];
     }
   }
-  $rule['#categories'] = array('imported'); // TODO: fix
-  $rule['#label'] = _rules_import_replace_module_name($cfg['#label']);
-  $rule['#set'] = _rules_import_get_set($cfg);
+  $rule['#categories'] = array('imported');
+  $rule['#label']      = _rules_import_replace_module_name($cfg['#label']);
+  $rule['#set']        = _rules_import_get_set($cfg);
   if (isset($cfg['#fixed']) && $cfg['#fixed']) {
     $rule['#status'] = 'fixed';
   }
@@ -238,17 +264,16 @@ function _rules_import_transform_element(&$element) {
   }
 }
 
-
 function _rules_import_replace_module_name($string) {
-  $search = array();
-  $replace = array();
-  $search[] = 'worklfow_ng_ui';
+  $search    = array();
+  $replace   = array();
+  $search[]  = 'worklfow_ng_ui';
   $replace[] = 'rules';
-  $search[] = 'workflow_ng';
+  $search[]  = 'workflow_ng';
   $replace[] = 'rules';
-  $search[] = 'Workflow-ng';
+  $search[]  = 'Workflow-ng';
   $replace[] = 'Rules';
-  $search[] = 'Workflow-ng';
+  $search[]  = 'Workflow-ng';
   $replace[] = 'Rules';
   return str_replace($search, $replace, $string);
 }
@@ -258,7 +283,6 @@ function _rules_import_get_set($cfg) {
   $event = isset($map[$cfg['#event']]) ? $map[$cfg['#event']] : $cfg['#event'];
   return 'event_'. $event;
 }
-
 
 /**
  * Helper function
@@ -277,3 +301,4 @@ function rules_helper_do_recursive($function, &$elements) {
   }
   return TRUE;
 }
+

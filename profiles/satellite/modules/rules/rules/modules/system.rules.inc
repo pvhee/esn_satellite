@@ -1,13 +1,16 @@
 <?php
-// $Id: system.rules.inc,v 1.1.2.11 2009/02/19 11:05:27 fago Exp $
+// $Id: system.rules.inc,v 1.1.2.16 2009/05/18 12:27:06 fago Exp $
+
 
 /**
  * @file rules integration for the system module
+ *
+ * @addtogroup rules
+ * @{
  */
 
 /**
  * Implementation of hook_rules_event_info().
- * @ingroup rules
  */
 function system_rules_event_info() {
   return array(
@@ -24,10 +27,8 @@ function system_rules_event_info() {
   );
 }
 
-
 /**
  * Implementation of hook_rules_action_info().
- * @ingroup rules
  */
 function system_rules_action_info() {
   return array(
@@ -63,7 +64,7 @@ function system_rules_action_info() {
       'label' => t('Page redirect'),
       'module' => 'System',
       'eval input' => array('path', 'query', 'fragment'),
-      'help' => 'Enter a Drupal path, path alias, or external URL to redirect to. Enter (optional) queries after "?" and (optional) anchor after "#".',
+      'help' => t('Enter a Drupal path, path alias, or external URL to redirect to. Enter (optional) queries after "?" and (optional) anchor after "#".'),
     ),
     'rules_action_watchdog' => array(
       'label' => t('Log to watchdog'),
@@ -108,7 +109,7 @@ function rules_action_set_breadcrumb($settings) {
 function rules_action_mail_to_user($user, $settings) {
   // We also handle $settings['to'] if it's set.
   $to = isset($settings['to']) ? str_replace(array("\r", "\n"), '', $settings['to']) : $user->mail;
-  $from = isset($settings['from']) ? str_replace(array("\r", "\n"), '', $settings['from']) : NULL;
+  $from = ($settings['from']) ? str_replace(array("\r", "\n"), '', $settings['from']) : NULL;
 
   $message = drupal_mail('rules', 'rules_action_mail', $to, language_default(), $settings, $from);
   if ($message['result']) {
@@ -127,8 +128,6 @@ function rules_mail($key, &$message, $settings) {
   $message['body'][] = $settings['message'];
 }
 
-
-
 /**
  * Action Implementation: rules_action_mail
  * This action makes use of the rules_action_mail_to_user action implementation.
@@ -137,13 +136,12 @@ function rules_action_mail($settings) {
   rules_action_mail_to_user(NULL, $settings);
 }
 
-
 /**
  * Action: Send mail to all users of a specific role group(s).
  */
 function rules_action_mail_to_users_of_role($settings) {
   $recipients = $settings['recipients'];
-  $from = isset($settings['from']) ? str_replace(array("\r", "\n"), '', $settings['from']) : NULL;
+  $from = ($settings['from']) ? str_replace(array("\r", "\n"), '', $settings['from']) : NULL;
 
   // All authenticated users, which is everybody.
   if (in_array(DRUPAL_AUTHENTICATED_RID, $recipients)) {
@@ -170,23 +168,44 @@ function rules_action_mail_to_users_of_role($settings) {
  * Action Implementation: Page redirect.
  */
 function rules_action_drupal_goto($settings) {
-  extract( $settings );
+  // For settings backward compatibility respect the override setting as default
+  $settings += array('immediate' => isset($settings['override']) && !$settings['override']);
+  extract($settings);
 
   if ($force) {
     if (strpos($query, 'destination') === FALSE) {
       if (!empty($query)) {
         $query .= '&';
       }
-      $query .= $_REQUEST['destination'] ? 'destination='. urlencode($_REQUEST['destination']) : NULL;
+      // Keep the current destination parameter if there is one.
+      $query .= isset($_REQUEST['destination']) ? 'destination='. urlencode($_REQUEST['destination']) : NULL;
     }
     unset($_REQUEST['destination']);
   }
-  if ($override) {
-    // Override the destination parameter, so another drupal_goto goes to our url :)
-    $_REQUEST['destination'] = urlencode($path) . ($query ? '?'. urlencode($query) : '') . ($fragment ? '#'. urlencode($fragment) : '');
+  if ($immediate) {
+    drupal_goto($path, $query ? $query : NULL, $fragment ? $fragment : NULL);
   }
   else {
-    drupal_goto($path, $query ? $query : NULL, $fragment ? $fragment : NULL);
+    // If someone else issues a drupal_goto(), we hijack it by setting the destination parameter
+    // But obey any already set destination parameter.
+    if (!isset($_REQUEST['destination'])) {
+      $_REQUEST['destination'] = urlencode($path) . ($query ? '?'. urlencode($query) : '') . ($fragment ? '#'. urlencode($fragment) : '');
+    }
+    // This lets _rules_action_drupal_goto_handler() invoke drupal_goto before the page is output.
+    $GLOBALS['_rules_action_drupal_goto_do'] = TRUE;
+  }
+}
+
+/**
+ * Page template preprocess handler for the drupal goto action.
+ *
+ * @see rules_theme_registry_alter().
+ */
+function _rules_action_drupal_goto_handler($variables) {
+  if (isset($GLOBALS['_rules_action_drupal_goto_do'])) {
+    unset($GLOBALS['_rules_action_drupal_goto_do']);
+    // We have already set $_REQUEST['destination'] which drupal_goto() is going to respect.
+    drupal_goto('');
   }
 }
 
@@ -197,3 +216,6 @@ function rules_action_watchdog($settings) {
   watchdog($settings['type'], $settings['message'], NULL, $settings['severity'], $settings['link']);
 }
 
+/**
+ * @}
+ */

@@ -1,5 +1,5 @@
 <?php
-// $Id: emfield.module,v 1.12.4.24 2009/01/04 18:17:24 alexua Exp $
+// $Id: emfield.module,v 1.12.4.30 2009/03/10 17:18:32 aaron Exp $
 
 /**
  * @file
@@ -27,7 +27,7 @@ function emfield_menu() {
     'access arguments' => array('administer site configuration'),
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-  
+
   if (module_exists('job_queue')) {
     $items['admin/content/emfield/reload'] = array(
       'file' => 'emfield.admin.inc',
@@ -69,8 +69,8 @@ function emfield_emfield_content_is_empty($item, $field) {
  */
 function emfield_allowed_providers($field, $module) {
   $allowed_providers = emfield_system_list($module);
-  
-  // $field sometimes is the whole $field and sometimes just the $widget, 
+
+  // $field sometimes is the whole $field and sometimes just the $widget,
   // depending on where it is called from, so check which one we have.
   $providers = isset($field['widget']['providers']) ? $field['widget']['providers'] : (isset($field['providers']) ? $field['providers'] : array());
   $allow_all = TRUE;
@@ -122,8 +122,9 @@ function emfield_implement_types($cached = TRUE) {
         foreach ($type['fields'] as $field_type => $field) {
 
           // If this field type is defined by this module, then include it here.
-          if ($module = $modules[$field_types[$field['type']]['module']]) {
+          if (!empty($modules[$field_types[$field['type']]['module']])) {
             // Settings per content type per module.
+			$module = $modules[$field_types[$field['type']]['module']];
             $types[$module][$content_type][$field_type] = $field;
           }
         }
@@ -185,15 +186,15 @@ function _emfield_field_validate_id($field, $item, $error_field, $module, $delta
  *  This also allows you to grab directly from the URL to display the content from field 'provider'.
  */
 function _emfield_field_submit_id($field, $item, $module) {
-  
+
   // TODO Find the right fix for this.
   // When the embedded media field is used in the default value widget
-  // when editing field settings, the $item has no value for 'provider', 
+  // when editing field settings, the $item has no value for 'provider',
   // causing an error message.
   // This is not the right way to fix this, but I don't know why that
   // value has been left out of the form element returned by hook_widget_settings
   // and this will at least keep the error message from being displayed.
-  
+
   if (!isset($item['provider'])) {
     $item['provider'] = '';
   }
@@ -306,10 +307,22 @@ function emfield_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
  *   @param $cached
  *     optional; if TRUE, the result of this xml request will be cached. good to play nice w/
  *     the third party folks so they don't stop providing service to your site...
+ *   @param $return_errors
+ *     optional; if TRUE and an error is encountered, a descriptive error array will be returned with elements for
+ *     code, message and stat => 'error'
+ *   @param $hash_extra
+ *     optional; The key for caching is created from the arguments.  If your provider does not use arguments
+ *     (or uses the same arguments for each media item, you must pass a unique string as $hash_extra.  Currently
+ *     this is only used by bliptv and archive.org
+ *   @param $serialized
+ *     optional; Most uses of this function are expecting an XML file to be returned.  However some providers (Flickr)
+ *     can instead return a serialized PHP array.  In this case set $serialized to TRUE.
+ *  @param $json
+ *    If TRUE, then the result will be a json encoded string.
  *   @return
  *     the xml results returned as an array
  */
-function emfield_request_xml($provider, $url, $args = array(), $cached = TRUE, $return_errors = FALSE, $hash_extra = FALSE, $serialized = FALSE) {
+function emfield_request_xml($provider, $url, $args = array(), $cached = TRUE, $return_errors = FALSE, $hash_extra = FALSE, $serialized = FALSE, $json = FALSE) {
   ksort($args);
 
   // Build an argument hash that we'll use for the cache id and api signing.
@@ -353,7 +366,10 @@ function emfield_request_xml($provider, $url, $args = array(), $cached = TRUE, $
     return array();
   }
 
-  if ($serialized) {
+  if ($json) {
+    $response = (array)json_decode($result->data);
+  }
+  else if ($serialized) {
     // Flickr gives us a serialized php array. Make sure it unserializes.
     $response = unserialize($result->data);
     if (!$response) {
@@ -495,7 +511,7 @@ function emfield_set_error($error) {
  */
 function emfield_system_list($module, $provider = NULL, $load = TRUE) {
   $override_files = module_invoke_all('emfield_providers', $module, $provider);
-  $files = drupal_system_listing("$provider\.inc", drupal_get_path('module', $module) ."/providers", 'name', 0);
+  $files = drupal_system_listing("$provider\.inc$", drupal_get_path('module', $module) ."/providers", 'name', 0);
   $files = array_merge($files, $override_files);
 
   ksort($files);
@@ -668,34 +684,34 @@ function _emfield_handler_arg_provider($op, &$query, $argtype, $arg = '', $modul
 
 function emfield_provider_themes($module, $provider = NULL) {
   $themes = array();
-  
+
   if ($provider && $subthemes = emfield_include_invoke($module, $provider, 'subtheme')) {
     $themes = $subthemes;
   }
-  $providers = module_invoke('emfield', 'system_list', $module);
-  
+  $providers = emfield_system_list($module);
+
   foreach ($providers as $provider) {
     if ($subthemes = emfield_include_invoke($module, $provider->name, 'emfield_subtheme')) {
         $themes += $subthemes;
     }
   }
-  
+
   return $themes;
 }
 
 function emfield_provider_menus($module, $provider = NULL) {
   $menus = array();
-  
+
   if ($provider && $submenus = emfield_include_invoke($module, $provider, 'submenu')) {
     $menus = $submenus;
   }
   $providers = module_invoke('emfield', 'system_list', $module);
-  
+
   foreach ($providers as $provider) {
     if ($submenus = emfield_include_invoke($module, $provider->name, 'emfield_submenu')) {
         $menus += $submenus;
     }
   }
-  
+
   return $menus;
 }

@@ -1,5 +1,5 @@
 <?php
-// $Id: emvideo.theme.inc,v 1.1.2.14 2009/01/04 18:17:23 alexua Exp $
+// $Id: emvideo.theme.inc,v 1.1.2.19 2009/03/05 16:45:36 aaron Exp $
 
 /**
  * @file
@@ -49,10 +49,12 @@ function theme_emvideo_video_embed($field, $item, $formatter, $node, $options = 
  *   Optional array. This is to pass optional overrides. currently:
  *     $options['width'] and $options['height'], if provided, will override any field settings for the thumbnail w/h.
  *     $options['link_url'], if provided, will cause the thumbnail link to go to another URL other than node/nid. $no_link must be FALSE.
+ *     $options['title'], if provided, will set the title of the link and image.
  *     $options['link_title'], if provided, will set the title of the link when no image is provided. otherwise, it defaults to 'See video'.
  *     $options['image_title'], if provided, will set the title attribute of the href link, defaulting to $options['link_title'].
  *     $options['image_alt'], if provided, will set the alt attribute of the href link, defaulting to $options['link_title'].
  *     $options['thumbnail_url'], if provided, will completely override the thumbnail image entirely.
+ *     $options['attributes'], if provided, sets the attributes for the displayed image.
  * @return
  *   The thumbnail output.
  */
@@ -61,7 +63,7 @@ function theme_emvideo_video_thumbnail($field, $item, $formatter, $node, $no_lin
   $output = '';
   $width = isset($options['width']) ? $options['width'] : ($field['widget']['thumbnail_width'] ? $field['widget']['thumbnail_width'] : variable_get('emvideo_default_video_width', EMVIDEO_DEFAULT_THUMBNAIL_WIDTH));
   $height = isset($options['height']) ? $options['height'] : ($field['widget']['thumbnail_height'] ? $field['widget']['thumbnail_height'] : variable_get('emvideo_default_video_height', EMVIDEO_DEFAULT_THUMBNAIL_HEIGHT));
-  
+
   // Get a thumbnail URL. This can be an override through $options['thumbnail_url'],
   // defined by the provider (the usual case), or a default image.
   if (isset($options['thumbnail_url']) || ($item['value'] && $item['provider'])) {
@@ -91,7 +93,7 @@ function theme_emvideo_video_thumbnail($field, $item, $formatter, $node, $no_lin
   $link_url = isset($options['link_url']) ? $options['link_url'] : 'node/'. $node->nid;
 
   // Define the title/alt to display for the link hover.
-  $link_title = isset($options['link_title']) ? $options['link_title'] : (isset($field['widget']['thumbnail_link_title']) ? $field['widget']['thumbnail_link_title'] : variable_get('emvideo_default_thumbnail_link_title', t('See video')));
+  $link_title = isset($options['link_title']) ? $options['link_title'] : (isset($options['title']) ? $options['title'] : (isset($field['widget']['thumbnail_link_title']) ? $field['widget']['thumbnail_link_title'] : variable_get('emvideo_default_thumbnail_link_title', t('See video'))));
   if (module_exists('token')) {
     // Allow the editor to use [title] tokens.
     $link_title = token_replace($link_title, 'global', $node);
@@ -104,12 +106,16 @@ function theme_emvideo_video_thumbnail($field, $item, $formatter, $node, $no_lin
     $width = isset($width) ? $width : ($field['widget']['thumbnail_width'] ? $field['widget']['thumbnail_width'] : variable_get('emvideo_default_thumbnail_width', EMVIDEO_DEFAULT_THUMBNAIL_WIDTH));
     $height = isset($options['height']) ? $options['height'] : NULL;
     $height = isset($height) ? $height : ($field['widget']['thumbnail_height'] ? $field['widget']['thumbnail_height'] : variable_get('emvideo_default_thumbnail_height', EMVIDEO_DEFAULT_THUMBNAIL_HEIGHT));
+    $attributes = isset($options['attributes']) ? $options['attributes'] : array();
+    $attributes['width'] = isset($attributes['width']) ? $attributes['width'] : $width;
+    $attributes['height'] = isset($attributes['height']) ? $attributes['height'] : $height;
+    $image = theme('image', $thumbnail_url, $image_alt, $image_title, $attributes, FALSE);
     if ($no_link) {
       // Thickbox requires the thumbnail returned without the link.
-      $output = '<img src="'. $thumbnail_url .'" width="'. $width  .'" height="'. $height  .'" alt="'. $image_alt .'" title="'. $image_title .'" />';
+      $output = $image;
     }
     else {
-      $output = l('<img src="'. $thumbnail_url .'" width="'. $width  .'" height="'. $height  .'" alt="'. $image_alt .'" title="'. $image_title .'" />', $link_url, array('html'=> TRUE));
+      $output = l($image, $link_url, array('html'=> TRUE));
     }
   }
   else {
@@ -151,23 +157,59 @@ function theme_emvideo_video_preview($field, $item, $formatter, $node, $options 
 }
 
 function theme_emvideo_thickbox($field, $item, $formatter, $node, $options = array()) {
-  $title = t('Thickbox'); // Is this right? Nothing is declared.
+  $title = isset($options['title']) ? $options['title'] : (isset($node->title) ? $node->title : (isset($node->node_title) ? $node->node_title : (isset($field['widget']['thumbnail_link_title']) ? $field['widget']['thumbnail_link_title'] : variable_get('emvideo_default_thumbnail_link_title', t('See video')))));
   $thumbnail = theme('emvideo_video_thumbnail', $field, $item, 'video_thumbnail', $node, TRUE, $options);
-  $destination = 'emvideo/thickbox/'. $node->nid .'/'. $field['widget']['video_width'] .'/'. $field['widget']['video_height'] .'/'. $field['field_name'] .'/'. $item['provider'] .'/'. $item['value'];
-  $options = array(
+  $width = ($formatter == 'video_replace_preview') ? $field['widget']['preview_width'] : $field['widget']['video_width'];
+  $height = ($formatter == 'video_replace_preview') ? $field['widget']['preview_height'] : $field['widget']['video_height'];
+  $destination = 'emvideo/thickbox/'. $node->nid .'/'. $width .'/'. $height .'/'. $field['field_name'] .'/'. $item['provider'] .'/'. $item['value'];
+  $attributes = array(
     'attributes' => array(
       'title' => $title,
-      'class' => 'thickbox',
-      'rel' => $field['type_name'],
+      'class' => (!isset($options['modal']) || $options['modal'] == 'thickbox') ? 'thickbox' : 'emvideo-thumbnail-replacement',
+      'rel' => ((!isset($options['modal']) || $options['modal'] == 'thickbox') && module_exists('lightbox2')) ? 'lightframe['. $field['type_name'] .'|width:'. ($width + 16) .'; height:'. ($height) .';]' : $field['type_name'],
     ),
     'query' => NULL,
     'fragment' => NULL,
     'absolute' => FALSE,
     'html' => TRUE,
   );
-  $output = l($thumbnail, $destination, $options);
+
+  if ((!isset($options['modal']) || $options['modal'] == 'lightbox2') && function_exists('lightbox2_add_files')) {
+    lightbox2_add_files();
+  }
+  else if ($options['modal'] == 'emvideo' || (!module_exists('lightbox2') && !module_exists('thickbox'))) {
+    static $called;
+
+    // Add JS settings for the overlay, if they haven't already been added.
+    if (!$called) {
+      $called = TRUE;
+      drupal_add_js(array('emvideo' => array('thumbnail_overlay' => variable_get('emvideo_thumbnail_overlay', TRUE))), 'setting');
+      drupal_add_js(drupal_get_path('module', 'emvideo') . '/emvideo.thumbnail-replacement.js');
+      drupal_add_css(drupal_get_path('module', 'emvideo') . '/emvideo.thumbnail-replacement.css');
+    }
+  }
+  $class = 'emvideo-thickbox';
+  if ($options['wrapper-class']) {
+    $class .= ' '. $options['wrapper-class'];
+  }
+  $output .= '<div class="'. $class .'">'. l($thumbnail, $destination, $attributes) .'</div>';
 
   return $output;
+}
+
+function theme_emvideo_video_replace($field, $item, $formatter, $node, $options = array()) {
+  $options['modal'] = 'emvideo';
+  $options['width'] = isset($options['width']) ? $options['width'] : $field['widget']['video_width'];
+  $options['height'] = isset($options['height']) ? $options['height'] : $field['widget']['video_height'];
+  $options['wrapper-class'] = isset($options['wrapper-class']) ? $options['wrapper-class'] . ' emvideo-thumbnail-replace-full' : 'emvideo-thumbnail-replace-full';
+  return theme('emvideo_thickbox', $field, $item, $formatter, $node, $options);
+}
+function theme_emvideo_video_replace_preview($field, $item, $formatter, $node, $options = array()) {
+  $options['modal'] = 'emvideo';
+  $options['width'] = isset($options['width']) ? $options['width'] : $field['widget']['preview_width'];
+  $options['height'] = isset($options['height']) ? $options['height'] : $field['widget']['preview_height'];
+  $options['wrapper-class'] = isset($options['wrapper-class']) ? $options['wrapper-class'] . ' emvideo-thumbnail-replace-preview' : 'emvideo-thumbnail-replace-preview';
+  return theme('emvideo_thickbox', $field, $item, $formatter, $node, $options);
 }
 
 function theme_emvideo_formatter_video_video($element) {
@@ -200,6 +242,14 @@ function theme_emvideo_formatter_video_flash($element) {
   return module_invoke('emvideo', 'field_formatter', $field, $element['#item'], $element['#formatter'], $element['#node']);
 }
 function theme_emvideo_formatter_thickbox($element) {
+  $field = content_fields($element['#field_name'], $element['#type_name']);
+  return module_invoke('emvideo', 'field_formatter', $field, $element['#item'], $element['#formatter'], $element['#node']);
+}
+function theme_emvideo_formatter_video_replace($element) {
+  $field = content_fields($element['#field_name'], $element['#type_name']);
+  return module_invoke('emvideo', 'field_formatter', $field, $element['#item'], $element['#formatter'], $element['#node']);
+}
+function theme_emvideo_formatter_video_replace_preview($element) {
   $field = content_fields($element['#field_name'], $element['#type_name']);
   return module_invoke('emvideo', 'field_formatter', $field, $element['#item'], $element['#formatter'], $element['#node']);
 }

@@ -1,5 +1,5 @@
 <?php
-// $Id: yahoomusic.inc,v 1.1.2.1 2008/12/22 18:34:56 jtsnow Exp $
+// $Id: yahoomusic.inc,v 1.1.2.2 2009/02/10 17:58:21 alexua Exp $
 
 /**
  * @file
@@ -347,22 +347,19 @@ function theme_emvideo_yahoomusic_flash($embed, $width, $height, $autoplay, $opt
       }
       else {
         drupal_add_js(variable_get('emfield_swfobject_location', ''));
+        $flashvars = array();
+        foreach ($variables as $name => $value) {
+          $flashvars[] = "$name: '$value'";
+        }
+        $flashvars = implode(',', $flashvars);
         $output .= <<<FLASH
           <div id="$div_id">
             Sorry, you need to install flash to see this content.
-          </div>        
+          </div>
           <script type="text/javascript">
-            var so = new SWFObject('$url', '$id', '$width', '$height', '9', '#ffffff');
-            
-FLASH;
-            foreach ($variables as $name => $value) {
-              $output .= "so.addVariable($name, '$value');\n";
-            }           
-            $output .= <<<FLASH
-            so.addParam("allowFullScreen", "$fullscreen_value");
-            so.addParam("bgcolor", "$bgcolor");
-            so.addParam("allowScriptAccess", "always");  // for scripting access
-            so.write("$div_id");
+            var params = { allowFullScreen: "$fullscreen_value", bgcolor: "$bgcolor", allowScriptAccess: "always" };
+            var flashvars = { $flashvars };
+            swfobject.embedSWF("$url", "$div_id", "$width", "$height", "9.0.0", false, flashvars, params);
           </script>
 FLASH;
       }

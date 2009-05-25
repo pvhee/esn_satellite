@@ -1,11 +1,6 @@
 <?php
-// $Id: rules.module,v 1.1.2.45 2009/02/25 10:48:25 fago Exp $
+// $Id: rules.module,v 1.1.2.61 2009/05/15 13:03:12 fago Exp $
 
-/**
- * @defgroup rules Rules engine: A rules engine for drupal.
- *
- * Lets you define conditionally executed actions based on occurring events.
- */
 /**
  * @file Rules engine module
  */
@@ -14,284 +9,6 @@
 // We don't use hook_init() to include this as this
 // causes problems invoking rules_nodeapi.
 module_load_include('inc', 'rules', 'modules/rules.events');
-
-
-//admin interface paths
-define('RULES_ADMIN_PATH', 'admin/rules');
-define('RULES_ADMIN_TRIGGER_PATH', RULES_ADMIN_PATH. '/trigger');
-define('RULES_ADMIN_SET_PATH', RULES_ADMIN_PATH. '/rule_sets');
-define('RULES_ADMIN_RULE_PATH', RULES_ADMIN_PATH. '/rules');
-
-
-
-/**
- * Implementation of hook_menu().
- */
-function rules_menu() {
-  $items = array();
-  $items[RULES_ADMIN_PATH] = array(
-    'title' => 'Rules',
-    'description' => 'Rules administration links.',
-    'position' => 'right',
-    'weight' => 5,
-    'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('administer rules'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'system'),
-  );
-  $items[RULES_ADMIN_TRIGGER_PATH] = array(
-    'title' => 'Triggered rules',
-    'description' => 'Customize your site by configuring rules that are evaluated on events.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_overview'),
-    'access arguments' => array('administer rules'),
-    'type' => MENU_NORMAL_ITEM,
-    'weight' => -2,
-    'file' => 'rules.admin.inc',
-  );
-  $items[RULES_ADMIN_TRIGGER_PATH .'/list'] = array(
-    'title' => 'Overview',
-    'weight' => -5,
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-  );
-  $items[RULES_ADMIN_TRIGGER_PATH .'/add'] = array(
-    'title' => 'Add a new rule',
-    'type' => MENU_LOCAL_TASK,
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_add_rule', FALSE),
-    'access arguments' => array('administer rules'),
-    'file' => 'rules.admin.inc',
-  );
-
-  foreach (rules_get_items() as $item_type => $info) {
-    $items[RULES_ADMIN_PATH .'/'. $item_type .'/%rules_item/delete'] = array(
-      'title' => 'Delete',
-      'type' => MENU_CALLBACK,
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('rules_admin_item_form_delete', 2, 3),
-      'access arguments' => array('administer rules'),
-      'load arguments' => array(2),
-      'file' => 'rules.admin_sets.inc',
-    );
-    $items[RULES_ADMIN_PATH .'/'. $item_type .'/%rules_item/revert'] = array(
-      'title' => 'Revert',
-      'type' => MENU_CALLBACK,
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('rules_admin_item_form_revert', 2, 3),
-      'access arguments' => array('administer rules'),
-      'load arguments' => array(2),
-      'file' => 'rules.admin_sets.inc',
-    );
-  }
-
-  $items[RULES_ADMIN_PATH .'/ie'] = array(
-    'title' => 'Import / Export',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_export'),
-    'access arguments' => array('administer rules'),
-    'file' => 'rules.admin_export.inc',
-    'weight' => 5,
-    'type' => MENU_NORMAL_ITEM,
-  );
-  $items[RULES_ADMIN_PATH .'/ie/export'] = array(
-    'title' => 'Export',
-    'weight' => 0,
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-  );
-  $items[RULES_ADMIN_PATH .'/ie/import'] = array(
-    'title' => 'Import',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_import'),
-    'access arguments' => array('administer rules'),
-    'weight' => 7,
-    'type' => MENU_LOCAL_TASK,
-    'file' => 'rules.admin_export.inc',
-  );
-  $items[RULES_ADMIN_PATH .'/settings'] = array(
-    'title' => 'Settings',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_settings'),
-    'access arguments' => array('administer rules'),
-    'file' => 'rules.admin.inc',
-    'weight' => 7,
-    'type' => MENU_NORMAL_ITEM,
-  );
-  //paths for modifing rules
-  $items[RULES_ADMIN_RULE_PATH .'/%rule'] = array(
-    'title callback' => 'rules_rule_title',
-    'title arguments' => array('Editing rule @label', 3),
-    'type' => MENU_CALLBACK,
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_edit_rule', 3),
-    'access arguments' => array('administer rules'),
-    'file' => 'rules.admin.inc',
-  );
-  $items[RULES_ADMIN_RULE_PATH .'/%rule/add'] = array(
-    'title' => 'Add',
-    'type' => MENU_CALLBACK,
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_add', 3),
-    'access arguments' => array('administer rules'),
-    'file' => 'rules.admin.inc',
-  );
-  $items[RULES_ADMIN_RULE_PATH .'/%rule/edit/%rule_element'] = array(
-    'title' => 'Edit',
-    'type' => MENU_CALLBACK,
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_edit', 3, 5),
-    'access arguments' => array('administer rules'),
-    'load arguments' => array(3),
-    'file' => 'rules.admin.inc',
-  );
-  $items[RULES_ADMIN_RULE_PATH .'/%rule/delete/%rule_element'] = array(
-    'title' => 'Delete',
-    'type' => MENU_CALLBACK,
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_delete', 3, 5),
-    'access arguments' => array('administer rules'),
-    'load arguments' => array(3),
-    'file' => 'rules.admin.inc',
-  );
-  $items[RULES_ADMIN_RULE_PATH .'/%rule/clone'] = array(
-    'title' => 'Clone rule',
-    'type' => MENU_CALLBACK,
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_clone', 3),
-    'access arguments' => array('administer rules'),
-    'file' => 'rules.admin.inc',
-  );
-  $items[RULES_ADMIN_SET_PATH] = array(
-    'title' => 'Rule sets',
-    'description' => 'Create and manage rule sets.',
-    'page callback' => 'rules_admin_sets_overview',
-    'access arguments' => array('administer rules'),
-    'type' => MENU_NORMAL_ITEM,
-    'weight' => 0,
-    'file' => 'rules.admin_sets.inc',
-  );
-  $items[RULES_ADMIN_SET_PATH .'/list'] = array(
-    'title' => 'Overview',
-    'weight' => -5,
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-  );
-  $items[RULES_ADMIN_SET_PATH .'/add'] = array(
-    'title' => 'Add a new rule set',
-    'type' => MENU_LOCAL_TASK,
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_add_rule_set', 2),
-    'access arguments' => array('administer rules'),
-    'file' => 'rules.admin_sets.inc',
-  );
-
-  $items[RULES_ADMIN_SET_PATH .'/js'] = array(
-    'type' => MENU_CALLBACK,
-    'page callback' => 'rules_admin_form_js',
-    'page arguments' => array('rules_admin_form_add_rule_set_add_arguments'),
-    'access arguments' => array('administer rules'),
-    'file' => 'rules.admin_sets.inc',
-  );
-  $items[RULES_ADMIN_SET_PATH .'/%rules_item'] = array(
-    'type' => MENU_CALLBACK,
-    'title callback' => 'rules_item_title',
-    'title arguments' => array(3),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_edit_rule_set', 3),
-    'access arguments' => array('administer rules'),
-    'load arguments' => array(2),
-    'file' => 'rules.admin_sets.inc',
-  );
-  $items[RULES_ADMIN_SET_PATH .'/%rules_item/list'] = array(
-    'title' => 'Overview',
-    'weight' => -5,
-    'load arguments' => array(2),
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-  );
-  $items[RULES_ADMIN_SET_PATH .'/%rules_item/add'] = array(
-    'title' => 'Add a new rule',
-    'type' => MENU_LOCAL_TASK,
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('rules_admin_form_add_rule', 3),
-    'access arguments' => array('administer rules'),
-    'load arguments' => array(2),
-    'file' => 'rules.admin.inc',
-  );
-  return $items;
-}
-
-
-/**
- * Loads the admin proxy of the rule with the given name
- */
-function rule_load($name) {
-  static $proxies = array();
-
-  if (!isset($proxies[$name])) {
-    $proxies[$name] = FALSE;
-    $rules = rules_get_configured_items('rules');
-    // Let's make sure the #set actually exists
-    if (isset($rules[$name]) && rules_get_rule_sets($rules[$name]['#set'])) {
-      rules_include('rules_admin');
-      $proxies[$name] = new rules_admin_rule_proxy($name, $rules[$name]);
-    }
-  }
-  return $proxies[$name];
-}
-
-function rule_element_load($id, $rule_name) {
-  $proxy = rule_load($rule_name);
-  $element = $proxy->get_element($id);
-  return is_array($element) ? $element + array('#id' => intval($id)) : FALSE;
-}
-
-function rules_rule_title($text, $proxy) {
-  $rule = $proxy->get_rule();
-  return t($text, array('@label' => $rule['#label']));
-}
-
-function rules_item_title($item) {
-  return check_plain(rules_get_element_label($item));
-}
-
-function rules_item_load($name, $item_type) {
-  $items = rules_get_configured_items($item_type);
-  if (!isset($items[$name])) {
-    return FALSE;
-  }
-  return $items[$name] + array('name' => $name);
-}
-
-
-
-/**
- * Implementation of hook_perm().
- */
-function rules_perm() {
-  return array('administer rules');
-}
-
-
-/**
- * Implementation of hook_theme()
- */
-function rules_theme() {
-  foreach (array('rules_admin_rule_render', 'rule', 'condition', 'action', 'rules_icon', 'rules_operation', 'OR', 'AND', 'rules_logical_operation_label') as $name) {
-    $items[$name] = array(
-      'arguments' => array('elements' => NULL),
-      'file' => 'rules.admin_render.inc'
-    );
-  }
-  $items['rules_admin_form_arguments'] = array(
-    'arguments' => array('elements' => NULL),
-    'file' => 'rules.admin_sets.inc'
-  );
-  $items['rules_admin_unsatisfied_elements'] = array(
-    'arguments' => array('element' => NULL),
-  );
-  $items['rules_admin_unsatisfied_elements_group'] = array(
-    'arguments' => array('grouped_rules' => NULL, 'elements' => array()),
-  );
-  return $items;
-}
 
 /**
  * Returns info about all defined actions
@@ -311,7 +28,15 @@ function rules_get_conditions($key = 'all') {
  * Returns info about all defined items
  */
 function rules_get_items($key = 'all') {
-  return rules_gather_data('rules_item_info', $key);
+  // During module installation, the hook implementation of rules is not invoked,
+  // as the module is not yet active. So we force it here to always return our own item infos.
+  if (module_exists('rules')) {
+    return rules_gather_data('rules_item_info', $key);
+  }
+  else {
+    $info = rules_rules_item_info();
+    return $key == 'all' ? $info : $info[$key];
+  }
 }
 
 /**
@@ -363,7 +88,6 @@ function rules_get_event_sets() {
   return $sets;
 }
 
-
 /**
  * Gathers module definitions for the given name
  * Used for collecting events, rules, actions and condtions from other modules
@@ -400,6 +124,7 @@ function rules_gather_data($name, $key = 'all', $alter = TRUE, $reset = FALSE) {
  *
  * @param $key The name of the property to extract
  * @param $elements An array of elements
+ *
  * @return An array of extracted properties.
  */
 function rules_extract_property($elements, $key) {
@@ -416,6 +141,7 @@ function rules_extract_property($elements, $key) {
  *
  * @param $set_name The name of the set which should be returned.
  * @param $reset May be set to true to clear the static $sets cache.
+ *
  * @return Returns the set only containing active rules, ready for evaluation
  */
 function rules_get_rule_set($set_name, $reset = FALSE) {
@@ -465,10 +191,10 @@ function _rules_get_rule_sets() {
   $rules = array_filter(rules_get_configured_items('rules'), '_rules_rule_is_active');
   foreach ($rules as $name => $rule) {
     $sets += array($rule['#set'] => array());
-    $sets[ $rule['#set'] ]['info'] = rules_get_rule_sets($rule['#set']);
+    $sets[$rule['#set']]['info'] = rules_get_rule_sets($rule['#set']);
     // Set the name for rules, so that it's avaialbe during evaluation
     $rule['#name'] = $name;
-    $sets[ $rule['#set'] ]['rules'][$name] = $rule;
+    $sets[$rule['#set']]['rules'][$name] = $rule;
   }
   return $sets;
 }
@@ -483,6 +209,7 @@ function _rules_rule_is_active($rule) {
 
 /**
  * Clears the rule set cache
+ *
  * @param $immediate If FALSE, the static cache will be kept until the next page load.
  *    Might be dangerous, so only use if you know what you are doing.
  */
@@ -506,8 +233,15 @@ function rules_flush_caches() {
 
 /**
  * Invokes configured rules for the given event
- * @param $event_name The events name
- * @params $args Pass further arguments as defined in hook_event_info() for this event.
+ *
+ * @param $event_name
+ *   The events name
+ * @param $args
+ *   Pass further arguments as defined in hook_rules_event_info() for this event.
+ *   Arguments can be passed as usual, one by one, in the order as defined
+ *   in hook_rules_event_info(). As an alternative the arguments can also
+ *   be passed as an array, with the argument names as keys. See
+ *   http://drupal.org/node/298549.
  */
 function rules_invoke_event() {
   $args = func_get_args();
@@ -517,35 +251,54 @@ function rules_invoke_event() {
 
 /**
  * Invokes configured rules for the given rule set
+ *
  * @param $set_name The name of the rule set to invoke
- * @params $args Further arguments as defined for the rule set
+ * @param $args Further arguments as defined for the rule set
  */
 function rules_invoke_rule_set() {
   $args = func_get_args();
   $set_name = array_shift($args);
 
   if ($set = rules_get_rule_set($set_name)) {
-    $state = array('set_info' => $set['info']);
-    _rules_log_set_invocation(t('%label has been invoked.', array('%label' => $state['set_info']['label'])), TRUE);
-
     rules_include('rules');
 
+    $state = array('set_info' => $set['info']);
     _rules_initialize_variables($state, $args);
-    rules_evaluate_elements($set['rules'], $state);
 
-    //save all changed variables..
-    foreach ($state['variables'] as $variable) {
-      $variable->save_changes();
-    }
-
-    _rules_log_set_invocation(t('Evaluation of %label has been finished.', array('%label' => $state['set_info']['label'])), FALSE);
-    rules_log_evaluation_clear($set_name);
-
+    rules_evaluate_rule_set($set_name, $set, $state);
+    
     //only show the log, if this is no nested evaluation
     if (rules_log_evaluation_finished()) {
       rules_show_log();
     }
   }
+}
+
+/**
+ * Evaluates the configured rules for the given rule set and evaluation state.
+ * This is used, when rule sets are invoked by action. So the action can set up
+ * a new state, working with the same variables. So the original execution state
+ * can take over variable saving.
+ *
+ * @param $set_name The name of the rule set to invoke
+ * @param $set The rule set, as returned from rules_get_rule_set().
+ * @param $state The evaluation state.
+ * @param $skip_save An optional array of names of variables, for which saving should
+ *     be skipped.
+ */
+function rules_evaluate_rule_set($set_name, $set, &$state, $skip_save = array()) {
+  _rules_log_set_invocation(t('%label has been invoked.', array('%label' => $state['set_info']['label'])), TRUE);
+
+  rules_evaluate_elements($set['rules'], $state);
+
+  foreach ($state['variables'] as $name => $variable) {
+    if (!in_array($name, $skip_save)) {
+      $variable->save_changes();
+    }
+  }
+
+  rules_log_evaluation_clear($set_name);
+  _rules_log_set_invocation(t('Evaluation of %label has been finished.', array('%label' => $state['set_info']['label'])), FALSE);
 }
 
 /**
@@ -589,7 +342,7 @@ function rules_sort_children(&$element) {
   $count = 0;
   foreach (element_children($element) as $key) {
     $element[$key] += array('#weight' => 0);
-    $element[$key]['#weight'] += $count/1000;
+    $element[$key]['#weight'] += $count / 1000;
     $count++;
   }
   uasort($element, "element_sort");
@@ -626,6 +379,7 @@ function _rules_element_defaults(&$element) {
  *
  * @param $elements An array of elements to process
  * @param $state The current evaluation state
+ *
  * @return The execution result, or FALSE if there is no valid execution handler.
  */
 function rules_execute_element(&$element, &$state) {
@@ -641,21 +395,21 @@ function rules_execute_element(&$element, &$state) {
  * Execution handler for rules
  */
 function rules_execute_rule(&$element, &$state) {
-
   if ($element['#active'] && !$element['#recursion'] && rules_log_rule_is_evaluated($element)) {
     rules_log(t('Not executing the rule %name on rule set %set to prevent recursion.', array('%name' => $element['#label'], '%set' => $state['set_info']['label'])));
+    // Remember this, so the recursion count is still positive after this evaluation.
+    rules_log_evaluated_rule($element);
   }
   else if ($element['#active']) {
-    //remember that we are processing this rule to prevent recursion
-    rules_log_evaluated_rule($element, TRUE);
     rules_log(t('Executing the rule %name on rule set %set', array('%name' => $element['#label'], '%set' => $state['set_info']['label'])));
-
+    // Remember that we are processing this rule to prevent recursion
+    rules_log_evaluated_rule($element);
     $result = rules_evaluate_elements($element['#conditions'], $state);
     if ($result) {
       rules_evaluate_elements($element['#actions'], $state);
     }
   }
-  //return true, so that the next rules are evaluated too
+  // Return true, so that the next rules are evaluated too
   return TRUE;
 }
 
@@ -692,6 +446,7 @@ function rules_execute_and(&$elements, &$state) {
  *
  * @param $element The action's configuration element
  * @param $state The current evaluation state
+ *
  * @return TRUE to let rules proceed wit executing actions, only FALSE if $result['#halt'] is set.
  */
 function rules_execute_action($element, &$state) {
@@ -714,6 +469,7 @@ function rules_execute_action($element, &$state) {
  *
  * @param $element The condition's configuration element
  * @param $state The current evaluation state
+ *
  * @return The execution result of the condition, or if it is no valid condition FALSE.
  */
 function rules_execute_condition($element, &$state) {
@@ -753,7 +509,6 @@ function _rules_log_set_invocation($message, $start = TRUE) {
   $_rules_log[] = array('time' => array('sec' => $sec, 'usec' => $usec), 'msg' => $message, 'error' => FALSE, 'start' => $start);
 }
 
-
 /**
  * Implementation of hook_elements()
  * Defines default values for all available properties of rules's element types
@@ -761,12 +516,12 @@ function _rules_log_set_invocation($message, $start = TRUE) {
  * Note that the #process handlers are only used by the form API, but not by the rules engine.
  */
 function rules_elements() {
-  $types = array();
-  $types['rule'] = array('#name' => '', '#set' => '', '#status' => 'default', '#categories' => array(), '#recursion' => FALSE, '#active' => TRUE, '#execute' => 'rules_execute_rule');
+  $types              = array();
+  $types['rule']      = array('#name' => '', '#set' => '', '#status' => 'default', '#categories' => array(), '#recursion' => FALSE, '#active' => TRUE, '#execute' => 'rules_execute_rule');
   $types['condition'] = array('#name' => '', '#info' => array(), '#negate' => FALSE, '#settings' => array('#argument map' => array()), '#execute' => 'rules_execute_condition', '#suffix' => '<br clear="all" />');
-  $types['action'] = array('#name' => '', '#info' => array(), '#settings' => array('#argument map' => array()), '#execute' => 'rules_execute_action', '#suffix' => '<br clear="all" />');
-  $types['OR'] = array('#execute' => 'rules_execute_or', '#logical_op' => TRUE, '#negate' => FALSE, '#theme' => 'rules_operation', '#label' => t('OR'));
-  $types['AND'] = array('#execute' => 'rules_execute_and', '#logical_op' => TRUE, '#negate' => FALSE, '#theme' => 'rules_operation', '#label' => t('AND'));
+  $types['action']    = array('#name' => '', '#info' => array(), '#settings' => array('#argument map' => array()), '#execute' => 'rules_execute_action', '#suffix' => '<br clear="all" />');
+  $types['OR']        = array('#execute' => 'rules_execute_or', '#logical_op' => TRUE, '#negate' => FALSE, '#theme' => 'rules_operation', '#label' => t('OR'));
+  $types['AND']       = array('#execute' => 'rules_execute_and', '#logical_op' => TRUE, '#negate' => FALSE, '#theme' => 'rules_operation', '#label' => t('AND'));
   return $types;
 }
 
@@ -788,7 +543,7 @@ function rules_retrieve_element_info(&$element) {
   _rules_element_defaults($element_copy);
 
   if (isset($element_copy['#info']) && isset($element['#name'])) {
-    if ($info = rules_gather_data('rules_'. $element['#type']. '_info', $element['#name'])) {
+    if ($info = rules_gather_data('rules_'. $element['#type'] .'_info', $element['#name'])) {
       return $info;
     }
     rules_error_missing_implementation($element);
@@ -806,7 +561,7 @@ function rules_get_element_info(&$element) {
       'new variables' => array(),
       'hidden' => FALSE,
       'eval input' => array(),
-      'label callback' => $element['#name'] .'_label'
+      'label callback' => $element['#name'] .'_label',
     );
   }
 }
@@ -833,6 +588,7 @@ function rules_get_element_label(&$element) {
  * @param $params An array of parameters which should be passed to the invoked
  *   function.
  * @param $error Whether an error should be generated, when no implementation is found.
+ *
  * @return FALSE, if no implementation is found. Else the return of the implementation will
  *   be passed through.
  */
@@ -880,10 +636,10 @@ function rules_configure() {
  *
  * @param $name The name of condition to create, as specified at hook_condition_info()
  * @param $params An optional array of properties to add, e.g. #settings
+ * @param $label An optional label for the condition
  */
-function rules_use_condition($name, $params = array()) {
-  $params += array('#name' => $name);
-  return rules_use_element('condition', $params);
+function rules_use_condition($name, $params = array(), $label = NULL) {
+  return _rules_element_set_label(rules_use_element('condition', array('#name' => $name) + $params), $label);
 }
 
 /**
@@ -891,14 +647,22 @@ function rules_use_condition($name, $params = array()) {
  *
  * @param $name The name of action to create, as specified at hook_action_info()
  * @param $params An optional array of properties to add, e.g. #settings
+ * @param $label An optional label for the action
  */
-function rules_use_action($name, $params = array()) {
-  $params += array('#name' => $name);
-  return rules_use_element('action', $params);
+function rules_use_action($name, $params = array(), $label = NULL) {
+  return _rules_element_set_label(rules_use_element('action', array('#name' => $name) + $params), $label);
+}
+
+function _rules_element_set_label($element, $label = NULL) {
+  if (!empty($element['#info'])) {
+    $info = isset($label) ? array('label' => $label) : array();
+    $element['#info'] = $info + $element['#info'];
+  }
+  return $element;
 }
 
 /**
- * Configures an element of type $type with the further properties $params for using in a configuration
+ * Configures an element of type $type with the further properties $params
  */
 function rules_use_element($type, $params = array()) {
   $element = array('#type' => $type);
@@ -921,7 +685,7 @@ function rules_show_log() {
     $_rules_log = NULL;
 
     if ($error) {
-      rules_handle_error_msg(t('An error occured during rule evaluation. This is the evaluation log:') .' '. $msg, NULL);
+      rules_handle_error_msg('An error occured during rule evaluation. It follows the evaluation log: !log', array('!log' => $msg));
     }
     else if (variable_get('rules_debug', FALSE)) {
       drupal_set_message($msg);
@@ -938,9 +702,9 @@ function _rules_show_log(&$i, $data, &$error) {
       $output[] = _rules_show_log($i, $data, $error);
     }
     else {
-      $diff = ($data[$i]['time']['sec'] - $start['sec'])*1000000 + $data[$i]['time']['usec'] - $start['usec'];
-      $formatted_diff = round($diff * 1000, 3). ' ms';
-      $msg = $formatted_diff . ' '. $data[$i]['msg'];
+      $diff = ($data[$i]['time']['sec'] - $start['sec']) * 1000000 + $data[$i]['time']['usec'] - $start['usec'];
+      $formatted_diff = round($diff * 1000, 3) .' ms';
+      $msg = $formatted_diff .' '. $data[$i]['msg'];
 
       if ($data[$i]['error']) {
         $error = TRUE;
@@ -970,7 +734,8 @@ function rules_log_evaluated_rule($rule) {
   if (!isset($_rules_exec_log)) {
     $_rules_exec_log = array();
   }
-  $_rules_exec_log[$rule['#set']][$rule['#name']] = TRUE;
+  $count = isset($_rules_exec_log[$rule['#set']][$rule['#name']]) ? $_rules_exec_log[$rule['#set']][$rule['#name']] : 0;
+  $_rules_exec_log[$rule['#set']][$rule['#name']] = $count + 1;
 }
 
 /**
@@ -979,7 +744,10 @@ function rules_log_evaluated_rule($rule) {
 function rules_log_evaluation_clear($set_name) {
   global $_rules_exec_log;
 
-  unset($_rules_exec_log[$set_name]);
+  foreach ($_rules_exec_log[$set_name] as $rule => $count) {
+    $_rules_exec_log[$set_name][$rule] = $count - 1;
+  }
+  $_rules_exec_log[$set_name] = array_filter($_rules_exec_log[$set_name]);
 }
 
 /**
@@ -999,9 +767,9 @@ function rules_log_rule_is_evaluated($rule) {
 function rules_log_evaluation_finished() {
   global $_rules_exec_log;
 
+  $_rules_exec_log = array_filter($_rules_exec_log);
   return !is_array($_rules_exec_log) || count($_rules_exec_log) == 0;
 }
-
 
 /**
  * Gets all configured items, regardless if defined by the admin
@@ -1009,6 +777,7 @@ function rules_log_evaluation_finished() {
  *
  * @param $items Which items to get, e.g. 'rules' or 'rule_sets'. Use NULL when clearing the cache.
  * @param Whether the cache should be cleared
+ *
  * @return An array of configured items, where the structure of the item configuration
  *   depends on the item
  */
@@ -1022,7 +791,7 @@ function rules_get_configured_items($item_type = 'rules', $reset = FALSE) {
     $info = rules_get_items($item_type);
 
     //get and add altered default items
-    $result = db_query("SELECT * FROM {". $info['db_table']. "} ORDER by name");
+    $result = db_query("SELECT * FROM {". $info['db_table'] ."} ORDER by name");
 
     $configurations[$item_type] = array();
     while ($row = db_fetch_object($result)) {
@@ -1035,12 +804,12 @@ function rules_get_configured_items($item_type = 'rules', $reset = FALSE) {
 }
 
 /**
- * Deletes the given item from the database
+ * Saves the given item to the database
  */
 function rules_item_save($item_type, $name, $item) {
   if ($info = rules_get_items($item_type)) {
-    db_query("DELETE FROM {". $info['db_table']. "} WHERE name = '%s'", $name);
-    db_query("INSERT INTO {". $info['db_table']. "} (name, data) VALUES ('%s', %b)", $name, serialize($item));
+    db_query("DELETE FROM {". $info['db_table'] ."} WHERE name = '%s'", $name);
+    db_query("INSERT INTO {". $info['db_table'] ."} (name, data) VALUES ('%s', %b)", $name, serialize($item));
   }
 }
 
@@ -1050,7 +819,7 @@ function rules_item_save($item_type, $name, $item) {
 function rules_item_delete($item_type, $name) {
   if ($info = rules_get_items($item_type)) {
     rules_item_type_invoke($item_type, 'delete', $name);
-    db_query("DELETE FROM {". $info['db_table']. "} WHERE name = '%s'", $name);
+    db_query("DELETE FROM {". $info['db_table'] ."} WHERE name = '%s'", $name);
   }
 }
 
@@ -1074,7 +843,7 @@ function rules_enable_items($item_type, $ret = array()) {
  */
 function rules_item_type_invoke($item_type, $op, $params) {
   $info = rules_get_items($item_type);
-  if (function_exists($function = $info['base']. '_'. $op)) {
+  if (function_exists($function = $info['base'] .'_'. $op)) {
     return call_user_func_array($function, $params);
   }
 }
@@ -1154,6 +923,7 @@ function rules_form_alter($form, $form_state, $form_id) {
 
 /**
  * Includes rules specific include files
+ *
  * @param $type
  *   One of 'rules', 'rules_forms', 'rules_defaults' or 'rules_admin'.
  */
@@ -1167,9 +937,9 @@ function rules_include($type = 'rules') {
     $included[$type] = TRUE;
 
     if ($type == 'rules_admin') {
-      $files = array(drupal_get_path('module', 'rules') .'/rules.admin.inc');
+      $files = array(drupal_get_path('module', 'rules_admin') .'/rules_admin.inc');
     }
-    else if ($cache = cache_get('include_'. $type, 'cache_rules')) {
+    elseif ($cache = cache_get('include_'. $type, 'cache_rules')) {
       $files = $cache->data;
     }
     else {
@@ -1180,7 +950,7 @@ function rules_include($type = 'rules') {
     foreach ($files as $file) {
       include_once $file;
     }
-    rules_log(t('Included MODULE.'. $type. '.inc files.'));
+    rules_log(t('Included @module.rules.inc files.', array('@module.rules.inc' => 'MODULE.'. $type .'.inc')));
   }
 }
 
@@ -1190,9 +960,9 @@ function _rules_include_get_files($type) {
 
   if ($type == 'rules') {
     //make sure this is included before, as it contains some base classes
-    $files[] = $rules_path . '/rules.data_types.inc';
-    $files[] = $rules_path . '/rules.variables.inc';
-    $files[] = $rules_path . '/rules.input_evaluators.inc';
+    $files[] = $rules_path .'/rules.data_types.inc';
+    $files[] = $rules_path .'/rules.variables.inc';
+    $files[] = $rules_path .'/rules.input_evaluators.inc';
   }
   foreach (module_list() as $module) {
     $module_path = drupal_get_path('module', $module);

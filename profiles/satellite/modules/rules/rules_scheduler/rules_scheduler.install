@@ -1,6 +1,10 @@
 <?php
-// $Id: rules_scheduler.install,v 1.1.2.3 2008/10/03 10:21:04 fago Exp $
+// $Id: rules_scheduler.install,v 1.1.2.5 2009/04/19 18:19:07 fago Exp $
 
+
+/**
+ * @file Rules Scheduler - Installation file.
+ */
 
 /**
  * Implementation of hook_install().
@@ -28,7 +32,7 @@ function rules_scheduler_schema() {
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
-        'description' => t('The scheduled task\s id.'),
+        'description' => t("The scheduled task's id."),
       ),
       'set_name' => array(
         'type' => 'varchar',
@@ -54,3 +58,4 @@ function rules_scheduler_schema() {
   );
   return $schema;
 }
+

@@ -1,5 +1,5 @@
 <?php
-// $Id: emfield.cck.inc,v 1.1.2.14 2009/01/11 04:15:16 aaron Exp $
+// $Id: emfield.cck.inc,v 1.1.2.15 2009/03/13 02:28:39 aaron Exp $
 
 /**
  * @file
@@ -179,19 +179,20 @@ function _emfield_emfield_widget(&$form, &$form_state, $field, $items, $delta = 
   // Add a list of all supported third party providers.
   $textfield_description .= '<br />'. t('The following services are provided: !urls', array('!urls' => implode(', ', $urls)));
   // Get the value of our data, if it's been set for this node.
-  $value = isset($items[$delta]['embed']) ? $items[$delta]['embed'] : '';
+  $embed = isset($items[$delta]['embed']) ? $items[$delta]['embed'] : '';
+  $value = isset($items[$delta]['value']) ? $items[$delta]['value'] : '';
   $tree['embed'] = array(
     '#type' => 'textfield',
     '#title' => t($field['widget']['label']),
     '#description' => $textfield_description,
-    '#default_value' => $value,
+    '#default_value' => $embed,
     '#required' => $delta == 0 ? $field['required'] : FALSE,
     '#maxlength' => 2048,
   );
 
   $tree['value'] = array(
     '#type' => 'value',
-    '#value' => $value,
+    '#value' => $embed,
   );
 
   if (!empty($additional_form_elements)) {

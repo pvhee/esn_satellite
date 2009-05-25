@@ -1,4 +1,29 @@
-/* $Id: changelog.txt,v 1.1.2.17 2009/01/04 19:37:27 alexua Exp $ */
+/* $Id: changelog.txt,v 1.1.2.34 2009/03/10 17:33:17 aaron Exp $ */
+
+March 2009
+----------
+ * We added the archive.org provider file, so need to rebuild the theme (aaron).
+ * Example provider file (aaron).
+ * Some video codes have a '/' character, so we have to accomodate in the URL (aaron).
+ * Replace play button w/ 8bit PNG (BrightLoudNoise).
+ * Fix conflict w/ inline preview & thickbox/lightbox2 (aaron).
+ * Fix inline preview size (aaron).
+
+February 2009
+-------------
+ * Documentation of css (aaron).
+ * Add new play button, courtesy of BrightLoudNoise (BrightLoudNoise/aaron).
+ * Add thumbnail -> video replacement formatters (aaron).
+ * Always use YouTube's largest thumbnail (aaron).
+ * #370500 - Rob Loach added flowplayer support for custom url videos.
+ * #370909 - drewish fixed a conflict between swfobject and thickbox in yahoomusic.inc and youtube.inc
+ * #370021 Fix module looking for brightcove in vimeo.inc (jcmarco).
+ * Add Lightbox2 support (aaron).
+ * Add attributes to thumnbails; route thumbnails through theme('image') (aaron).
+ * #368963 - Remove support for Brightcove.tv (aaron).
+ * #303756 - High quality YouTube (benshell/jrfano/VeryMisunderstood).
+ * #237664 - Adding support for uStream videos (aaron).
+
 
 January 2009
 -------------
@@ -20,7 +45,7 @@ December 2008
  * 307187 - grendzy added fullscreen support for YouTube
  * 339025 - moonray changed emvideo_PROVIDER_video() hook to allow for more info being passed
  * 332673 - Jody Lynn fixed a fatal error in the google.inc file
- * 330176 - beeradb and arron fixed problem with trailing slashes in blip.tv urls
+ * 330176 - beeradb and aaron fixed problem with trailing slashes in blip.tv urls
 
 November 2008
 -------------
@@ -38,50 +63,39 @@ August 2008
  * Add support for swfobject to youtube, taking swfobject_api into account (aaron).
 #297760 - BenKewell fixed thickbox theming issues
 
-2008-07-18
-----------
+July 2008
+---------
 Changed name from video_cck to emvideo to comply with new naming standards.
 
-2008-06-23
-----------
+June 2008
+---------
  * Add TODO for thumbnails for spike.tv (aaron).
  * Add placeholder ifilm.inc to help with updates after ifilm-spike switch (aaron).
  * Move ifilm.inc to spike.inc (aaron).
-
-2008-06-22
-----------
  * Move theme functions to video_cck.theme.inc (aaron).
  * Implement hook_theme (aaron).
 
-2008-05-30
-widget info
-'callbacks' => array('tables' => CONTENT_CALLBACK_DEFAULT, 'arguments' => CONTENT_CALLBACK_DEFAULT, ),
-allow w/h (and other) overrides to thumbnails and other formatters
-case 'database columns': return module_invoke('emfield', 'field_columns', $field);
-content_notify in .install files
+May 2008
+--------
+ * Widget info
+ * 'callbacks' => array('tables' => CONTENT_CALLBACK_DEFAULT, 'arguments' => CONTENT_CALLBACK_DEFAULT, ),
+ * Allow w/h (and other) overrides to thumbnails and other formatters
+ * Case 'database columns': return module_invoke('emfield', 'field_columns', $field);
+ * content_notify in .install files
+ * Implement hook_content_is_empty
+ * #261999 - chirale fixed XHTML validation errors in YouTube.inc
+ * #208963 - robomalo + darrenmUK  added Vimeo support
+ * #249255 - ekes added MRSS support to multiple files
+ * #170799 - ekes added support for google video URLs from '.com.au', 'co.uk' etc.
+ * #199189 - vsnguyen + Rysk added support for Veoh
+ * #253389 - Rysk updated Veoh support + added providers guba and imeem
 
-2008-05-29
-implement hook_content_is_empty
-
-2008-05-23
-#261999 - chirale fixed XHTML validation errors in YouTube.inc
-
-2008-05-10
-#208963 - robomalo + darrenmUK  added Vimeo support
-#249255 - ekes added MRSS support to multiple files
-#170799 - ekes added support for google video URLs from '.com.au', 'co.uk' etc.
-#199189 - vsnguyen + Rysk added support for Veoh
-#253389 - Rysk updated Veoh support + added providers guba and imeem
-
-2008-04-30
-change 'thumbnail' text on widget settings form
-
-2008-04-29
-dailymotion thumbnails
-
-2008-04-07
-support for blip.tv's new player
-added $options=array() to themes for future expansion of options
+April 2008
+----------
+ * change 'thumbnail' text on widget settings form
+ * dailymotion thumbnails
+ * support for blip.tv's new player
+ * added $options=array() to themes for future expansion of options
 
 2008-03-14
 #216796/jhedstrom - extended brightcove support

@@ -1,9 +1,12 @@
 <?php
-// $Id: taxonomy.rules_forms.inc,v 1.1.2.4 2009/02/05 13:43:06 fago Exp $
+// $Id: taxonomy.rules_forms.inc,v 1.1.2.7 2009/05/15 13:03:12 fago Exp $
+
 
 /**
- * @file
- * Rules configuration forms for the taxonomy module.
+ * @file Rules configuration forms for the taxonomy module.
+ *
+ * @addtogroup rules
+ * @{
  */
 
 /**
@@ -21,7 +24,7 @@ function rules_action_taxonomy_load_term_form($settings, &$form, $form_state) {
       '#type' => 'select',
       '#title' => t('Vocabulary'),
       '#options' => $options,
-      '#description' => !empty($options) ? t('Select the vocabulary.') : t('There are no existing vocabularies, you should !add one.', array('!add' => l(t('add'), '/admin/content/taxonomy/add/vocabulary'))),
+      '#description' => !empty($options) ? t('Select the vocabulary.') : t('There are no existing vocabularies, you should <a href="@add-url">add</a> one.', array('@add-url' => url('/admin/content/taxonomy/add/vocabulary'))),
       '#required' => TRUE,
       '#disabled' => empty($options),
     );
@@ -45,7 +48,7 @@ function rules_action_taxonomy_load_term_form($settings, &$form, $form_state) {
     $form['settings']['term'] = array(
       '#type' => 'fieldset',
       '#title' => t("!vocab's terms", array('!vocab' => $vocabulary->name)),
-      '#description' => empty($options) ? t('There are no terms in the vocabulary, you should !add one.', array('!add' => l(t('add'), 'admin/content/taxonomy/'. $vocabulary->vid .'/add/term' ))) : t('Select an existing term or manually enter the name of the term that should be added or removed from the content.'),
+      '#description' => empty($options) ? t('There are no terms in the vocabulary, you should <a href="@add-url">add</a> one.', array('@add-url' => url('admin/content/taxonomy/'. $vocabulary->vid .'/add/term'))) : t('Select an existing term or manually enter the name of the term that should be added or removed from the content.'),
     );
     $form['settings']['term']['term_select'] = rules_taxonomy_form($vocabulary->vid, !empty($settings['term']['term_select']) ? $settings['term']['term_select'] : 0);
 
@@ -77,8 +80,8 @@ function rules_taxonomy_form($vid, $value = 0, $help = NULL, $name = 'taxonomy')
  */
 function rules_action_taxonomy_load_vocab_form($settings, &$form, $form_state) {
   $form['settings']['vocabulary'] = array(
-   '#type' => 'fieldset',
-   '#title' => t('Vocabulary selection'),
+    '#type' => 'fieldset',
+    '#title' => t('Vocabulary selection'),
   );
   $options = _rules_action_taxonomy_get_vocab();
   $form['settings']['vocabulary']['vocab_select'] = array(
@@ -86,7 +89,7 @@ function rules_action_taxonomy_load_vocab_form($settings, &$form, $form_state) {
     '#title' => t('Select a vocabulary'),
     '#options' => $options,
     '#default_value' => !empty($settings['vocabulary']['vocab_select']) ? $settings['vocabulary']['vocab_select'] : '',
-    '#description' => !empty($options) ? t('Select the vocabulary.') : t('There are no existing vocabularies, you should <a href="!taxonomy-add-vocabulary">add</a> one.', array('!add' => url('/admin/content/taxonomy/add/vocabulary'))),
+    '#description' => !empty($options) ? t('Select the vocabulary.') : t('There are no existing vocabularies, you should <a href="@add-url">add</a> one.', array('@add-url' => url('admin/content/taxonomy/add/vocabulary'))),
     '#required' => TRUE,
     '#disabled' => empty($options),
   );
@@ -95,7 +98,7 @@ function rules_action_taxonomy_load_vocab_form($settings, &$form, $form_state) {
     '#title' => t('Select by term id'),
     '#default_value' => !empty($settings['vocabulary']['vocab_text']) ? $settings['vocabulary']['vocab_text'] : '',
     '#disabled' => empty($options),
-    '#description' => t('Optional: enter the vocabulary id (<em>not the vocabulary name</em>) that should be loaded . If this field is used "Select a vocabulary" field will be ignored.'),
+    '#description' => t('Optional: Enter the vocabulary id (<em>not the vocabulary name</em>) that should be loaded . If this field is used, the "Select a vocabulary" field will be ignored.'),
   );
 }
 
@@ -153,3 +156,7 @@ function _rules_action_taxonomy_get_vocab() {
   }
   return $options;
 }
+
+/**
+ * @}
+ */

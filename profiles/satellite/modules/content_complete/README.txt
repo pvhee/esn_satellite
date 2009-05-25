@@ -1,4 +1,4 @@
-// $Id: README.txt,v 1.1.2.1 2009/03/09 05:03:33 pvhee Exp $
+// $Id: README.txt,v 1.1.2.2 2009/04/16 18:38:29 pvhee Exp $
 
 -- SUMMARY --
 
@@ -58,7 +58,14 @@ CCK.
 * Customize the settings in Administer >> Site Configuration >> Content Complete.
   A block will be created for every content type added to check for completeness.
   
-* Rules integration is provided with a rule "Content Complete % is >= than x". 
+* Rules integration is provided with a rule "Content Complete % is >= than x". To learn
+  more about rules, please see http://drupal.org/project/rules
+
+* For styling, there are several classes and ids available. For example, you can use 
+  '.cck-complete-percent-bar-leq-25' to style the appearance of the percent bar if the 
+  percent is lower or equal (leq) to 25. Likewise, there are classes for leq-50,
+  leq-75 and leq-100. Absolute numbers can be styled using '.cck-complete-percent-bar-x'
+  (with x replacing the actual percentage).
 
 
 -- CUSTOMIZATION --

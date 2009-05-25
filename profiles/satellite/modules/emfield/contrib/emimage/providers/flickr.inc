@@ -1,5 +1,5 @@
 <?php
-// $Id: flickr.inc,v 1.1.2.6 2009/01/04 18:17:23 alexua Exp $
+// $Id: flickr.inc,v 1.1.2.7 2009/04/15 16:02:59 kleinmp Exp $
 
 /**
  * @file
@@ -203,6 +203,11 @@ function emimage_flickr_image_url($code, $width, $height, $formatter = NULL, $fi
   if ($code) {
     $size = _emimage_flickr_guess_size($width, $height);
     $getsize = emimage_flickr_request('flickr.photos.getSizes', array('photo_id' => $code));
+   
+    // For small images, there may not be the sizes 0..4 that
+    // _emimage_flickr_guess_size assumes, so:
+    $size = min( $size, (count($getsize['sizes']['size'])-1) );
+   
     $url = $getsize['sizes']['size'][$size]['source'];
   }
   return $url;

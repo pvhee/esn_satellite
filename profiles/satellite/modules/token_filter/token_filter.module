@@ -1,11 +1,21 @@
 <?php
+// $Id: token_filter.module,v 1.1.4.2 2009/05/04 09:06:52 pvhee Exp $
 
-// implementation of hook_filter to create the checkbox filter
+/**
+ * @file
+ * Allows token values to be used as filters.
+ */
+
+/**
+ * Implementation of hook_filter.
+ * 
+ * Adds the Token filter to the input format options.
+ */
 function token_filter_filter($op, $delta = 0, $format = -1, $text = '' ) {
 
-  switch($op) {
+  switch ($op) {
     case 'list':
-      return array (0 => t('Token filter'));
+      return array(0 => t('Token filter'));
     case 'description':
       return t('Allows you to use token values in a filter enclosed. Eg. [token global site-name] or [token user user-name]');
     case 'settings':
@@ -17,14 +27,11 @@ function token_filter_filter($op, $delta = 0, $format = -1, $text = '' ) {
     case 'process':
       // generate some header code, form tag and we save the node id so that the 
       // javascript has a convenient place to get it from
-      if (strpos($text,"[token") === false) {
+      if (strpos($text, "[token") === FALSE) {
         return $text;
       }
       else {
-        /**
-         * Fix, add an extra space so it doesn't take the token space
-         */
-        $output .= preg_replace_callback("|\[token ([^ ]*) ([^]]*)\]|i",'token_filter_replacetoken',$text);
+        $output .= preg_replace_callback("|\[token ([^ ]*) ([^]]*)\]|i", 'token_filter_replacetoken', $text);
         return $output;
       }
       break;
@@ -33,31 +40,22 @@ function token_filter_filter($op, $delta = 0, $format = -1, $text = '' ) {
   } 
 }
 
-// helper function for preg_replace_callback to generate the html for each token filter
+/**
+ * Helper function for preg_replace_callback to generate the html for each token filter
+ */
 function token_filter_replacetoken($matches) {  
   global $user;
   $type  = $matches[1];
   $token = $matches[2];
   switch ($type) {
-    case 'global':
-      $object = NULL;
-      break;
     case 'user' :
       $object = $user;
       break;
-    
-    default :
-      /**
-       * Fix: if we don't know the context we assume it works just as the global context, ie without an object to pass
-       */
+    case 'global':
+    default:
       $object = NULL;
       break;
-    
-      // drupal_set_message("Filter Error: token_filter doesn't yet handle objects of type $type",'error');
-      // Return the provided token so at least you can see which one is giving the error in the text
-      // return "%$token";
     } 
   $output = token_replace($token, $type, $object = NULL, $leading = '', $trailing = '');
   return $output;
 }
-

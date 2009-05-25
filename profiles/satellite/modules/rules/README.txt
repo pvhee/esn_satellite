@@ -1,4 +1,4 @@
-$Id: README.txt,v 1.1.2.5 2008/12/09 19:42:14 fago Exp $
+$Id: README.txt,v 1.1.2.6 2009/03/07 20:00:50 fago Exp $
 
 Rules Module
 ------------
@@ -24,6 +24,7 @@ at least the basic concepts. You can find it here:
 
  * Copy the whole rules directory to your modules directory and
    activate the rules module.
+ * You don't need to enable the "rules simpletest" module unless you want to run the tests!
  * You can find the admin interface at /admin/rules.
 
 Notes:

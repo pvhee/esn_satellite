@@ -1,5 +1,5 @@
 <?php
-// $Id: odeo.inc,v 1.1.4.7 2008/12/16 16:12:57 aaron Exp $
+// $Id: odeo.inc,v 1.1.4.8 2009/04/15 16:31:40 kleinmp Exp $
 
 /**
  * @file
@@ -64,8 +64,8 @@ function emaudio_odeo_settings() {
  */
 function emaudio_odeo_extract($embed = '') {
   return array(
-    '@odeo\.com/audio/([0-9]+)/@i',
-    '@href="http://odeo.com/audio/([0-9]+)/@i',
+    '@odeo\.com/episodes/([0-9]+)-@i',
+    '@href="http://odeo.com/episodes/([0-9]+)-@i',
   );
 }
 
@@ -82,21 +82,10 @@ function theme_emaudio_odeo_flash($embed, $width, $height, $autoplay) {
     }
     */
 
-    $output .= "
-      <object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" codebase=\"http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,47,0\"width=\"$width\" height=\"$height\" id=\"wimpy\" align=\"center\">
-      <param name=\"quality\" value=\"high\" />
-      <param name=\"width\" value=\"$width\" />
-      <param name=\"height\" value=\"$height\" />
-      <param name=\"name\" value=\"odeo_player_black\" />
-      <param name=\"allowScriptAccess\" value=\"always\" />
-      <param name=\"wmode\" value=\"transparent\" />
-      <embed src=\"http://odeo.com/flash/audio_player_black.swf\"
-      quality=\"high\" width=\"322\" height=\"54\"
-      name=\"odeo_player_black\" align=\"middle\"
-      allowScriptAccess=\"always\" wmode=\"transparent\"
-      type=\"application/x-shockwave-flash\" flashvars=\"type=audio&id=". $embed ."\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" />
-      </object>
-    \n";
+    $output .= '<object type="application/x-shockwave-flash" data="http://static.odeo.com/flash/player_audio_embed_v2.swf" width="325" height="60" id="odeo_audio">
+      <param name="movie" value="http://static.odeo.com/flash/player_audio_embed_v2.swf" />
+      <param name="FlashVars" value="jStr=[{\'id\': '. $embed .'}]" />
+      </object>';
   }
 
   return $output;
