@@ -1,5 +1,5 @@
 <?php
-// $Id: emfield.module,v 1.12.4.30 2009/03/10 17:18:32 aaron Exp $
+// $Id: emfield.module,v 1.12.4.32 2009/05/21 00:53:50 aaron Exp $
 
 /**
  * @file
@@ -266,13 +266,18 @@ function emfield_node_operations() {
 /**
  *  This reloads and saves the data for all the nid's in the array.
  */
-function emfield_operations_reload($nids = array()) {
+function emfield_operations_reload($nids = array(), $show_message = TRUE) {
   foreach ($nids as $nid) {
     if ($node = node_load($nid)) {
       $type = content_types($node->type);
       foreach ($type['fields'] as $field) {
         if (module_hook($field['type'], 'emfield_info')) {
-          drupal_set_message(t("Reloading %node-title's %field.", array('%node-title' => $node->title, '%field' => $field['type_name'])));
+          $message = "Reloaded %node-title's %field.";
+          $message_variables = array('%node-title' => $node->title, '%field' => $field['type_name']);
+          watchdog('emfield reload data', $message, $message_variables, WATCHDOG_NOTICE, l($node->title, 'node/'. $node->nid));
+          if ($show_message) {
+            drupal_set_message(t($message, $message_variables));
+          }
           $items = $node->{$field['field_name']};
           emfield_emfield_field('submit', $node, $field, $items, FALSE, FALSE, $field['type']);
           $node->{$field['field_name']} = $items;
@@ -419,7 +424,9 @@ function emfield_request_xml($provider, $url, $args = array(), $cached = TRUE, $
     }
   }
 
-  cache_set($arghash, $response, 'cache', time() + variable_get('emfield_cache_duration', 3600));
+  if ($cached) {
+    cache_set($arghash, $response, 'cache', time() + variable_get('emfield_cache_duration', 3600));
+  }
 
   return $response;
 }

@@ -1,5 +1,5 @@
 <?php
-// $Id: youtube.inc,v 1.1.2.19 2009/04/19 22:01:06 alexua Exp $
+// $Id: youtube.inc,v 1.1.2.21 2009/05/11 19:52:41 alexua Exp $
 
 /**
  * @file
@@ -290,7 +290,7 @@ function theme_emvideo_youtube_flash($embed, $width, $height, $autoplay, $option
     $high_quality = $high_quality ? '&amp;ap=%2526fmt%3D18' : '';
     $display_info = isset($options['display_info']) ? $options['display_info'] : variable_get('emvideo_youtube_display_info', FALSE);
     $display_info  = $display_info  ? '&showinfo=0' : '';
-    $url = "http://www.youtube.com/v/$embed&amp;$related$autoplay_value$colors$border$high_quality$display_info$enablejsap$fs";
+    $url = "http://www.youtube.com/v/$embed&amp;$related$autoplay_value$colors$border$high_quality$display_info$enablejsapi$fs";
     if (variable_get('emfield_swfobject', FALSE) && (module_exists('swfobject_api') || variable_get('emfield_swfobject_location', ''))) {
       if (module_exists('swfobject_api')) {
         $params['width'] = $width;
@@ -313,7 +313,7 @@ FLASH;
     }
     else {
       $output .= <<<FLASH
-        <div id="$div_id"><object type="application/x-shockwave-flash" height="$height" width="$width" data="$url" id="$id" allowFullScreen="$fullscreen_value">
+        <div id="$div_id"><object type="application/x-shockwave-flash" height="$height" width="$width" data="$url" id="$id">
           <param name="movie" value="$url" />
           <param name="allowScriptAcess" value="sameDomain"/>
           <param name="quality" value="best"/>

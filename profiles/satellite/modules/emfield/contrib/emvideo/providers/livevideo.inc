@@ -1,5 +1,5 @@
 <?php
-// $Id: livevideo.inc,v 1.1.2.9 2008/12/19 18:17:14 aaron Exp $
+// $Id: livevideo.inc,v 1.1.2.10 2009/05/10 00:31:21 alexua Exp $
 
 /**
  * @file
@@ -8,7 +8,6 @@
 
 define('EMVIDEO_LIVEVIDEO_MAIN_URL', 'http://www.livevideo.com/');
 define('EMVIDEO_LIVEVIDEO_API_INFO', 'http://www.livevideo.com/api/default.aspx');
-define('EMVIDEO_LIVEVIDEO_API_APPLICATION_URL', 'http://www.livevideo.com/profile/admin/editdeveloperprofile.aspx');
 define('EMVIDEO_LIVEVIDEO_REST_ENDPOINT', 'http://www.livevideo.com/api/');
 
 /**

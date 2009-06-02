@@ -1,12 +1,14 @@
 <?php
-// $Id: myspace.inc,v 1.1.2.9 2008/12/19 18:17:14 aaron Exp $
 
 /**
  * @file
  *   This include processes myspace.com media files for use by emfield.module.
  */
 
-define('EMVIDEO_MYSPACE_MAIN_URL', 'http://vids.myspace.com/index.cfm?fuseaction=vids.videos');
+define('EMVIDEO_MYSPACE_MAIN_URL', 'http://vids.myspace.com/');
+define('EMVIDEO_MYSPACE_API_URL', 'http://developer.myspace.com/community/');
+define('EMVIDEO_MYSPACE_DATA_VERSION', 1);
+
 
 function emvideo_myspace_info() {
   $features = array(
@@ -28,51 +30,42 @@ function emvideo_myspace_settings() {
   return $form;
 }
 
-function emvideo_myspace_request($code, $cacheable = TRUE) {
-  $args = array();
-  return module_invoke('emfield', 'request_xml', 'myspace', "http://vids.myspace.com/index.cfm?fuseaction=vids.individual&amp;videoid=$code", $args, $cacheable);
-}
-
 /**
- *  this scrapes the thumbnail from the video page and caches it
+ *  hook emvideo_PROVIDER_data
+ *
+ *  Provides an array to be serialised and made available with $item elsewhere.
+ *
+ *  This data can be used to store any extraneous information available
+ *  specifically to the 8tracks provider.
  */
-function _emvideo_myspace_scrape_thumbnail($video, $cached = TRUE) {
-  if (!$cached || !$cache = cache_get('myspace:thumbnail:'. $video, 'cache')) {
-    $vidid = drupal_substr($video, 0, 10);
+function emvideo_myspace_data($field, $item) {
+  // Initialize the data array.
+  $data = array();
+  // We are using oEmbed to retrieve a standard set of data from the provider.
+  // You should change the URL as specified by the 8tracks provider.
+  // If the 8tracks provider does not support oEmbed, you must remove this
+  // section entirely, or rewrite it to use their API.
+  // See http://oembed.com/ for for information.
+  $data = emfield_request_xml('Myspace', 'http://mediaservices.myspace.com/services/rss.ashx?type=video&videoID=' . $item['value'], array(), TRUE, FALSE, $item['value']);
 
-    if ($str = file_get_contents("http://vids.myspace.com/index.cfm?fuseaction=vids.individual&amp;videoid=$vidid")) {
-      // grab videos channel-id first
-      $channel_id = preg_replace('/.*tvchanid=([0-9]+);.*/si', '\1', $str);
+  // Create some version control. Thus if we make changes to the data array
+  // down the road, we can respect older content. If allowed by Embedded Media
+  // Field, any older content will automatically update this array as needed.
+  // In any case, you should account for the version if you increment it.
+  $data['emvideo_myspace_version'] = EMVIDEO_MYSPACE_DATA_VERSION;
+  
+  $data['emvideo_myspace_thumbnail'] = $data['ITEM']['MEDIA:THUMBNAIL'][1]['URL'];
+  // This stores a URL to the video's thumbnail.
 
-      if (is_numeric($channel_id)) {
-        // now from channel-page grab videos thumbnail
-        $str2 = file_get_contents("http://vids.myspace.com/index.cfm?fuseaction=vids.viewVideos&amp;channelid=$channel_id");
-
-        if ($str2) {
-          $picturelink = preg_replace('@.*href="[^"]+'. $vidid .'"[^>]+><img[^>]+src="([^"]+)".*@si', '\1',  $str2);
-
-          if ($picturelink) {
-            $thumbnail = $picturelink;
-            cache_set('myspace:thumbnail:'. $video, $thumbnail, 'cache', time() + 3600);
-          }
-        }
-      }
-    }
-  }
-  else {
-    $thumbnail = $cache->data;
-  }
-
-  return $thumbnail;
+  return $data;
 }
 
 /**
  *  Implements emvideo_PROVIDER_extract().
  */
 function emvideo_myspace_extract($url) {
-  // http://vids.myspace.com/index.cfm?fuseaction=vids.individual&videoid=43381231
-  // <a href="http://myspacetv.com/index.cfm?fuseaction=vids.individual&videoid=14686340">What's That Floating In The Water Part 1</a><br><embed src="http://lads.myspace.com/videos/vplayer.swf" flashvars="m=14686340&v=2&type=video" type="application/x-shockwave-flash" width="430" height="346"></embed><br><a href="http://myspacetv.com/index.cfm?fuseaction=vids.addToProfileConfirm&videoid=14686340&title=What's That Floating In The Water Part 1">Add to My Profile</a> | <a href="http://myspacetv.com/index.cfm?fuseaction=vids.home">More Videos</a>
-  return array(
+ 
+ return array(
     '@src="myspace\.com/index.cfm\?fuseaction=vids\.individual&amp;videoid=([^&"]+)@i',
     '@myspace\.com/index\.cfm\?fuseaction=vids\.individual&amp;videoid=([^&"]+)@i',
     '@myspace\.com/index\.cfm\?fuseaction=vids\.individual&videoid=([^&"]+)@i',
@@ -83,10 +76,15 @@ function emvideo_myspace_extract($url) {
 }
 
 /**
- *  Implements emvideo_PROVIDER_link().
+ * hook emvideo_PROVIDER_embedded_link($video_code)
+ * returns a link to view the video at the provider's site.
+ *  @param $video_code
+ *    The string containing the audio code.
+ *  @return
+ *    A string containing the URL to view the video at the original provider's site.
  */
-function emvideo_myspace_video_link($video_code) {
-  return 'http://vids.myspace.com/index.cfm?fuseaction=vids.individual&amp;videoid='. $video_code;
+function emvideo_myspace_embedded_link($video_code) {
+  return 'http://vids.myspace.com/index.cfm?fuseaction=vids.individual&videoid='. $video_code;
 }
 
 function theme_emvideo_myspace_flash($embed, $width, $height) {
@@ -108,7 +106,7 @@ function theme_emvideo_myspace_flash($embed, $width, $height) {
 }
 
 function emvideo_myspace_thumbnail($field, $item, $formatter, $node, $width, $height) {
-  return _emvideo_myspace_scrape_thumbnail($item['value']);
+  return $item['data']['emvideo_myspace_thumbnail'] ;
 }
 
 function emvideo_myspace_video($embed, $width, $height, $field, $item, &$node) {

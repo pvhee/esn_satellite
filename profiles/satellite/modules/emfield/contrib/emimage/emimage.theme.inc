@@ -10,14 +10,34 @@ function theme_emimage_image($field, $item, $formatter, $node, $code, $width, $h
   if ($height) {
     $attributes['height'] = $height;
   }
-  if ($item['class']){
+  if (!$width || !$height) {
+    // Find out the size of the actual image file, and scale accordingly
+    if ( $item['data']['width'] && $item['data']['height'] ) {
+      // The image's width & height are known
+      $scale_width = $item['data']['width'] / ($width ? $width : 1);
+      $scale_height = $item['data']['height'] / ($height ? $height : 1);
+      if ($scale_width > $scale_height) {
+        $attributes['width'] = $width;
+      }
+      else {
+        $attributes['height'] = $height;
+      }
+    }
+    else {
+      // We don't know the size of the image, so just make it fill the space available.
+      // It will probably be stretched in one direction, making it look odd.
+      $attributes['width'] = $width ? $width : NULL;
+      $attributes['height'] = $height ? $height : NULL;
+    }
+	}
+  if ($item['class']) {
       $attributes['class'] = $item['class'];
   }
   else if ($item['provider']) {
       $attributes['class'] = $item['provider'];
   }
   $output = theme('image', $url, $title, $title, $attributes, false);
-  
+
   if ($link) {
     $output = l($output, $link, array('html' => true));
   }
@@ -27,9 +47,9 @@ function theme_emimage_image($field, $item, $formatter, $node, $code, $width, $h
 function theme_emimage_image_thumbnail($field, $item, $formatter, $node) {
   if ($item['value'] && $item['provider']) {
     $code = $item['value'];
-    $width = $field['widget']['thumbnail_width'] === '' ? variable_get('emimage_default_full_width', EMIMAGE_DEFAULT_FULL_WIDTH) : $field['widget']['thumbnail_width'];
-    $height = $field['widget']['thumbnail_height'] === '' ? variable_get('emimage_default_full_height', EMIMAGE_DEFAULT_FULL_HEIGHT) : $field['widget']['thumbnail_height'];
-    $link = $field['widget']['thumbnail_link'] ? $field['widget']['thumbnail_link'] : variable_get('emimage_default_thumbnail_link', EMIMAGE_DEFAULT_THUMBNAIL_LINK);
+    $width = $field['widget']['thumbnail_width'];
+    $height = $field['widget']['thumbnail_height'];
+    $link = $field['widget']['thumbnail_link'];
     if ($link == EMIMAGE_LINK_CONTENT) {
       $link = 'node/'. $node->nid;
     }
@@ -48,9 +68,9 @@ function theme_emimage_image_thumbnail($field, $item, $formatter, $node) {
 function theme_emimage_image_full($field, $item, $formatter, $node) {
   if ($item['value'] && $item['provider']) {
     $code = $item['value'];
-    $width = $field['widget']['full_width'] === '' ? variable_get('emimage_default_full_width', EMIMAGE_DEFAULT_FULL_WIDTH) : $field['widget']['full_width'];
-    $height = $field['widget']['full_height'] === '' ? variable_get('emimage_default_full_height', EMIMAGE_DEFAULT_FULL_HEIGHT) : $field['widget']['full_height'];
-    $link = $field['widget']['full_link'] ? $field['widget']['full_link'] : variable_get('emimage_default_full_link', EMIMAGE_DEFAULT_FULL_LINK);
+    $width = $field['widget']['full_width'];
+    $height = $field['widget']['full_height'];
+    $link = $field['widget']['full_link'];
     if ($link == EMIMAGE_LINK_CONTENT) {
       $link = 'node/'. $node->nid;
     }
@@ -73,9 +93,9 @@ function theme_emimage_default($field, $item, $formatter, $node) {
 function theme_emimage_image_preview($field, $item, $formatter, $node) {
   if ($item['value'] && $item['provider']) {
     $code = $item['value'];
-    $width = $field['widget']['preview_width'] === '' ? variable_get('emimage_default_preview_width', EMIMAGE_DEFAULT_PREVIEW_WIDTH) : $field['widget']['preview_width'];
-    $height = $field['widget']['preview_height'] === '' ? variable_get('emimage_default_preview_height', EMIMAGE_DEFAULT_PREVIEW_HEIGHT) : $field['widget']['preview_height'];
-    $link = $field['widget']['preview_link'] ? $field['widget']['preview_link'] : variable_get('emimage_default_preview_link', EMIMAGE_DEFAULT_PREVIEW_LINK);
+    $width = $field['widget']['preview_width'];
+    $height = $field['widget']['preview_height'];
+    $link = $field['widget']['preview_link'];
     if ($link == EMIMAGE_LINK_CONTENT) {
       $link = 'node/'. $node->nid;
     }
@@ -102,6 +122,11 @@ function theme_emimage_formatter_image_embed($element) {
 }
 
 function theme_emimage_formatter_default($element) {
+  $field = content_fields($element['#field_name'], $element['#type_name']);
+  return module_invoke('emimage', 'field_formatter', $field, $element['#item'], $element['#formatter'], $element['#node']);
+}
+
+function theme_emimage_formatter_image_full($element) {
   $field = content_fields($element['#field_name'], $element['#type_name']);
   return module_invoke('emimage', 'field_formatter', $field, $element['#item'], $element['#formatter'], $element['#node']);
 }

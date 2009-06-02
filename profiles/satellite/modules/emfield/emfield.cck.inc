@@ -1,5 +1,5 @@
 <?php
-// $Id: emfield.cck.inc,v 1.1.2.15 2009/03/13 02:28:39 aaron Exp $
+// $Id: emfield.cck.inc,v 1.1.2.18 2009/05/29 01:10:38 aaron Exp $
 
 /**
  * @file
@@ -170,7 +170,7 @@ function _emfield_emfield_widget(&$form, &$form_state, $field, $items, $delta = 
 
   // Set the widget description, but allow the field to override this.
   if (!(empty($field['widget']['description']))) {
-    $textfield_description = $field['widget']['description'];
+    $textfield_description = t('@description', array('@description' => $field['widget']['description']));
   }
   else {
     $textfield_description = t('Enter the URL or Embed Code here. The embedded third party content will be parsed and displayed appropriately from this.');
@@ -183,11 +183,11 @@ function _emfield_emfield_widget(&$form, &$form_state, $field, $items, $delta = 
   $value = isset($items[$delta]['value']) ? $items[$delta]['value'] : '';
   $tree['embed'] = array(
     '#type' => 'textfield',
-    '#title' => t($field['widget']['label']),
+    '#title' => t('@label', array('@label' => $field['widget']['label'])),
     '#description' => $textfield_description,
     '#default_value' => $embed,
     '#required' => $delta == 0 ? $field['required'] : FALSE,
-    '#maxlength' => 2048,
+    '#maxlength' => 4096,
   );
 
   $tree['value'] = array(

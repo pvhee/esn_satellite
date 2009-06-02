@@ -1,4 +1,9 @@
-/* $Id: changelog.txt,v 1.1.2.5 2008/12/16 16:27:58 aaron Exp $ */
+/* $Id: changelog.txt,v 1.1.2.7 2009/05/29 01:59:57 aaron Exp $ */
+
+May 2009
+--------
+ * #383274 Fix image scaling (aaron).
+ * #383274 Fix division by error (aaron).
 
 December 2008
 -------------

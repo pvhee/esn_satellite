@@ -1,5 +1,5 @@
 <?php
-// $Id: emvideo.theme.inc,v 1.1.2.19 2009/03/05 16:45:36 aaron Exp $
+// $Id: emvideo.theme.inc,v 1.1.2.22 2009/05/21 01:00:18 aaron Exp $
 
 /**
  * @file
@@ -61,6 +61,7 @@ function theme_emvideo_video_embed($field, $item, $formatter, $node, $options = 
 function theme_emvideo_video_thumbnail($field, $item, $formatter, $node, $no_link = FALSE, $options = array()) {
   // Thickbox requires some output, so make sure we have at least a blank string.
   $output = '';
+  $options['node'] = $node;
   $width = isset($options['width']) ? $options['width'] : ($field['widget']['thumbnail_width'] ? $field['widget']['thumbnail_width'] : variable_get('emvideo_default_video_width', EMVIDEO_DEFAULT_THUMBNAIL_WIDTH));
   $height = isset($options['height']) ? $options['height'] : ($field['widget']['thumbnail_height'] ? $field['widget']['thumbnail_height'] : variable_get('emvideo_default_video_height', EMVIDEO_DEFAULT_THUMBNAIL_HEIGHT));
 
@@ -134,6 +135,7 @@ function theme_emvideo_video_video($field, $item, $formatter, $node, $options = 
     $width = isset($options['width']) ? $options['width'] : ($field['widget']['video_width'] ? $field['widget']['video_width'] : variable_get('emvideo_default_video_width', EMVIDEO_DEFAULT_VIDEO_WIDTH));
     $height = isset($options['height']) ? $options['height'] : ($field['widget']['video_height'] ? $field['widget']['video_height'] : variable_get('emvideo_default_video_height', EMVIDEO_DEFAULT_VIDEO_HEIGHT));
     $autoplay = isset($options['autoplay']) ? $options['autoplay'] : $field['widget']['video_autoplay'];
+    $options['node'] = $node;
     $output = module_invoke('emfield', 'include_invoke', 'emvideo', $item['provider'], 'video', $embed, $width, $height, $field, $item, $node, $autoplay, $options);
   }
 
@@ -147,9 +149,10 @@ function theme_emvideo_default($field, $item, $formatter, $node, $options = arra
 function theme_emvideo_video_preview($field, $item, $formatter, $node, $options = array()) {
   if ($item['value'] && $item['provider']) {
     $embed = $item['value'];
-    $width = $options['width'] ? $options['width'] : ($field['widget']['preview_width'] ? $field['widget']['preview_width'] : variable_get('emvideo_default_preview_width', EMVIDEO_DEFAULT_PREVIEW_WIDTH));
-    $height = $options['height'] ? $options['height'] : ($field['widget']['preview_height'] ? $field['widget']['preview_height'] : variable_get('emvideo_default_preview_height', EMVIDEO_DEFAULT_PREVIEW_HEIGHT));
-    $autoplay = $options['autoplay'] ? $options['autoplay'] : $field['widget']['preview_autoplay'];
+    $width = isset($options['width']) ? $options['width'] : (isset($field['widget']['preview_width']) ? $field['widget']['preview_width'] : variable_get('emvideo_default_preview_width', EMVIDEO_DEFAULT_PREVIEW_WIDTH));
+    $height = isset($options['height']) ? $options['height'] : (isset($field['widget']['preview_height']) ? $field['widget']['preview_height'] : variable_get('emvideo_default_preview_height', EMVIDEO_DEFAULT_PREVIEW_HEIGHT));
+    $autoplay = isset($options['autoplay']) ? $options['autoplay'] : (isset($field['widget']['preview_autoplay']) ? $field['widget']['preview_autoplay'] : FALSE);
+    $options['node'] = $node;
     $output = module_invoke('emfield', 'include_invoke', 'emvideo', $item['provider'], 'preview', $embed, $width, $height, $field, $item, $node, $autoplay, $options);
   }
 
@@ -166,7 +169,7 @@ function theme_emvideo_thickbox($field, $item, $formatter, $node, $options = arr
     'attributes' => array(
       'title' => $title,
       'class' => (!isset($options['modal']) || $options['modal'] == 'thickbox') ? 'thickbox' : 'emvideo-thumbnail-replacement',
-      'rel' => ((!isset($options['modal']) || $options['modal'] == 'thickbox') && module_exists('lightbox2')) ? 'lightframe['. $field['type_name'] .'|width:'. ($width + 16) .'; height:'. ($height) .';]' : $field['type_name'],
+      'rel' => ((!isset($options['modal']) || $options['modal'] == 'thickbox') && module_exists('lightbox2')) ? 'lightframe['. $field['type_name'] .'|width:'. ($width + 16) .'; height:'. ($height + 16) .';]' : $field['type_name'],
     ),
     'query' => NULL,
     'fragment' => NULL,

@@ -1,5 +1,5 @@
 <?php
-// $Id: veoh.inc,v 1.1.2.6 2008/12/19 18:17:14 aaron Exp $
+// $Id: veoh.inc,v 1.1.2.7 2009/05/09 19:21:38 alexua Exp $
 
 /**
  * @file
@@ -7,8 +7,7 @@
  */
 
 define('EMVIDEO_VEOH_MAIN_URL', 'http://www.veoh.com/');
-define('EMVIDEO_VEOH_API_INFO', 'http://www.veoh.com/restApiDoc/restReference.html');
-define('EMVIDEO_VEOH_API_APPLICATION_URL', 'http://www.veoh.com/developers.html');
+define('EMVIDEO_VEOH_API_INFO', 'http://www.veoh.com/rest/v2/doc.html');
 define('EMVIDEO_VEOH_XML', 'http://www.veoh.com/rest/video/');
 
 function emvideo_veoh_info() {

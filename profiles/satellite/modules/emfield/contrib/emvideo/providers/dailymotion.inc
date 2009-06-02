@@ -1,5 +1,5 @@
 <?php
-// $Id: dailymotion.inc,v 1.1.2.9 2008/12/19 18:17:14 aaron Exp $
+// $Id: dailymotion.inc,v 1.1.2.10 2009/05/10 00:31:21 alexua Exp $
 
 /**
  * @file
@@ -124,7 +124,7 @@ function theme_emvideo_dailymotion_flash($embed, $width, $height, $autoplay) {
  *    a URL pointing to the thumbnail
  */
 function emvideo_dailymotion_thumbnail($field, $item, $formatter, $node, $width, $height) {
-  return 'http://www.dailymotion.com/thumbnail/160x120/video/'. $item['value'];
+  return 'http://ak.static.dailymotion.com/dyn/preview/160x120/video/'. $item['value'];
 }
 
 /**

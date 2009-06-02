@@ -1,5 +1,5 @@
 <?php
-// $Id: zzz_custom_url.inc,v 1.1.2.13 2009/02/10 18:24:47 alexua Exp $
+// $Id: zzz_custom_url.inc,v 1.1.2.14 2009/05/11 19:52:41 alexua Exp $
 
 /**
  * @file
@@ -77,7 +77,7 @@ function emvideo_zzz_custom_url_data($field, $item) {
   }
   // @todo replace ['type'] with converted mime info if available
   $types = _emvideo_zzz_custom_url_implode_types();
-  $regex = '@\.('. $types .')@i';
+  $regex = '@\.('. $types .')$@i';
   if (preg_match($regex, $item['embed'], $matches)) {
     $data['type'] = $matches[1];
   }

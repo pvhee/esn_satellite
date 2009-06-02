@@ -1,11 +1,20 @@
-/* $Id: changelog.txt,v 1.7.2.10 2009/03/13 02:28:02 aaron Exp $ */
+/* $Id: changelog.txt,v 1.7.2.13 2009/05/29 00:39:31 aaron Exp $ */
 
 /**
  *  @file
  *  Changelog for Embedded Thumbnail Field.
  */
 
-March 2008
+May 2009
+--------
+ * #474790: Insecure handling of $field['widget']['emthumb_description'] (aaron).
+ * #474790: Insecure handling of $field['widget']['emthumb_label'] (aaron).
+
+April 2009
+----------
+ * Preview size same as field thumbnail (aaron).
+
+March 2009
 ----------
  * Change filename creation for automatic thumbs (aaron).
  * Add support for the Transliteration module (aaron).

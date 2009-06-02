@@ -1,14 +1,10 @@
 <?php
-// $Id: guba.inc,v 1.1.2.6 2008/12/19 18:17:14 aaron Exp $
-
 /**
  * @file
  *   Provide support for the Guba provider to the emfield.module.
  */
 
 define('EMVIDEO_GUBA_MAIN_URL', 'http://www.guba.com/');
-define('EMVIDEO_GUBA_API_INFO', 'http://www.guba.com/restApiDoc/restReference.html');
-define('EMVIDEO_GUBA_API_APPLICATION_URL', 'http://www.guba.com/developers.html');
 
 function emvideo_guba_info() {
   $features = array(

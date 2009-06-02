@@ -1,5 +1,5 @@
 <?php
-// $Id: picasa.inc,v 1.1.2.4 2008/10/08 17:39:09 alexua Exp $
+// $Id: picasa.inc,v 1.1.2.5 2009/05/10 00:31:20 alexua Exp $
 
 /**
  * @file
@@ -7,7 +7,7 @@
  */
 
 define('EMIMAGE_PICASA_MAIN_URL', 'http://picasaweb.google.com/');
-define('EMIMAGE_PICASA_API_INFO', 'http://code.google.com/apis/picasaweb/gdata.html');
+define('EMIMAGE_PICASA_API_INFO', 'http://code.google.com/apis/picasaweb/developers_guide_protocol.html');
 define('EMIMAGE_PICASA_REST_ENDPOINT', 'http://picasaweb.google.com/data/feed/api/user/');
 
 /**

@@ -1,5 +1,5 @@
 <?php
-// $Id: emthumb.module,v 1.7.2.16 2009/03/13 02:28:02 aaron Exp $
+// $Id: emthumb.module,v 1.7.2.20 2009/05/29 00:39:32 aaron Exp $
 
 /**
  *  @file
@@ -59,7 +59,8 @@ function emthumb_emfield_field_extra($op, &$node, $field, &$items, $teaser, $pag
         unset($items[0]['emthumb']['emthumb']['emthumb']['emthumb']);
       }
       foreach ($items as  $delta => $item) {
-        $items[$delta]['data']['emthumb'] = _emthumb_file_insert($node, $item['data']['emthumb'], $field);
+        $file = $item['data']['emthumb'];
+        $items[$delta]['data']['emthumb'] = _emthumb_file_insert($node, $file, $field);
       }
       break;
 
@@ -118,7 +119,7 @@ function emthumb_widget_element_process($element, $form_state) {
   // displayed if they are a child of '#type' = form issue
   $element[$fieldname .'_upload'] = array(
     '#type'  => 'file',
-    '#description' => $field['widget']['emthumb_description'] ? $field['widget']['emthumb_description'] : t('If you upload a custom thumbnail, then this will be displayed when the @field thumbnail is called for, overriding any automatic thumbnails by custom providers.', array('@field' => $field['widget']['label'])),
+    '#description' => $field['widget']['emthumb_description'] ? t('@description', array('@description' => $field['widget']['emthumb_description'])) : t('If you upload a custom thumbnail, then this will be displayed when the @field thumbnail is called for, overriding any automatic thumbnails by custom providers.', array('@field' => $field['widget']['label'])),
     '#tree' => FALSE,
     '#weight' => 9,
   );
@@ -151,7 +152,7 @@ function emthumb_widget_element_process($element, $form_state) {
     $filename = $file['filepath'];
     $element['emthumb']['preview'] = array(
       '#type' => 'markup',
-      '#value' => theme('emthumb_image', $file, $file['emthumb_alt'], $file['emthumb_title'], array('width' => '150'), FALSE),
+      '#value' => theme('emthumb_image', $file, $file['emthumb_alt'], $file['emthumb_title'], array('width' => $field['widget']['thumbnail_width'], 'height' => $field['widget']['thumbnail_height']), FALSE),
     );
 
     $element['emthumb']['description'] = array(
@@ -303,7 +304,7 @@ function emthumb_emfield_widget_extra(&$form, &$form_state, $field, $items, $del
   $element = array();
   $element['emthumb'] = array(
     '#type' => 'fieldset',
-    '#title' => $field['widget']['emthumb_label'] ? $field['widget']['emthumb_label'] :  t('@field custom thumbnail', array('@field' => $field['widget']['label'])),
+    '#title' => $field['widget']['emthumb_label'] ? t('@label', array('@label' => $field['widget']['emthumb_label'])) :  t('@field custom thumbnail', array('@field' => $field['widget']['label'])),
     '#weight' => $field['widget']['emthumb_weight'],
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,

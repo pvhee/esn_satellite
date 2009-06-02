@@ -1,5 +1,5 @@
 <?php
-// $Id: emvideo.install,v 1.1.2.10 2009/03/10 17:34:56 aaron Exp $
+// $Id: emvideo.install,v 1.1.2.13 2009/05/19 13:48:05 alexua Exp $
 
 /**
  * @file
@@ -110,7 +110,8 @@ function _emvideo_upgrade_from_video_cck() {
   // so we fix those sites too. Shame on them for not updating d5 first...
   drupal_load('module', 'emfield');
   foreach (emfield_system_list('emvideo') as $provider) {
-    $test = variable_get('emfield_video_cck_allow_'. $provider->name, NULL) || variable_get('video_cck_allow_'. $provider->name, NULL);
+    $test = variable_get('emfield_video_cck_allow_'. $provider->name, NULL);
+    $test = (isset($test)) ? $test : variable_get('video_cck_allow_'. $provider->name, NULL);
     if (isset($test)) {
       variable_set('emfield_emvideo_allow_'. $provider->name, $test);
       variable_del('emfield_video_cck_allow_'. $provider->name);
@@ -136,7 +137,7 @@ function emvideo_update_2() {
   $ret = array();
 
   include_once('./'. drupal_get_path('module', 'content') .'/content.module');
-  include_once('./'. drupal_get_path('module', 'content') .'/content_admin.inc');
+  include_once('./'. drupal_get_path('module', 'content') .'/includes/content.admin.inc');
 
   content_clear_type_cache();
   $fields = content_fields();

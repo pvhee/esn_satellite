@@ -1,5 +1,5 @@
 <?php
-// $Id: photobucket.inc,v 1.1.2.4 2008/10/08 17:39:09 alexua Exp $
+// $Id: photobucket.inc,v 1.1.2.5 2009/05/10 00:31:20 alexua Exp $
 
 /**
  * @file
@@ -119,6 +119,7 @@ function _emimage_photobucket_scrape_image_title($url) {
     return $title[$url];
   }
 
-  $html = file_get_contents($url);
+  $rs = drupal_http_request($url);
+  $html = $rs->data;
   return $title[$url] = preg_match('@<span id="photoTitle">(.+?)</span>@is', $html, $matches)? $matches[1] : '';
 }

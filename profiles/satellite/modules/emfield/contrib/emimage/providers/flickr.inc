@@ -1,5 +1,5 @@
 <?php
-// $Id: flickr.inc,v 1.1.2.7 2009/04/15 16:02:59 kleinmp Exp $
+// $Id: flickr.inc,v 1.1.2.9 2009/05/29 01:59:57 aaron Exp $
 
 /**
  * @file
@@ -43,7 +43,6 @@ function emimage_flickr_info() {
  */
 function emimage_flickr_import($url, $limit = 0, $page = 0) {
   $codes = array();
-
   // http://www.flickr.com/photos/nikkiana/sets/72157601948647678/
   if (preg_match('@flickr\.com/photos/([^/]*)/([^/]*)/([^/]*)/@i', $url, $matches)) {
     $page++;  // flickr starts current page at 1
@@ -54,7 +53,6 @@ function emimage_flickr_import($url, $limit = 0, $page = 0) {
     }
     $args['page'] = $page;
     $xml = emimage_flickr_request('flickr.photosets.getPhotos', $args);
-//    print_r($xml);
     $codes['#pages'] = $xml['photoset']['pages'];
     $codes['#page'] = $xml['photoset']['page'] - 1;
     $codes['#total'] = $xml['photoset']['total'];
@@ -77,7 +75,6 @@ function emimage_flickr_import($url, $limit = 0, $page = 0) {
     $data['owner'] = $xml['photo']['owner']['nsid'];
     $data['title'] = $xml['photo']['title']['_content'];*/
   }
-// print_r($codes);
   return $codes;
 }
 
@@ -145,6 +142,23 @@ function emimage_flickr_data($field, $item) {
       $data['tags'][] = $tag['raw'];
     }
   }
+  // Store the dimensions of the largest image so we can scale it correctly at display-time
+  $width = 0 ;
+  $height = 0;
+  $xml = emimage_flickr_request('flickr.photos.getSizes', array('photo_id' => $item['value']));
+  foreach( $xml["sizes"]["size"] as $size){
+    // Ignore the Square size, as that doesn't give us the true aspect ratio
+    if ($size["label"] != "Square") {
+      if ( (int)$size["width"] > $width ) {
+        $width = (int)$size["width"];
+        $height = (int)$size["height"];
+      }
+    }
+  }
+  if ($width > 0) {
+    $data['width'] = $width ;
+    $data['height'] = $height ;
+  }
   return $data;
 }
 
@@ -203,11 +217,11 @@ function emimage_flickr_image_url($code, $width, $height, $formatter = NULL, $fi
   if ($code) {
     $size = _emimage_flickr_guess_size($width, $height);
     $getsize = emimage_flickr_request('flickr.photos.getSizes', array('photo_id' => $code));
-   
+
     // For small images, there may not be the sizes 0..4 that
     // _emimage_flickr_guess_size assumes, so:
     $size = min( $size, (count($getsize['sizes']['size'])-1) );
-   
+
     $url = $getsize['sizes']['size'][$size]['source'];
   }
   return $url;
@@ -237,10 +251,15 @@ function emimage_flickr_image_title($code, $data) {
  */
 function _emimage_flickr_guess_size($width, $height) {
   $max = max($width, $height);
-  foreach (array('0' => 75, '1' => 100, '2' => 240, '3' => 500, '4' => 1024) as $size => $value) {
-    if ($max <= $value) {
-      return $size;
+
+  if ($max) {
+    foreach (array('0' => 75, '1' => 100, '2' => 240, '3' => 500, '4' => 1024) as $size => $value) {
+      if ($max <= $value) {
+        return $size;
+      }
     }
   }
+
+  // If we don't have width or height set, then get the original size.
   return '5';
 }

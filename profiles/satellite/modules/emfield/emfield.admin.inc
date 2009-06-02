@@ -1,5 +1,5 @@
 <?php
-// $Id: emfield.admin.inc,v 1.1.2.8 2008/12/15 19:21:17 aaron Exp $
+// $Id: emfield.admin.inc,v 1.1.2.9 2009/05/29 00:16:36 aaron Exp $
 
 /**
  * @file
@@ -127,22 +127,22 @@ function emfield_settings_validate($form, $form_state) {
  * If job_queue module is installed, admins can reload embedded media data in bulk
  */
 function emfield_settings_jobqueue() {
-	$form = array();
+  $form = array();
   $form['job_queue'] = array(
     '#type' => 'fieldset',
     '#title' => t('Reload Embedded Media Data'),
     '#description' => t('You can reload the embedded media data on all nodes on your site if necessary.  This action will be queued to run on cron via the job queue module.'),
-	  '#collapsible' => TRUE,
+    '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
   $types = content_types();
   $options = array();
   foreach ($types as $type) {
-	  foreach ($type['fields'] as $field) {
+    foreach ($type['fields'] as $field) {
       if (module_hook($field['type'], 'emfield_info')) {
-	      $options[$type['type']] = $type['name'];
-	    }
-	  }
+        $options[$type['type']] = $type['name'];
+      }
+    }
   }
   if (count($options)) {
     $form['job_queue']['types'] = array(
@@ -153,9 +153,9 @@ function emfield_settings_jobqueue() {
     );
 
     $form['job_queue']['submit'] = array(
-	    '#type' => 'submit',
-	    '#value' => t('Submit'),
-	  );
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+    );
   }
 
   return $form;
@@ -165,15 +165,15 @@ function emfield_settings_jobqueue() {
  * For each selected content type, add all of its nodes to the job queue for reloading.
  */
 function emfield_settings_jobqueue_submit($form, &$form_state) {
-	foreach($form_state['values']['types'] as $type => $value) {
-		if ($value) {
-	    $result = db_query("SELECT nid FROM {node} WHERE type = '%s'", $type);
-	    while ($nid = db_result($result)) {
-		    job_queue_add('emfield_reload', 'refresh emfield info', array($nid), drupal_get_path('module', 'emfield') .'/emfield.admin.inc', TRUE);
-	    }
-			drupal_set_message(t('The %type nodes have been queued to reload emfield data upon cron.', array('%type' => $type)));
-		}
-	}
+  foreach($form_state['values']['types'] as $type => $value) {
+    if ($value) {
+      $result = db_query("SELECT nid FROM {node} WHERE type = '%s'", $type);
+      while ($nid = db_result($result)) {
+        job_queue_add('emfield_reload', 'refresh emfield info', array($nid), drupal_get_path('module', 'emfield') .'/emfield.admin.inc', TRUE);
+      }
+      drupal_set_message(t('The %type nodes have been queued to reload emfield data upon cron.', array('%type' => $type)));
+    }
+  }
 }
 
 /**

@@ -1,4 +1,21 @@
-/* $Id: changelog.txt,v 1.1.2.34 2009/03/10 17:33:17 aaron Exp $ */
+/* $Id: changelog.txt,v 1.1.2.39 2009/05/21 02:29:19 aaron Exp $ */
+
+/**
+ *  @file
+ *  Changelog for Embedded Video Field (emvideo).
+ */
+
+May 2009
+----------
+ * Redo #351145 and fix autoplay for blip in new player (aaron).
+ * Pass $node to $options in theme functions (aaron).
+ * Pass $options to theme_video_cck_bliptv_flash (aaron).
+ * #351145 After upgrade, blip.tv videos show: Error: Invalid Feed (aaron).
+ * #459272 - fixed MySpace povider file with new api (junedkazi/alex).
+ * #374201 - jastraat fixed problem with $enablejsapi param.
+ * #405596 - ahem85 fixed problem with regex in zzz_custom_url.inc
+ * #363287 - q0rban fixed problem with emvideo.install
+ * #466608 - fixed path to cck's content.admin.inc
 
 March 2009
 ----------

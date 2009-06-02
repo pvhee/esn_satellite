@@ -1,5 +1,5 @@
 <?php
-// $Id: advpoll.module,v 1.21.2.88.2.22 2009/04/11 16:21:08 chriskennedy Exp $
+// $Id: advpoll.module,v 1.21.2.88.2.23 2009/05/30 17:16:40 heyrocker Exp $
 
 /**
  * @file
@@ -235,7 +235,7 @@ function theme_advpoll_block_latest_poll() {
   $node = advpoll_latest_poll();
   $output = '';
   if ($node) {
-    $output .= '<h3>'. check_plain($node->title) .'</h3>';
+    $output .= '<h3>'. l($node->title, 'node/'. $node->nid) .'</h3>';
     $output .= drupal_render($node->content);
     if ($node->voted) {
       $output .= '<p>'. l(t('Older polls'), 'polls', array('class' => 'old-polls', 'title' => t('View the list of polls on this site.'))) .'</p>';
