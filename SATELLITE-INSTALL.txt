@@ -1,0 +1,28 @@
+ESN Satellite 3 Installation Checklist
+--------------------------------------
+
+This is a complimentary document to the standard Drupal installation
+procedure (file: INSTALL.txt). It lists some frequent problems you
+might find when installing ESN Satellite 3.
+
+All problems here depend on your hosting company. Please ask them for
+support if you have problems with one of the items below (or, if you
+couldn't install and you don't know where the problem is, send the list
+below to your hosting company and ask them if their server satisfies
+the requirements).
+
+1) Check that you have PHP 5.2 and MySQL 4.1 or higher.
+
+2) Set memory_limit in php.ini at 64 MBytes or more.
+
+3) Create a MySQL database (and possibly a new user). If creating a
+   new user, make sure it has all privileges (except GRANT) on the
+   created database. Namely, you need the LOCK TABLES permission too.
+
+4) Check that the rewrite module is enabled on the web server (if
+   using Apache httpd).
+
+5) Check filesystem permissions: the directory sites/default/files must
+   have read/write permission for the user the web server runs as.
+
+Youth Agora webteam <webteam@youthagora.org>, May 2009.
