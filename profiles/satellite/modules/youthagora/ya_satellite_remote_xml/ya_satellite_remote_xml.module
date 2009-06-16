@@ -2,6 +2,23 @@
 // $Id$
 
 /**
+ * Implementation of hook_menu()
+ */
+function ya_satellite_remote_xml_menu() {  
+  $items['admin/settings/ya_satellite_remote_xml'] = array(
+    'title' => 'Remote File', 
+    'description' => 'Blabla.', 
+    'page callback' => 'ya_satellite_remote_xml_admin_settings', 
+    'access arguments' => array(
+      'administer Remote XML' 
+    ), 
+    'file' => 'ya_satellite_remote_xml.admin.inc'
+  );
+  
+  return $items;
+}
+
+/**
  * Implementation of hook_cron().
  *
  * Checks news feeds for updates once their refresh interval has elapsed.
