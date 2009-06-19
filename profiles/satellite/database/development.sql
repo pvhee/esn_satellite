@@ -1815,11 +1815,11 @@ CREATE TABLE `flag_content` (
   UNIQUE KEY `fid_content_type_content_id_uid` (`fid`,`content_type`,`content_id`,`uid`),
   KEY `content_type_content_id` (`content_type`,`content_id`),
   KEY `content_type_uid` (`content_type`,`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `flag_content` WRITE;
 /*!40000 ALTER TABLE `flag_content` DISABLE KEYS */;
-INSERT INTO `flag_content` VALUES (2,2,'node',267,0,1245449322);
+INSERT INTO `flag_content` VALUES (3,2,'node',272,0,1245449586);
 /*!40000 ALTER TABLE `flag_content` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `flag_counts`;
@@ -1835,7 +1835,8 @@ CREATE TABLE `flag_counts` (
 
 LOCK TABLES `flag_counts` WRITE;
 /*!40000 ALTER TABLE `flag_counts` DISABLE KEYS */;
-INSERT INTO `flag_counts` VALUES (2,'node',267,1);
+INSERT INTO `flag_counts` VALUES (2,'node',267,0);
+INSERT INTO `flag_counts` VALUES (2,'node',272,1);
 INSERT INTO `flag_counts` VALUES (2,'node',274,0);
 /*!40000 ALTER TABLE `flag_counts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1848,9 +1849,8 @@ CREATE TABLE `flag_types` (
 
 LOCK TABLES `flag_types` WRITE;
 /*!40000 ALTER TABLE `flag_types` DISABLE KEYS */;
-INSERT INTO `flag_types` VALUES (1,'story');
-INSERT INTO `flag_types` VALUES (1,'forum');
-INSERT INTO `flag_types` VALUES (1,'blog');
+INSERT INTO `flag_types` VALUES (1,'advpoll_binary');
+INSERT INTO `flag_types` VALUES (1,'article');
 INSERT INTO `flag_types` VALUES (2,'article');
 INSERT INTO `flag_types` VALUES (2,'advpoll_binary');
 INSERT INTO `flag_types` VALUES (2,'event');
@@ -1858,6 +1858,12 @@ INSERT INTO `flag_types` VALUES (2,'story');
 INSERT INTO `flag_types` VALUES (2,'image');
 INSERT INTO `flag_types` VALUES (2,'partner');
 INSERT INTO `flag_types` VALUES (2,'advpoll_ranking');
+INSERT INTO `flag_types` VALUES (1,'event');
+INSERT INTO `flag_types` VALUES (1,'story');
+INSERT INTO `flag_types` VALUES (1,'image');
+INSERT INTO `flag_types` VALUES (1,'page');
+INSERT INTO `flag_types` VALUES (1,'partner');
+INSERT INTO `flag_types` VALUES (1,'advpoll_ranking');
 /*!40000 ALTER TABLE `flag_types` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `flags`;
@@ -2340,7 +2346,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=3885 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3886 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -2865,8 +2871,8 @@ INSERT INTO `menu_links` VALUES ('admin_menu',2448,2445,'admin_menu/flush-cache/
 INSERT INTO `menu_links` VALUES ('admin_menu',2449,2445,'admin_menu/flush-cache/requisites','admin_menu/flush-cache','Page requisites','a:2:{s:5:\"alter\";b:1;s:5:\"query\";s:11:\"destination\";}','admin_menu',0,0,0,0,0,3,0,2159,2445,2449,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2450,2445,'admin_menu/flush-cache/theme','admin_menu/flush-cache','Theme registry','a:2:{s:5:\"alter\";b:1;s:5:\"query\";s:11:\"destination\";}','admin_menu',0,0,0,0,0,3,0,2159,2445,2450,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2451,2159,'devel/variable','devel/variable','Variable editor','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,20,2,0,2159,2451,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2452,2160,'devel/switch/admin','devel/switch','<em>admin</em>','a:3:{s:5:\"query\";s:21:\"destination=frontpage\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2160,2452,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',2453,2160,'devel/switch/editor','devel/switch','editor','a:3:{s:5:\"query\";s:21:\"destination=frontpage\";s:4:\"html\";b:0;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2160,2453,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2452,2160,'devel/switch/admin','devel/switch','<em>admin</em>','a:3:{s:5:\"query\";s:33:\"destination=admin%2Fbuild%2Fflags\";s:4:\"html\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2160,2452,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',2453,2160,'devel/switch/editor','devel/switch','editor','a:3:{s:5:\"query\";s:33:\"destination=admin%2Fbuild%2Fflags\";s:4:\"html\";b:0;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2160,2453,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2454,2159,'admin_menu/toggle-modules','admin_menu/toggle-modules','Disable developer modules','a:2:{s:5:\"query\";s:11:\"destination\";s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,88,2,0,2159,2454,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2488,2333,'http://drupal.org/project/issues/advpoll','','Advanced Poll issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,2488,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',2489,2333,'http://drupal.org/project/issues/fbconnect','','Fbconnect issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,2489,0,0,0,0,0,0,0);
@@ -3166,7 +3172,7 @@ INSERT INTO `menu_links` VALUES ('admin_menu',3876,2227,'admin/build/trigger/fla
 INSERT INTO `menu_links` VALUES ('admin_menu',3877,3874,'admin/build/flags/list','admin/build/flags/list','List','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,-1,3,0,2167,3874,3877,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',3879,2333,'http://drupal.org/project/issues/flag','','Flag issue queue','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,1,0,0,0,3,0,2159,2333,3879,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',3880,0,'bookmarks','bookmarks','My bookmarks','a:0:{}','system',0,0,0,0,0,1,0,3880,0,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',3884,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3884,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',3885,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,3885,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -4191,13 +4197,13 @@ CREATE TABLE `permission` (
   `tid` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`pid`),
   KEY `rid` (`rid`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `permission` WRITE;
 /*!40000 ALTER TABLE `permission` DISABLE KEYS */;
-INSERT INTO `permission` VALUES (42,1,'access news feeds, access comments, post comments, post comments without approval, access site-wide contact form, view original images, browse all images, browse own images, view images, access content, search content, access service links, sign up for content, view uploaded files',0);
-INSERT INTO `permission` VALUES (43,2,'cancel own vote, access news feeds, skip CAPTCHA, access comments, post comments, post comments without approval, access site-wide contact form, view original images, browse all images, browse own images, view images, access content, search content, use advanced search, access service links, cancel own signups, sign up for content, upload files, view uploaded files, access user profiles',0);
-INSERT INTO `permission` VALUES (44,3,'access administration menu, view advanced help index, view advanced help popup, view advanced help topic, access electoral list, add write-ins, administer polls, cancel own vote, create polls, edit own polls, edit polls, inspect all votes, vote on polls, access news feeds, administer blocks, skip CAPTCHA, access comments, administer comments, post comments, post comments without approval, access site-wide contact form, administer site-wide contact form, access fckeditor, allow fckeditor file uploads, create images, edit images, edit own images, view original images, browse all images, browse own images, insert Image preset: Original, insert Image preset: Preview, insert Image preset: Thumbnail, insert ImageCache preset: 100x, insert ImageCache preset: 100x100, insert ImageCache preset: 160x, insert ImageCache preset: 176x240, insert ImageCache preset: 250x_, insert ImageCache preset: 273x300, insert ImageCache preset: 50x50, insert ImageCache preset: 75x75, insert ImageCache preset: spotlight, insert ImageCache preset: x50, upload images, view images, flush imagecache, view imagecache 100x, view imagecache 100x100, view imagecache 160x, view imagecache 176x240, view imagecache 250x_, view imagecache 273x300, view imagecache 50x50, view imagecache 75x75, view imagecache spotlight, view imagecache x50, view imagefield uploads, administer menu, access content, administer nodes, create article content, create event content, create page content, create partner content, create story content, delete any article content, delete any event content, delete any page content, delete any partner content, delete any story content, delete own article content, delete own event content, delete own page content, delete own partner content, delete own story content, delete revisions, edit any article content, edit any event content, edit any page content, edit any partner content, edit any story content, edit own article content, edit own event content, edit own page content, edit own partner content, edit own story content, revert revisions, view revisions, administer url aliases, create url aliases, search content, use advanced search, access service links, administer all signups, administer signups for own content, cancel own signups, cancel signups, email all signed up users, email users signed up for own content, sign up for content, view all signups, access site reports, administer files, administer site configuration, select different theme, use teleport, upload files, view uploaded files, access user profiles, administer users, access all views',0);
+INSERT INTO `permission` VALUES (45,1,'access news feeds, access comments, post comments, post comments without approval, access site-wide contact form, view original images, browse all images, browse own images, view images, access content, search content, access service links, sign up for content, view uploaded files',0);
+INSERT INTO `permission` VALUES (46,2,'cancel own vote, access news feeds, skip CAPTCHA, access comments, post comments, post comments without approval, access site-wide contact form, view original images, browse all images, browse own images, view images, access content, search content, use advanced search, access service links, cancel own signups, sign up for content, upload files, view uploaded files, access user profiles',0);
+INSERT INTO `permission` VALUES (47,3,'view advanced help index, view advanced help popup, view advanced help topic, access electoral list, add write-ins, administer polls, cancel own vote, create polls, edit own polls, edit polls, inspect all votes, vote on polls, access news feeds, administer blocks, skip CAPTCHA, access comments, administer comments, post comments, post comments without approval, access site-wide contact form, administer site-wide contact form, access content complete, access fckeditor, allow fckeditor file uploads, create images, edit images, edit own images, view original images, browse all images, browse own images, insert Image preset: Original, insert Image preset: Preview, insert Image preset: Thumbnail, insert ImageCache preset: 100x, insert ImageCache preset: 100x100, insert ImageCache preset: 160x, insert ImageCache preset: 176x240, insert ImageCache preset: 250x_, insert ImageCache preset: 273x300, insert ImageCache preset: 50x50, insert ImageCache preset: 75x75, insert ImageCache preset: header, insert ImageCache preset: spotlight, insert ImageCache preset: user_image_facebook, insert ImageCache preset: x50, upload images, view images, flush imagecache, view imagecache 100x, view imagecache 100x100, view imagecache 160x, view imagecache 176x240, view imagecache 250x_, view imagecache 273x300, view imagecache 50x50, view imagecache 75x75, view imagecache header, view imagecache spotlight, view imagecache user_image_facebook, view imagecache x50, administer menu, access content, administer nodes, create article content, create event content, create page content, create partner content, create story content, delete any article content, delete any event content, delete any page content, delete any partner content, delete any story content, delete own article content, delete own event content, delete own page content, delete own partner content, delete own story content, delete revisions, edit any article content, edit any event content, edit any page content, edit any partner content, edit any story content, edit own article content, edit own event content, edit own page content, edit own partner content, edit own story content, revert revisions, view revisions, administer url aliases, create url aliases, search content, use advanced search, access service links, administer all signups, administer signups for own content, cancel own signups, cancel signups, email all signed up users, email users signed up for own content, sign up for content, view all signups, access site reports, administer files, administer site configuration, select different theme, upload files, view uploaded files, access user profiles, access all views',0);
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `plugin_manager_files`;
@@ -35511,7 +35517,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@example.com',0,0,0,'','',1224322056,1245449322,1245416782,1,NULL,'','','admin@admin.com','a:4:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-8c179e103f89573767b8e25c75d111ad\";s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@example.com',0,0,0,'','',1224322056,1245450055,1245416782,1,NULL,'','','admin@admin.com','a:4:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-8c179e103f89573767b8e25c75d111ad\";s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";}','');
 INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@editor.com',0,0,0,'','',1224540434,1240267350,1240267350,1,NULL,'','','editor@editor.com','a:2:{s:13:\"form_build_id\";s:37:\"form-5308d1f1cb4131b22bd9f3efe4eec0e2\";s:7:\"contact\";i:1;}','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -36282,7 +36288,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=11257 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11259 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
