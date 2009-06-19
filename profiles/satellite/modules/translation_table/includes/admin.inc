@@ -1,5 +1,10 @@
 <?php
-// $Id: admin.inc,v 1.1.2.3 2009/05/26 05:19:59 pasqualle Exp $
+// $Id: admin.inc,v 1.1.2.7 2009/06/16 04:55:21 pasqualle Exp $
+
+/**
+ * @file
+ * The administration interface.
+ */
 
 /**
  * Header of the translation table.
@@ -18,7 +23,6 @@ function _translation_table_get_header($languages) {
   }
 
   $header[] = array('data' => t('Operations'), 'colspan' => 3);
-
   return $header;
 }
 
@@ -48,6 +52,7 @@ function _translation_table_row($source, $languages) {
       '#type' => 'textfield',
       '#default_value' => $translation,
       '#size' => 35,
+      '#maxlength' => NULL,
     );
   }
   return $form;
@@ -57,13 +62,12 @@ function _translation_table_row($source, $languages) {
  * Menu callback; Admin form for menu translation.
  */
 function translation_table_menu_form(&$form_state) {
-  $languages_selected = isset($form_state['languages_selected']) ? $form_state['languages_selected'] : locale_language_list('name', FALSE);
+  $languages_selected = isset($_SESSION['translation_table']['languages_selected']) ? $_SESSION['translation_table']['languages_selected'] : locale_language_list('name', FALSE);
 
   $form['filter'] = translation_table_menu_filter($languages_selected);
   $form['admin'] = translation_table_menu_filtered_form($languages_selected);
   $form['#submit'][] = 'translation_table_menu_form_submit';
   $form['#submit'][] = 'translation_table_submit_translations';
-
   return $form;
 }
 
@@ -104,8 +108,9 @@ function translation_table_menu_filtered_form($languages) {
     '#type' => 'submit',
     '#value' => t('Save'),
   );
+
+  $form['pager'] = array('#value' => theme('pager', NULL, 50, 0));
   $form['#theme'] = 'translation_table';
-  $form['#submit'][] = 'translation_table_submit_translations';
   return $form;
 }
 
@@ -113,14 +118,13 @@ function translation_table_menu_filtered_form($languages) {
  * Menu callback; Admin form for taxonomy translation.
  */
 function translation_table_taxonomy_form(&$form_state) {
-  $languages_selected = isset($form_state['languages_selected']) ? $form_state['languages_selected'] : locale_language_list('name', FALSE);
-  $vid = isset($form_state['vid']) ? $form_state['vid'] : -1;
+  $languages_selected = isset($_SESSION['translation_table']['languages_selected']) ? $_SESSION['translation_table']['languages_selected'] : locale_language_list('name', FALSE);
+  $vid = isset($_SESSION['translation_table']['vid']) ? $_SESSION['translation_table']['vid'] : -1;
 
   $form['filter'] = translation_table_taxonomy_filter($languages_selected, $vid);
   $form['admin'] = translation_table_taxonomy_filtered_form($languages_selected, $vid);
   $form['#submit'][] = 'translation_table_taxonomy_form_submit';
   $form['#submit'][] = 'translation_table_submit_translations';
-
   return $form;
 }
 
@@ -181,6 +185,8 @@ function translation_table_taxonomy_filtered_form($languages, $vid) {
     '#type' => 'submit',
     '#value' => t('Save'),
   );
+
+  $form['pager'] = array('#value' => theme('pager', NULL, 50, 0));
   $form['#theme'] = 'translation_table';
   return $form;
 }
@@ -189,14 +195,13 @@ function translation_table_taxonomy_filtered_form($languages, $vid) {
  * Menu callback; Admin form for node type translation.
  */
 function translation_table_nodetype_form(&$form_state) {
-  $languages_selected = isset($form_state['languages_selected']) ? $form_state['languages_selected'] : locale_language_list('name', FALSE);
-  $node_type = isset($form_state['node_type']) ? $form_state['node_type'] : 0;
+  $languages_selected = isset($_SESSION['translation_table']['languages_selected']) ? $_SESSION['translation_table']['languages_selected'] : locale_language_list('name', FALSE);
+  $node_type = isset($_SESSION['translation_table']['node_type']) ? $_SESSION['translation_table']['node_type'] : 0;
 
   $form['filter'] = translation_table_nodetype_filter($languages_selected, $node_type);
   $form['admin'] = translation_table_nodetype_filtered_form($languages_selected, $node_type);
   $form['#submit'][] = 'translation_table_nodetype_form_submit';
   $form['#submit'][] = 'translation_table_submit_translations';
-
   return $form;
 }
 
@@ -250,8 +255,9 @@ function translation_table_nodetype_filtered_form($languages, $node_type) {
     '#type' => 'submit',
     '#value' => t('Save'),
   );
+
+  $form['pager'] = array('#value' => theme('pager', NULL, 50, 0));
   $form['#theme'] = 'translation_table';
-  $form['#submit'][] = 'translation_table_submit_translations';
   return $form;
 }
 
@@ -277,21 +283,21 @@ function theme_translation_table($form) {
     if (count($location) == 3) {
       switch ($location[0]) {
         case 'term':
-          $row['data'][] = l(t('Edit source'), 'admin/content/taxonomy/edit/term/'. $location[1], array('attributes' => array('title'=> t('Edit term (@property)', array('@property' => t($location[2]))))));
+          $row['data'][] = l(t('Edit source'), 'admin/content/taxonomy/edit/term/'. $location[1], array('attributes' => array('title' => t('Edit term (@property)', array('@property' => t($location[2]))))));
           break;
 
         case 'vocabulary':
-          $row['data'][] = l(t('Edit source'), 'admin/content/taxonomy/edit/vocabulary/'. $location[1], array('attributes' => array('title'=> t('Edit vocabulary (@property)', array('@property' => t($location[2]))))));
+          $row['data'][] = l(t('Edit source'), 'admin/content/taxonomy/edit/vocabulary/'. $location[1], array('attributes' => array('title' => t('Edit vocabulary (@property)', array('@property' => t($location[2]))))));
           break;
 
         case 'item':
-          $row['data'][] = l(t('Edit source'), 'admin/build/translate/edit/'. $key .'admin/build/menu/item/'. $location[1] .'/edit', array('attributes' => array('title'=> t('Edit menu item (@property)', array('@property' => t($location[2]))))));
+          $row['data'][] = l(t('Edit source'), 'admin/build/menu/item/'. $location[1] .'/edit', array('attributes' => array('title' => t('Edit menu item (@property)', array('@property' => t($location[2]))))));
           break;
 
         case 'type':
           $node_types = node_get_types('names');
           $node_type = isset($node_types[$location[1]]) ? $node_types[$location[1]] : $location[1];
-          $row['data'][] = l(t('Edit source'), 'admin/content/node-type/'. $location[1], array('attributes' => array('title'=> t('Edit @node_type (@property)', array('@node_type' => $node_type, '@property' => t($location[2]))))));
+          $row['data'][] = l(t('Edit source'), 'admin/content/node-type/'. $location[1], array('attributes' => array('title' => t('Edit @node_type (@property)', array('@node_type' => $node_type, '@property' => t($location[2]))))));
           break;
 
         default:
@@ -308,6 +314,9 @@ function theme_translation_table($form) {
   }
 
   $output = theme('table', $header, $rows, array('id' => 'translation-table'));
+  if ($form['pager']['#value']) {
+    $output .= drupal_render($form['pager']);
+  }
   $output .= drupal_render($form);
 
   drupal_add_css(drupal_get_path('module', 'translation_table') .'/css/translation-table-admin.css');
@@ -335,7 +344,6 @@ function translation_table_menu_filter($languages_selected) {
   );
 
   $form['#theme'] = 'translation_table_menu_filter';
-
   return $form;
 }
 
@@ -387,8 +395,8 @@ function translation_table_taxonomy_filter($languages_selected, $vid) {
     '#type' => 'submit',
     '#value' => t('Filter'),
   );
-  $form['#theme'] = 'translation_table_taxonomy_filter';
 
+  $form['#theme'] = 'translation_table_taxonomy_filter';
   return $form;
 }
 
@@ -433,7 +441,6 @@ function translation_table_nodetype_filter($languages_selected, $node_type) {
   );
 
   $form['#theme'] = 'translation_table_nodetype_filter';
-
   return $form;
 }
 
@@ -454,8 +461,7 @@ function translation_table_menu_form_submit($form, &$form_state) {
   switch ($form_state['clicked_button']['#id']) {
     case 'edit-filter':
     case 'edit-submit':
-      $form_state['languages_selected'] = array_intersect_key(locale_language_list('name', TRUE), $form_state['values']['languages_selected']);
-      $form_state['rebuild'] = TRUE;
+      $_SESSION['translation_table']['languages_selected'] = array_intersect_key(locale_language_list('name', TRUE), $form_state['values']['languages_selected']);
       break;
   }
 }
@@ -467,9 +473,8 @@ function translation_table_taxonomy_form_submit($form, &$form_state) {
   switch ($form_state['clicked_button']['#id']) {
     case 'edit-filter':
     case 'edit-submit':
-      $form_state['vid'] = $form_state['values']['vid'];
-      $form_state['languages_selected'] = array_intersect_key(locale_language_list('name', TRUE), $form_state['values']['languages_selected']);
-      $form_state['rebuild'] = TRUE;
+      $_SESSION['translation_table']['vid'] = $form_state['values']['vid'];
+      $_SESSION['translation_table']['languages_selected'] = array_intersect_key(locale_language_list('name', TRUE), $form_state['values']['languages_selected']);
       break;
   }
 }
@@ -481,9 +486,8 @@ function translation_table_nodetype_form_submit($form, &$form_state) {
   switch ($form_state['clicked_button']['#id']) {
     case 'edit-filter':
     case 'edit-submit':
-      $form_state['node_type'] = $form_state['values']['node_type'];
-      $form_state['languages_selected'] = array_intersect_key(locale_language_list('name', TRUE), $form_state['values']['languages_selected']);
-      $form_state['rebuild'] = TRUE;
+      $_SESSION['translation_table']['node_type'] = $form_state['values']['node_type'];
+      $_SESSION['translation_table']['languages_selected'] = array_intersect_key(locale_language_list('name', TRUE), $form_state['values']['languages_selected']);
       break;
   }
 }
