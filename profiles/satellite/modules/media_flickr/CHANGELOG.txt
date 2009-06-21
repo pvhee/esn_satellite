@@ -1,0 +1,11 @@
+// $Id: CHANGELOG.txt,v 1.1.2.1 2009/06/14 16:25:29 aaron Exp $
+
+Changelog for Media: Flickr
+
+June 2009
+=========
+ * Fix width/height and &amp; (aaron).
+
+DRUPAL-6--1-0
+
+ * Create initial module (aaron).

@@ -1,0 +1,11 @@
+<?php
+// $Id: media_flickr.module,v 1.1 2009/06/13 00:38:14 aaron Exp $
+
+/**
+ *  @file
+ *  Embedded Video Field provider file for Flickr.com photosets.
+ */
+
+function media_flickr_emfield_providers($module, $provider = NULL) {
+  return drupal_system_listing("$provider\.inc$", drupal_get_path('module', 'media_flickr') ."/providers/$module", 'name', 0);
+}
