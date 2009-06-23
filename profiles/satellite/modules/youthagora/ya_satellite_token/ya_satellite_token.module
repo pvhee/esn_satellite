@@ -22,6 +22,7 @@ function ya_satellite_token_token_list($type = 'all') {
     $tokens['esn']['country.*']      = t("ESN Country tokens, e.g. country.c");
     $tokens['esn']['facebook_gid']   = t("Facebook Group ID");
     $tokens['esn']['header']         = t("Location of the header image");
+    $tokens['esn']['default_header'] = t("Keep the default the header image");
   }
   return $tokens;
 }
@@ -37,6 +38,7 @@ function _ya_satellite_token_get_cck_tokens() {
     'country' => array('field' => 'field_country_setting', 'compression' => TRUE),
     'facebook_gid' => array('field' => 'field_facebook_gid', 'compression' => FALSE),
     'header' => array('field' => 'field_image_setting', 'compression' => FALSE),
+    'default_header' => array('field' => 'field_default_header', 'compression' => FALSE),
   );
   $cck_module = 'text';
   $content_is_empty = $cck_module .'_content_is_empty';

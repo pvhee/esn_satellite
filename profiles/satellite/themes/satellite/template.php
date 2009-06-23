@@ -33,14 +33,15 @@ function satellite_header_background() {
   $token = token_get_values('esn');
   $data = array_combine($token->tokens, $token->values);
   
+  $css = '';
   if (file_exists($data['header'])) {
-    $css = '<style type="text/css" media="all"> #wrapper #container #header #header-title {background: url("'.$base_path.$file_directory_path.'/imagecache/header/'.$data['header'].'") top left no-repeat;}</style>';
-	if ($data['default_header']) {
-	    $css .= '<style type="text/css" media="all"> #shadow-top { background: transparent url("images/layout/shadow_top_clean.png") top center no-repeat;}</style>';
-	}
+    $css .= '<style type="text/css" media="all"> #wrapper #container #header #header-title {background: url("'.$base_path.$file_directory_path.'/imagecache/header/'.$data['header'].'") top left no-repeat;}</style>';
   } 
   else {
-    $css = '<style type="text/css" media="all">  #wrapper #container #header #header-title {background: url("'.$base_path.$theme.'/images/default_header.png") top left no-repeat;}</style>';
+    $css .= '<style type="text/css" media="all">  #wrapper #container #header #header-title {background: url("'.$base_path.$theme.'/images/default_header.png") top left no-repeat;}</style>';
+  }
+  if (!$data['default_header']) {
+    $css .= '<style type="text/css" media="all"> #shadow-top { background: transparent url("'.$base_path.$theme.'/images/layout/shadow_top_clean.png") top center no-repeat;}</style>';
   }
   return $css;
 }
