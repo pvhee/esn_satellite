@@ -25,7 +25,7 @@
 				<div id="shadow">
 					<div id="shadow-top">
 						<div id="shadow-footer">
-							<div id="footer-fade">
+							<div id="footer-fade" class="custom-bg">
 								<div id="header-top">
 									<div class="inner">
 										<?php print $header_top; ?>

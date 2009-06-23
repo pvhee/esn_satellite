@@ -35,6 +35,9 @@ function satellite_header_background() {
   
   if (file_exists($data['header'])) {
     $css = '<style type="text/css" media="all"> #wrapper #container #header #header-title {background: url("'.$base_path.$file_directory_path.'/imagecache/header/'.$data['header'].'") top left no-repeat;}</style>';
+	if ($data['default_header']) {
+	    $css .= '<style type="text/css" media="all"> #shadow-top { background: transparent url("images/layout/shadow_top_clean.png") top center no-repeat;}</style>';
+	}
   } 
   else {
     $css = '<style type="text/css" media="all">  #wrapper #container #header #header-title {background: url("'.$base_path.$theme.'/images/default_header.png") top left no-repeat;}</style>';
