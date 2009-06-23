@@ -32,6 +32,10 @@
 .block.blue .views-field-tid a { color: #bbb; }
 .block.blue .views-field-tid a:hover { color: #00ADEE; text-decoration: none;}
 
+#block-views-spotlights-block_1.blue .black-div,
+#block-views-spotlights-block_1.blue-fill .black-div { background: #00ADEE;}
+
+
 /**
  * Green
  */
@@ -50,6 +54,9 @@
 
 .block.green .views-field-tid a { color: #bbb; }
 .block.green .views-field-tid a:hover { color: #7BC043;}
+
+#block-views-spotlights-block_1.green .black-div,
+#block-views-spotlights-block_1.green-fill .black-div { background: #7BC043;}
 
 /**
  * Orange
@@ -70,6 +77,9 @@
 .block.orange .views-field-tid a { color: #bbb; }
 .block.orange .views-field-tid a:hover { color: #F15A24;}
 
+#block-views-spotlights-block_1.orange .black-div,
+#block-views-spotlights-block_1.orange-fill .black-div { background: #F15A24;}
+
 /**
  * Pink
  */
@@ -89,6 +99,8 @@
 .block.pink .views-field-tid a { color: #bbb; }
 .block.pink .views-field-tid a:hover { color: #EB008B;}
 
+#block-views-spotlights-block_1.pink .black-div,
+#block-views-spotlights-block_1.pink-fill .black-div { background: #EB008B;}
 
 /**
  * Common

@@ -19,16 +19,7 @@
  * @ingroup views_templates
  */
 ?>
-<?php 
-  $background = $fields['field_image_fid']->content;
-//  if (!is_file($background)) {
-//  	global $theme;
-//  	$background = drupal_get_path('theme', $theme).'/images/spotlight_default.jpg';
-//  }
-  unset($fields['field_image_fid']);
-?>
-
-<div class="wrapper-out">
+<!-- <div class="wrapper-out">
     <div class="wrapper-in"  style="<?php if ($background) print "background: url('$background') no-repeat 0 0;"; ?> ">
       <h2><span class="title-outer"><span class="title-inner"><?php print t('In the Spotlight');?></span></span></h2>
       <div class="spotlight-content">
@@ -52,4 +43,41 @@
 	      <?php endforeach; ?>
       </div>
     </div>
-</div>
+</div> -->
+
+
+
+<?php $background = $fields['field_image_fid']->content; ?>
+<?php unset($fields['field_image_fid']); ?>
+<?php unset($fields['field_text_spotlight_value']); ?>
+
+<h2 class="spotlight"><span class="title-outer"><span class="title-inner"><?php print t('In the Spotlight');?></span></span></h2>
+
+		<div class="spotlight-content" style="<?php if ($background) print "background: url('$background') no-repeat 0 0;"; ?>">
+			<div class="black-div">
+				<div class="black-div-inner">
+					<?php foreach ($fields as $id => $field): ?>
+						<?php if (!empty($field->separator)): ?>
+							<?php print $field->separator; ?>
+						<?php endif; ?>
+
+						<<?php print $field->inline_html;?> class="views-field-<?php print $field->class; ?>">
+						<?php if ($field->label): ?>
+							<label class="views-label-<?php print $field->class; ?>">
+								<?php print $field->label; ?>:
+							</label>
+						<?php endif; ?>
+						<?php
+						// $field->element_type is either SPAN or DIV depending upon whether or not
+						// the field is a 'block' element type or 'inline' element type.
+						?>
+						<?php print $field->content; ?>
+						</<?php print $field->inline_html;?>>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</div>
+
+
+
+
