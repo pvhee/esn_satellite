@@ -263,6 +263,10 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
  * Feedback
  */
 #block-feedback-form.block { background: none;} 
+#block-feedback-form.block .block-edit-link { display: none; }
+
+
+.social_link { float: left; margin-right: 7px;}
 
 /**
  * Nice Menu
