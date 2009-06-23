@@ -1,0 +1,34 @@
+// $Id: CHANGELOG.txt,v 1.9 2008/10/19 20:10:20 sun Exp $
+
+Feedback x.x-x.x, xxxx-xx-xx
+----------------------------
+
+
+Feedback 6.x-2.x, xxxx-xx-xx
+----------------------------
+
+
+Feedback 6.x-2.0, 2008-10-19
+----------------------------
+#322135 by sun: Fixed FAPI callbacks, DB query arguments, and PHP notices.
+#285972 by wikidkaka, sun: Fixed compatibility with Zen Classic theme.
+#302358 by sun: Removed dependency on jQuery Update module.
+#302358 by sun: Ported Feedback to Drupal 6.x.
+#305713 by eliosh: Added Italian translation.
+
+
+Feedback 5.x-2.0, 2008-07-16
+----------------------------
+#279636 by smk-ka: Added BrowsCap support to record and output user agents.
+#279636 by sun: Usability: Added AJAX throbber to indicate form submission.
+#279636 by sun: Added administrative user interface form to allow marking
+  feedback entries as processed.
+#279636 by sun: Added log of previous feedbacks to feedback form to prevent
+  duplicates.  Uses 'masked' paths (much like D6) to include all feedbacks with
+  the same path pattern like the current page (except of node/%).
+#279636 by sun: Fixed compatibility with (hopefully) all themes.
+#279636 by sun: Fixed compatibility with Bluemarine, Marvin, and Pushbutton
+  themes.
+#279636 by sun: Fixed compatibility with Garland theme.
+Initial commit of Feedback 2.x.
+
