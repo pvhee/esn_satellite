@@ -12,7 +12,7 @@ Supported by the ESN Webteam
 * updated to drupal 6.x core
 * upgraded contributed modules
 * new fresh ESN Theme
-* lots of contributed modules, check profiles/satellites/modules/ for the listing
+* lots of contributed modules, check profiles/satellite/modules/ for the listing
 * switched rich text editors: from TinyMCE to FCKEditor, due to better support in drupal 6.x
 
 ------------------------------
@@ -67,8 +67,8 @@ Read more
 Need help?
 ----------
 
-* wiki pages: http://satellite.esn.org/wiki
-* google group: http://groups.google.com/group/esn-satellite
+* Wiki pages: http://satellite.esn.org/wiki
+* Google group: http://groups.google.com/group/esn-satellite
 
 
 ---------------------
@@ -84,8 +84,8 @@ ESN Webteam 2008-2009
 
 * With the support of Youth Agora (www.youthagora.org),
   Andrea Pescetti, Antonio De Marco and Peter Vanhee
-* Marc Janson (Web projects administrator ESN 09-10)
-* Piotr Cylke (ex-Web projects administrator 08-09)
+* Marc Janson (Web projects administrator ESN 2009-10)
+* Piotr Cylke (Web projects administrator ESN 2008-09)
 
 ---------------------
 ESN Webteam 2006-2008
