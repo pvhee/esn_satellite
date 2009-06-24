@@ -51,9 +51,8 @@
 <?php unset($fields['field_image_fid']); ?>
 <?php unset($fields['field_text_spotlight_value']); ?>
 
-<h2 class="spotlight"><span class="title-outer"><span class="title-inner"><?php print t('In the Spotlight');?></span></span></h2>
-
 		<div class="spotlight-content" style="<?php if ($background) print "background: url('$background') no-repeat 0 0;"; ?>">
+			<h2 class="spotlight"><span class="title-outer"><span class="title-inner"><?php print t('In the Spotlight');?></span></span></h2>
 			<div class="black-div">
 				<div class="black-div-inner">
 					<?php foreach ($fields as $id => $field): ?>

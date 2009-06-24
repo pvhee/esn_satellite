@@ -242,7 +242,7 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 #block-views-spotlights-block_1 .views-field-title { color: white; margin-bottom: .3em; text-transform: uppercase; font-weight: bold;}
 #block-views-spotlights-block_1 .views-field-title a { color: white;} 
 #block-views-spotlights-block_1 .views-field-title a:hover { text-decoration: underline;} 
-#block-views-spotlights-block_1 .spotlight-content { padding-top: 170px; padding-right: 0;}
+#block-views-spotlights-block_1 .spotlight-content { padding-top: 100px; padding-right: 0;}
 .black-div { background: white; opacity: .85; color: white; height: 80px; }
 .black-div-inner { padding: 15px 25px 0; line-height: 1.35em; }
 .spotlight-navigation { position: absolute; z-index: 1000; padding: 0px 5px 0 5px; top: 215px;}
@@ -254,7 +254,10 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
 .views-field-view-node a, .views-field-view-node a:hover { color: white;}
 .views-field-view-node a:hover  {text-decoration: underline;}
 
-#block-views-spotlights-block_1 h2.spotlight { position: absolute; top: 110px; z-index: 1000; }
+/*#block-views-spotlights-block_1 h2.spotlight { position: absolute; top: 110px; z-index: 1000; }*/
+
+/*#block-views-spotlights-block_1 h2.spotlight { margin-bottom: -100px; z-index: 1000; }*/
+
 #block-views-spotlights-block_1 .views-field-title,
 #block-views-spotlights-block_1 .views-field-title a, 
 #block-views-spotlights-block_1 .black-div { color: white; }
@@ -289,34 +292,43 @@ ul.nice-menu li.menuparent ul li a span,
 ul.nice-menu li ul li.menuparent ul li a span, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li a span, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a span, 
-ul.nice-menu li ul li a span { background: none; background-image: none; height: auto;  padding-bottom: 7px;}
+ul.nice-menu li ul li a span { background: none; background-image: none; height: auto; padding: 0;}
 ul.nice-menu li.menuparent ul li a, 
 ul.nice-menu li ul li.menuparent ul li a, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li a, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a, 
-ul.nice-menu li ul li a { margin: 0; background: #00ADEE; background-image: none; height: auto;}
+ul.nice-menu li ul li a { margin: 0; background: #00ADEE; background-image: none; height: auto;  padding: 10px;}
 
 ul.nice-menu li.menuparent ul li a:hover span, 
 ul.nice-menu li ul li.menuparent ul li a:hover span, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li a:hover span, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a:hover span, 
-ul.nice-menu li ul li a:hover span { background: none; background-image: none; height: auto; padding-bottom: 7px;}
+ul.nice-menu li ul li a:hover span { background: none; background-image: none; height: auto; }
 ul.nice-menu li.menuparent ul li a:hover, 
 ul.nice-menu li ul li.menuparent ul li a:hover, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li a:hover, 
 ul.nice-menu li ul li.menuparent ul li.menuparent ul li.menuparent ul li a:hover,
-ul.nice-menu li ul li a:hover { margin: 0; background: #7BC043; background-image: none;  height: auto;}
+ul.nice-menu li ul li a:hover { margin: 0; background: #7BC043; background-image: none;  padding: 10px;}
 
-ul.nice-menu li a { margin-bottom: .7em;}
+ul.nice-menu { margin-bottom: .7em; } 
 ul.nice-menu li.menuparent a,
-ul.nice-menu li a { color: white; padding: 0; background: transparent url("images/navigation/blue_right.png") top right no-repeat; }
-ul.nice-menu li a span { color: white; margin-right: 9px; padding: 10px 0 10px 10px; background: transparent url("images/navigation/blue_left.png") top left no-repeat; }
+ul.nice-menu li a { color: white; background: transparent url("images/navigation/blue_right.png") top right no-repeat; }
+ul.nice-menu li a span { color: white; background: transparent url("images/navigation/blue_left.png") top left no-repeat; }
 ul.nice-menu li.menuparent a:hover,
-ul.nice-menu li a:hover { color: white; padding: 0; background: transparent url("images/navigation/green_right.png") top right no-repeat; }
-ul.nice-menu li a:hover span { color: white; margin-right: 9px; padding: 10px 0 10px 10px;background: transparent url("images/navigation/green_left.png") top left no-repeat; }
+ul.nice-menu li a:hover { color: white; background: transparent url("images/navigation/green_right.png") top right no-repeat; }
+ul.nice-menu li a:hover span { color: white; background: transparent url("images/navigation/green_left.png") top left no-repeat; }
 ul.nice-menu ul li, ul.nice-menu ul li.menuparent { border-bottom: 1px solid #0099CF; }
 ul.nice-menu li a.active { background: transparent url("images/navigation/green_right.png") top right no-repeat; }
 ul.nice-menu li a.active span { background: transparent url("images/navigation/green_left.png") top left no-repeat; }
+
+ul.nice-menu li.menuparent a, ul.nice-menu li a { padding: 0; padding-bottom: 9px; height: 30px; display: block;}
+ul.nice-menu li a span { color: white; margin-right: 9px; padding: 9px; padding-right: 0; display: block; height: 30px;  }
+ul.nice-menu li.menuparent li a { height: 30px;}
+
+/*ul.nice-menu li a, ul.nice-menu li.menuparent a { display: block; width: 0 auto;}*/
+
+
+ul.nice-menu-down li li.menuparent, #header-region ul.nice-menu-down li li.menuparent { background: none;}
 
 #center a:hover, .sidebar a:hover { text-decoration: underline; }
 	

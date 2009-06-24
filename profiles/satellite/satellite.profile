@@ -48,6 +48,7 @@ function satellite_profile_modules() {
  *   language-specific profiles.
  */
 function satellite_profile_details() {
+	
   return array(
     'name' => 'ESN Satellite',
     'description' => 'Select this profile to install the ESN Satellite.',
@@ -140,6 +141,7 @@ function satellite_form_alter(&$form, $form_state, $form_id) {
   }
 }
 
+
 /**
  * Submit handler for the "install_configure" form.
  */
@@ -166,3 +168,5 @@ function satellite_form_submit($form, &$form_state) {
   // Hmmm... have to call the proper submit handler ourselves? 
   install_configure_form_submit($form, $form_state);
 }
+
+
