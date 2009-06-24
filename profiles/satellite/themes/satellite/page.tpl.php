@@ -30,12 +30,12 @@
 									<div class="inner">
 										<?php print $header_top; ?>
 										<div class="container">  
-											<div id="header_top_left" class="span-12 ">
+											<div id="header_top_left" class="span-9">
 												<div class="span-inner">
 													<?php print $header_top_left ?>
 												</div>
 											</div>
-											<div id="header_top_right" class="span-12 ">
+											<div id="header_top_right" class="span-14">
 												<div class="span-inner">
 													<?php print $header_top_right ?>
 												</div>
