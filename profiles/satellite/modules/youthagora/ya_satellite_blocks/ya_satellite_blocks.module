@@ -41,7 +41,8 @@ function ya_satellite_blocks_block($op = 'list', $delta = 0, $edit = array()) {
 function ya_satellite_blocks_contents() {
   return t("The " . variable_get('site_name', 'present') . " website is based on
           a freely available <a href='http://www.drupal.org'>Drupal</a>
-          template by <a href='http://www.youthagora.org'>Youth Agora</a>.
+          template by <a href='http://www.youthagora.org'>Youth Agora</a> 
+          and <a href='http://www.esn.org'>ESN</a>.
           <br/>
           You can <a href='http://download.youthagora.org'>download your
           template</a> now and use it for your next website!
