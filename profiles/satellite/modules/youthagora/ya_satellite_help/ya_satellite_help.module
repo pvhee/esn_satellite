@@ -24,6 +24,7 @@ function ya_satellite_help_form_alter(&$form, $form_state, $form_id) {
 
 function ya_satellite_help_get_from_key($key) {
   static $helpkeys = array(
+    'feedback_form:message' => array('module' => 'ya_satellite_help', 'file' => 'Provide-inline-feedback-'),
     'search_block_form:search_block_form' => array('module' => 'ya_satellite_help', 'file' => 'ESN-Satellite-Manual'),
     'setting_node_form:field_country_setting' => array('module' => 'ya_satellite_help', 'file' => 'Setting-your-section-and-country'),
     'setting_node_form:field_facebook:0' => array('module' => 'ya_satellite_help', 'file' => 'Interact-with-Facebook'),
