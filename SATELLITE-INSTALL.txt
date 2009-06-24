@@ -1,7 +1,7 @@
 ESN Satellite 3 Installation Checklist
 --------------------------------------
 
-This is a complimentary document to the standard Drupal installation
+This is a complementary document to the standard Drupal installation
 procedure (file: INSTALL.txt). It lists some frequent problems you
 might find when installing ESN Satellite 3.
 
@@ -13,7 +13,9 @@ the requirements).
 
 1) Check that you have PHP 5.2 and MySQL 4.1 or higher.
 
-2) Set memory_limit in php.ini at 64 MBytes or more.
+2) Set memory_limit in php.ini at 64 MBytes or more. This solves
+   problems like "Fatal error: Allowed memory size of X bytes exhausted
+   (tried to allocate Y bytes)".
 
 3) Create a MySQL database (and possibly a new user). If creating a
    new user, make sure it has all privileges (except GRANT) on the
@@ -23,6 +25,8 @@ the requirements).
    using Apache httpd).
 
 5) Check filesystem permissions: the directory sites/default/files must
-   have read/write permission for the user the web server runs as.
+   have read/write permission for the user the web server runs as. This
+   solves problems like "warning: mkdir() [function.mkdir]: Permission
+   denied".
 
-Youth Agora webteam <webteam@youthagora.org>, May 2009.
+Youth Agora webteam <webteam@youthagora.org>, June 2009.
