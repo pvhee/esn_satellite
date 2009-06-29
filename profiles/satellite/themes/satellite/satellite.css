@@ -139,11 +139,6 @@ td.block {border: 0;}
 
 #header-top  #block-ya_satellite_blocks-1 { float:left; width:313px; }
 
-.comment_add, 
-.more-link { text-transform: uppercase; font-size: .9em; font-weight: bold;}
-.comment_add a:before,
-.more-link a:before { content: '+ ';}
-
 .mini.has-events { background: #7BC043; }
 .mini.has-events a { color: white; text-decoration: none; }
 .calendar-calendar tr td { padding-right: 12px; }
@@ -251,6 +246,8 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
  */
 #block-feedback-form.block { background: none;} 
 #block-feedback-form.block .block-edit-link { display: none; }
+textarea.form-textarea.feedback-message { width: 300px;}
+.feedback-link { font-weight: bold;}
 
 .social_link { float: left; margin-right: 7px;}
 
@@ -330,8 +327,52 @@ ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat 
 
 #block-feedback-form .content { width: 320px; }
 
+/**
+ * Event Location
+ */
+.block.block-gmap_location.blue,
+.block.block-gmap_location.orange,
+.block.block-gmap_location.pink,
+.block.block-gmap_location.green { 
+	background: none; 
+	border-top: none;
+	}
+	
+.block.block-gmap_location .content {
+	border: 3px solid #ddd;
+	}
 
-textarea.form-textarea.feedback-message { width: 300px;}
+.node h3 { 
+	clear: both;
+	}
+
+/**
+ * Events
+ */
+.calendar-calendar tr td.today, 
+.calendar-calendar tr.odd td.today, 
+.calendar-calendar tr.even td.today { 
+	background: #F37B20;
+	}
+	
+td.today a { font-weight: bold; color: white !important;}
+td.has-events a { color: white !important; }
 
 
+/**
+ * Links
+ */
+ul.links.inline li {
+	margin: .3em;
+	background: transparent url("images/links_left.png") top right no-repeat;
+	padding: 4px 8px 8px 0;
+	}
+ul.links.inline li a,
+ul.links.inline li a:visited,
+ul.links.inline li a:active {
+	color: white;
+	background: transparent url("images/links_right.png") top left no-repeat;
+	padding: 5px 0px 8px 8px;
+	white-space: nowrap !important;
+	}
 
