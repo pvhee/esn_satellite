@@ -114,3 +114,97 @@ function satellite_lt_loggedinblock(){
   global $user;
   return theme('username', $user) .' | ' . l(t('Log out'), 'logout');
 }
+
+
+/**
+ * Mimetypes mapping
+ * 
+ * application-octet-stream
+ * application-pdf
+ * application-x-executable
+ * audio-x-generic
+ * image-x-generic
+ * package-x-generic
+ * text-html
+ * text-plain
+ * text-x-generic
+ * text-x-script
+ * video-x-generic
+ * x-office-document
+ * x-office-presentation
+ * x-office-spreadsheet
+ *
+ * @param unknown_type $file
+ * @return unknown
+ */
+function satellite_filefield_file($file) {
+  global $base_path;
+  
+  if (! $file['filepath']) {
+    return '';
+  }
+  
+  $path = $file['filepath'];
+  $mime = check_plain($file['filemime']);
+  $dashed_mime = strtr($mime, array('/' => '-' ));
+  switch ($dashed_mime) {
+    case 'application-pdf':
+      $ext = 'pdf';
+      break;
+    case 'text-x-script':
+    case 'text-x-generic':
+    case 'text-plain':
+      $ext = 'txt';
+      break;
+    case 'x-office-document':
+    case 'application-msword':
+      $ext = 'doc';
+      break;
+    case 'image-x-generic':
+      $ext = 'image';
+      break;
+    case 'application-vnd.ms-powerpoint':
+    case 'application-ms-powerpoint':
+    case 'x-office-presentation':
+      $ext = 'ppt';
+      break;
+    case 'application-vnd.ms-excel':
+    case 'application-ms-excel':
+    case 'x-office-spreadsheet':
+      $ext = 'xls';
+      break;
+    case 'text-html':
+      $ext = 'html';
+      break;
+    case 'video-x-generic':
+      $ext = 'video';
+      break;
+    case 'package-x-generic':
+      $ext = 'zip';
+      break;
+    case 'audio-x-generic':
+      $ext = 'audio';
+      break;
+    default:
+      $ext = 'default';
+      break;
+  }
+  $icon_url = $base_path . drupal_get_path('theme', 'base') . '/images/icons/mimetypes/default/32x32/' . $ext . '.png';
+  
+  $url = file_create_url($path);
+  $icon = '<img class="field-icon-'. $dashed_mime .'"  alt="'. $mime .' icon" src="'. $icon_url .'" />';
+  $icon = '<div class="filefield-icon field-icon-'. $dashed_mime .'">'. $icon .'</div>';
+
+  $file['data'] = @unserialize($file['data']) ? @unserialize($file['data']) : $file['data'];  
+  
+  $options = array('attributes' => array('type' => $file['filemime'], 'length' => $file['filesize']));
+  $options['attributes']['title'] =  (isset($file['data']['description'])) ? $file['data']['description'] : $file['filename'];
+  $max_len = 19;
+  // $filename = strlen($file['filename']) > $max_len ? substr($file['filename'], 0, $max_len) . '...' : $file['filename'];
+  $filename = $file['filename'];
+  $title = $file['data']['description'] ? $file['data']['description'] : $filename;
+  $description = '<div class="file-name">' . $filename . ' (' . format_size($file['filesize']) . ')</div>';
+  return '<div class="filefield-file clear-block">' . $icon . '<div class="file-description">' . l($title, $url, $options) . '</div>' . $description . '</div>';
+}
+
+
