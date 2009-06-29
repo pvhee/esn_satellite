@@ -329,3 +329,9 @@ ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat 
 /*.advanced-help-link { display:inline; float:right; height:12px; margin-left:6px; margin-top:-16px; padding:0; width:12px;}*/
 
 #block-feedback-form .content { width: 320px; }
+
+
+textarea.form-textarea.feedback-message { width: 300px;}
+
+
+
