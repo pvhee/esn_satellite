@@ -151,3 +151,14 @@
 #footer .block:hover .block-edit-link {display: none;}
 
 
+.block.blue-fill div.view-empty,
+.block.green-fill div.view-empty,
+.block.pink-fill div.view-empty,
+.block.orange-fill div.view-empty { color: white; border-color: white; }
+
+.block.blue-fill div.view-empty a,
+.block.green-fill div.view-empty a,
+.block.pink-fill div.view-empty a,
+.block.orange-fill div.view-empty a { color: white; text-decoration: underline; font-weight: bold;}
+
+
