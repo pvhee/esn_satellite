@@ -208,44 +208,8 @@ function satellite_filefield_file($file) {
 }
 
 
-function satellite_signup_user_form() {
- $form['signup_form_data']['#tree'] = TRUE;
-  $form['signup_form_data']['Name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Name'),
-    '#size' => 40,
-    '#maxlength' => 64
-  );
-  $form['signup_form_data']['Phone'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Phone'),
-    '#size' => 40,
-    '#maxlength' => 64
-  );
-  $form['signup_form_data']['Faculty'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Faculty or Department'),
-    '#size' => 40,
-    '#maxlength' => 64
-  );
-  $form['signup_form_data']['Status'] = array(
-    '#type' => 'select',
-    '#title' => t('Status'),
-    '#default_value' => t('Faculty Member'),
-    '#options' => array(
-      'faculty' => t('Faculty Member'),
-      'staff' => t('Staff'),
-      'student' => t('Student'),
-      'other' => t('Other')
-    )
-  );
-  
-  // $form['type']['#value'] = 'event';
-  // module_load_include('inc', 'content', 'includes/content.node_form');
-  // $return = content_form($form, $array);
-  // krumo($form);
-  
-  return $form; 
+function satellite_signup_user_form(&$node) {
+  return module_exists('ya_signup_cck') ? ya_signup_cck_get_form($node) : theme_signup_user_form($node);
 }
 
 
