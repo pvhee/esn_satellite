@@ -328,6 +328,11 @@ ul li.expanded { background:transparent url(images/menu-expanded.gif) no-repeat 
 
 #block-feedback-form .content { width: 320px; }
 
+#block-block-6.block {	background: none; border-top: none;}
+#block-block-6.block a { font-weight: bold; }
+#block-block-6.block .inner { padding: 0; }
+#block-block-6.block.blue .block-edit-link { display: none; }
+	
 /**
  * Event Location
  */
