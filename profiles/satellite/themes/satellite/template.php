@@ -207,9 +207,96 @@ function satellite_filefield_file($file) {
   return '<div class="filefield-file clear-block">' . $icon . '<div class="file-description">' . l($title, $url, $options) . '</div>' . $description . '</div>';
 }
 
+//
+//function satellite_signup_user_form(&$node) {
+//  return module_exists('ya_signup_cck') ? ya_signup_cck_get_form($node) : theme_signup_user_form($node);
+//}
+//
+//function satellite_signup_custom_data_rows($data) {
+//  
+//  if (module_exists('ya_signup_cck')) {
+//    $rows = array();
+//    $fields = content_fields();
+//    // Loop through each first level element.
+//    foreach ($data as $key => $value) {
+//      if (is_array($value[0]['value'])) {
+//        // Element is nested, render it recursively.
+//        // Instead of the overhead of theme(), just call ourself directly.
+//        $rows += call_user_func(__FUNCTION__, $value[0]['value']);
+//      }
+//      else {
+//        $rows[] = array($fields[$key]['widget']['label'], check_plain($value[0]['value']));
+//      }
+//    }
+//    return $rows;
+//  }
+//  else {
+//    return theme_signup_custom_data_rows($data);
+//  }
+//  
+//}
+//
+//
+//function satellite_signup_custom_data($data) {
+//  if (module_exists('ya_signup_cck')) {
+//  
+//    $output = '';
+//    // Loop through each first level element.
+//    foreach ($data as $key => $value) {
+//      $output .= '<div id="'. signup_id_safe($key) .'">';
+//      if (is_array($value)) {
+//        // Element is nested, render it recursively.
+//        // Instead of the overhead of theme(), just call ourself directly.
+//        $output .= call_user_func(__FUNCTION__, $value);
+//      }
+//      else {
+//        $output .= $key .': '. check_plain($value);
+//      }
+//      $output .= "</div>\n";
+//    }
+//    return $output;
+//  }
+//  else {
+//    return theme_signup_custom_data($data);  
+//  }
+//}
+//
+//function satellite_signup_node_admin_details_form($form) {
+//  if (module_exists('ya_signup_cck')) {
+//  
+//    $fieldset = array(
+//      '#title' => t('Signup details'),
+//      '#collapsible' => TRUE,
+//      '#collapsed' => FALSE,
+//    );
+//    if (!empty($form['users']['#options'])) {
+//      $header = $form['#header'];
+//      $rows = array();
+//      foreach ($form['users']['#options'] as $key => $value) {
+//        $rows[] = array(
+//          'cancel_checkbox' => drupal_render($form['users'][$key]),
+//          'username' => drupal_render($form['username'][$key]),
+//          'signup_date' => drupal_render($form['signup_date'][$key]),
+//          'signup_form_data' => drupal_render($form['signup_form_data'][$key]),
+//          'attended' => drupal_render($form['attended'][$key]),
+//        );
+//      }
+////      krumo($form['signup_form_data']);
+//      $fieldset['#value'] = '<div class="container-inline">';
+//      $fieldset['#value'] .= drupal_render($form['operation']);
+//      $fieldset['#value'] .= drupal_render($form['submit']);
+//      $fieldset['#value'] .= '</div>';
+//      $fieldset['#value'] .= theme('table', $header, $rows);
+//    }
+//    else {
+//      $fieldset['#value'] = '<span>'. drupal_render($form['no_users']) .'</span>';
+//    }
+//    return theme('fieldset', $fieldset) . drupal_render($form);
+//  }
+//  else {
+//    return theme_signup_node_admin_details_form($form);
+//  }
+//}
 
-function satellite_signup_user_form(&$node) {
-  return module_exists('ya_signup_cck') ? ya_signup_cck_get_form($node) : theme_signup_user_form($node);
-}
 
 

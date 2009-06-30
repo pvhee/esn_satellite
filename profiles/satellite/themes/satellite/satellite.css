@@ -157,8 +157,9 @@ ul.primary li.active a, ul.primary li.active a:link, ul.primary li.active a:visi
 /**
  * Advanced Help
  */
-.advanced-help-link { margin: 2px 2px; display: inline; float: none;  padding: 0px; padding-right: 12px; width: 0; height: 0; background-position: 0 2px; }
+#block-search-0 .advanced-help-link { display: inline; float: none;  padding: 0px; padding-right: 12px; width: 12px; height: 12px; background-position: 0 2px; }
 .advanced-help-link span { display: none; }
+.advanced-help-link { margin: 2px; }
 
 .views-field-field-teaser-value { line-height: 1.4em; font-size: 1em;}
 .views-field-title { font-size:1.3em; }
