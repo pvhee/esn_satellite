@@ -1,0 +1,121 @@
+<?php
+// $Id: accountmenu.module,v 1.1 2009/06/23 18:50:57 mattyoung Exp $
+/**
+ * @file accountmenu.module
+ * Provide a dynamic Log in/My account/Log out account menu
+ * 
+ * This module provides a dynamic menu for login, logout and access to my account page.
+ * The menu is dynamic such that when he user is not logged in, only the "Log in" link
+ * is shown. After the user has logged in, the menu change to "My account" "Log out".
+ * The "Log in" link returns to the original page from where the user originally click.
+ * This menu defaults to the menu name "Account menu". However, it can be move to
+ * any menu at admin/settings/accountmenu.
+ *
+ */
+
+
+
+function accountmenu_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case 'admin/help#accountmenu':
+      $output .= '<p>'. t('Provides a dynamic "Log in|My account|Log out" account menu') .'</p>';
+      $output .= '<p>'. t('By default, it\'s under the menu "Account menu". However, it can be configure to be part of any menu.') .'</p>';
+      break;
+  }
+  return $output;
+}
+
+
+
+function accountmenu_menu() {
+  $items['admin/settings/accountmenu'] = array(
+    'title' => 'Account menu',
+    'description' => 'Configure account menu',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('accountmenu_settings_form'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'accountmenu.admin.inc',
+  );
+  
+  return $items;
+}
+
+
+
+function _accountmenu_reset_menu() {
+  // delete our links before making them again. we are really doing a move
+  // but there is no move api call so we delete first and re-create. There
+  // is a slight problem with this: menu settigns change are lost.
+  _accountmenu_delete_menu();  
+  _accountmenu_setup_menu();
+}
+
+
+
+function _accountmenu_delete_menu() {
+  $result = db_query("SELECT * FROM {menu_links} WHERE module = 'accountmenu'");
+  while ($link = db_fetch_array($result)) {
+    _menu_delete_item($link);
+  }
+}
+
+
+
+function _accountmenu_setup_menu() {
+  $item = array(
+    'link_title' => 'Log in/Create account',
+    'link_path' => 'user/login',
+    'weight' => 0,
+    'options' => array('alter' => TRUE),
+    'menu_name' => variable_get('accountmenu_menu_name', 'accountmenu'),
+    'module' => 'accountmenu',
+  );
+  menu_link_save($item);
+  
+  $item = array(
+    'link_title' => 'My account',
+    'link_path' => 'user/%',
+    'weight' => 0,
+    'menu_name' => variable_get('accountmenu_menu_name', 'accountmenu'),
+    'module' => 'accountmenu',
+  );
+  menu_link_save($item);
+  
+  $item = array(
+    'link_title' => 'Log out',
+    'link_path' => 'logout',
+    'weight' => 1,
+    'menu_name' => variable_get('accountmenu_menu_name', 'accountmenu'),
+    'module' => 'accountmenu',
+  );
+  menu_link_save($item);
+}
+
+
+
+function _accountmenu_menu_need_destination($path) {
+  return in_array($path, array(
+                           'user/login'
+                         ));
+}
+
+
+
+function accountmenu_translated_menu_link_alter(&$item) {
+  if (_accountmenu_menu_need_destination($item['href'])) {
+    if (_accountmenu_is_404()) {
+      $item['localized_options']['query'] = 'destination=<front>';   // on a 404 page, send user to the front
+    }
+    else {
+      $item['localized_options']['query'] = drupal_get_destination();
+    }
+  }
+}
+
+
+
+function _accountmenu_is_404() {
+  return strpos(drupal_get_headers(), 'HTTP/1.1 404 Not Found') != FALSE;
+}

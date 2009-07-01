@@ -1,0 +1,13 @@
+; $Id: accountmenu.info,v 1.1 2009/06/23 18:50:57 mattyoung Exp $
+name = "Account menu"
+description = "Provides dynamic Log in/My account/Log out account menu"
+dependencies[] = menu
+core = "6.x"
+
+
+; Information added by drupal.org packaging script on 2009-06-23
+version = "6.x-1.0"
+core = "6.x"
+project = "accountmenu"
+datestamp = "1245784805"
+
