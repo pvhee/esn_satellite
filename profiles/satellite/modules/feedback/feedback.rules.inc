@@ -16,6 +16,8 @@ function feedback_rules_event_info() {
       'arguments' => rules_events_global_user_argument() + array(
         'feedback' => array('type' => 'string', 'label' => t('feedback message')),
         'location' => array('type' => 'string', 'label' => t('feedback location')),
+        'location_masked' => array('type' => 'string', 'label' => t('feedback location masked')),
+        'useragent' => array('type' => 'string', 'label' => t('user agent')),
       )
     ),
   );
