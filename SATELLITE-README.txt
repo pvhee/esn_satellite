@@ -4,8 +4,9 @@ Satellite 3.0 - Erasmus Student Network
 =======================================
 
 ------------------------------
-Satellite 3.0: June 30th, 2009
+Satellite 3.0: July 1st, 2009
 Provided by Youth Agora, www.youthagora.org
+webteam@youthagora.org
 Supported by the ESN Webteam
 ------------------------------
 
