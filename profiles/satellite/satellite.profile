@@ -89,7 +89,7 @@ function satellite_profile_tasks(&$task, $url) {
     drupal_set_title(st('@drupal installation complete', array('@drupal' => drupal_install_profile_name())));
     $messages = drupal_set_message();
     $output = '<p>'. st('Congratulations, @drupal has been successfully installed.', array('@drupal' => drupal_install_profile_name())) .'</p>';
-    $output .= '<p>'. (isset($messages['error']) ? st('Please review the messages above before continuing on to <a href="@url">your new site</a>.', array('@url' => url(YOUTHAGORA_SETTINGS_PAGE))) : st('You may now visit <a href="@url">your new site</a> to continue with the configuration.', array('@url' => url(YOUTHAGORA_SETTINGS_PAGE)))) .'</p>';
+    $output .= '<p>'. (isset($messages['error']) ? st('Please review the messages above before continuing on to <a href="@url">your new site</a>.', array('@url' => url(YOUTHAGORA_SETTINGS_PAGE))) : st('You may now visit <a href="@url">your new site</a> to continue with the configuration. The page can take a couple minutes to load, as initialization scripts will be executed.', array('@url' => url(YOUTHAGORA_SETTINGS_PAGE)))) .'</p>';
     $task = 'done';
     return $output;
   }
