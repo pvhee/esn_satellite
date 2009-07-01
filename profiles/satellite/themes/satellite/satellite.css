@@ -48,6 +48,7 @@ body.sidebars #wrapper #container .sidebar { width: 220px;  float: left;  z-inde
 #wrapper #container #footer { text-align: left; padding-top:70px;}
 body #wrapper #container .sidebar { width:307px; }
 
+body.sidebars #wrapper #container #center,
 body.sidebar-left #wrapper #container #center,
 body.sidebar-right #wrapper #container #center {width: 610px}
 
