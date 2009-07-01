@@ -44,7 +44,7 @@ function ya_satellite_blocks_contents() {
           template by <a href='http://www.youthagora.org'>Youth Agora</a> 
           and <a href='http://www.esn.org'>ESN</a>.
           <br/>
-          You can <a href='http://galaxy.esn.org/countries/all'>request your ESN Satellite</a> and use it for your next website!
+          You can <a href='http://download.youthagora.org/satellite'>request your ESN Satellite</a> and use it for your next website!
           
           <div class=\"footer-logos-container\">
           <div class=\"footer-logo\">
