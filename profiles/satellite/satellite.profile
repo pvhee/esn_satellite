@@ -128,14 +128,18 @@ function satellite_form_alter(&$form, $form_state, $form_id) {
       '#title' => st('Database information'),
       '#description' => st('Which configuration would you like to install?')
     );
-    $form['dump']['file'] = array(
-      '#type' => 'radios',
-      '#options' => array(
-        YOUTHAGORA_DUMP_FILE_FULL => st('A demo site. Use this to try out this website template.'),
-        YOUTHAGORA_DUMP_FILE_MINIMAL => st('A site with minimal content. Use this for building your site upon.')
-      ),
-      '#default_value' => YOUTHAGORA_DUMP_FILE_FULL, 
-    );
+    
+    /**
+     * Do not give the option to install different dump files.
+     */
+    // $form['dump']['file'] = array(
+    //   '#type' => 'radios',
+    //   '#options' => array(
+    //     YOUTHAGORA_DUMP_FILE_FULL => st('A demo site. Use this to try out this website template.'),
+    //     // YOUTHAGORA_DUMP_FILE_MINIMAL => st('A site with minimal content. Use this for building your site upon.')
+    //   ),
+    //   '#default_value' => YOUTHAGORA_DUMP_FILE_FULL, 
+    // );
 
     $form['#submit'][] = 'satellite_form_submit';
   }
@@ -147,7 +151,12 @@ function satellite_form_alter(&$form, $form_state, $form_id) {
  */
 function satellite_form_submit($form, &$form_state) {   
   // Define the constant YOUTHAGORA_DUMP_FILE that will be used in the (modified) demo module
-  define('YOUTHAGORA_DUMP_FILE', $form_state['values']['file']);
+  // define('YOUTHAGORA_DUMP_FILE', $form_state['values']['file']);
+  
+  /**
+   * Do not give the option to install different dump files
+   */
+  define('YOUTHAGORA_DUMP_FILE', YOUTHAGORA_DUMP_FILE_FULL);
   
   // Restore the database dump using the demo module and our constant YOUTHAGORA_DUMP_FILE
   module_load_include('inc', 'demo', 'demo.admin');
