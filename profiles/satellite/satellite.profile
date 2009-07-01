@@ -26,6 +26,12 @@ define('YOUTHAGORA_DUMP_FILE_FULL',     'profiles/satellite/database/development
 define('YOUTHAGORA_SETTINGS_PAGE',      'node/244/edit');
 
 /**
+ * Files used in the mysql dump
+ */
+define('YOUTHAGORA_FILE_DIRECTORY',     'profiles/satellite/files/');
+
+
+/**
  * Return an array of the modules to be enabled when this profile is installed.
  * 
  * We enable the demo module for mysql dump import, and the
@@ -176,8 +182,29 @@ function satellite_form_submit($form, &$form_state) {
     variable_set('file_directory_temp', $form_state['values']['file_directory_temp']);
   }
   
+  // Copy the image files to the proper directories 
+  _satellite_copy_files();
+  
   // Hmmm... have to call the proper submit handler ourselves? 
   install_configure_form_submit($form, $form_state);
 }
 
-
+/**
+ * Copy files to the files directory that are needed for the mysql dump
+ */
+function _satellite_copy_files() {
+  $files = array(
+    'sample_jump.jpg',
+    'sample_esn_logo.jpg',
+    'sample_istanbul.jpg',
+  );
+  
+  // file_copy(&$source,$dest = 0,$replace = FILE_EXISTS_RENAME) 
+  
+  foreach($files as $file) {
+    $source = YOUTHAGORA_FILE_DIRECTORY.$file;
+    $source_crop = $source.'.crop_display.jpg';
+    file_copy($source);
+    file_copy($source_crop);
+  }
+}
