@@ -247,6 +247,7 @@ ul.pager a:hover, ul.pager a:focus, ul.pager a:active, ul.pager li.pager-current
  */
 #block-feedback-form.block { background: none;} 
 #block-feedback-form.block .block-edit-link { display: none; }
+#block-feedback-form.block .description { height: 10px; }
 textarea.form-textarea.feedback-message { width: 300px;}
 .feedback-link { font-weight: bold;}
 
