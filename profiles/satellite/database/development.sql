@@ -1038,7 +1038,7 @@ CREATE TABLE `content_field_image` (
 LOCK TABLES `content_field_image` WRITE;
 /*!40000 ALTER TABLE `content_field_image` DISABLE KEYS */;
 INSERT INTO `content_field_image` VALUES (65,65,100,1,'a:0:{}');
-INSERT INTO `content_field_image` VALUES (601,601,4582,1,'a:3:{s:4:\"crop\";a:5:{s:1:\"x\";s:3:\"120\";s:1:\"y\";s:3:\"192\";s:5:\"width\";s:3:\"832\";s:6:\"height\";s:3:\"472\";s:7:\"changed\";s:1:\"1\";}s:3:\"alt\";s:12:\"chichen itza\";s:5:\"title\";s:0:\"\";}');
+INSERT INTO `content_field_image` VALUES (601,601,4608,1,'a:3:{s:4:\"crop\";a:5:{s:1:\"x\";i:0;s:1:\"y\";s:3:\"218\";s:5:\"width\";s:3:\"770\";s:6:\"height\";s:3:\"403\";s:7:\"changed\";s:1:\"1\";}s:3:\"alt\";s:0:\"\";s:5:\"title\";s:0:\"\";}');
 /*!40000 ALTER TABLE `content_field_image` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_field_images`;
@@ -1112,7 +1112,7 @@ INSERT INTO `content_field_video` VALUES (585,585,0,NULL,NULL,NULL,'N;');
 INSERT INTO `content_field_video` VALUES (588,588,0,NULL,NULL,NULL,'N;');
 INSERT INTO `content_field_video` VALUES (590,590,0,NULL,NULL,NULL,'N;');
 INSERT INTO `content_field_video` VALUES (593,593,0,NULL,NULL,NULL,'N;');
-INSERT INTO `content_field_video` VALUES (601,601,0,'http://www.youtube.com/watch?v=Hq4Y3C_WWuM','Hq4Y3C_WWuM','youtube','a:3:{s:23:\"emvideo_youtube_version\";i:1;s:9:\"thumbnail\";a:1:{s:3:\"url\";s:43:\"http://img.youtube.com/vi/Hq4Y3C_WWuM/0.jpg\";}s:5:\"flash\";a:3:{s:3:\"url\";s:32:\"http://youtube.com/v/Hq4Y3C_WWuM\";s:4:\"size\";s:4:\"1037\";s:4:\"mime\";s:29:\"application/x-shockwave-flash\";}}');
+INSERT INTO `content_field_video` VALUES (601,601,0,'http://www.youtube.com/watch?v=Hq4Y3C_WWuM','Hq4Y3C_WWuM','youtube','a:3:{s:23:\"emvideo_youtube_version\";i:1;s:9:\"thumbnail\";a:1:{s:3:\"url\";s:43:\"http://img.youtube.com/vi/Hq4Y3C_WWuM/0.jpg\";}s:5:\"flash\";a:3:{s:3:\"url\";s:32:\"http://youtube.com/v/Hq4Y3C_WWuM\";s:4:\"size\";s:3:\"922\";s:4:\"mime\";s:29:\"application/x-shockwave-flash\";}}');
 /*!40000 ALTER TABLE `content_field_video` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `content_group`;
@@ -1511,7 +1511,7 @@ CREATE TABLE `files` (
   KEY `uid` (`uid`),
   KEY `status` (`status`),
   KEY `timestamp` (`timestamp`)
-) ENGINE=MyISAM AUTO_INCREMENT=4605 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4609 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `files` WRITE;
 /*!40000 ALTER TABLE `files` DISABLE KEYS */;
@@ -2390,6 +2390,7 @@ INSERT INTO `files` VALUES (4601,4,'preview','sites/default/files/images/DSC_327
 INSERT INTO `files` VALUES (4602,4,'thumbnail','sites/default/files/images/DSC_3279.thumbnail.jpg','image/jpeg',2242,1,1246434766);
 INSERT INTO `files` VALUES (4603,4,'preview','sites/default/files/images/DSC_3279.preview.jpg','image/jpeg',37510,1,1246434766);
 INSERT INTO `files` VALUES (4604,1,'thumbnail','sites/default/files/images/googlegroups_logo.thumbnail.gif','image/gif',2563,1,1246435710);
+INSERT INTO `files` VALUES (4608,1,'sample_jump.jpg','sites/default/files/sample_jump.jpg','image/jpeg',603923,1,1246446263);
 /*!40000 ALTER TABLE `files` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `filter_formats`;
@@ -3042,7 +3043,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=MyISAM AUTO_INCREMENT=4306 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4308 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `menu_links` WRITE;
 /*!40000 ALTER TABLE `menu_links` DISABLE KEYS */;
@@ -3289,7 +3290,7 @@ INSERT INTO `menu_links` VALUES ('navigation',1685,0,'events-past','events-past'
 INSERT INTO `menu_links` VALUES ('primary-links',1686,1354,'events/feed','events/feed','','a:0:{}','system',-1,0,0,0,0,2,0,1354,1686,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1693,0,'feed','feed','','a:0:{}','system',-1,0,0,0,0,1,0,1693,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1744,15,'admin/help/php','admin/help/php','php','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1744,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('navigation',1898,18,'admin/settings/signup','admin/settings/signup','Signup settings','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:31:\"Configure settings for signups.\";}}','system',0,0,0,0,0,3,0,2,18,1898,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('navigation',1898,18,'admin/settings/signup','admin/settings/signup','Signup','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:31:\"Configure settings for signups.\";}}','system',0,0,0,0,0,3,0,2,18,1898,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1899,10,'admin/content/signup','admin/content/signup','Signup administration','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:65:\"View all signup-enabled posts, and open or close signups on them.\";}}','system',0,0,0,0,0,3,0,2,10,1899,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1900,15,'admin/help/signup','admin/help/signup','signup','a:0:{}','system',-1,0,0,0,0,3,0,2,15,1900,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',1901,0,'node/%/signups/confirm','node/%/signups/confirm','','a:0:{}','system',-1,0,0,0,0,1,0,1901,0,0,0,0,0,0,0,0,0);
@@ -3908,9 +3909,9 @@ INSERT INTO `menu_links` VALUES ('admin_menu',4184,2333,'http://drupal.org/proje
 INSERT INTO `menu_links` VALUES ('navigation',4294,18,'admin/settings/accountmenu','admin/settings/accountmenu','Account menu','a:1:{s:10:\"attributes\";a:1:{s:5:\"title\";s:22:\"Configure account menu\";}}','system',0,0,0,0,0,3,0,2,18,4294,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('navigation',4295,15,'admin/help/accountmenu','admin/help/accountmenu','accountmenu','a:0:{}','system',-1,0,0,0,0,3,0,2,15,4295,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('admin_menu',4296,2168,'admin/settings/accountmenu','admin/settings/accountmenu','Account menu','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,2,0,2168,4296,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',4303,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,4303,0,0,0,0,0,0,0,0);
-INSERT INTO `menu_links` VALUES ('admin_menu',4304,0,'','','Add a new rule','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,1,0,4304,0,0,0,0,0,0,0,0,0);
 INSERT INTO `menu_links` VALUES ('primary-links',4305,0,'node/602','node/%','ESN International','a:2:{s:10:\"attributes\";a:1:{s:5:\"title\";s:17:\"ESN International\";}s:5:\"alter\";b:1;}','menu',0,0,0,0,-43,1,1,4305,0,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',4306,2159,'update.php','','Run updates','a:2:{s:8:\"external\";b:1;s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,50,2,0,2159,4306,0,0,0,0,0,0,0,0);
+INSERT INTO `menu_links` VALUES ('admin_menu',4307,0,'','','Add a new rule','a:1:{s:5:\"alter\";b:1;}','admin_menu',0,0,0,0,0,1,0,4307,0,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `menu_links` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `menu_router`;
@@ -4699,7 +4700,7 @@ INSERT INTO `node` VALUES (591,591,'image','','Add external media.jpg',1,1,12455
 INSERT INTO `node` VALUES (593,593,'book','','Provide inline feedback ',1,1,1245759427,1246435988,2,0,0,0,0,0);
 INSERT INTO `node` VALUES (599,599,'image','','DSC_2524.jpg',4,1,1245912859,1245912859,2,1,0,0,0,0);
 INSERT INTO `node` VALUES (600,600,'image','','DSC_3279.jpg',4,1,1245912924,1245912924,2,1,0,0,0,0);
-INSERT INTO `node` VALUES (601,601,'article','','Welcome to ESN Satellite 3.0',4,1,1245913020,1245913020,2,1,0,0,0,0);
+INSERT INTO `node` VALUES (601,601,'article','','Welcome to ESN Satellite 3.0',4,1,1245913020,1246446264,2,1,0,0,0,0);
 INSERT INTO `node` VALUES (602,602,'page','','ESN International',1,1,1246442240,1246442240,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `node` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4785,7 +4786,7 @@ INSERT INTO `node_revisions` VALUES (591,591,1,'Add external media.jpg','','',''
 INSERT INTO `node_revisions` VALUES (593,593,1,'Provide inline feedback ','<div class=\"warning\">Do you wish to join the <strong>ESN Webteam,</strong> and help out with the ESN Satellite and other ESN web projects? You could help us out with <strong>coding</strong>, writing <strong>documentation</strong>, <strong>PR</strong>, or whatever you wish to get involved with. Drop us an email at <a href=\"mailto:webteam@esn.org?subject=I%20wish%20to%20join%20the%20ESN%20Webteam&amp;body=I%20want%20to%20help%20out%20with%20...\">webteam@esn.org</a>.</div>\r\n<p>&nbsp;</p>\r\n<p>You can provide feedback when you are logged in to the website, for example, to make a suggestion on the page you are browsing, or to report a bug.</p>\r\n<p>Your feedback will be sent to:</p>\r\n<ul>\r\n    <li>an internal feedback system managed under Reports &gt; Feedback messages</li>\r\n    <li>to the mail addresses of all the users with the editor role on your website</li>\r\n    <li>to <em>satellite@esn.org</em>, where it will be reviewed by the ESN&nbsp;Webteam. If your feedback message is relevant to the ESN&nbsp;Satellite community, it will be published to the ESN&nbsp;Satellite Google Groups, so the community can react on it</li>\r\n</ul>\r\n<p>Internally, all those actions are managed by the <a href=\"http://drupal.org/project/rules\">Rules module</a>. If you want, you can configure your own actions to be executed when a feedback message is posted (eg send it to the admin email address) by configuring the appropriate rules. Make sure to enable the &quot;Rules Administration UI&quot; module first.</p>','<div class=\"warning\">Do you wish to join the <strong>ESN Webteam,</strong> and help out with the ESN Satellite and other ESN web projects? You could help us out with <strong>coding</strong>, writing <strong>documentation</strong>, <strong>PR</strong>, or whatever you wish to get involved with. Drop us an email at <a href=\"mailto:webteam@esn.org?subject=I%20wish%20to%20join%20the%20ESN%20Webteam&amp;body=I%20want%20to%20help%20out%20with%20...\">webteam@esn.org</a>.</div>\r\n<p>&nbsp;</p>','',1246435988,1);
 INSERT INTO `node_revisions` VALUES (599,599,4,'DSC_2524.jpg','','','',1245912859,0);
 INSERT INTO `node_revisions` VALUES (600,600,4,'DSC_3279.jpg','','','',1245912924,0);
-INSERT INTO `node_revisions` VALUES (601,601,4,'Welcome to ESN Satellite 3.0','<p>This is the body of my article, you can use <strong>all sorts of markup</strong>.</p>\r\n<ol>\r\n    <li>this is a list</li>\r\n    <li>with elements, ordered</li>\r\n</ol>\r\n<ul>\r\n    <li>an unordered list</li>\r\n    <li>this will be a link to <a href=\"http://www.google.com\">google</a></li>\r\n</ul>\r\n<p>Now let\'s insert an image... we even resized it using the <em>body</em> preset to fit exactly the width of our page.</p>\r\n<p><img width=\"550\" height=\"366\" src=\"/youthagora/templates/satellite/imagebrowser/view/imagecache/600/body\" alt=\"DSC_3279.jpg\" /></p>','<p>This is the body of my article, you can use <strong>all sorts of markup</strong>.</p>\r\n<ol>\r\n    <li>this is a list</li>\r\n    <li>with elements, ordered</li>\r\n</ol>\r\n<ul>\r\n    <li>an unordered list</li>\r\n    <li>this will be a link to <a href=\"http://www.google.com\">google</a></li>\r\n</ul>\r\n<p>Now let\'s insert an image... we even resized it using the <em>body</em> preset to fit exactly the width of our page.</p>\r\n<p><img width=\"550\" height=\"366\" src=\"/youthagora/templates/satellite/imagebrowser/view/imagecache/600/body\" alt=\"DSC_3279.jpg\" /></p>','',1245913020,1);
+INSERT INTO `node_revisions` VALUES (601,601,1,'Welcome to ESN Satellite 3.0','<p>This is the body of my article, you can use <strong>all sorts of markup</strong>.</p>\r\n<ol>\r\n    <li>this is a list</li>\r\n    <li>with elements, ordered</li>\r\n</ol>\r\n<ul>\r\n    <li>an unordered list</li>\r\n    <li>this will be a link to <a href=\"http://www.google.com\">google</a></li>\r\n</ul>\r\n<p>Now let\'s insert an image... we even resized it using the <em>body</em> preset to fit exactly the width of our page.</p>\r\n<p><img width=\"550\" height=\"366\" alt=\"DSC_3279.jpg\" src=\"/youthagora/templates/satellite/imagebrowser/view/imagecache/600/body\" /></p>','<p>This is the body of my article, you can use <strong>all sorts of markup</strong>.</p>\r\n<ol>\r\n    <li>this is a list</li>\r\n    <li>with elements, ordered</li>\r\n</ol>\r\n<ul>\r\n    <li>an unordered list</li>\r\n    <li>this will be a link to <a href=\"http://www.google.com\">google</a></li>\r\n</ul>\r\n<p>Now let\'s insert an image... we even resized it using the <em>body</em> preset to fit exactly the width of our page.</p>\r\n<p><img width=\"550\" height=\"366\" alt=\"DSC_3279.jpg\" src=\"/youthagora/templates/satellite/imagebrowser/view/imagecache/600/body\" /></p>','',1246446264,1);
 INSERT INTO `node_revisions` VALUES (602,602,1,'ESN International','<p>Erasmus Student Network has its main office in Brussels -&nbsp; this is where the International Board has its seat. The Board is elected once a year at the Annual General Meeting of ESN, the general assembly.</p>\r\n<p>The International Board represents ESN towards the external stakeholders, keeps the network connected, coordinates the international projects as well as stands for the rights of exchange students. The International Board consists of 5 people, President, Vice President, Treasurer, External Relations and Web Projects Administrator - each responsible for its own field of work.</p>\r\n<p>If you have ideas or comments for the International Board, feel free to contact us!</p>\r\n<p><a href=\"mailto:secretariat@esn.org?subject=Feedback%20for%20ESN%20from%20ESN%20Satellite&amp;body=Dear%20ESN%20International%20Board%2C%0A%0A...\">\r\n<div style=\"font-size: 14px;\"><strong>Contact us now</strong></div>\r\n</a><br />\r\n&nbsp;</p>','<p>Erasmus Student Network has its main office in Brussels -&nbsp; this is where the International Board has its seat. The Board is elected once a year at the Annual General Meeting of ESN, the general assembly.</p>\r\n<p>The International Board represents ESN towards the external stakeholders, keeps the network connected, coordinates the international projects as well as stands for the rights of exchange students. The International Board consists of 5 people, President, Vice President, Treasurer, External Relations and Web Projects Administrator - each responsible for its own field of work.</p>','',1246442240,2);
 /*!40000 ALTER TABLE `node_revisions` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -36022,7 +36023,6 @@ INSERT INTO `url_alias` VALUES (1359,'node/591/feed','content/add-external-media
 INSERT INTO `url_alias` VALUES (1362,'node/593','content/provide-inline-feedback','');
 INSERT INTO `url_alias` VALUES (1363,'node/593/feed','content/provide-inline-feedback/feed','');
 INSERT INTO `url_alias` VALUES (1364,'user/4','users/editor','');
-INSERT INTO `url_alias` VALUES (1365,'user/14','users/pvhee','');
 INSERT INTO `url_alias` VALUES (1376,'node/599','content/dsc2524jpg','');
 INSERT INTO `url_alias` VALUES (1377,'node/599/feed','content/dsc2524jpg/feed','');
 INSERT INTO `url_alias` VALUES (1378,'node/600','content/dsc3279jpg','');
@@ -36066,9 +36066,8 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (0,'','','',0,0,0,'','',0,0,0,0,NULL,'','','',NULL,'');
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@example.com',0,0,0,'','',1224322056,1246442241,1246366578,1,NULL,'','','admin@admin.com','a:4:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-303c39ba63ac10de84a4b9d06b6c5bf9\";s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";}','');
-INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@example.org',0,0,0,'','',1224540434,1246366388,1245912685,1,NULL,'','','editor@editor.com','a:4:{s:13:\"form_build_id\";s:37:\"form-779280607396da8dcb3a93d0a8d8d3c1\";s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";}','');
-INSERT INTO `users` VALUES (14,'pvhee','e8b287f3e7fa4f7c3c7b2b532f14f529','peter.vanhee@gmail.com',0,0,0,'','',1245763319,1245763319,0,1,NULL,'','','peter.vanhee@gmail.com','a:2:{s:13:\"form_build_id\";s:37:\"form-21e3c8f14da367c2cedddaf002e2decc\";s:7:\"contact\";i:1;}','');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin@example.com',0,0,0,'','',1224322056,1246446479,1246445538,1,NULL,'','','admin@admin.com','a:4:{s:7:\"contact\";i:0;s:13:\"form_build_id\";s:37:\"form-303c39ba63ac10de84a4b9d06b6c5bf9\";s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";}','');
+INSERT INTO `users` VALUES (4,'editor','5aee9dbd2a188839105073571bee1b1f','editor@example.org',0,0,0,'','',1224540434,1246366388,1245912685,0,NULL,'','','editor@editor.com','a:4:{s:13:\"form_build_id\";s:37:\"form-497c795ce10b301d3d95758e4448ab74\";s:7:\"contact\";i:1;s:14:\"picture_delete\";s:0:\"\";s:14:\"picture_upload\";s:0:\"\";}','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users_roles`;
@@ -36083,7 +36082,6 @@ LOCK TABLES `users_roles` WRITE;
 /*!40000 ALTER TABLE `users_roles` DISABLE KEYS */;
 INSERT INTO `users_roles` VALUES (1,3);
 INSERT INTO `users_roles` VALUES (4,3);
-INSERT INTO `users_roles` VALUES (14,3);
 /*!40000 ALTER TABLE `users_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `variable`;
@@ -36339,7 +36337,7 @@ INSERT INTO `variable` VALUES ('i18n_node_page','s:1:\"3\";');
 INSERT INTO `variable` VALUES ('i18n_node_partner','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('i18n_node_signup_form','s:1:\"1\";');
 INSERT INTO `variable` VALUES ('imageapi_image_toolkit','s:11:\"imageapi_gd\";');
-INSERT INTO `variable` VALUES ('imagefield_crop_query_string','i:1246014577;');
+INSERT INTO `variable` VALUES ('imagefield_crop_query_string','i:1246446263;');
 INSERT INTO `variable` VALUES ('image_default_path','s:6:\"images\";');
 INSERT INTO `variable` VALUES ('image_max_upload_size','s:4:\"8000\";');
 INSERT INTO `variable` VALUES ('image_sizes','a:3:{s:9:\"_original\";a:5:{s:5:\"label\";s:8:\"Original\";s:9:\"operation\";s:5:\"scale\";s:5:\"width\";s:0:\"\";s:6:\"height\";s:0:\"\";s:4:\"link\";s:1:\"1\";}s:9:\"thumbnail\";a:5:{s:5:\"label\";s:9:\"Thumbnail\";s:9:\"operation\";s:5:\"scale\";s:5:\"width\";s:3:\"100\";s:6:\"height\";s:3:\"100\";s:4:\"link\";s:1:\"1\";}s:7:\"preview\";a:5:{s:5:\"label\";s:7:\"Preview\";s:9:\"operation\";s:5:\"scale\";s:5:\"width\";s:3:\"640\";s:6:\"height\";s:3:\"640\";s:4:\"link\";s:1:\"1\";}}');
@@ -36347,7 +36345,7 @@ INSERT INTO `variable` VALUES ('image_updated','i:1240267669;');
 INSERT INTO `variable` VALUES ('install_profile','s:9:\"satellite\";');
 INSERT INTO `variable` VALUES ('install_task','s:4:\"done\";');
 INSERT INTO `variable` VALUES ('install_time','i:1224322133;');
-INSERT INTO `variable` VALUES ('javascript_parsed','a:29:{i:0;s:14:\"misc/jquery.js\";i:1;s:14:\"misc/drupal.js\";i:2;s:51:\"profiles/satellite/modules/admin_menu/admin_menu.js\";i:3;s:62:\"profiles/satellite/modules/date/date_timezone/date_timezone.js\";i:4;s:47:\"profiles/satellite/modules/feedback/feedback.js\";i:5;s:62:\"profiles/satellite/modules/lightbox2/js/auto_image_handling.js\";i:6;s:51:\"profiles/satellite/modules/lightbox2/js/lightbox.js\";i:7;s:51:\"profiles/satellite/modules/nice_menus/nice_menus.js\";i:8;s:61:\"profiles/satellite/modules/tableofcontents/tableofcontents.js\";i:9;s:43:\"profiles/satellite/modules/views/js/base.js\";i:10;s:48:\"profiles/satellite/modules/views/js/ajax_view.js\";i:11;s:16:\"misc/textarea.js\";i:12;s:45:\"profiles/satellite/modules/flag/theme/flag.js\";i:13;s:17:\"misc/tabledrag.js\";i:14;s:47:\"profiles/satellite/modules/pathauto/pathauto.js\";i:15;s:59:\"profiles/satellite/modules/fckeditor/fckeditor/fckeditor.js\";i:16;s:55:\"profiles/satellite/modules/fckeditor/fckeditor.utils.js\";i:17;s:19:\"misc/jquery.form.js\";i:18;s:12:\"misc/ahah.js\";i:19;s:16:\"misc/progress.js\";i:20;s:20:\"misc/autocomplete.js\";i:21;s:16:\"misc/collapse.js\";i:22;s:14:\"misc/teaser.js\";i:23;s:57:\"profiles/satellite/modules/vertical_tabs/vertical_tabs.js\";i:24;s:67:\"profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js\";i:25;s:19:\"misc/tableheader.js\";i:26;s:12:\"misc/form.js\";i:27;s:19:\"misc/tableselect.js\";i:28;s:24:\"modules/openid/openid.js\";}');
+INSERT INTO `variable` VALUES ('javascript_parsed','a:43:{i:0;s:14:\"misc/jquery.js\";i:1;s:14:\"misc/drupal.js\";i:2;s:51:\"profiles/satellite/modules/admin_menu/admin_menu.js\";i:3;s:62:\"profiles/satellite/modules/date/date_timezone/date_timezone.js\";i:4;s:47:\"profiles/satellite/modules/feedback/feedback.js\";i:5;s:62:\"profiles/satellite/modules/lightbox2/js/auto_image_handling.js\";i:6;s:51:\"profiles/satellite/modules/lightbox2/js/lightbox.js\";i:7;s:51:\"profiles/satellite/modules/nice_menus/nice_menus.js\";i:8;s:61:\"profiles/satellite/modules/tableofcontents/tableofcontents.js\";i:9;s:43:\"profiles/satellite/modules/views/js/base.js\";i:10;s:48:\"profiles/satellite/modules/views/js/ajax_view.js\";i:11;s:16:\"misc/textarea.js\";i:12;s:45:\"profiles/satellite/modules/flag/theme/flag.js\";i:13;s:17:\"misc/tabledrag.js\";i:14;s:47:\"profiles/satellite/modules/pathauto/pathauto.js\";i:15;s:59:\"profiles/satellite/modules/fckeditor/fckeditor/fckeditor.js\";i:16;s:55:\"profiles/satellite/modules/fckeditor/fckeditor.utils.js\";i:17;s:19:\"misc/jquery.form.js\";i:18;s:12:\"misc/ahah.js\";i:19;s:16:\"misc/progress.js\";i:20;s:20:\"misc/autocomplete.js\";i:21;s:16:\"misc/collapse.js\";i:22;s:14:\"misc/teaser.js\";i:23;s:57:\"profiles/satellite/modules/vertical_tabs/vertical_tabs.js\";i:24;s:67:\"profiles/satellite/modules/vertical_tabs/vertical_tabs.node_form.js\";i:25;s:19:\"misc/tableheader.js\";i:26;s:12:\"misc/form.js\";i:27;s:19:\"misc/tableselect.js\";i:28;s:24:\"modules/openid/openid.js\";i:29;s:49:\"profiles/satellite/modules/maxlength/maxlength.js\";i:30;s:49:\"profiles/satellite/modules/filefield/filefield.js\";i:31;s:67:\"profiles/satellite/modules/imagefield_crop/Jcrop/js/jquery.Jcrop.js\";i:32;s:61:\"profiles/satellite/modules/imagefield_crop/imagefield_crop.js\";i:33;s:49:\"profiles/satellite/modules/signup/js/node_form.js\";i:34;s:63:\"profiles/satellite/modules/date/date_popup/lib/ui.datepicker.js\";i:35;s:71:\"profiles/satellite/modules/date/date_popup/lib/jquery.timeentry.pack.js\";i:36;s:56:\"profiles/satellite/modules/date/date_popup/date_popup.js\";i:37;s:42:\"profiles/satellite/modules/gmap/js/gmap.js\";i:38;s:44:\"profiles/satellite/modules/gmap/js/marker.js\";i:39;s:49:\"profiles/satellite/modules/gmap/js/gmap_marker.js\";i:40;s:42:\"profiles/satellite/modules/gmap/js/poly.js\";i:41;s:45:\"profiles/satellite/modules/gmap/js/locpick.js\";i:42;s:20:\"modules/user/user.js\";}');
 INSERT INTO `variable` VALUES ('language_content_type_article','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('language_content_type_event','s:1:\"2\";');
 INSERT INTO `variable` VALUES ('language_content_type_page','s:1:\"0\";');
@@ -36976,7 +36974,7 @@ CREATE TABLE IF NOT EXISTS `watchdog` (
   `timestamp` int(11) NOT NULL default '0',
   PRIMARY KEY  (`wid`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=6059 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6089 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `watchdog` WRITE;
 /*!40000 ALTER TABLE `watchdog` DISABLE KEYS */;
