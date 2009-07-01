@@ -1,0 +1,53 @@
+<?php
+function ya_satellite_help_help($path) {
+  switch ($path) {
+    case 'admin':
+      return theme('advanced_help_topic', 'ya_satellite_help', 'Administer-your-Satellite');
+    case 'aggregator/sources/2':
+      return theme('advanced_help_topic', 'ya_satellite_help', 'Find-support');
+    case 'articles':
+      return theme('advanced_help_topic', 'ya_satellite_help', 'Add-an-article');
+    case 'events':
+      return theme('advanced_help_topic', 'ya_satellite_help', 'Add-an-event');
+    case 'node/240':
+      return theme('advanced_help_topic', 'ya_satellite_help', 'Setting-your-section-and-country');
+  }
+}
+
+function ya_satellite_help_step_form(&$element, $form_id, $callback) {
+    foreach (element_children($element) as $child) {
+      ya_satellite_help_step_form($element[$child], $form_id . ':' . $child, $callback);
+    }
+    $callback($element, $form_id);
+}
+
+function ya_satellite_help_form_alter(&$form, $form_state, $form_id) {
+  ya_satellite_help_step_form($form, $form_id, 'ya_satellite_help_help_link');
+  $form['#description'] = isset($form['#description']) ? ya_satellite_help_get_from_key('form', $form_id) . ' ' . $form['#description'] : ya_satellite_help_get_from_key('form', $form_id);
+}
+
+function ya_satellite_help_get_from_key($key) {
+  static $helpkeys = array(
+    'feedback_form:message' => array('module' => 'ya_satellite_help', 'file' => 'Provide-inline-feedback-'),
+    'search_block_form:search_block_form' => array('module' => 'ya_satellite_help', 'file' => 'ESN-Satellite-Manual'),
+    'setting_node_form:field_country_setting' => array('module' => 'ya_satellite_help', 'file' => 'Setting-your-section-and-country'),
+    'setting_node_form:field_facebook:0' => array('module' => 'ya_satellite_help', 'file' => 'Interact-with-Facebook'),
+    'setting_node_form:field_section_setting' => array('module' => 'ya_satellite_help', 'file' => 'Setting-your-section-and-country'),
+    'setting_node_form:field_twitter:0' => array('module' => 'ya_satellite_help', 'file' => 'Interact-with-Twitter'),
+  );
+  return isset($helpkeys[$key]) ? $helpkeys[$key] : FALSE;
+}
+
+function ya_satellite_help_help_link(&$element, $form_id) {
+  if (isset($element['#type']) && !in_array($element['#type'], array('button', 'image_button', 'submit', 'markup', 'token', 'hidden', 'form', 'value', 'weight'))) {
+    if ($result = ya_satellite_help_get_from_key($form_id)) {
+      $link = theme('advanced_help_topic', $result['module'], $result['file']);
+      if ($element['#type'] == 'fieldset') {
+        drupal_add_css(drupal_get_path('module', 'ya_satellite_help') . '/ya_satellite_help.css');
+        $link = preg_replace('/class="(.+?)"/', 'class="\1 ya_satellite_help-nofloat"', $link);
+      }
+      $element['#description'] = isset($element['#description']) ? $link . ' ' . $element['#description'] : $link;
+    }
+  }
+}
+
