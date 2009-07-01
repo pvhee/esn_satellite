@@ -122,16 +122,18 @@ function satellite_form_alter(&$form, $form_state, $form_id) {
       '#after_build' => array('system_check_directory'),
     );
 
-    // the dump configuration
-    $form['dump'] = array(
-      '#type' => 'fieldset',
-      '#title' => st('Database information'),
-      '#description' => st('Which configuration would you like to install?')
-    );
-    
     /**
      * Do not give the option to install different dump files.
      */
+
+    // the dump configuration
+    // $form['dump'] = array(
+    //   '#type' => 'fieldset',
+    //   '#title' => st('Database information'),
+    //   '#description' => st('Which configuration would you like to install?')
+    // );
+    
+
     // $form['dump']['file'] = array(
     //   '#type' => 'radios',
     //   '#options' => array(
