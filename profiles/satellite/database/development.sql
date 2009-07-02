@@ -404,7 +404,7 @@ CREATE TABLE `authmap` (
 
 LOCK TABLES `authmap` WRITE;
 /*!40000 ALTER TABLE `authmap` DISABLE KEYS */;
-INSERT INTO `authmap` VALUES (3,1,'http://youthagora.myopenid.com/','openid');
+INSERT INTO `authmap` VALUES (3,1,'http://esn-webteam.myopenid.com/','openid');
 /*!40000 ALTER TABLE `authmap` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `batch`;
